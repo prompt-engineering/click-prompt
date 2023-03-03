@@ -98,7 +98,7 @@ const sdPromptFields: SdPromptField[] = [
   {
     name: "clothes",
     label: "服饰",
-    selectValues: ["Front", "Back", "Side"],
+    selectValues: ["Chinese Style", "Back", "Side"],
   },
   {
     name: "action",
