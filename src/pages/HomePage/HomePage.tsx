@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { DataTable } from './DataTable'
-
+import { Heading } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import ChatGptPromptList from '../ChatGptPromptList/ChatGptPromptList'
 
 type UnitConversion = {
   fromUnit: string;
@@ -47,10 +49,29 @@ const columns = [
   })
 ]
 
-
 function HomePage() {
   return (
-    <DataTable columns={ columns } data={ data } />
+    <Tabs variant='enclosed'>
+      <TabList>
+        <Tab>ChatGPT Prompts 角色 Play List</Tab>
+        <Tab>ChatGPT Prompts Generator</Tab>
+        <Tab>Stable Diffusion Prompts Generator</Tab>
+      </TabList>
+
+      <TabPanels>
+        <TabPanel>
+          <Heading>ChatGPT Prompts Act List</Heading>
+          <ChatGptPromptList />
+        </TabPanel>
+        <TabPanel>
+          <Heading>Stable Diffusion Prompts</Heading>
+          <DataTable columns={ columns } data={ data } />
+        </TabPanel>
+        <TabPanel>
+          <Heading>Todos...</Heading>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
   )
 }
 

@@ -17,10 +17,12 @@
     "apache-arrow": "^11.0.0",
     "formik": "^2.2.9",
     "framer-motion": "^10.0.1",
+    "papaparse": "^5.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/papaparse": "^5.3.7",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
