@@ -17,7 +17,7 @@ function HomePage() {
           <Tab>类 ChatGPT 常用指令</Tab>
           <Tab>类 ChatGPT 角色扮演</Tab>
           <Tab>类 ChatGPT 游戏模式</Tab>
-          <Tab>AI 绘画生成器</Tab>
+          <Tab>AI 会话生成器</Tab>
           <Tab>学习资料</Tab>
         </TabList>
 
