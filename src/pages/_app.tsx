@@ -37,10 +37,10 @@ export default function App({ Component, pageProps }: any) {
                 <Tab>类 ChatGPT 角色扮演</Tab>
               </Link>
               <Link href='/StableDiffusionGenerator'>
-                <Tab>类 ChatGPT 游戏模式</Tab>
+                <Tab>AI 绘画生成器</Tab>
               </Link>
               <Link href='/ChatGptCotGenerator'>
-                <Tab>AI 会话生成器</Tab>
+                <Tab>类 ChatGPT 游戏模式</Tab>
               </Link>
               <Link href='/ReadingList'>
                 <Tab>学习资料</Tab>
