@@ -1,15 +1,14 @@
 {
-  "name": "prompt-cheatsheet",
+  "name": "prompt-gen",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/css-reset": "^2.0.12",
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
@@ -19,24 +18,18 @@
     "chakra-ui-markdown-renderer": "^4.1.0",
     "formik": "^2.2.9",
     "framer-motion": "^10.0.1",
+    "next": "13.2.3",
     "papaparse": "^5.4.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-markdown": "^8.0.5",
-    "react-router-dom": "^6.8.2"
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "4.9.5"
   },
   "devDependencies": {
+    "@types/node": "18.14.5",
     "@types/papaparse": "^5.3.7",
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
-    "@typescript-eslint/eslint-plugin": "^5.54.0",
-    "@typescript-eslint/parser": "^5.54.0",
-    "@vitejs/plugin-react-swc": "^3.0.0",
-    "eslint": "^8.35.0",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-react": "^7.32.2",
-    "prettier": "2.8.4",
-    "typescript": "^4.9.3",
-    "vite": "^4.1.0"
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "eslint": "8.35.0",
+    "eslint-config-next": "13.2.3"
   }
 }

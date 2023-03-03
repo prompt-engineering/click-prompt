@@ -1,8 +1,8 @@
 import React from 'react'
 import Papa from 'papaparse'
-import { DataTable } from '../HomePage/DataTable'
+import { DataTable } from '@/components/DataTable/DataTable'
 import { createColumnHelper } from '@tanstack/react-table'
-import { DefaultPapaConfig } from '../DefaultPapaConfig'
+import { DefaultPapaConfig } from '@/DefaultPapaConfig'
 
 type GeneralCommand = {
   english: string

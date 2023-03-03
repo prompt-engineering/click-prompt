@@ -1,51 +1,38 @@
-# Prompt Cheatsheet
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Prompt Cheatsheet is a collection of useful prompts for your AI's journey.
+## Getting Started
 
-## Join us
+First, run the development server:
 
-Only for discuss prompt engineering.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
 
-<img src="./public/wechat.jpg" width='256' height='auto' />
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Development
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Tech Stacks:
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-- React + Vite + TypeScript
-- Chakra UI
-- Styled Components: @emotion/styled
-- React Table
-- React Markdown for render markdown
-- Data processing
-    - papaparse: parse csv
-    - arrow: parse json
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-Todos:
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-- [x] setup projects
-    - [x] init project
-    - [ ] setup CI
-    - [ ] config prettier, eslint, husky
-    - [ ] commit lint, style lint
-- [ ] setup docs
-- [ ] our cheatsheet
-- [ ] ChatGPT prompts
-    - [ ] awesome act prompts
-    - [ ] chinese version prompts
-    - [ ] normal generator by category
-    - [ ] random generator
-- [ ] Stable Diffusion
-    - [ ] awesome act prompts
-    - [ ] random generator
-    - [ ] normal generator
-- [ ] GitHub Copilot
-    - [ ] awesome act prompts
-    - [ ] random generator
-    - [ ] normal generator
-- [ ] prompt templates
-    - [ ] usecases for copywriting
+## Learn More
 
-## License
+To learn more about Next.js, take a look at the following resources:
 
-MIT
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
