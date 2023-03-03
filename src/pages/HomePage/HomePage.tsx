@@ -4,6 +4,7 @@ import { DataTable } from './DataTable'
 import { Heading } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import ChatGptPromptList from '../ChatGptPromptList/ChatGptPromptList'
+import StableDiffusionGenerator from '../StableDiffusionGenerator/StableDiffusionGenerator'
 
 type UnitConversion = {
   fromUnit: string;
@@ -68,7 +69,7 @@ function HomePage() {
           <DataTable columns={ columns } data={ data } />
         </TabPanel>
         <TabPanel>
-          <Heading>Todos...</Heading>
+          <StableDiffusionGenerator />
         </TabPanel>
       </TabPanels>
     </Tabs>
