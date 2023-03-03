@@ -1,11 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import {
-  Heading,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
   Container,
 } from "@chakra-ui/react";
 import NavBar from '../components/NavBar/NavBar'
