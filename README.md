@@ -10,8 +10,6 @@ Only for discuss prompt engineering.
 
 ## Development
 
-```bash
-
 Tech Stacks:
 
 - React + Vite + TypeScript

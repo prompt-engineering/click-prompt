@@ -6,7 +6,6 @@ import { DataTable } from '../HomePage/DataTable'
 import { DefaultPapaConfig } from '../DefaultPapaConfig'
 
 type ReadingResource = {
-  author: string
   name: string
   link: string
   description: string
@@ -15,10 +14,6 @@ type ReadingResource = {
 const columnHelper = createColumnHelper<ReadingResource>()
 
 const columns = [
-  columnHelper.accessor('author', {
-    cell: (info) => info.getValue(),
-    header: 'author'
-  }),
   columnHelper.accessor('name', {
     cell: (info) => `《${ info.getValue() }》`,
     header: 'name'
@@ -36,6 +31,7 @@ const columns = [
 function ReadingList() {
   const [cnData, setCnData] = React.useState<any>(null)
   const [enData, setEnData] = React.useState<any>(null)
+  const [aiResource, setAiResource] = React.useState<any>(null)
 
   React.useEffect(() => {
     fetch('/data/reading-list-cn.csv')
@@ -59,9 +55,23 @@ function ReadingList() {
       })
   }, [])
 
+
+  React.useEffect(() => {
+    fetch('/data/ai-resources.csv')
+      .then((response) => response.text())
+      .then((csv) => {
+        const parseResult = Papa.parse(csv, DefaultPapaConfig)
+        setAiResource(parseResult.data)
+      })
+  }, [])
+
   return (
     <div>
       <Text>欢迎 PR，添加新的阅读材料</Text>
+      <Heading>AI Resources</Heading>
+      {
+        aiResource && <DataTable data={ aiResource } columns={ columns } />
+      }
       <Heading>中文</Heading>
       {
         cnData && <DataTable data={ cnData } columns={ columns } />
