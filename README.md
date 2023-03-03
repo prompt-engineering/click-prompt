@@ -2,6 +2,16 @@
 
 Prompt Cheatsheet is a collection of useful prompts for your AI's journey.
 
+## Join us
+
+Only for discuss prompt engineering.
+
+![Prompt 工程](./public/wechat.jpg)
+
+## Development
+
+```bash
+
 Tech Stacks:
 
 - React + Vite + TypeScript
