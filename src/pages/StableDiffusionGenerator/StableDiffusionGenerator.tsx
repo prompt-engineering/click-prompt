@@ -1,6 +1,8 @@
 import React from 'react'
 import { Button, FormControl, FormLabel, Select, SimpleGrid, Text } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
+import sdImage from '../../assets/stable-diffusion-demo.jpeg'
+import { Image } from '@chakra-ui/react'
 
 type SdPromptField = {
   name: string
@@ -107,59 +109,62 @@ function StableDiffusionGenerator() {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
 
   return (
-    <Formik
-      initialValues={ { quality: 'Normal' } }
-      onSubmit={ (values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2))
-          actions.setSubmitting(false)
-        }, 1000)
-      } }
-    >
-      <Form>
-        <SimpleGrid gap={ 12 } p={ 12 } columns={ 3 }>
-          { sdPromptFields.map((field) => (
-            <FormControl key={ field.name } id={ field.name } mt={ 4 }>
-              <FormLabel>{ field.label }</FormLabel>
-              <Select
-                name={ field.name }
-                placeholder={ `Select ${ field.label }` }
-              >
-                { field.selectValues.map((value) => (
-                  <option key={ value } value={ value }>
-                    { value }
-                  </option>
-                )) }
-              </Select>
-            </FormControl>
-          )) }
-          <Text>Body</Text>
-          { sdDetailedPromptFields.map((field) => (
-            <FormControl key={ field.name } id={ field.name } mt={ 4 }>
-              <FormLabel>{ field.label }</FormLabel>
-              <Select
-                name={ field.name }
-                placeholder={ `Select ${ field.label }` }
-              >
-                { field.selectValues.map((value) => (
-                  <option key={ value } value={ value }>
-                    { value }
-                  </option>
-                )) }
-              </Select>
-            </FormControl>
-          )) }
-        </SimpleGrid>
-        <Button
-          mt={ 4 }
-          colorScheme='teal'
-          isLoading={ isSubmitting }
-          type='submit'
-        >
-          Generator
-        </Button>
-      </Form>
-    </Formik>
+    <div>
+      <Image src={ sdImage } />
+      <Formik
+        initialValues={ { quality: 'Normal' } }
+        onSubmit={ (values, actions) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2))
+            actions.setSubmitting(false)
+          }, 1000)
+        } }
+      >
+        <Form>
+          <SimpleGrid gap={ 12 } p={ 12 } columns={ 3 }>
+            { sdPromptFields.map((field) => (
+              <FormControl key={ field.name } id={ field.name } mt={ 4 }>
+                <FormLabel>{ field.label }</FormLabel>
+                <Select
+                  name={ field.name }
+                  placeholder={ `Select ${ field.label }` }
+                >
+                  { field.selectValues.map((value) => (
+                    <option key={ value } value={ value }>
+                      { value }
+                    </option>
+                  )) }
+                </Select>
+              </FormControl>
+            )) }
+            <Text>Body</Text>
+            { sdDetailedPromptFields.map((field) => (
+              <FormControl key={ field.name } id={ field.name } mt={ 4 }>
+                <FormLabel>{ field.label }</FormLabel>
+                <Select
+                  name={ field.name }
+                  placeholder={ `Select ${ field.label }` }
+                >
+                  { field.selectValues.map((value) => (
+                    <option key={ value } value={ value }>
+                      { value }
+                    </option>
+                  )) }
+                </Select>
+              </FormControl>
+            )) }
+          </SimpleGrid>
+          <Button
+            mt={ 4 }
+            colorScheme='teal'
+            isLoading={ isSubmitting }
+            type='submit'
+          >
+            Generator
+          </Button>
+        </Form>
+      </Formik>
+    </div>
   )
 }
 

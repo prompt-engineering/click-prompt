@@ -52,27 +52,29 @@ const columns = [
 
 function HomePage() {
   return (
-    <Tabs variant='enclosed'>
-      <TabList>
-        <Tab>ChatGPT Prompts 角色 Play List</Tab>
-        <Tab>ChatGPT Prompts Generator</Tab>
-        <Tab>Stable Diffusion Prompts Generator</Tab>
-      </TabList>
+    <div>
+      <Tabs variant='enclosed'>
+        <TabList>
+          <Tab>ChatGPT Prompts 角色 Play List</Tab>
+          <Tab>ChatGPT Prompts Generator</Tab>
+          <Tab>Stable Diffusion Prompts Generator</Tab>
+        </TabList>
 
-      <TabPanels>
-        <TabPanel>
-          <Heading>ChatGPT Prompts Act List</Heading>
-          <ChatGptPromptList />
-        </TabPanel>
-        <TabPanel>
-          <Heading>Stable Diffusion Prompts</Heading>
-          <DataTable columns={ columns } data={ data } />
-        </TabPanel>
-        <TabPanel>
-          <StableDiffusionGenerator />
-        </TabPanel>
-      </TabPanels>
-    </Tabs>
+        <TabPanels>
+          <TabPanel>
+            <Heading>ChatGPT Prompts Act List</Heading>
+            <ChatGptPromptList />
+          </TabPanel>
+          <TabPanel>
+            <Heading>Stable Diffusion Prompts</Heading>
+            <DataTable columns={ columns } data={ data } />
+          </TabPanel>
+          <TabPanel>
+            <StableDiffusionGenerator />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+    </div>
   )
 }
 
