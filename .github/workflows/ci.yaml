@@ -1,0 +1,36 @@
+name: ci
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+     branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Install PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: ^7.0
+
+      - name: Install Deps
+        run: pnpm i
+      
+      - name: Format
+        run: pnpm run format
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Build
+        run: pnpm run build
