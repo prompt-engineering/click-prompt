@@ -6,7 +6,7 @@ Prompt Cheatsheet is a collection of useful prompts for your AI's journey.
 
 Only for discuss prompt engineering.
 
-![Prompt 工程](./public/wechat.jpg)
+<img src="./public/wechat.jpg" width='256' height='256' />
 
 ## Development
 

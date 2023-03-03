@@ -4,6 +4,8 @@ import ChatGptPromptList from '../ChatGpt/ChatGptPromptList'
 import StableDiffusionGenerator from '../StableDiffusion/StableDiffusionGenerator'
 import ChatGptCotGenerator from '../ChatGpt/ChatGptCotGenerator'
 import ChatGptGeneral from '../ChatGpt/ChatGptGeneral'
+import { LinkIcon } from '@chakra-ui/icons'
+import ReadingList from '../Resource/ReadingList'
 
 function HomePage() {
   return (
@@ -37,10 +39,7 @@ function HomePage() {
           </TabPanel>
 
           <TabPanel>
-            <ul>
-              <li><a href='https://github.com/phodal/ai-research/'>Phodal -&gt; 理解 Prompt</a></li>
-              <li><a href='https://github.com/phodal/prompt-patterns'>Phodal -&gt; Prompt 编写模式</a></li>
-            </ul>
+            <ReadingList />
           </TabPanel>
         </TabPanels>
       </Tabs>
