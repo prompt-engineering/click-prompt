@@ -1,8 +1,11 @@
 import React from 'react'
 import {
+  Box,
   Button,
+  Center,
+  Flex,
   FormControl,
-  FormLabel,
+  FormLabel, Grid,
   Select,
   SimpleGrid,
   Text
@@ -122,18 +125,6 @@ function StableDiffusionGenerator() {
 
   return (
     <div>
-      <Image src={ sdImage } alt='stable-diffusion-demo' />
-      <Text>
-        Pormpt： particle effects small breasts, 1 girl, solo, masterpiece, best
-        quality, highres, original, extremely detailed 8K wallpaper, greasy
-        skin, realistic and delicate facial features, slim
-        waist,ultra-detailed,illustration ,ray tracing,intricate detail, colored
-        tips,colored inner hair, gradient eyes,eyelashes,finely detail, depth of
-        field, beyond compare, cinematic lighting, tranditional, in gentle
-        breeze dance from ethereal chance. An aura of peace,beyond compare,
-        cinematic lighting, dramatic angle, (arms arms behind back), fov,
-        detailed eyes, peach blossom
-      </Text>
       <Formik
         initialValues={ { quality: 'Normal' } }
         onSubmit={ (values, actions) => {
@@ -144,22 +135,9 @@ function StableDiffusionGenerator() {
         } }
       >
         <Form>
-          <SimpleGrid gap={ 12 } p={ 12 } columns={ 3 }>
+          <SimpleGrid gap={ 3 } p={ 3 } columns={ 5 }>
             { sdPromptFields.map((field) => (
-              <FormControl key={ field.name } id={ field.name } mt={ 4 }>
-                <FormLabel>{ field.label }</FormLabel>
-                <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
-                  { field.selectValues.map((value) => (
-                    <option key={ value } value={ value }>
-                      { value }
-                    </option>
-                  )) }
-                </Select>
-              </FormControl>
-            )) }
-            <Text>Body</Text>
-            { sdDetailedPromptFields.map((field) => (
-              <FormControl key={ field.name } id={ field.name } mt={ 4 }>
+              <FormControl key={ field.name } id={ field.name } mt={ 2 }>
                 <FormLabel>{ field.label }</FormLabel>
                 <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
                   { field.selectValues.map((value) => (
@@ -171,6 +149,40 @@ function StableDiffusionGenerator() {
               </FormControl>
             )) }
           </SimpleGrid>
+
+          <Flex alignItems='start' gap='2'>
+            <Image src={ sdImage } alt='stable-diffusion-demo' />
+
+            <Grid>
+              <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
+                { sdDetailedPromptFields.map((field) => (
+                  <FormControl key={ field.name } id={ field.name } mt={ 2 }>
+                    <FormLabel>{ field.label }</FormLabel>
+                    <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
+                      { field.selectValues.map((value) => (
+                        <option key={ value } value={ value }>
+                          { value }
+                        </option>
+                      )) }
+                    </Select>
+                  </FormControl>
+                )) }
+              </SimpleGrid>
+            </Grid>
+          </Flex>
+
+          <Text>
+            Pormpt： particle effects small breasts, 1 girl, solo, masterpiece, best
+            quality, highres, original, extremely detailed 8K wallpaper, greasy
+            skin, realistic and delicate facial features, slim
+            waist,ultra-detailed,illustration ,ray tracing,intricate detail, colored
+            tips,colored inner hair, gradient eyes,eyelashes,finely detail, depth of
+            field, beyond compare, cinematic lighting, tranditional, in gentle
+            breeze dance from ethereal chance. An aura of peace,beyond compare,
+            cinematic lighting, dramatic angle, (arms arms behind back), fov,
+            detailed eyes, peach blossom
+          </Text>
+
           <Button
             mt={ 4 }
             colorScheme='teal'
