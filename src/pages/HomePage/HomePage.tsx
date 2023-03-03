@@ -5,70 +5,72 @@ import { Heading } from '@chakra-ui/react'
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import ChatGptPromptList from '../ChatGptPromptList/ChatGptPromptList'
 import StableDiffusionGenerator from '../StableDiffusionGenerator/StableDiffusionGenerator'
+import Papa from 'papaparse'
 
-type UnitConversion = {
-  fromUnit: string;
-  toUnit: string;
-  factor: number;
+type GeneralCommand = {
+  english: string
+  chinese: string
+  description: string
+  example: string
 };
 
-const data: UnitConversion[] = [
-  {
-    fromUnit: 'inches',
-    toUnit: 'millimetres (mm)',
-    factor: 25.4
-  },
-  {
-    fromUnit: 'feet',
-    toUnit: 'centimetres (cm)',
-    factor: 30.48
-  },
-  {
-    fromUnit: 'yards',
-    toUnit: 'metres (m)',
-    factor: 0.91444
-  }
-]
-
-const columnHelper = createColumnHelper<UnitConversion>()
+const columnHelper = createColumnHelper<GeneralCommand>()
 
 const columns = [
-  columnHelper.accessor('fromUnit', {
+  // columnHelper.accessor('english', {
+  //   cell: (info) => info.getValue(),
+  //   header: '英语模式'
+  // }),
+  columnHelper.accessor('chinese', {
     cell: (info) => info.getValue(),
-    header: 'To convert'
+    header: '中文'
   }),
-  columnHelper.accessor('toUnit', {
+  columnHelper.accessor('description', {
     cell: (info) => info.getValue(),
-    header: 'Into'
+    header: '简述'
   }),
-  columnHelper.accessor('factor', {
+  columnHelper.accessor('example', {
     cell: (info) => info.getValue(),
-    header: 'Multiply by',
-    meta: {
-      isNumeric: true
-    }
+    header: '示例',
   })
 ]
 
 function HomePage() {
+  const [data, setData] = React.useState<any>(null)
+
+  React.useEffect(() => {
+    fetch('/data/chatgpt-specific.csv')
+      .then((response) => response.text())
+      .then((csv) => {
+        const parseResult = Papa.parse(csv, {
+          delimiter: ',',
+          header: true
+        })
+
+        setData(parseResult.data)
+      }).then()
+  }, [])
+
   return (
     <div>
       <Tabs variant='enclosed'>
         <TabList>
-          <Tab>ChatGPT Prompts 角色 Play List</Tab>
-          <Tab>ChatGPT Prompts Generator</Tab>
+          <Tab>ChatGPT 常用指令</Tab>
+          <Tab>ChatGPT 角色扮演</Tab>
           <Tab>Stable Diffusion Prompts Generator</Tab>
         </TabList>
 
         <TabPanels>
           <TabPanel>
+            <Heading>Stable Diffusion Prompts</Heading>
+            { data && <DataTable data={ data } columns={ columns } /> }
+          </TabPanel>
+
+          <TabPanel>
             <Heading>ChatGPT Prompts Act List</Heading>
             <ChatGptPromptList />
           </TabPanel>
-          <TabPanel>
-            <Heading>Stable Diffusion Prompts</Heading>
-            <DataTable columns={ columns } data={ data } />
-          </TabPanel>
+
           <TabPanel>
             <StableDiffusionGenerator />
           </TabPanel>

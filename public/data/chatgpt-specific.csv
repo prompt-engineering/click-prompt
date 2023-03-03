@@ -1,4 +1,4 @@
-英语模式,中文,简述,示例
+english,chinese,description,example
 Completion-based,补全型,用户提供部分文本，AI 根据上下文生成建议,用户输入“我想买一件…”，ChatGPT 生成“红色连衣裙”
 Classification-based,分类型,用户提供问题或任务描述，AI 生成答案,用户输入“如何做巧克力蛋糕？”ChatGPT 生成“将巧克力蛋糕放入预热好的烤箱中烤25-30分钟。”
 Generation-based,生成型,用户提供初始信息，AI 生成新文本,用户输入“科技创新”，ChatGPT 生成“人工智能是科技创新领域的重要方向之一。”
