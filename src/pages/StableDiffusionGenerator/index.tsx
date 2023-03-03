@@ -103,13 +103,23 @@ const sdPersonPromptFields: SdPromptField[] = [
   },
   {
     name: 'body',
-    label: '身体',
+    label: '全身/半身',
     selectValues: ['Front', 'Back', 'Side']
   },
   {
-    name: 'clothes',
-    label: '服饰',
+    name: 'clothes_styles',
+    label: '服饰风格',
     selectValues: ['Chinese Style', 'Back', 'Side']
+  },
+  {
+    name: 'upper_clothes',
+    label: '上半身服饰',
+    selectValues: ['Chinese Style', 'Back', 'Side']
+  },
+  {
+    name: 'lower_clothes',
+    label: '下半身服饰',
+    selectValues: ['Front', 'Back', 'Side']
   },
   {
     name: 'action',
@@ -156,7 +166,7 @@ function StableDiffusionGenerator() {
           <Flex alignItems='start' gap='2'>
             <Grid>
               <Text>人物</Text>
-              <SimpleGrid gap={ 3 } p={ 3 } columns={ 1 }>
+              <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
                 { sdPersonPromptFields.map((field) => (
                   <FormControl key={ field.name } id={ field.name } mt={ 2 }>
                     <FormLabel>{ field.label }</FormLabel>
