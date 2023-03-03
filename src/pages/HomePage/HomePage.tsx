@@ -2,10 +2,10 @@ import * as React from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { DataTable } from './DataTable'
 import { Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
-import ChatGptPromptList from '../ChatGptPromptList/ChatGptPromptList'
-import StableDiffusionGenerator from '../StableDiffusionGenerator/StableDiffusionGenerator'
+import ChatGptPromptList from '../ChatGpt/ChatGptPromptList'
+import StableDiffusionGenerator from '../StableDiffusion/StableDiffusionGenerator'
 import Papa from 'papaparse'
-import ChatGptCotGenerator from './ChatGptCotGenerator'
+import ChatGptCotGenerator from '../ChatGpt/ChatGptCotGenerator'
 
 type GeneralCommand = {
   english: string
