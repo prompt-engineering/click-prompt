@@ -8,6 +8,7 @@ import ChatGptGeneral from '../ChatGpt/ChatGptGeneral'
 function HomePage() {
   return (
     <div>
+      <Heading>Prompt Enginnering -> <a href={ "https://github.com/phodal/prompt-generator" }> GitHub </a></Heading>
       <Tabs variant='enclosed'>
         <TabList>
           <Tab>类 ChatGPT 常用指令</Tab>
