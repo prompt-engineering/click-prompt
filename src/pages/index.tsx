@@ -1,9 +1,9 @@
-import Navigation from "next/navigation";
+import Router from "next/router";
 import { useEffect } from "react";
 
 export default function RedirectToHome() {
   useEffect(() => {
-    Navigation.redirect("/ChatGptGeneral");
+    Router.replace("/ChatGptGeneral");
   }, []);
   return <></>;
 }
