@@ -5,7 +5,7 @@ import {
   Center,
   Flex,
   FormControl,
-  FormLabel, Grid,
+  FormLabel, Grid, Heading,
   Select,
   SimpleGrid,
   Text
@@ -13,25 +13,30 @@ import {
 import { Form, Formik } from 'formik'
 import sdImage from '@/assets/stable-diffusion-demo.jpeg'
 import Image from 'next/image'
+import { MaterialPicker } from 'react-color';
 
 type SdPromptField = {
   name: string;
   label: string;
+
+  colored?: boolean;
+
   selectValues: string[];
 
   children?: SdPromptField[];
 };
 
-/* FormControl: 头发, 眼睛, 脸型, 身体, 胸部, 腰部, 腿部, 脚部 */
 const sdDetailedPromptFields: SdPromptField[] = [
   {
     name: 'hair',
     label: '头发',
+    colored: true,
     selectValues: ['Long', 'Short', 'Bald']
   },
   {
     name: 'eyes',
     label: '眼睛',
+    colored: true,
     selectValues: ['Normal', 'Black', 'Red']
   },
   {
@@ -47,12 +52,12 @@ const sdDetailedPromptFields: SdPromptField[] = [
   {
     name: 'chest',
     label: '胸部',
-    selectValues: ['Normal', 'Large', 'Small']
+    selectValues: ['huge', 'large', 'medium', 'small', 'tiny']
   },
   {
     name: 'waist',
     label: '腰部',
-    selectValues: ['Normal', 'Large', 'Small']
+    selectValues: ['large waist', 'medium medium', 'slim waist']
   },
   {
     name: 'legs',
@@ -137,7 +142,8 @@ function StableDiffusionGenerator() {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
 
   return (
-    <div>
+    <SimpleGrid spacing={ 10 }>
+      <Heading as={ 'h3' }>画人</Heading>
       <Formik
         initialValues={ { quality: 'Normal' } }
         onSubmit={ (values, actions) => {
@@ -191,6 +197,8 @@ function StableDiffusionGenerator() {
                 { sdDetailedPromptFields.map((field) => (
                   <FormControl key={ field.name } id={ field.name } mt={ 2 }>
                     <FormLabel>{ field.label }</FormLabel>
+                    { field.colored && <MaterialPicker /> }
+
                     <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
                       { field.selectValues.map((value) => (
                         <option key={ value } value={ value }>
@@ -222,11 +230,13 @@ function StableDiffusionGenerator() {
             isLoading={ isSubmitting }
             type='submit'
           >
-            Generator
+            创造
           </Button>
         </Form>
       </Formik>
-    </div>
+
+      <Heading as={ 'h3' }>画xx（Todo）</Heading>
+    </SimpleGrid>
   )
 }
 
