@@ -1,28 +1,56 @@
-import React from 'react'
-import { useFormik } from 'formik'
+import * as React from 'react'
+import { createColumnHelper } from '@tanstack/react-table'
+import { DataTable } from './DataTable'
 
-function HomePage() {
-  const formik = useFormik({
-    initialValues: {
-      email: ''
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+
+type UnitConversion = {
+  fromUnit: string;
+  toUnit: string;
+  factor: number;
+};
+
+const data: UnitConversion[] = [
+  {
+    fromUnit: 'inches',
+    toUnit: 'millimetres (mm)',
+    factor: 25.4
+  },
+  {
+    fromUnit: 'feet',
+    toUnit: 'centimetres (cm)',
+    factor: 30.48
+  },
+  {
+    fromUnit: 'yards',
+    toUnit: 'metres (m)',
+    factor: 0.91444
+  }
+]
+
+const columnHelper = createColumnHelper<UnitConversion>()
+
+const columns = [
+  columnHelper.accessor('fromUnit', {
+    cell: (info) => info.getValue(),
+    header: 'To convert'
+  }),
+  columnHelper.accessor('toUnit', {
+    cell: (info) => info.getValue(),
+    header: 'Into'
+  }),
+  columnHelper.accessor('factor', {
+    cell: (info) => info.getValue(),
+    header: 'Multiply by',
+    meta: {
+      isNumeric: true
     }
   })
-  return (
-    <form onSubmit={ formik.handleSubmit }>
-      <label htmlFor='email'>Email Address</label>
-      <input
-        id='email'
-        name='email'
-        type='email'
-        onChange={ formik.handleChange }
-        value={ formik.values.email }
-      />
+]
 
-      <button type='submit'>Submit</button>
-    </form>
+
+function HomePage() {
+  return (
+    <DataTable columns={ columns } data={ data } />
   )
 }
 
