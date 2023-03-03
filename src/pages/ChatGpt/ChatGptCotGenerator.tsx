@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text } from '@chakra-ui/react'
+import { Heading } from '@chakra-ui/react'
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import ReactMarkdown from 'react-markdown'
 
@@ -23,7 +23,7 @@ function ChatGptCotGenerator() {
 
   return (
     <div>
-      <Text>示例：</Text>
+      <Heading as='h2' size='xl'>预期输出</Heading>
       {/* eslint-disable-next-line react/no-children-prop */ }
       <ReactMarkdown components={ ChakraUIRenderer() } children={ markdown } skipHtml />;
     </div>
