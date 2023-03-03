@@ -1,11 +1,11 @@
-import React from 'react'
-import { Heading, Text } from '@chakra-ui/react'
-import Papa from 'papaparse'
-import { createColumnHelper } from '@tanstack/react-table'
-import { DataTable } from '@/components/DataTable/DataTable'
-import { LinkIcon } from '@chakra-ui/icons'
-import { DefaultPapaConfig } from '@/DefaultPapaConfig'
-import CopyComponent from '@/components/CopyComponent'
+import React from "react";
+import { Heading, Text } from "@chakra-ui/react";
+import Papa from "papaparse";
+import { createColumnHelper } from "@tanstack/react-table";
+import { DataTable } from "@/components/DataTable/DataTable";
+import { LinkIcon } from "@chakra-ui/icons";
+import { DefaultPapaConfig } from "@/DefaultPapaConfig";
+import CopyComponent from "@/components/CopyComponent";
 
 type ActPrompt = {
   act: string;
@@ -13,53 +13,53 @@ type ActPrompt = {
   icon: string;
 };
 
-const columnHelper = createColumnHelper<ActPrompt>()
+const columnHelper = createColumnHelper<ActPrompt>();
 
 const columns = [
-  columnHelper.accessor('act', {
+  columnHelper.accessor("act", {
     cell: (info) => info.getValue(),
-    header: 'act'
+    header: "act",
   }),
-  columnHelper.accessor('prompt', {
+  columnHelper.accessor("prompt", {
     cell: (info) => info.getValue(),
-    header: 'prompt'
+    header: "prompt",
   }),
-  columnHelper.accessor('prompt', {
-    id: 'icon',
+  columnHelper.accessor("prompt", {
+    id: "icon",
     cell: (info) => CopyComponent(info.getValue()),
-    header: 'copy'
-  })
-]
+    header: "copy",
+  }),
+];
 
 function ChatGptPromptList() {
-  const [data, setData] = React.useState<any>(null)
+  const [data, setData] = React.useState<any>(null);
 
   React.useEffect(() => {
     fetch(
-      'https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv'
+      "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
     )
       .then((response) => response.text())
       .then((csv) => {
-        const parseResult = Papa.parse(csv, DefaultPapaConfig)
+        const parseResult = Papa.parse(csv, DefaultPapaConfig);
 
-        setData(parseResult)
-      })
-  }, [])
+        setData(parseResult);
+      });
+  }, []);
 
   return (
     <div>
       <Heading></Heading>
       <Text>
-        base on:{ ' ' }
-        <a href={ 'https://github.com/f/awesome-chatgpt-prompts' }>
-          { ' ' }
+        base on:{" "}
+        <a href={"https://github.com/f/awesome-chatgpt-prompts"}>
+          {" "}
           <LinkIcon />
           https://github.com/f/awesome-chatgpt-prompts
-        </a>{ ' ' }
+        </a>{" "}
       </Text>
-      { data && <DataTable data={ data.data } columns={ columns } /> }
+      {data && <DataTable data={data.data} columns={columns} />}
     </div>
-  )
+  );
 }
 
-export default ChatGptPromptList
+export default ChatGptPromptList;
