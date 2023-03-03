@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { Heading } from "@chakra-ui/react";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";

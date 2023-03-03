@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Papa from "papaparse";
 import { DataTable } from "@/components/DataTable/DataTable";
