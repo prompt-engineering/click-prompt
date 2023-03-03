@@ -1,4 +1,4 @@
-# Prompt Cheatsheet
+# Prompt Generator
 
 Prompt Cheatsheet is a collection of useful prompts for your AI's journey.
 
