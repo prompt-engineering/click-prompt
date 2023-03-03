@@ -17,10 +17,6 @@ type GeneralCommand = {
 const columnHelper = createColumnHelper<GeneralCommand>()
 
 const columns = [
-  // columnHelper.accessor('english', {
-  //   cell: (info) => info.getValue(),
-  //   header: '英语模式'
-  // }),
   columnHelper.accessor('chinese', {
     cell: (info) => info.getValue(),
     header: '中文'
@@ -57,7 +53,8 @@ function HomePage() {
         <TabList>
           <Tab>ChatGPT 常用指令</Tab>
           <Tab>ChatGPT 角色扮演</Tab>
-          <Tab>Stable Diffusion Prompts Generator</Tab>
+          <Tab>AI 绘画生成器</Tab>
+          <Tab>学习资料</Tab>
         </TabList>
 
         <TabPanels>
@@ -73,6 +70,14 @@ function HomePage() {
 
           <TabPanel>
             <StableDiffusionGenerator />
+          </TabPanel>
+
+          <TabPanel>
+            <Heading>学习资料</Heading>
+            <ul>
+              <li><a href="https://github.com/phodal/ai-research/">理解 Prompt</a></li>
+              <li><a href="https://github.com/phodal/prompt-patterns">Prompt 编写模式</a></li>
+            </ul>
           </TabPanel>
         </TabPanels>
       </Tabs>
