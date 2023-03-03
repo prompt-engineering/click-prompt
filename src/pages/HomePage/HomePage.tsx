@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { createColumnHelper } from '@tanstack/react-table'
 import { DataTable } from './DataTable'
-import { Heading } from '@chakra-ui/react'
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import ChatGptPromptList from '../ChatGptPromptList/ChatGptPromptList'
 import StableDiffusionGenerator from '../StableDiffusionGenerator/StableDiffusionGenerator'
 import Papa from 'papaparse'
+import ChatGptCotGenerator from './ChatGptCotGenerator'
 
 type GeneralCommand = {
   english: string
@@ -51,8 +51,9 @@ function HomePage() {
     <div>
       <Tabs variant='enclosed'>
         <TabList>
-          <Tab>ChatGPT 常用指令</Tab>
-          <Tab>ChatGPT 角色扮演</Tab>
+          <Tab>类 ChatGPT 常用指令</Tab>
+          <Tab>类 ChatGPT 角色扮演</Tab>
+          <Tab>类 ChatGPT 游戏模式</Tab>
           <Tab>AI 绘画生成器</Tab>
           <Tab>学习资料</Tab>
         </TabList>
@@ -70,6 +71,11 @@ function HomePage() {
 
           <TabPanel>
             <StableDiffusionGenerator />
+          </TabPanel>
+
+          <TabPanel>
+            <Heading>多步骤生成</Heading>
+            <ChatGptCotGenerator />
           </TabPanel>
 
           <TabPanel>

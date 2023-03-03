@@ -9,17 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/css-reset": "^2.0.12",
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@tanstack/react-table": "^8.7.9",
     "apache-arrow": "^11.0.0",
+    "chakra-ui-markdown-renderer": "^4.1.0",
     "formik": "^2.2.9",
     "framer-motion": "^10.0.1",
     "papaparse": "^5.4.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.5"
   },
   "devDependencies": {
     "@types/papaparse": "^5.3.7",
