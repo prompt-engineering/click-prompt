@@ -1,7 +1,9 @@
-import * as React from 'react'
-import { Heading } from '@chakra-ui/react'
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
-import ReactMarkdown from 'react-markdown'
+"use client";
+
+import * as React from "react";
+import { Heading } from "@chakra-ui/react";
+import ChakraUIRenderer from "chakra-ui-markdown-renderer";
+import ReactMarkdown from "react-markdown";
 
 function ChatGptCotGenerator() {
   // create a form, with field name: String, steps: String, and a button to generate
@@ -19,15 +21,20 @@ function ChatGptCotGenerator() {
 """
 ...
 """
-`
+`;
 
   return (
     <div>
-      <Heading as='h2' size='xl'>预期输出</Heading>
-      {/* eslint-disable-next-line react/no-children-prop */ }
-      <ReactMarkdown components={ ChakraUIRenderer() } children={ markdown } skipHtml />;
+      <Heading as='h2' size='xl'>
+        预期输出
+      </Heading>
+      {/* eslint-disable-next-line react/no-children-prop */}
+      <ReactMarkdown components={ChakraUIRenderer()} skipHtml>
+        {markdown}
+      </ReactMarkdown>
+      ;
     </div>
-  )
+  );
 }
 
-export default ChatGptCotGenerator
+export default ChatGptCotGenerator;

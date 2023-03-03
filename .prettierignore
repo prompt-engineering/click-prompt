@@ -1,3 +1,16 @@
 # Ignore artifacts:
 build
 coverage
+
+.next
+
+dist
+node_modules
+public
+
+.vscode
+.idea
+
+.*
+*.json
+CNAME

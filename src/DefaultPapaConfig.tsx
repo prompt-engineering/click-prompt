@@ -1,5 +1,5 @@
 export const DefaultPapaConfig = {
-  delimiter: ',',
+  delimiter: ",",
   header: true,
-  skipEmptyLines: true
-}
+  skipEmptyLines: true,
+};

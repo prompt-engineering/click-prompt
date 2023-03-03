@@ -18,33 +18,33 @@ Tech Stacks:
 - React Table
 - React Markdown for render markdown
 - Data processing
-    - papaparse: parse csv
-    - arrow: parse json
+  - papaparse: parse csv
+  - arrow: parse json
 
 Todos:
 
 - [x] setup projects
-    - [x] init project
-    - [ ] setup CI
-    - [ ] config prettier, eslint, husky
-    - [ ] commit lint, style lint
+  - [x] init project
+  - [ ] setup CI
+  - [ ] config prettier, eslint, husky
+  - [ ] commit lint, style lint
 - [ ] setup docs
 - [ ] our cheatsheet
 - [ ] ChatGPT prompts
-    - [ ] awesome act prompts
-    - [ ] chinese version prompts
-    - [ ] normal generator by category
-    - [ ] random generator
+  - [ ] awesome act prompts
+  - [ ] chinese version prompts
+  - [ ] normal generator by category
+  - [ ] random generator
 - [ ] Stable Diffusion
-    - [ ] awesome act prompts
-    - [ ] random generator
-    - [ ] normal generator
+  - [ ] awesome act prompts
+  - [ ] random generator
+  - [ ] normal generator
 - [ ] GitHub Copilot
-    - [ ] awesome act prompts
-    - [ ] random generator
-    - [ ] normal generator
+  - [ ] awesome act prompts
+  - [ ] random generator
+  - [ ] normal generator
 - [ ] prompt templates
-    - [ ] usecases for copywriting
+  - [ ] usecases for copywriting
 
 ## License
 
