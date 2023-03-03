@@ -111,6 +111,13 @@ function StableDiffusionGenerator() {
   return (
     <div>
       <Image src={ sdImage } />
+      <Text>Pormpt： particle effects small breasts, 1 girl, solo, masterpiece, best quality, highres,
+        original, extremely detailed 8K wallpaper, greasy skin, realistic and delicate facial features, slim
+        waist,ultra-detailed,illustration ,ray tracing,intricate detail, colored tips,colored inner hair, gradient
+        eyes,eyelashes,finely detail, depth of field, beyond compare, cinematic lighting,
+        tranditional, in gentle breeze dance from ethereal chance. An aura of peace,beyond compare, cinematic
+        lighting, dramatic angle, (arms arms behind back), fov, detailed eyes, peach blossom
+      </Text>
       <Formik
         initialValues={ { quality: 'Normal' } }
         onSubmit={ (values, actions) => {
