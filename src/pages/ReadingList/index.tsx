@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Text } from "@chakra-ui/react";
+import { Grid, Heading, SimpleGrid, Text } from '@chakra-ui/react'
 import { createColumnHelper } from "@tanstack/react-table";
 import Papa from "papaparse";
 import { DataTable } from "@/components/DataTable/DataTable";
@@ -65,15 +65,15 @@ function ReadingList() {
   }, []);
 
   return (
-    <div>
-      <Text>欢迎 PR，添加新的阅读材料</Text>
-      <Heading>AI Resources</Heading>
+    <SimpleGrid  columns={1} spacing={10}>
+      <Text align={ 'center' }>欢迎 Pull Request，添加更多的阅读材料</Text>
+      <Heading as='h3'>AI Resources</Heading>
       {aiResource && <DataTable data={aiResource} columns={columns} />}
-      <Heading>中文</Heading>
+      <Heading as='h3'>中文</Heading>
       {cnData && <DataTable data={cnData} columns={columns} />}
-      <Heading>English</Heading>
+      <Heading as='h3'>English</Heading>
       {enData && <DataTable data={enData} columns={columns} />}
-    </div>
+    </SimpleGrid>
   );
 }
 
