@@ -12,7 +12,7 @@ Only for discuss prompt engineering.
 
 Tech Stacks:
 
-- React + Vite + TypeScript
+- Next.js with Typescript
 - Chakra UI
 - Styled Components: @emotion/styled
 - React Table
