@@ -67,7 +67,7 @@ const sdDetailedPromptFields: SdPromptField[] = [
 ]
 
 /* FormControl: 通用质量,光线,镜头,头部,场景,身体,服饰,动作,背景 */
-const sdPromptFields: SdPromptField[] = [
+const sdCommonPrompts: SdPromptField[] = [
   {
     name: 'quality',
     label: '通用质量',
@@ -89,13 +89,16 @@ const sdPromptFields: SdPromptField[] = [
     selectValues: ['Front', 'Back', 'Side']
   },
   {
-    name: 'head',
-    label: '头部',
-    selectValues: ['Front', 'Back', 'Side']
-  },
-  {
     name: 'scene',
     label: '场景',
+    selectValues: ['Front', 'Back', 'Side']
+  }
+]
+
+const sdPersonPromptFields: SdPromptField[] = [
+  {
+    name: 'head',
+    label: '头部',
     selectValues: ['Front', 'Back', 'Side']
   },
   {
@@ -136,7 +139,7 @@ function StableDiffusionGenerator() {
       >
         <Form>
           <SimpleGrid gap={ 3 } p={ 3 } columns={ 5 }>
-            { sdPromptFields.map((field) => (
+            { sdCommonPrompts.map((field) => (
               <FormControl key={ field.name } id={ field.name } mt={ 2 }>
                 <FormLabel>{ field.label }</FormLabel>
                 <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
@@ -151,9 +154,29 @@ function StableDiffusionGenerator() {
           </SimpleGrid>
 
           <Flex alignItems='start' gap='2'>
+            <Grid>
+              <Text>人物</Text>
+              <SimpleGrid gap={ 3 } p={ 3 } columns={ 1 }>
+                { sdPersonPromptFields.map((field) => (
+                  <FormControl key={ field.name } id={ field.name } mt={ 2 }>
+                    <FormLabel>{ field.label }</FormLabel>
+                    <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
+                      { field.selectValues.map((value) => (
+                        <option key={ value } value={ value }>
+                          { value }
+                        </option>
+                      )) }
+                    </Select>
+                  </FormControl>
+                )) }
+
+              </SimpleGrid>
+            </Grid>
+
             <Image src={ sdImage } alt='stable-diffusion-demo' />
 
             <Grid>
+              <Text>身体</Text>
               <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
                 { sdDetailedPromptFields.map((field) => (
                   <FormControl key={ field.name } id={ field.name } mt={ 2 }>
