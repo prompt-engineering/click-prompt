@@ -34,7 +34,7 @@ function ChatGptPromptList() {
           delimiter: ',',
           header: true
         })
-        console.log(parseResult.data)
+
         setData(parseResult)
       })
   }, [])

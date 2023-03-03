@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Form } from 'formik'
 import { Text } from '@chakra-ui/react'
 import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
 import ReactMarkdown from 'react-markdown'
