@@ -1,14 +1,14 @@
-import * as React from 'react'
-import { chakra, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
-import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons'
+import React from "react";
+import { chakra, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
+import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
   SortingState,
-  useReactTable
-} from '@tanstack/react-table'
+  useReactTable,
+} from "@tanstack/react-table";
 
 export type DataTableProps<Data extends object> = {
   data: Data[];
@@ -16,10 +16,10 @@ export type DataTableProps<Data extends object> = {
 };
 
 export function DataTable<Data extends object>({
-                                                 data,
-                                                 columns
-                                               }: DataTableProps<Data>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  data,
+  columns,
+}: DataTableProps<Data>) {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const table = useReactTable({
     columns,
     data,
@@ -27,59 +27,59 @@ export function DataTable<Data extends object>({
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     state: {
-      sorting
-    }
-  })
+      sorting,
+    },
+  });
 
   return (
     <Table>
       <Thead>
-        { table.getHeaderGroups().map((headerGroup) => (
-          <Tr key={ headerGroup.id }>
-            { headerGroup.headers.map((header) => {
+        {table.getHeaderGroups().map((headerGroup) => (
+          <Tr key={headerGroup.id}>
+            {headerGroup.headers.map((header) => {
               // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
-              const meta: any = header.column.columnDef.meta
+              const meta: any = header.column.columnDef.meta;
               return (
                 <Th
-                  key={ header.id }
-                  onClick={ header.column.getToggleSortingHandler() }
-                  isNumeric={ meta?.isNumeric }
+                  key={header.id}
+                  onClick={header.column.getToggleSortingHandler()}
+                  isNumeric={meta?.isNumeric}
                 >
-                  { flexRender(
+                  {flexRender(
                     header.column.columnDef.header,
-                    header.getContext()
-                  ) }
+                    header.getContext(),
+                  )}
 
                   <chakra.span pl='4'>
-                    { header.column.getIsSorted() ? (
-                      header.column.getIsSorted() === 'desc' ? (
+                    {header.column.getIsSorted() ? (
+                      header.column.getIsSorted() === "desc" ? (
                         <TriangleDownIcon aria-label='sorted descending' />
                       ) : (
                         <TriangleUpIcon aria-label='sorted ascending' />
                       )
-                    ) : null }
+                    ) : null}
                   </chakra.span>
                 </Th>
-              )
-            }) }
+              );
+            })}
           </Tr>
-        )) }
+        ))}
       </Thead>
       <Tbody>
-        { table.getRowModel().rows.map((row) => (
-          <Tr key={ row.id }>
-            { row.getVisibleCells().map((cell) => {
+        {table.getRowModel().rows.map((row) => (
+          <Tr key={row.id}>
+            {row.getVisibleCells().map((cell) => {
               // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
-              const meta: any = cell.column.columnDef.meta
+              const meta: any = cell.column.columnDef.meta;
               return (
-                <Td key={ cell.id } isNumeric={ meta?.isNumeric }>
-                  { flexRender(cell.column.columnDef.cell, cell.getContext()) }
+                <Td key={cell.id} isNumeric={meta?.isNumeric}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </Td>
-              )
-            }) }
+              );
+            })}
           </Tr>
-        )) }
+        ))}
       </Tbody>
     </Table>
-  )
+  );
 }
