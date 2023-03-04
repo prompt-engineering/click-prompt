@@ -1,6 +1,5 @@
 import React from 'react'
-import reactCSS from 'reactcss'
-import { SketchPicker } from 'react-color'
+import { CompactPicker, SketchPicker } from 'react-color'
 import styled from '@emotion/styled'
 
 function SimpleColorPicker() {
@@ -19,41 +18,36 @@ function SimpleColorPicker() {
     setColor(`rgba(${ color.rgb.r }, ${ color.rgb.g }, ${ color.rgb.b }, ${ color.rgb.a })`)
   }
 
-  const styles = reactCSS({
-    'default': {
-      color: {
-        width: '16px',
-        height: '14px',
-        borderRadius: '2px',
-        background: color
-      },
-      swatch: {
-        display: 'inline-block',
-        padding: '5px',
-        top: '4px',
-        left: '4px',
-        position: 'relative',
-        background: '#fff',
-        borderRadius: '1px',
-        boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
-        cursor: 'pointer'
-      }
-    }
-  })
-
   return (
     <>
-      {/*@ts-ignore*/}
-      <div style={ styles.swatch } onClick={ handleClick }>
-        <div style={ styles.color } />
-      </div>
+      <Swatch onClick={ handleClick }>
+        <StyleColor color={ color } /></Swatch>
       { displayColorPicker ? <StylePopover>
         <StyleCover onClick={ handleClose } />
-        <SketchPicker color={ color } onChange={ handleChange } />
+        <CompactPicker color={ color } onChange={ handleChange } />
       </StylePopover> : null }
     </>
   )
 }
+
+const StyleColor = styled.div`
+  width: 16px;
+  height: 14px;
+  border-radius: 2px;
+  background: ${ props => props.color };
+`
+
+const Swatch = styled.div`
+  display: inline-block;
+  padding: 5px;
+  top: 4px;
+  left: 4px;
+  position: relative;
+  background: #fff;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .1);
+  cursor: pointer;
+`
 
 const StylePopover = styled.div`
   position: absolute;
