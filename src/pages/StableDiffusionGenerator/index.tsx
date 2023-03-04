@@ -192,6 +192,7 @@ const sdPersonPromptFields: SdPromptField[] = [
   {
     name: "upper_clothes",
     label: "上半身服饰",
+    colored: true,
     selectValues: [
       { key: "T恤", value: "tshirt" },
       { key: "衬衫", value: "shirt" },
@@ -221,6 +222,7 @@ const sdPersonPromptFields: SdPromptField[] = [
   {
     name: "lower_clothes",
     label: "下半身服饰",
+    colored: true,
     selectValues: [
       { key: "丝袜", value: "stockings" },
       { key: "黑丝", value: "black stockings" },
