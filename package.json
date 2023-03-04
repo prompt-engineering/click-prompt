@@ -19,6 +19,7 @@
     "@tanstack/react-table": "^8.7.9",
     "apache-arrow": "^11.0.0",
     "chakra-ui-markdown-renderer": "^4.1.0",
+    "chinese-numbering": "^1.0.0",
     "formik": "^2.2.9",
     "framer-motion": "^10.0.1",
     "next": "13.2.3",

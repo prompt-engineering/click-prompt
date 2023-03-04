@@ -2,18 +2,26 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { CopyIcon } from "@chakra-ui/icons";
 import React from "react";
 
-function CopyComponent<TValue>(props: any) {
+function CopyComponent({
+  value,
+  className,
+}: {
+  value: string;
+  className: string;
+}) {
   return (
-    <CopyToClipboard
-      text={props.value}
-      onCopy={() => {
-        alert("Copied to clipboard");
-      }}
-    >
-      <div className='cursor-pointer flex justify-center'>
-        <CopyIcon boxSize={22} />
-      </div>
-    </CopyToClipboard>
+    <div className={className}>
+      <CopyToClipboard
+        text={value}
+        onCopy={() => {
+          alert("Copied to clipboard");
+        }}
+      >
+        <div className='cursor-pointer flex justify-center'>
+          <CopyIcon boxSize={22} />
+        </div>
+      </CopyToClipboard>
+    </div>
   );
 }
 
