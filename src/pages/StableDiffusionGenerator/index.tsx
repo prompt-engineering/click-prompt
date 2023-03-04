@@ -46,14 +46,14 @@ const sdDetailedPromptFields: SdPromptField[] = [
     selectValues: [{ key: "细节", value: "details lips" }],
   },
   {
-    name: "chest",
+    name: "breasts",
     label: "胸部",
     selectValues: [
-      { key: "巨大", value: "huge" },
-      { key: "大", value: "large" },
-      { key: "中等", value: "medium" },
-      { key: "小", value: "small" },
-      { key: "微小", value: "tiny" },
+      { key: "巨大", value: "huge breasts" },
+      { key: "大", value: "large breasts" },
+      { key: "中等", value: "medium breasts" },
+      { key: "小", value: "small breasts" },
+      { key: "微小", value: "tiny breasts" },
     ],
   },
   {
@@ -93,13 +93,22 @@ const sdCommonPrompts: SdPromptField[] = [
     ],
   },
   {
+    name: "style",
+    label: "风格",
+    selectValues: [
+      { key: "动漫", value: "anime" },
+      { key: "真人", value: "real" },
+      { key: "卡通", value: "cartoon" },
+    ],
+  },
+  {
     name: "time",
     label: "时间",
     selectValues: [
-      { key: "早上", value: "morning" },
-      { key: "下午", value: "afternoon" },
-      { key: "傍晚", value: "evening" },
-      { key: "晚上", value: "night" },
+      { key: "早上", value: "in morning" },
+      { key: "下午", value: "in afternoon" },
+      { key: "傍晚", value: "in evening" },
+      { key: "晚上", value: "in night" },
     ],
   },
   {
@@ -120,7 +129,7 @@ const sdCommonPrompts: SdPromptField[] = [
     selectValues: [
       { key: "正对", value: "looking at viewer" },
       { key: "侧面", value: "looking sideways" },
-      { key: "背面", value: "looking away" },
+      { key: "背面", value: "back of person" },
     ],
   },
   {
@@ -136,8 +145,8 @@ const sdCommonPrompts: SdPromptField[] = [
     label: "植物",
     selectValues: [
       { key: "花", value: "flower" },
-      { key: "桃花", value: "peach blossom" },
-      { key: "樱花", value: "cherry blossom" },
+      { key: "桃花", value: "peach blossom tree" },
+      { key: "樱花", value: "cherry blossom tree" },
       { key: "花瓣", value: "blossom" },
       { key: "叶子", value: "leaf" },
       { key: "草", value: "grass" },
@@ -314,7 +323,7 @@ function StableDiffusionGenerator() {
       </InputGroup>
       <Heading as={"h3"}>方式 二：手动画人</Heading>
       <form onSubmit={formik.handleSubmit}>
-        <SimpleGrid gap={3} p={3} columns={6}>
+        <SimpleGrid gap={3} p={3} columns={7}>
           {sdCommonPrompts.map((field) => PromptFieldForm({ field, formik }))}
         </SimpleGrid>
 
