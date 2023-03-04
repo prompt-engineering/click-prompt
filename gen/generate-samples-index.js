@@ -6,24 +6,54 @@ const path = require("path");
 const walkdir = require("walkdir");
 const yaml = require("js-yaml");
 
-const templatesDir = path.join(__dirname, "../public/data/chatgpt/samples");
-const indexFile = path.join(templatesDir, "index.json");
+function genChatGptSamples() {
+  const templatesDir = path.join(__dirname, "../src/assets/chatgpt/samples");
+  const indexFile = path.join(templatesDir, "index.json");
 
-const files = walkdir.sync(templatesDir, { no_recurse: true });
-const index = files
-  .filter((f) => f.endsWith(".yaml") || f.endsWith(".yml"))
-  .map((f) => {
-    const content = fs.readFileSync(f, "utf8");
-    const doc = yaml.load(content);
-    const { name, description, author, category, preview } = doc;
-    return {
-      name,
-      description,
-      author,
-      category,
-      preview,
-      path: path.relative(templatesDir, f),
-    };
-  });
+  const files = walkdir.sync(templatesDir, { no_recurse: true });
+  const index = files
+    .filter((f) => f.endsWith(".yml"))
+    .map((f) => {
+      const content = fs.readFileSync(f, "utf8");
+      const doc = yaml.load(content);
+      const { name, description, author, category, homepage, preview } = doc;
+      return {
+        name,
+        description,
+        author,
+        category,
+        homepage,
+        preview,
+        path: path.relative(templatesDir, f),
+      };
+    });
 
-fs.writeFileSync(indexFile, JSON.stringify(index, null, 2));
+  fs.writeFileSync(indexFile, JSON.stringify(index, null, 2));
+}
+
+function genStableDiffusionSamples() {
+  const templatesDir = path.join(__dirname, "../src/assets/stable-diffusion/samples");
+  const indexFile = path.join(templatesDir, "index.json");
+
+  const files = walkdir.sync(templatesDir, { no_recurse: true });
+  const index = files
+    .filter((f) => f.endsWith(".yml"))
+    .map((f) => {
+      const content = fs.readFileSync(f, "utf8");
+      const doc = yaml.load(content);
+      const { name, author, homepage, category, artists } = doc;
+      return {
+        name,
+        author,
+        category,
+        homepage,
+        artists,
+        path: path.relative(templatesDir, f),
+      };
+    });
+
+  fs.writeFileSync(indexFile, JSON.stringify(index, null, 2));
+}
+
+genChatGptSamples();
+genStableDiffusionSamples();
