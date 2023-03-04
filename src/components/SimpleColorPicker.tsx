@@ -30,12 +30,12 @@ function SimpleColorPicker(props: SimpleColorProps) {
   const [displayColorPicker, setDisplayColorPicker] = React.useState(false)
 
   const handleClick = () => {
-    setDisplayColorPicker(!displayColorPicker)
-  }
+    setDisplayColorPicker(!displayColorPicker);
+  };
 
   const handleClose = () => {
-    setDisplayColorPicker(false)
-  }
+    setDisplayColorPicker(false);
+  };
 
   const colors = colorNameList.reduce((o, { name, hex }) => Object.assign(o, { [name]: hex }), {});
   const nearest = nearestColor.from(colors);
@@ -58,7 +58,7 @@ function SimpleColorPicker(props: SimpleColorProps) {
         <ChromePicker color={ color } onChange={ handleChange } />
       </StylePopover> : null }
     </>
-  )
+  );
 }
 
 const StyleColor = styled.div`
@@ -78,14 +78,14 @@ const Swatch = styled.div`
   position: relative;
   background: #fff;
   border-radius: 1px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, .1);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-`
+`;
 
 const StylePopover = styled.div`
   position: absolute;
   z-index: 2;
-`
+`;
 
 const StyleCover = styled.div`
   position: fixed;
@@ -93,6 +93,6 @@ const StyleCover = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-`
+`;
 
-export default SimpleColorPicker
+export default SimpleColorPicker;

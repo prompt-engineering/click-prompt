@@ -65,8 +65,8 @@ function ReadingList() {
   }, []);
 
   return (
-    <SimpleGrid  columns={1} spacing={10}>
-      <Text align={ 'center' }>欢迎 Pull Request，添加更多的阅读材料</Text>
+    <SimpleGrid columns={1} spacing={10}>
+      <Text align={"center"}>欢迎 Pull Request，添加更多的阅读材料</Text>
       <Heading as='h3'>AI Resources</Heading>
       {aiResource && <DataTable data={aiResource} columns={columns} />}
       <Heading as='h3'>中文</Heading>
