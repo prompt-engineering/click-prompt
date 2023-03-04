@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Text } from "@chakra-ui/react";
+import { Heading, Input, Text } from "@chakra-ui/react";
 import Papa from "papaparse";
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "@/components/DataTable/DataTable";
@@ -47,6 +47,8 @@ function ChatGptPromptList() {
   return (
     <div>
       <Heading></Heading>
+      <Text>Todo: add JavaScript database to query in frontend</Text>
+      <Input placeholder='Search' />
       <Text>
         base on:{" "}
         <a href={"https://github.com/f/awesome-chatgpt-prompts"}>

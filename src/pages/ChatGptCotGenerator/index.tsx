@@ -23,7 +23,7 @@ function ChatGptCotGenerator() {
 
   return (
     <div>
-      <Heading as='h2' size='xl'>
+      <Heading as='h3' size='md'>
         预期输出
       </Heading>
       <ReactMarkdown components={ChakraUIRenderer()} skipHtml>
