@@ -351,9 +351,7 @@ function StableDiffusionGenerator() {
       console.log(formik.initialValues);
       console.log(values);
       const filteredValues = Object.keys(values).reduce((acc: any, key) => {
-        if (values[key] !== "") {
-          acc[key] = values[key];
-        }
+        if (values[key] !== "") acc[key] = values[key];
         return acc;
       }, {});
 

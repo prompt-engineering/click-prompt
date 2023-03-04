@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 import SimpleColorPicker, { ColorType } from "@/components/SimpleColorPicker";
 import { FormikProps } from "formik";
+import { debounce } from "lodash-es";
 
 export type SelectValue = {
   key: string;
@@ -29,23 +30,24 @@ function PromptFieldForm(props: FieldFormProp) {
   const [color, setColor] = useState("");
 
   if (!field) return null;
+  const onColorChange = debounce((color: string) => {
+    setColor(color);
+    let fieldValue = formik.values[field.name];
+    if (fieldValue) formik.setFieldValue(field.name, `${color} ${fieldValue}`);
+  }, 100);
 
   return (
     <FormControl key={field.name} id={field.name} mt={2}>
       <FormLabel>
-        {field.label}{" "}
-        {field.colored && <SimpleColorPicker colorType={ColorType.Normal} updateColor={(color) => setColor(color)} />}
+        {field.label} {field.colored && <SimpleColorPicker colorType={ColorType.Normal} updateColor={onColorChange} />}
       </FormLabel>
 
       <Select
         name={field.name}
         placeholder={`-`}
         onChange={(event) => {
-          if (color !== "") {
-            formik.setFieldValue(field.name, `${color} ${event.target.value}`);
-          } else {
-            formik.setFieldValue(field.name, event.target.value);
-          }
+          const value = color ? `${color} ${event.target.value}` : event.target.value;
+          formik.setFieldValue(field.name, value);
         }}
       >
         {field.selectValues.map((select, index) => (
