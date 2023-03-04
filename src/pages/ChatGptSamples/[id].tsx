@@ -1,4 +1,4 @@
-import type { GetStaticProps, GetStaticPaths } from "next";
+import type { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
 import {
   Accordion,
@@ -7,14 +7,14 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Card,
-  CardBody,
   Heading,
+  Link,
+  Spacer,
 } from "@chakra-ui/react";
-import ReactMarkdown from "react-markdown";
-import SimpleMarkdown from "@/components/SimpleMarkdown";
 import styled from "@emotion/styled";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
+import SimpleMarkdown from "@/components/SimpleMarkdown";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
@@ -52,20 +52,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { id } = params;
   const content: Sample = await import(`@/assets/chatgpt/samples/${id}.yml`).then((mod) => mod.default);
-  return {
-    props: { content }, // will be passed to the page component as props
-  };
+  return { props: { content } };
 };
 
 export default function Sample({ content }: Props) {
   return (
     <>
-      {" "}
       {content && (
         <>
-          <h1>
-            {content.name} by {content.author}
-          </h1>
+          <Heading as='h3'>
+            {content.name} by &nbsp;
+            <Link href={content.homepage} isExternal>
+              {content.author} <ExternalLinkIcon />
+            </Link>
+          </Heading>
+          <Spacer />
           <Accordion allowMultiple index={content.steps.map((_, index) => index)}>
             {content.steps.map((step, index) => (
               <AccordionItem key={index}>

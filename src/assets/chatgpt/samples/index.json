@@ -1,5 +1,14 @@
 [
   {
+    "name": "让 ChatGPT 类比迁移",
+    "description": "如何让 ChatGPT 进行类比迁移，以帮助我们更好的完成工作。",
+    "author": "Phodal Huang",
+    "category": "programming",
+    "homepage": "https://www.phodal.com/",
+    "preview": "知道 DDD 里的 ContextMap 吗？\n知道 DSL（领域特定语言）吗？\n设计一个 DSL 来表示 DDD 里的 Context Map 。\n",
+    "path": "concept-analogy-sample.yml"
+  },
+  {
     "name": "DDD Sample",
     "description": "A sample template for DDD",
     "author": "Phodal Huang",

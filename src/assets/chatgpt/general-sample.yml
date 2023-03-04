@@ -1,0 +1,4 @@
+- name: 类比迁移
+  steps:
+    - ask: xxx
+      response: xxx

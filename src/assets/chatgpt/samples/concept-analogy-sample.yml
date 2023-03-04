@@ -1,0 +1,60 @@
+name: 让 ChatGPT 类比迁移
+description: 如何让 ChatGPT 进行类比迁移，以帮助我们更好的完成工作。
+category: programming
+author: Phodal Huang
+homepage: https://www.phodal.com/
+preview: |
+  知道 DDD 里的 ContextMap 吗？
+  知道 DSL（领域特定语言）吗？
+  设计一个 DSL 来表示 DDD 里的 Context Map 。
+
+steps:
+  - ask: |
+      知道 DDD 里的 ContextMap 吗？
+    response: |
+      是的，我知道。在领域驱动设计（DDD）中，Context Map（上下文映射）是用于描述不同子域（subdomains）之间关系的工具。
+
+      Context Map 显示了不同子域的上下文之间的关系，包括它们之间的合作、对立或无关联等关系。Context Map 可以帮助团队了解不同子域之间的边界，并协调不同子域之间的交互和协作。
+
+      Context Map 通常作为一种图形工具来呈现，它可以显示不同子域之间的关系和它们之间的交互方式。同时，Context Map 也可以用于记录和跟踪不同子域之间的协议和契约，以确保它们之间的交互是有意义的、可靠的和一致的。
+
+      总之，Context Map 是 DDD 中非常重要的概念，它可以帮助团队理解不同子域之间的关系，为系统设计和实现提供指导。
+  - ask: |
+      知道 DSL（领域特定语言）吗？
+    response: |
+      是的，我知道。DSL（Domain-Specific Language，领域特定语言）是一种专门为特定领域而设计的编程语言。与通用编程语言不同，DSL 更加专注于解决某个特定领域的问题，具有更高的表达能力和可读性。
+
+      DSL 可以根据特定领域的需求进行设计和实现，因此它可以更好地描述领域内的概念和操作。DSL 可以帮助开发人员在编写领域特定的代码时更加高效和准确地表达领域内的概念和规则，从而提高系统的可维护性和可扩展性。
+
+      DSL 可以分为内部 DSL和外部DSL两种类型。内部 DSL 是在通用编程语言的基础上创建的，通过特定的编程技巧和库来实现。而外部DSL则是一种独立的语言，通常需要使用特定的解析器和编译器进行解释和执行。
+
+      在领域驱动设计（DDD）中，DSL 可以帮助团队更好地表达领域模型，进而更好地进行系统设计和实现。通过使用DSL，可以更好地将领域概念和业务规则映射到代码中，使代码更加贴近领域需求，从而提高系统的可理解性和可维护性。
+  - ask: |
+      设计一个 DSL 来表示 DDD 里的 Context Map 。
+    response: |
+      好的，下面是一个简单的 DSL 设计，用于表示 DDD 中的 Context Map：
+
+      ```css
+      ContextMap:
+        Subdomain { Name: [subdomain_name] }
+          [CollaboratesWith: [other_subdomain_name], ...]
+          [ConformistWith: [other_subdomain_name], ...]
+          [Antagonizes: [other_subdomain_name], ...]
+        ...
+      ```
+
+      上面的 DSL 中，ContextMap 表示整个上下文映射。每个 Subdomain 表示一个子域，Name 是子域的名称。子域之间的关系可以通过 CollaboratesWith（合作）、ConformistWith（一致）和 Antagonizes（对立）来描述。
+
+      例如，下面是一个包含两个子域之间关系的 Context Map 示例：
+
+      ```css
+      ContextMap:
+        Subdomain { Name: "订单" }
+                            CollaboratesWith: "库存"
+        Subdomain { Name: "库存" }
+                            Antagonizes: "订单"
+      ```
+
+      这个例子中，"订单" 子域与 "库存" 子域合作，而 "库存" 子域对 "订单" 子域表示对立。
+
+      这只是一个简单的示例，实际上 DSL 的设计取决于具体的应用场景和需求，可以根据需要进行调整和扩展。但总体上，DSL 的目的是使 Context Map 更易于理解、表示和维护。
