@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import { createColumnHelper } from "@tanstack/react-table";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+
 import { DataTable } from "@/components/DataTable/DataTable";
 import parseCsv from "@/data-processor/CsvParser";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 type ReadingResource = {
   name: string;
@@ -15,12 +17,12 @@ const columnHelper = createColumnHelper<ReadingResource>();
 
 const columns = [
   columnHelper.accessor("name", {
-    cell: (info) => `《${info.getValue()}》`,
+    cell: (info) => (
+      <Link href={info.row.original.link}>
+        {info.getValue()} <ExternalLinkIcon />
+      </Link>
+    ),
     header: "name",
-  }),
-  columnHelper.accessor("link", {
-    cell: (info) => info.getValue(),
-    header: "link",
   }),
   columnHelper.accessor("description", {
     cell: (info) => info.getValue(),
@@ -63,8 +65,10 @@ function ReadingList() {
   return (
     <SimpleGrid columns={1} spacing={10}>
       <Text align={"center"}>
-        创建 <a href={"https://github.com/prompt-engineering/prompt-generator/tree/master/public/data"}>Pull Request</a>{" "}
-        <ExternalLinkIcon />
+        创建 &nbsp;
+        <a href={"https://github.com/prompt-engineering/prompt-generator/tree/master/public/data"}>
+          Pull Request <ExternalLinkIcon />{" "}
+        </a>{" "}
         ，添加更多的阅读材料
       </Text>
       <Heading as='h3'>AI Resources</Heading>

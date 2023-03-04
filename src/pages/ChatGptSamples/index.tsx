@@ -1,8 +1,7 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
 import { Button, CardBody, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
-import ReactMarkdown from "react-markdown";
-
 import Link from "next/link";
 
 import samples from "@/assets/chatgpt/samples/index.json";
@@ -21,7 +20,9 @@ function ChatGptSamples() {
               </CardHeader>
               <CardBody>
                 <Stack>
-                  <ReactMarkdown>{sample?.preview ? sample.preview : "no preview"}</ReactMarkdown>
+                  <ReactMarkdown>
+                    {sample?.preview ? sample.preview.replaceAll("\n", "\n\n") : "no preview"}
+                  </ReactMarkdown>
                 </Stack>
               </CardBody>
 

@@ -1,10 +1,10 @@
 import React from "react";
 import { Button, Flex, Grid, Heading, Input, InputGroup, InputRightElement, SimpleGrid, Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
-import sdImage from "@/assets/stable-diffusion-demo.jpeg";
 import Image from "next/image";
 import CopyComponent from "@/components/CopyComponent";
 import PromptFieldForm, { SdPromptField } from "@/components/PromptFieldForm";
+import sdImage from "@/assets/stable-diffusion-demo.jpeg";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { FormControl, FormLabel, Heading, IconButton, Input, Select, Grid, GridItem } from "@chakra-ui/react";
+import { FormControl, FormLabel, Grid, Heading, IconButton, Input } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
 import { Form, Formik } from "formik";
-import CopyComponent from "@/components/CopyComponent";
-
 import { numberToChineseOrdinal } from "chinese-numbering";
+
+import CopyComponent from "@/components/CopyComponent";
 
 function ChatGptCotGenerator() {
   const [markdown, setMarkdown] = useState("");
