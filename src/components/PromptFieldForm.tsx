@@ -39,7 +39,7 @@ function PromptFieldForm(props: FieldFormProp) {
 
       <Select
         name={field.name}
-        placeholder={`Select ${field.label}`}
+        placeholder={`-`}
         onChange={(event) => {
           console.log(color);
           if (color !== "") {
