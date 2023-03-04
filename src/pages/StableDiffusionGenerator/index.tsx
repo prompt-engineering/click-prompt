@@ -330,13 +330,14 @@ function StableDiffusionGenerator() {
 
   return (
     <SimpleGrid spacing={ 10 }>
-      <Heading as={ 'h3' }>画人</Heading>
+      <Heading as={ 'h3' }>方式 一：ChatGPT 生成 Tag</Heading>
       <InputGroup size='lg'>
         <Input placeholder={ '懒人模式，输入你的场景' } value={ lazyText } onChange={ handleChange } />
         <InputRightElement width='4.5rem'>
           <CopyComponent value={ toGptTemplate(lazyText) } />
         </InputRightElement>
       </InputGroup>
+      <Heading as={ 'h3' }>方式 二：手动画人</Heading>
       <form onSubmit={ formik.handleSubmit }>
         <SimpleGrid gap={ 3 } p={ 3 } columns={ 6 }>
           { sdCommonPrompts.map((field) => (

@@ -39,7 +39,7 @@ const StyleColor = styled.div`
 
 const Swatch = styled.div`
   display: inline-block;
-  padding: 5px;
+  padding: 1px;
   top: 4px;
   left: 4px;
   position: relative;
