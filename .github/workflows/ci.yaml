@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ["lts", "current"]
+        node-version: ["lts/gallium", "lts/hydrogen", "current"]
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
