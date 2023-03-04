@@ -42,7 +42,7 @@ export default function NavBar() {
     <Flex py='4' pl='20' pr='20' boxShadow='base'>
       <Flex>
         <Heading size='md' mr={4}>
-          Prompt Generator
+          <Link href={"/"}>PromptGenerator</Link>
         </Heading>
         {NavList.map((nav) => (
           <Link key={nav.url} href={nav.url}>
