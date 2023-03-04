@@ -37,6 +37,8 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm install
+      - name: Generate ChatGPT Samples
+        run: npm run gen:samples:index
       - name: Build
         run: npm run build
       - name: Setup Pages

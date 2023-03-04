@@ -10,7 +10,8 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "prettier .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "gen:samples:index": "node gen/generate-samples-index.js"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
@@ -48,9 +49,11 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
+    "js-yaml": "^4.1.0",
     "lint-staged": "^13.1.2",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
-    "tailwindcss": "^3.2.7"
+    "tailwindcss": "^3.2.7",
+    "walkdir": "^0.4.1"
   }
 }
