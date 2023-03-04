@@ -3,6 +3,7 @@ import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "@/components/DataTable/DataTable";
 import parseCsv from "@/data-processor/CsvParser";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 type ReadingResource = {
   name: string;
@@ -61,7 +62,11 @@ function ReadingList() {
 
   return (
     <SimpleGrid columns={1} spacing={10}>
-      <Text align={"center"}>欢迎 Pull Request，添加更多的阅读材料</Text>
+      <Text align={"center"}>
+        创建 <a href={"https://github.com/prompt-engineering/prompt-generator/tree/master/public/data"}>Pull Request</a>{" "}
+        <ExternalLinkIcon />
+        ，添加更多的阅读材料
+      </Text>
       <Heading as='h3'>AI Resources</Heading>
       {aiResource && <DataTable data={aiResource} columns={columns} />}
       <Heading as='h3'>中文</Heading>
