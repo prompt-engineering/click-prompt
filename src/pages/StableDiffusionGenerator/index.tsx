@@ -8,26 +8,13 @@ import sdImage from "@/assets/stable-diffusion-demo.jpeg";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
-    name: "hair",
-    label: "发型",
-    colored: true,
+    name: "body_shape",
+    label: "体型",
     selectValues: [
-      { key: "长发", value: "long hair" },
-      { key: "短发", value: "short hair" },
-      { key: "中发", value: "medium hair" },
-      { key: "高马尾", value: "high ponytail" },
-      { key: "低马尾", value: "low ponytail" },
-      { key: "双马尾", value: "twin tails" },
-      { key: "刘海", value: "bangs" },
-    ],
-  },
-  {
-    name: "eyes",
-    label: "眼睛",
-    colored: true,
-    selectValues: [
-      { key: "细节", value: "details eyes" },
-      { key: "眼妆", value: "exquisite eye makeup" },
+      { key: "瘦的", value: "thin body" },
+      { key: "正常体型", value: "normal body shape" },
+      { key: "丰满的", value: "plump body" },
+      { key: "肥胖的", value: "fat body" },
     ],
   },
   {
@@ -41,6 +28,36 @@ const sdDetailedPromptFields: SdPromptField[] = [
       { key: "三角脸", value: "triangle face" },
       { key: "心形脸", value: "heart face" },
       { key: "菱形脸", value: "diamond face" },
+    ],
+  },
+  {
+    name: "hair",
+    label: "发型",
+    colored: true,
+    selectValues: [
+      { key: "高马尾", value: "high ponytail" },
+      { key: "低马尾", value: "low ponytail" },
+      { key: "双马尾", value: "twin tails" },
+      { key: "直发", value: "" },
+      { key: "刘海", value: "bangs" },
+    ],
+  },
+  {
+    name: "hair_length",
+    label: "头发长度",
+    selectValues: [
+      { key: "短发", value: "short hair" },
+      { key: "长发", value: "long hair" },
+      { key: "中发", value: "medium hair" },
+    ],
+  },
+  {
+    name: "eyes",
+    label: "眼睛",
+    colored: true,
+    selectValues: [
+      { key: "细节", value: "details eyes" },
+      { key: "眼妆", value: "exquisite eye makeup" },
     ],
   },
   {
@@ -106,6 +123,19 @@ const sdCommonPrompts: SdPromptField[] = [
       { key: "动漫", value: "anime" },
       { key: "照片", value: "real, photorealistic" },
       { key: "卡通", value: "cartoon" },
+    ],
+  },
+  {
+    name: "person",
+    label: "人物",
+    selectValues: [
+      { key: "1个女孩", value: "1 girl" },
+      { key: "1个男孩", value: "1 boy" },
+      { key: "1个女性", value: "1 female" },
+      { key: "1个男性", value: "1 male" },
+      { key: "双胞胎女孩", value: "twin girls" },
+      { key: "双胞胎男孩", value: "twin boys" },
+      { key: "龙凤胎", value: "twins one boy and one girl" },
     ],
   },
   {
@@ -176,6 +206,40 @@ const sdPersonPromptFields: SdPromptField[] = [
       { value: "hair ornament", key: "发饰" },
       { value: "hairpin", key: "簪" },
       { value: "hat", key: "帽子" },
+      { value: "choker", key: "项圈" },
+    ],
+  },
+  {
+    name: "expression",
+    label: "情绪",
+    selectValues: [
+      { key: "微笑", value: "smile" },
+      { key: "开心", value: "happy" },
+      { key: "大笑", value: "laughing" },
+      { key: "沮丧", value: "depressed" },
+      { key: "冷漠", value: "indifferent" },
+      { key: "痛苦", value: "pain" },
+      { key: "亲吻", value: "kissing" },
+    ],
+  },
+  {
+    name: "action",
+    label: "动作",
+    selectValues: [
+      { key: "双手背后", value: "arms behind back" },
+      { key: "跳舞", value: "dancing" },
+      { key: "喝酒", value: "drinking" },
+      { key: "吃饭", value: "eating" },
+      { key: "跌倒", value: "falling down" },
+      { key: "飞行", value: "flying" },
+      { key: "拥抱", value: "hugging" },
+      { key: "跳跃", value: "jumping" },
+      { key: "踢", value: "kicking" },
+      { key: "躺下", value: "lying down" },
+      { key: "躺在背上", value: "lying on back" },
+      { key: "躺在侧面", value: "lying on side" },
+      { key: "躺在肚子上", value: "lying on stomach" },
+      { key: "躺在地上", value: "lying on ground" },
     ],
   },
   {
@@ -231,28 +295,6 @@ const sdPersonPromptFields: SdPromptField[] = [
       { key: "裙子", value: "skirt" },
       { key: "长裙", value: "long skirt" },
       { key: "百褶裙", value: "pleated skirt" },
-    ],
-  },
-  {
-    name: "action",
-    label: "动作",
-    selectValues: [
-      { key: "双手背后", value: "arms behind back" },
-      { key: "跳舞", value: "dancing" },
-      { key: "喝酒", value: "drinking" },
-      { key: "吃饭", value: "eating" },
-      { key: "跌倒", value: "falling down" },
-      { key: "飞行", value: "flying" },
-      { key: "拥抱", value: "hugging" },
-      { key: "跳跃", value: "jumping" },
-      { key: "踢", value: "kicking" },
-      { key: "亲吻", value: "kissing" },
-      { key: "笑", value: "laughing" },
-      { key: "躺下", value: "lying down" },
-      { key: "躺在背上", value: "lying on back" },
-      { key: "躺在侧面", value: "lying on side" },
-      { key: "躺在肚子上", value: "lying on stomach" },
-      { key: "躺在地上", value: "lying on ground" },
     ],
   },
 ];
@@ -349,7 +391,7 @@ function StableDiffusionGenerator() {
       </InputGroup>
       <Heading as={"h3"}>方式 二：手动画人</Heading>
       <form onSubmit={formik.handleSubmit}>
-        <SimpleGrid gap={3} p={3} columns={7}>
+        <SimpleGrid gap={3} p={3} columns={8}>
           {sdCommonPrompts.map((field) => PromptFieldForm({ field, formik }))}
         </SimpleGrid>
 
