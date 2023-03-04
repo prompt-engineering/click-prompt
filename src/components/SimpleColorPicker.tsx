@@ -10,14 +10,6 @@ export enum ColorType {
   Normal = "Normal",
 }
 
-export enum HumanSkinColor {
-  White = "rgba(255, 255, 255, 1)",
-  Black = "rgba(0, 0, 0, 1)",
-  Yellow = "rgba(255, 255, 0, 1)",
-  Brown = "rgba(255, 165, 0, 1)",
-  DarkBrown = "rgba(139, 69, 19, 1)",
-}
-
 type SimpleColorProps = {
   colorType?: ColorType;
 
@@ -46,8 +38,8 @@ function SimpleColorPicker(props: SimpleColorProps) {
     setColor(newColor);
     if (props.updateColor) {
       let colorName = nearest(color.hex).name;
-      console.log("nearest color: " + colorName);
-      props.updateColor(colorName);
+      // we should add color after the color name, so the StableDiffusion can parse it
+      props.updateColor(colorName + " color");
     }
   };
 
