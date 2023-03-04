@@ -26,7 +26,7 @@ Todos:
 - [x] setup projects
   - [x] init project
   - [ ] setup CI
-  - [ ] config prettier, eslint, husky
+  - [x] config prettier, eslint, husky
   - [ ] commit lint, style lint
 - [ ] setup docs
 - [ ] our cheatsheet

@@ -1,41 +1,10 @@
-import React, { ChangeEventHandler } from "react";
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Grid,
-  Heading,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Select,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/react";
+import React from "react";
+import { Button, Flex, Grid, Heading, Input, InputGroup, InputRightElement, SimpleGrid, Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import sdImage from "@/assets/stable-diffusion-demo.jpeg";
 import Image from "next/image";
-// @ts-ignore
-import { MaterialPicker } from "react-color";
 import CopyComponent from "@/components/CopyComponent";
-import SimpleColorPicker from "@/components/SimpleColorPicker";
-
-type SdPromptField = {
-  name: string;
-  label: string;
-
-  colored?: boolean;
-
-  selectValues: SelectValue[];
-
-  children?: SdPromptField[];
-};
-
-type SelectValue = {
-  key: string;
-  value: string;
-};
+import PromptFieldForm, { SdPromptField } from "@/pages/StableDiffusionGenerator/PromptFieldForm";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
@@ -82,14 +51,14 @@ const sdDetailedPromptFields: SdPromptField[] = [
     ],
   },
   {
-    name: "breasts",
+    name: "chest",
     label: "胸部",
     selectValues: [
-      { key: "巨大", value: "huge breasts" },
-      { key: "大", value: "large breasts" },
-      { key: "中等", value: "medium breasts" },
-      { key: "小", value: "small breasts" },
-      { key: "微小", value: "tiny breasts" },
+      { key: "巨大", value: "huge" },
+      { key: "大", value: "large" },
+      { key: "中等", value: "medium" },
+      { key: "小", value: "small" },
+      { key: "微小", value: "tiny" },
     ],
   },
   {
@@ -297,36 +266,19 @@ const sdPersonPromptFields: SdPromptField[] = [
   },
 ];
 
-function promptFieldForm(field: SdPromptField) {
-  return (
-    <FormControl key={field.name} id={field.name} mt={2}>
-      <FormLabel>
-        {field.label} {field.colored && <SimpleColorPicker />}{" "}
-      </FormLabel>
-      <Select name={field.name} placeholder={`Select ${field.label}`}>
-        {field.selectValues.map((select, index) => (
-          <option key={field.name + "-" + index} value={select.value}>
-            {select.key}
-          </option>
-        ))}
-      </Select>
-    </FormControl>
-  );
-}
-
 function StableDiffusionGenerator() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [text, setText] = React.useState("");
 
-  let fields = sdDetailedPromptFields.concat(sdPersonPromptFields);
-  fields = fields.concat(sdCommonPrompts);
-
+  let fields = sdDetailedPromptFields.concat(sdPersonPromptFields).concat(sdCommonPrompts);
   const formik = useFormik({
     initialValues: fields.reduce((acc: any, field) => {
       acc[field.name] = "";
       return acc;
     }, {}),
     onSubmit: (values) => {
+      console.log(formik.initialValues);
+      console.log(values);
       const filteredValues = Object.keys(values).reduce((acc: any, key) => {
         if (values[key] !== "") {
           acc[key] = values[key];
@@ -339,15 +291,11 @@ function StableDiffusionGenerator() {
     },
   });
 
-  console.log(formik.initialValues);
-
   const [lazyText, setLazyText] = React.useState("");
   const handleChange = (event: any) => setLazyText(event.target.value);
-  const toGptTemplate = (
-    text: string,
-  ) => `我在用 NovelAI 画画，我的场景是：${text}，结果需要转为 tag 格式。要求如下：
+  const toGptTemplate = (text: string) => `我在用 NovelAI 画画，我的场景是：${text}，结果需要转为 tag 格式。要求如下：
 第一步：请用 100 字左右中文描述这个场景。
-第二步：将场景内所有元素及其关系和描述词，都用 tag 描述。tag 的数量不限，但是请尽量详细。每个 tag 不超五个单词，用逗号分隔。   
+第二步：将场景内所有元素及其关系和描述词，都用 tag 描述。tag 的数量不限，但是请尽量详细。每个 tag 不超五个单词，用逗号分隔。
 第三步：tag 使用英文描述。
 
 格式如下：
@@ -365,11 +313,7 @@ function StableDiffusionGenerator() {
     <SimpleGrid spacing={10}>
       <Heading as={"h3"}>方式 一：ChatGPT 生成 Tag</Heading>
       <InputGroup size='lg'>
-        <Input
-          placeholder={"懒人模式，输入你的场景"}
-          value={lazyText}
-          onChange={handleChange}
-        />
+        <Input placeholder={"懒人模式，输入你的场景"} value={lazyText} onChange={handleChange} />
         <InputRightElement width='4.5rem'>
           <CopyComponent value={toGptTemplate(lazyText)} />
         </InputRightElement>
@@ -377,14 +321,14 @@ function StableDiffusionGenerator() {
       <Heading as={"h3"}>方式 二：手动画人</Heading>
       <form onSubmit={formik.handleSubmit}>
         <SimpleGrid gap={3} p={3} columns={6}>
-          {sdCommonPrompts.map((field) => promptFieldForm(field))}
+          {sdCommonPrompts.map((field) => PromptFieldForm({ field, formik }))}
         </SimpleGrid>
 
         <Flex alignItems='start' gap='2'>
           <Grid>
             <Text>人物</Text>
             <SimpleGrid gap={3} p={3} columns={2}>
-              {sdPersonPromptFields.map((field) => promptFieldForm(field))}
+              {sdPersonPromptFields.map((field) => PromptFieldForm({ field, formik }))}
             </SimpleGrid>
           </Grid>
 
@@ -393,19 +337,14 @@ function StableDiffusionGenerator() {
           <Grid>
             <Text>身体</Text>
             <SimpleGrid gap={3} p={3} columns={2}>
-              {sdDetailedPromptFields.map((field) => promptFieldForm(field))}
+              {sdDetailedPromptFields.map((field) => PromptFieldForm({ field, formik }))}
             </SimpleGrid>
           </Grid>
         </Flex>
 
         <Text> {text}</Text>
 
-        <Button
-          mt={4}
-          colorScheme='teal'
-          isLoading={isSubmitting}
-          type='submit'
-        >
+        <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
           创造
         </Button>
       </form>
