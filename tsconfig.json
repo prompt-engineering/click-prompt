@@ -1,7 +1,8 @@
 {
+  "baseUrl": ".", // This has to be specified if "paths" is.
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es5",
+    "target": "ES6",
     "lib": [
       "dom",
       "dom.iterable",
