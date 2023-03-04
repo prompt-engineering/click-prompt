@@ -13,6 +13,8 @@ import {
 } from "@chakra-ui/react";
 import ReactMarkdown from "react-markdown";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
+import styled from "@emotion/styled";
+import CopyComponent from "@/components/CopyComponent";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
@@ -62,7 +64,7 @@ export default function Sample({ content }: Props) {
       <h1>
         {content.name} by {content.author}
       </h1>
-      <Accordion allowMultiple>
+      <Accordion allowMultiple index={content.steps.map((_, index) => index)}>
         {content.steps.map((step, index) => (
           <AccordionItem key={index}>
             <h2>
@@ -74,22 +76,15 @@ export default function Sample({ content }: Props) {
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              <Card>
-                <CardBody>
-                  <Heading as={"h2"} size={"md"}>
-                    Human
-                  </Heading>
-                  <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
-                </CardBody>
-              </Card>
-              <Card>
-                <CardBody>
-                  <Heading as={"h2"} size={"md"}>
-                    AI
-                  </Heading>
-                  <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
-                </CardBody>
-              </Card>
+              <Heading size='md'>Human</Heading>
+              <HumanBlock>
+                <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                <CopyComponent value={step.ask} />
+              </HumanBlock>
+              <AiBlock>
+                <Heading size='md'>AI</Heading>
+                <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
+              </AiBlock>
             </AccordionPanel>
           </AccordionItem>
         ))}
@@ -97,3 +92,25 @@ export default function Sample({ content }: Props) {
     </>
   );
 }
+
+const HumanBlock = styled.div`
+  background-color: rgba(247, 247, 248);
+  border-color: rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+`;
+
+const AiBlock = styled.div`
+  background-color: #fff;
+  padding: 1rem;
+
+  p {
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .empty-language {
+    float: left;
+    width: 100%;
+    padding: 0.5rem;
+  }
+`;
