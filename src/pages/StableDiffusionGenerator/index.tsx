@@ -18,13 +18,17 @@ const sdDetailedPromptFields: SdPromptField[] = [
       { key: "高马尾", value: "high ponytail" },
       { key: "低马尾", value: "low ponytail" },
       { key: "双马尾", value: "twin tails" },
+      { key: "刘海", value: "bangs" },
     ],
   },
   {
     name: "eyes",
     label: "眼睛",
     colored: true,
-    selectValues: [{ key: "细节", value: "details eyes" }],
+    selectValues: [
+      { key: "细节", value: "details eyes" },
+      { key: "眼妆", value: "exquisite eye makeup" },
+    ],
   },
   {
     name: "face",
@@ -43,7 +47,10 @@ const sdDetailedPromptFields: SdPromptField[] = [
     name: "tips",
     label: "嘴唇",
     colored: true,
-    selectValues: [{ key: "细节", value: "details lips" }],
+    selectValues: [
+      { key: "细节", value: "details lips" },
+      { key: "口红", value: "lipstick" },
+    ],
   },
   {
     name: "breasts",
@@ -88,7 +95,7 @@ const sdCommonPrompts: SdPromptField[] = [
     selectValues: [
       {
         key: "高质量",
-        value: "masterpiece, best quality, highres",
+        value: "masterpiece, best quality, highres, ultra high res",
       },
     ],
   },
@@ -97,7 +104,7 @@ const sdCommonPrompts: SdPromptField[] = [
     label: "风格",
     selectValues: [
       { key: "动漫", value: "anime" },
-      { key: "真人", value: "real" },
+      { key: "照片", value: "real, photorealistic" },
       { key: "卡通", value: "cartoon" },
     ],
   },
@@ -105,29 +112,30 @@ const sdCommonPrompts: SdPromptField[] = [
     name: "time",
     label: "时间",
     selectValues: [
-      { key: "早上", value: "in morning" },
-      { key: "下午", value: "in afternoon" },
-      { key: "傍晚", value: "in evening" },
-      { key: "晚上", value: "in night" },
+      { key: "早上", value: "morning" },
+      { key: "下午", value: "afternoon" },
+      { key: "傍晚", value: "evening" },
+      { key: "晚上", value: "night" },
     ],
   },
   {
     name: "light",
     label: "光线",
     selectValues: [
-      { key: "白天", value: "daylight" },
-      { key: "夜晚", value: "night" },
-      { key: "室内", value: "indoor" },
-      { value: "cinematic lighting", key: "电影灯光" },
-      { value: "natural lighting", key: "自然光" },
-      { value: "artificial lighting", key: "人造光" },
+      { key: "自然光", value: "natural lighting" },
+      { key: "电影灯光", value: "cinematic lighting" },
+      { key: "人造光", value: "artificial lighting" },
+      { key: "丁达尔效果", value: "Tyndall effect" },
+      { key: "侧光", value: "side light" },
+      { key: "顶光", value: "top light" },
+      { key: "逆光", value: "backlight" },
     ],
   },
   {
-    name: "camera",
-    label: "镜头",
+    name: "camera_angle",
+    label: "镜头角度",
     selectValues: [
-      { key: "正对", value: "looking at viewer" },
+      { key: "正面", value: "looking at viewer" },
       { key: "侧面", value: "looking sideways" },
       { key: "背面", value: "back of person" },
     ],
@@ -141,21 +149,18 @@ const sdCommonPrompts: SdPromptField[] = [
     ],
   },
   {
-    name: "plant",
-    label: "植物",
+    name: "shot_types",
+    label: "景别",
     selectValues: [
-      { key: "花", value: "flower" },
-      { key: "桃花", value: "peach blossom tree" },
-      { key: "樱花", value: "cherry blossom tree" },
-      { key: "花瓣", value: "blossom" },
-      { key: "叶子", value: "leaf" },
-      { key: "草", value: "grass" },
-      { key: "树", value: "tree" },
-      { key: "灌木", value: "bush" },
-      { key: "仙人掌", value: "cactus" },
-      { key: "竹子", value: "bamboo" },
-      { key: "松树", value: "pine tree" },
-      { key: "松果", value: "pinecone" },
+      { key: "全身", value: "full body" },
+      { key: "半身", value: "half body" },
+      { key: "上半身", value: "upper body" },
+      { key: "下半身", value: "lower body" },
+      { key: "特写", value: "close up" },
+      { key: "近景", value: "close shot" },
+      { key: "中景", value: "medium shot" },
+      { key: "全景", value: "panoramic" },
+      { key: "远景", value: "vision" },
     ],
   },
 ];
@@ -164,21 +169,13 @@ const sdPersonPromptFields: SdPromptField[] = [
   {
     name: "head",
     label: "头部",
+    colored: true,
     selectValues: [
       { value: "headband", key: "头饰" },
       { value: "hair accessory", key: "发饰" },
       { value: "hair ornament", key: "发饰" },
       { value: "hairpin", key: "簪" },
-    ],
-  },
-  {
-    name: "body",
-    label: "全身/半身",
-    selectValues: [
-      { key: "全身", value: "full body" },
-      { key: "半身", value: "half body" },
-      { key: "上半身", value: "upper body" },
-      { key: "下半身", value: "lower body" },
+      { value: "hat", key: "帽子" },
     ],
   },
   {
@@ -187,11 +184,13 @@ const sdPersonPromptFields: SdPromptField[] = [
     selectValues: [
       { key: "中国风", value: "chinese clothes style" },
       { key: "日本风", value: "japanese clothes style" },
+      { key: "洛丽塔", value: "lolita" },
     ],
   },
   {
     name: "upper_clothes",
     label: "上半身服饰",
+    colored: true,
     selectValues: [
       { key: "T恤", value: "tshirt" },
       { key: "衬衫", value: "shirt" },
@@ -221,12 +220,17 @@ const sdPersonPromptFields: SdPromptField[] = [
   {
     name: "lower_clothes",
     label: "下半身服饰",
+    colored: true,
     selectValues: [
       { key: "丝袜", value: "stockings" },
       { key: "黑丝", value: "black stockings" },
       { key: "牛仔裤", value: "jeans" },
       { key: "长裤", value: "pants" },
       { key: "短裤", value: "shorts" },
+      { key: "阔腿裤", value: "Wide leg pants" },
+      { key: "裙子", value: "skirt" },
+      { key: "长裙", value: "long skirt" },
+      { key: "百褶裙", value: "pleated skirt" },
     ],
   },
   {
@@ -251,12 +255,16 @@ const sdPersonPromptFields: SdPromptField[] = [
       { key: "躺在地上", value: "lying on ground" },
     ],
   },
+];
+
+const sdOtherPromptFields: SdPromptField[] = [
   {
     name: "background",
     label: "背景",
     selectValues: [
       { key: "天空", value: "sky" },
       { key: "森林", value: "forest" },
+      { key: "草地", value: "grassland" },
       { key: "山", value: "mountain" },
       { key: "城市", value: "city" },
       { key: "海滩", value: "beach" },
@@ -265,6 +273,24 @@ const sdPersonPromptFields: SdPromptField[] = [
       { key: "雪", value: "snow" },
       { key: "洞穴", value: "cave" },
       { key: "太空", value: "space" },
+    ],
+  },
+  {
+    name: "plant",
+    label: "植物",
+    selectValues: [
+      { key: "花", value: "flower" },
+      { key: "桃花", value: "peach blossom tree" },
+      { key: "樱花", value: "cherry blossom tree" },
+      { key: "花瓣", value: "blossom" },
+      { key: "叶子", value: "leaf" },
+      { key: "草", value: "grass" },
+      { key: "树", value: "tree" },
+      { key: "灌木", value: "bush" },
+      { key: "仙人掌", value: "cactus" },
+      { key: "竹子", value: "bamboo" },
+      { key: "松树", value: "pine tree" },
+      { key: "松果", value: "pinecone" },
     ],
   },
 ];
@@ -332,6 +358,11 @@ function StableDiffusionGenerator() {
             <Text>人物</Text>
             <SimpleGrid gap={3} p={3} columns={2}>
               {sdPersonPromptFields.map((field) => PromptFieldForm({ field, formik }))}
+            </SimpleGrid>
+
+            <Text>其他</Text>
+            <SimpleGrid gap={3} p={3} columns={2}>
+              {sdOtherPromptFields.map((field) => PromptFieldForm({ field, formik }))}
             </SimpleGrid>
           </Grid>
 
