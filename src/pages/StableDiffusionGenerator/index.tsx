@@ -255,12 +255,16 @@ const sdPersonPromptFields: SdPromptField[] = [
       { key: "躺在地上", value: "lying on ground" },
     ],
   },
+];
+
+const sdOtherPromptFields: SdPromptField[] = [
   {
     name: "background",
     label: "背景",
     selectValues: [
       { key: "天空", value: "sky" },
       { key: "森林", value: "forest" },
+      { key: "草地", value: "grassland" },
       { key: "山", value: "mountain" },
       { key: "城市", value: "city" },
       { key: "海滩", value: "beach" },
@@ -354,6 +358,11 @@ function StableDiffusionGenerator() {
             <Text>人物</Text>
             <SimpleGrid gap={3} p={3} columns={2}>
               {sdPersonPromptFields.map((field) => PromptFieldForm({ field, formik }))}
+            </SimpleGrid>
+
+            <Text>其他</Text>
+            <SimpleGrid gap={3} p={3} columns={2}>
+              {sdOtherPromptFields.map((field) => PromptFieldForm({ field, formik }))}
             </SimpleGrid>
           </Grid>
 
