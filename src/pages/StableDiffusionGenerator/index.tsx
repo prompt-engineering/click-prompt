@@ -75,14 +75,14 @@ const sdDetailedPromptFields: SdPromptField[] = [
     }]
   },
   {
-    name: 'breasts',
+    name: 'chest',
     label: '胸部',
     selectValues: [
-      { key: '巨大', value: 'huge breasts' },
-      { key: '大', value: 'large breasts' },
-      { key: '中等', value: 'medium breasts' },
-      { key: '小', value: 'small breasts' },
-      { key: '微小', value: 'tiny breasts' }
+      { key: '巨大', value: 'huge' },
+      { key: '大', value: 'large' },
+      { key: '中等', value: 'medium' },
+      { key: '小', value: 'small' },
+      { key: '微小', value: 'tiny' }
     ]
   },
   {
@@ -287,26 +287,11 @@ const sdPersonPromptFields: SdPromptField[] = [
   }
 ]
 
-function promptFieldForm(field: SdPromptField) {
-  return <FormControl key={ field.name } id={ field.name } mt={ 2 }>
-    <FormLabel>{ field.label } { field.colored && <SimpleColorPicker /> } </FormLabel>
-    <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
-      { field.selectValues.map((select, index) => (
-        <option key={ field.name + '-' + index } value={ select.value }>
-          { select.key }
-        </option>
-      )) }
-    </Select>
-  </FormControl>
-}
-
 function StableDiffusionGenerator() {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [text, setText] = React.useState('')
 
-  let fields = sdDetailedPromptFields.concat(sdPersonPromptFields)
-  fields = fields.concat(sdCommonPrompts)
-
+  let fields = sdDetailedPromptFields.concat(sdPersonPromptFields).concat(sdCommonPrompts)
   const formik = useFormik({
     initialValues: fields.reduce((acc: any, field) => {
       acc[field.name] = ''
@@ -324,8 +309,6 @@ function StableDiffusionGenerator() {
       setText(prompt)
     }
   })
-
-  console.log(formik.initialValues)
 
   const [lazyText, setLazyText] = React.useState('')
   const handleChange = (event: any) => setLazyText(event.target.value)
@@ -357,14 +340,36 @@ function StableDiffusionGenerator() {
       <Heading as={ 'h3' }>方式 二：手动画人</Heading>
       <form onSubmit={ formik.handleSubmit }>
         <SimpleGrid gap={ 3 } p={ 3 } columns={ 6 }>
-          { sdCommonPrompts.map((field) => promptFieldForm(field)) }
+          { sdCommonPrompts.map((field) => (
+            <FormControl key={ field.name } id={ field.name } mt={ 2 }>
+              <FormLabel>{ field.label }</FormLabel>
+              <Select name={ field.name } placeholder={ `Select ${ field.label }` } onChange={ formik.handleChange }>
+                { field.selectValues.map((select, index) => (
+                  <option key={ field.name + '-' + index } value={ select.value }>
+                    { select.key }
+                  </option>
+                )) }
+              </Select>
+            </FormControl>
+          )) }
         </SimpleGrid>
 
         <Flex alignItems='start' gap='2'>
           <Grid>
             <Text>人物</Text>
             <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
-              { sdPersonPromptFields.map((field) => promptFieldForm(field)) }
+              { sdPersonPromptFields.map((field) => (
+                <FormControl key={ field.name } id={ field.name } mt={ 2 }>
+                  <FormLabel>{ field.label }</FormLabel>
+                  <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
+                    { field.selectValues.map((select, index) => (
+                      <option key={ field.name + '-' + index } value={ select.value }>
+                        { select.key }
+                      </option>
+                    )) }
+                  </Select>
+                </FormControl>
+              )) }
 
             </SimpleGrid>
           </Grid>
@@ -374,7 +379,18 @@ function StableDiffusionGenerator() {
           <Grid>
             <Text>身体</Text>
             <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
-              { sdDetailedPromptFields.map((field) => promptFieldForm(field)) }
+              { sdDetailedPromptFields.map((field) => (
+                <FormControl key={ field.name } id={ field.name } mt={ 2 }>
+                  <FormLabel>{ field.label } { field.colored && <SimpleColorPicker /> } </FormLabel>
+                  <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
+                    { field.selectValues.map((select, index) => (
+                      <option key={ field.name + '-' + index } value={ select.value }>
+                        { select.key }
+                      </option>
+                    )) }
+                  </Select>
+                </FormControl>
+              )) }
             </SimpleGrid>
           </Grid>
         </Flex>
