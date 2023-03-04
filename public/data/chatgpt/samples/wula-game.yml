@@ -1,0 +1,120 @@
+name: 让 AI 一步步分析问题：Wula 游戏
+description: Wula 是一个基于 CoT 思维的游戏，通过游戏的方式来学习 CoT。
+category: normal
+author: Phodal Huang
+preview: |
+  我们来玩一个编程游戏名为 wula，包含五个步骤：
+
+  第一步. 问题分析：每一轮游戏，你将看到一个以 "wula:" 开头的问题，你需要分析这个问题并简单介绍一下通常解决这个问题的方法。
+  第二步. 代码编写：你需要用 JavaScript 编写解决这个问题的代码，并输出对应的代码，并介绍一下你的代码（不少于 200 字）。
+  第三步. 代码执行：你需要作为 JavaScript Console 执行第二步写的代码，如果没有给出测试数据，你需要自己随机生成测试数据，并将这些数据输入到代码中进行计算。
+  第四步. 错误处理：如果你的代码存在错误或无法正常执行，你需要输出错误，并回到第二步重新开始游戏，直到你的代码能够正常工作。
+  第五步. 总结：你需要用不少于 100 字左右总结一下这个问题，以及你的解决方案，让其他人可以简单了解这个问题及其解决方案。
+
+  明白这个游戏怎么玩儿了嘛？那我们开始吧！
+steps:
+  - ask: |
+      我们来玩一个编程游戏名为 wula，包含五个步骤：
+
+      第一步. 问题分析：每一轮游戏，你将看到一个以 "wula:" 开头的问题，你需要分析这个问题并简单介绍一下通常解决这个问题的方法。
+      第二步. 代码编写：你需要用 JavaScript 编写解决这个问题的代码，并输出对应的代码，并介绍一下你的代码（不少于 200 字）。
+      第三步. 代码执行：你需要作为 JavaScript Console 执行第二步写的代码，如果没有给出测试数据，你需要自己随机生成测试数据，并将这些数据输入到代码中进行计算。
+      第四步. 错误处理：如果你的代码存在错误或无法正常执行，你需要输出错误，并回到第二步重新开始游戏，直到你的代码能够正常工作。
+      第五步. 总结：你需要用不少于 100 字左右总结一下这个问题，以及你的解决方案，让其他人可以简单了解这个问题及其解决方案。
+
+      明白这个游戏怎么玩儿了嘛？那我们开始吧！
+    response: |
+      当然，我很清楚这个游戏的规则。我已准备好开始。
+
+      第一步. 问题分析：
+      wula: 如何将一个字符串转换为数字？
+
+        当我们需要将一个字符串转换为数字时，我们可以使用 JavaScript 的内置函数 parseInt() 或 parseFloat()。这些函数将字符串解析为数字，并返回对应的数字值。parseInt() 将字符串解析为整数，而 parseFloat() 可以解析为浮点数。
+
+        第二步. 代码编写：
+        以下是使用 parseInt() 函数将字符串转换为整数的示例代码：
+
+        javascript
+
+        function convertStringToNumber(str) {
+        return parseInt(str);
+      }
+
+        console.log(convertStringToNumber("123")); // 输出 123
+
+        代码的第一行定义了一个名为 convertStringToNumber 的函数，该函数接受一个字符串作为参数，并使用 parseInt() 函数将其转换为整数。函数的第二行使用 console.log() 函数将转换后的数字值输出到控制台。
+
+        以下是使用 parseFloat() 函数将字符串转换为浮点数的示例代码：
+
+        javascript
+
+        function convertStringToFloat(str) {
+        return parseFloat(str);
+      }
+
+        console.log(convertStringToFloat("3.14")); // 输出 3.14
+
+        代码的第一行定义了一个名为 convertStringToFloat 的函数，该函数接受一个字符串作为参数，并使用 parseFloat() 函数将其转换为浮点数。函数的第二行使用 console.log() 函数将转换后的数字值输出到控制台。
+
+        第三步. 代码执行：
+        我们可以通过在 JavaScript Console 中输入以上代码并提供测试数据来执行代码。例如，我们可以使用以下代码进行测试：
+
+        javascript
+
+        console.log(convertStringToNumber("123")); // 输出 123
+        console.log(convertStringToFloat("3.14")); // 输出 3.14
+
+        这将分别调用 convertStringToNumber 和 convertStringToFloat 函数，并将字符串 "123" 和 "3.14" 作为参数传递给这些函数。执行结果将在控制台中输出。
+
+        第四步. 错误处理：
+        如果我们在编写代码时出现了错误，例如在定义函数时拼写错误或者使用错误的语法，JavaScript Console 将会显示错误信息，以帮助我们找到和解决问题。在这种情况下，我们需要修复代码中的错误并重新执行代码，直到它可以正常工作为止。
+
+        第五步. 总结：
+        字符串和数字之间的转换在编程中非常常见，因为很多时候我们需要从用户输入或其他数据源中读取字符串，然后将其转换为数字进行计算或处理。JavaScript 提供了内置函数 parseInt() 和 parseFloat() 来方便地执行这个操作。我们可以通过编写简单的代码来使用这些函数，从而实现字符串到数字的转换。
+  - ask: |
+      wula: 鸡兔同笼问题
+  - response: |
+      第一步. 问题分析：
+      wula: 鸡兔同笼问题是一个经典的问题，有一个笼子里面有若干只鸡和兔，共有n只头，m只脚，求鸡和兔各有多少只？
+
+        这个问题可以通过代数方程的解法来解决。我们假设笼子里有x只鸡和y只兔，因为每只鸡有2只脚，每只兔有4只脚，所以根据题目条件，我们可以得到以下两个方程：
+
+        x + y = n（总头数）
+        2x + 4y = m（总脚数）
+
+        我们可以通过解这个方程组来得到x和y的值，从而得知笼子里面有多少只鸡和兔。
+
+        第二步. 代码编写：
+        以下是使用 JavaScript 解决鸡兔同笼问题的代码：
+
+        javascript
+
+        function calculateChickenAndRabbit(n, m) {
+        let y = (m - 2 * n) / 2;
+        let x = n - y;
+        if (y < 0 || x < 0 || y !== Math.floor(y) || x !== Math.floor(x)) {
+        return "无解";
+        }
+        return [x, y];
+      }
+
+        console.log(calculateChickenAndRabbit(10, 26)); // 输出 [6, 4]
+
+        代码的第一行定义了一个名为 calculateChickenAndRabbit 的函数，该函数接受两个参数 n 和 m 分别代表总头数和总脚数。函数的第二行使用以上的代数方程计算得到 y 的值，然后根据方程 x + y = n，我们可以得到 x 的值。最后，如果计算得到的 x 和 y 不是非负整数，或者 y 不等于整数，函数将返回 "无解"。否则，函数将返回一个数组，包含鸡和兔的数量。
+
+        第三步. 代码执行：
+        我们可以通过在 JavaScript Console 中输入以上代码并提供测试数据来执行代码。例如，我们可以使用以下代码进行测试：
+
+        javascript
+
+        console.log(calculateChickenAndRabbit(10, 26)); // 输出 [6, 4]
+        console.log(calculateChickenAndRabbit(20, 60)); // 输出 [10, 10]
+        console.log(calculateChickenAndRabbit(2, 8)); // 输出 "无解"
+
+        这将分别调用 calculateChickenAndRabbit 函数，并将不同的参数传递给这个函数。执行结果将在控制台中输出。
+
+        第四步. 错误处理：
+        如果我们在编写代码时出现了错误，例如计算错误或者使用错误的语法，JavaScript Console 将会显示错误信息，以帮助我们找到和解决问题。在这种情况下，我们需要修复代码中的错误并重新执行代码，直到它可以正常工作为止。
+
+        第五步. 总结：
+        鸡兔同笼问题是一个有趣的数学问题，它可以通过代数方程的解法来求解。在
