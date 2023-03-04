@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import sdImage from "@/assets/stable-diffusion-demo.jpeg";
 import Image from "next/image";
 import CopyComponent from "@/components/CopyComponent";
-import PromptFieldForm, { SdPromptField } from "@/pages/StableDiffusionGenerator/PromptFieldForm";
+import PromptFieldForm, { SdPromptField } from "@/components/PromptFieldForm";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
