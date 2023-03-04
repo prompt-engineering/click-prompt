@@ -6,34 +6,46 @@ import { StableDiffusionPrompt } from "@/data-processor/StableDiffusionPrompt";
 // Negative prompt: obese, (ugly:1.3), (duplicate:1.3), (morbid), (mutilated), out of frame, extra fingers, mutated hands, (poorly drawn hands), (poorly drawn face), (mutation:1.3), (deformed:1.3), (amputee:1.3), blurry,( bad anatomy), bad proportions, (extra limbs), cloned face, (disfigured:1.3), gross proportions, (malformed limbs), (missing arms), (missing legs), ((extra arms)), (extra legs), mutated hands, (fused fingers), (too many fingers), (long neck:1.3), lowres, text, error, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry, black and white, monochrome, censored,empty,lingerie,, lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry
 // Steps: 20, Sampler: Euler a, CFG scale: 7, Seed: 1338233768, Size: 512x512, Model hash: f773383dbc, Model: anything-v4.5-pruned-fp16
 export function parseStableDiffusionPrompt(prompt: string): StableDiffusionPrompt {
-  const promptLines = prompt.split("\n");
-  const promptObject = promptLines.reduce((acc: Partial<StableDiffusionPrompt>, line: string) => {
-    const lineParts = line.split(":");
-    const key = lineParts[0];
-    const value = lineParts[1];
+  // first line is prompt, second line is negative prompt, third line is other infos which split by comma
+  const lines = prompt.split("\n");
+  const promptLine = lines[0];
+  const negativePromptLine = lines[1];
+  const otherInfosLine = lines[2];
 
-    if (key === "Prompt") {
-      acc.prompt = value;
-    } else if (key === "Negative prompt") {
-      acc.negativePrompt = value;
-    } else if (key === "Steps") {
-      acc.steps = parseInt(value);
-    } else if (key === "Sampler") {
-      acc.sampler = value;
-    } else if (key === "CFG scale") {
-      acc.cfgScale = parseInt(value);
-    } else if (key === "Seed") {
-      acc.seed = parseInt(value);
-    } else if (key === "Size") {
-      acc.size = value;
-    } else if (key === "Model hash") {
-      acc.modelHash = value;
-    } else if (key === "Model") {
-      acc.model = value;
+  // parse prompt
+  const promptRegex = /Prompt: (.*)/;
+  const promptMatch = promptLine.match(promptRegex);
+  if (!promptMatch) {
+    throw new Error("Invalid prompt");
+  }
+
+  // parse negative prompt
+  const negativePromptRegex = /Negative prompt: (.*)/;
+  const negativePromptMatch = negativePromptLine.match(negativePromptRegex);
+  if (!negativePromptMatch) {
+    throw new Error("Invalid negative prompt");
+  }
+
+  console.log(otherInfosLine);
+  // parse other infos by split comma
+  const otherInfosMatch = otherInfosLine.split(",").map((item) => {
+    const match = item.match(/(.+): (.*)/);
+    if (!match) {
+      throw new Error("Invalid other infos");
     }
+    return match[2];
+  });
 
-    return acc;
-  }, {});
-
-  return promptObject as StableDiffusionPrompt;
+  // return result
+  return {
+    prompt: promptMatch[1],
+    negativePrompt: negativePromptMatch[1],
+    steps: parseInt(otherInfosMatch[0]),
+    sampler: otherInfosMatch[1],
+    cfgScale: parseInt(otherInfosMatch[2]),
+    seed: parseInt(otherInfosMatch[3]),
+    size: otherInfosMatch[4],
+    modelHash: otherInfosMatch[5],
+    model: otherInfosMatch[6],
+  };
 }

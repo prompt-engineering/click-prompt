@@ -11,7 +11,8 @@
     "lint:fix": "next lint --fix",
     "format": "prettier .",
     "format:fix": "prettier --write .",
-    "gen:samples:index": "node gen/generate-samples-index.js"
+    "gen:samples:index": "node gen/generate-samples-index.js",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
@@ -37,6 +38,8 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
     "@types/node": "18.14.5",
     "@types/papaparse": "^5.3.7",
     "@types/react": "18.0.28",
@@ -49,6 +52,8 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
+    "jest": "^29.4.3",
+    "jest-environment-jsdom": "^29.4.3",
     "js-yaml": "^4.1.0",
     "lint-staged": "^13.1.2",
     "postcss": "^8.4.21",
