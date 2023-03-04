@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { ChangeEventHandler } from 'react'
 import {
   Button,
   Flex,
   FormControl,
-  FormLabel, Grid, Heading, Input,
+  FormLabel, Grid, Heading, Input, InputGroup, InputRightElement,
   Select,
   SimpleGrid,
   Text
@@ -12,6 +12,7 @@ import { useFormik } from 'formik'
 import sdImage from '@/assets/stable-diffusion-demo.jpeg'
 import Image from 'next/image'
 import { MaterialPicker } from 'react-color'
+import CopyComponent from '@/components/CopyComponent'
 
 type SdPromptField = {
   name: string;
@@ -308,13 +309,22 @@ function StableDiffusionGenerator() {
     }
   })
 
+  const [lazyText, setLazyText] = React.useState('')
+  const handleChange = (event: any) => setLazyText(event.target.value)
+  const toGptTemplate = (text: string) => `我在用 AI 画画，我的场景是：${ text }，
+需要包含的要素有：${ sdCommonPrompts.map((field) => field.label).join('、') }，用英语写一段描写Tag，并将所有的 Tag 用英文逗号分隔。示例：
+"original, extremely detailed 8K wallpaper,  greasy skin,"。
+`
+
   return (
     <SimpleGrid spacing={ 10 }>
       <Heading as={ 'h3' }>画人</Heading>
-      <Text>Todo: add ChatGPT generate AI</Text>
-      <SimpleGrid columns={ 3 }>
-        <Text>template to ChatGPT</Text><Input placeholder={'Input Your Scene'} /><Button>Create</Button>
-      </SimpleGrid>
+      <InputGroup size='lg'>
+        <Input placeholder={ '懒人模式，输入你的场景' } value={ lazyText } onChange={ handleChange } />
+        <InputRightElement width='4.5rem'>
+          <CopyComponent value={ toGptTemplate(lazyText) } />
+        </InputRightElement>
+      </InputGroup>
       <form onSubmit={ formik.handleSubmit }>
         <SimpleGrid gap={ 3 } p={ 3 } columns={ 6 }>
           { sdCommonPrompts.map((field) => (

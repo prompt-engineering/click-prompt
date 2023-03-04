@@ -26,7 +26,7 @@ const columns = [
   }),
   columnHelper.accessor("prompt", {
     id: "icon",
-    cell: (info) => CopyComponent(info.getValue()),
+    cell: (info) => CopyComponent({ value: info.getValue() }),
     header: "copy",
   }),
 ];
