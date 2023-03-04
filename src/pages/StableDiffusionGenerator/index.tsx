@@ -13,7 +13,7 @@ import {
 import { Form, Formik } from 'formik'
 import sdImage from '@/assets/stable-diffusion-demo.jpeg'
 import Image from 'next/image'
-import { MaterialPicker } from 'react-color';
+import { MaterialPicker } from 'react-color'
 
 type SdPromptField = {
   name: string;
@@ -45,9 +45,10 @@ const sdDetailedPromptFields: SdPromptField[] = [
     selectValues: ['Normal', 'Round', 'Square']
   },
   {
-    name: 'body',
-    label: '身体',
-    selectValues: ['Normal', 'Fat', 'Thin']
+    name: '嘴唇',
+    label: 'tips',
+    colored: true,
+    selectValues: ['colored']
   },
   {
     name: 'chest',
@@ -71,12 +72,11 @@ const sdDetailedPromptFields: SdPromptField[] = [
   }
 ]
 
-/* FormControl: 通用质量,光线,镜头,头部,场景,身体,服饰,动作,背景 */
 const sdCommonPrompts: SdPromptField[] = [
   {
     name: 'quality',
     label: '通用质量',
-    selectValues: ['Normal', 'High']
+    selectValues: ['masterpiece, best quality, highres', 'High']
   },
   {
     name: 'time',
@@ -91,12 +91,17 @@ const sdCommonPrompts: SdPromptField[] = [
   {
     name: 'camera',
     label: '镜头',
-    selectValues: ['Front', 'Back', 'Side']
+    selectValues: ['looking at viewer', 'looking sideways', 'looking away']
   },
   {
     name: 'scene',
     label: '场景',
-    selectValues: ['Front', 'Back', 'Side']
+    selectValues: ['outdoor', 'indoor']
+  },
+  {
+    name: 'plant',
+    label: '植物',
+    selectValues: ['none', 'tree', 'flower', 'peach blossom', 'other']
   }
 ]
 
@@ -129,12 +134,12 @@ const sdPersonPromptFields: SdPromptField[] = [
   {
     name: 'action',
     label: '动作',
-    selectValues: ['Front', 'Back', 'Side']
+    selectValues: ['arms behind back', 'Back', 'Side']
   },
   {
     name: 'background',
     label: '背景',
-    selectValues: ['Front', 'Back', 'Side']
+    selectValues: ['sky', 'forest', 'mountain', 'city', 'beach', 'water', 'desert', 'snow', 'cave', 'space', 'other']
   }
 ]
 
