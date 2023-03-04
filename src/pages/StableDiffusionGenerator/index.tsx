@@ -311,9 +311,20 @@ function StableDiffusionGenerator() {
 
   const [lazyText, setLazyText] = React.useState('')
   const handleChange = (event: any) => setLazyText(event.target.value)
-  const toGptTemplate = (text: string) => `我在用 AI 画画，我的场景是：${ text }，
-需要包含的要素有：${ sdCommonPrompts.map((field) => field.label).join('、') }，用英语写一段描写Tag，并将所有的 Tag 用英文逗号分隔。示例：
-"original, extremely detailed 8K wallpaper,  greasy skin,"。
+  const toGptTemplate = (text: string) => `我在用 NovelAI 画画，我的场景是：${ text }，结果需要转为 tag 格式。要求如下：
+第一步：请用 100 字左右中文描述这个场景。
+第二步：将场景内所有元素及其关系和描述词，都用 tag 描述。tag 的数量不限，但是请尽量详细。每个 tag 不超五个单词，用逗号分隔。   
+第三步：tag 使用英文描述。
+
+格式如下：
+
+"""
+第一步 - 场景：{}
+第二步 - 标签（关系词、名词、动词）：{}
+第三步 - tag：{}
+"""
+
+"""
 `
 
   return (
