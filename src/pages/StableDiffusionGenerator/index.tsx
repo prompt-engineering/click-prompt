@@ -1,16 +1,14 @@
 import React from 'react'
 import {
-  Box,
   Button,
-  Center,
   Flex,
   FormControl,
-  FormLabel, Grid, Heading,
+  FormLabel, Grid, Heading, Input,
   Select,
   SimpleGrid,
   Text
 } from '@chakra-ui/react'
-import { Form, Formik, useFormik } from 'formik'
+import { useFormik } from 'formik'
 import sdImage from '@/assets/stable-diffusion-demo.jpeg'
 import Image from 'next/image'
 import { MaterialPicker } from 'react-color'
@@ -305,7 +303,6 @@ function StableDiffusionGenerator() {
         return acc
       }, {})
 
-      // join with ,
       const prompt = Object.values(filteredValues).join(',')
       setText(prompt)
     }
@@ -314,6 +311,10 @@ function StableDiffusionGenerator() {
   return (
     <SimpleGrid spacing={ 10 }>
       <Heading as={ 'h3' }>画人</Heading>
+      <Text>Todo: add ChatGPT generate AI</Text>
+      <SimpleGrid columns={ 3 }>
+        <Text>template to ChatGPT</Text><Input placeholder={'Input Your Scene'} /><Button>Create</Button>
+      </SimpleGrid>
       <form onSubmit={ formik.handleSubmit }>
         <SimpleGrid gap={ 3 } p={ 3 } columns={ 6 }>
           { sdCommonPrompts.map((field) => (
