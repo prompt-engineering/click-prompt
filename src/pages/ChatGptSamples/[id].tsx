@@ -1,5 +1,7 @@
 import type { GetStaticProps, GetStaticPaths } from "next";
-import { useEffect } from "react";
+import React from "react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from "@chakra-ui/react";
+import ReactMarkdown from "react-markdown";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
@@ -13,7 +15,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 interface Sample {
   name: string;
-  descrption: string;
+  description: string;
   category: string;
   author: string;
   homepage: string;
@@ -43,8 +45,30 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export default function Sample({ content }: Props) {
-  useEffect(() => {
-    console.log("content", content);
-  }, []);
-  return <>{JSON.stringify(content, undefined, 2)}</>;
+  return (
+    <>
+      <h1>
+        {content.name} by {content.author}
+      </h1>
+      <p>{content.category}</p>
+      <p>{content.description}</p>
+      <Accordion allowMultiple>
+        {content.steps.map((step, index) => (
+          <AccordionItem key={index}>
+            <h2>
+              <AccordionButton>
+                <Box flex='1' textAlign='left'>
+                  <ReactMarkdown>{step.ask?.replaceAll("\n", "\n\n")}</ReactMarkdown>
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>
+              <ReactMarkdown>{step.response?.replaceAll("\n", "\n\n")}</ReactMarkdown>
+            </AccordionPanel>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </>
+  );
 }

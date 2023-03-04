@@ -20,10 +20,7 @@ type Sample = {
   steps: SampleStep[];
 };
 
-function ChatGptSamples(props: any) {
-  // 2. render Samples to DataTable
-  // 3. add route for Sample
-
+function ChatGptSamples() {
   return (
     <>
       {samples.length > 0 && (

@@ -35,11 +35,11 @@ steps:
         第二步. 代码编写：
         以下是使用 parseInt() 函数将字符串转换为整数的示例代码：
 
-        javascript
-
+        ```javascript
         function convertStringToNumber(str) {
-        return parseInt(str);
-      }
+          return parseInt(str);
+        }
+        ```
 
         console.log(convertStringToNumber("123")); // 输出 123
 
@@ -47,23 +47,23 @@ steps:
 
         以下是使用 parseFloat() 函数将字符串转换为浮点数的示例代码：
 
-        javascript
-
+        ```javascript
         function convertStringToFloat(str) {
-        return parseFloat(str);
-      }
+          return parseFloat(str);
+        }
 
         console.log(convertStringToFloat("3.14")); // 输出 3.14
+        ```
 
         代码的第一行定义了一个名为 convertStringToFloat 的函数，该函数接受一个字符串作为参数，并使用 parseFloat() 函数将其转换为浮点数。函数的第二行使用 console.log() 函数将转换后的数字值输出到控制台。
 
         第三步. 代码执行：
         我们可以通过在 JavaScript Console 中输入以上代码并提供测试数据来执行代码。例如，我们可以使用以下代码进行测试：
 
-        javascript
-
+        ```javascript
         console.log(convertStringToNumber("123")); // 输出 123
         console.log(convertStringToFloat("3.14")); // 输出 3.14
+        ```
 
         这将分别调用 convertStringToNumber 和 convertStringToFloat 函数，并将字符串 "123" 和 "3.14" 作为参数传递给这些函数。执行结果将在控制台中输出。
 
@@ -88,29 +88,28 @@ steps:
         第二步. 代码编写：
         以下是使用 JavaScript 解决鸡兔同笼问题的代码：
 
-        javascript
-
+        ```javascript
         function calculateChickenAndRabbit(n, m) {
-        let y = (m - 2 * n) / 2;
-        let x = n - y;
-        if (y < 0 || x < 0 || y !== Math.floor(y) || x !== Math.floor(x)) {
-        return "无解";
+          let y = (m - 2 * n) / 2;
+          let x = n - y;
+          if (y < 0 || x < 0 || y !== Math.floor(y) || x !== Math.floor(x)) {
+          return "无解";
+          }
+          return [x, y];
         }
-        return [x, y];
-      }
-
         console.log(calculateChickenAndRabbit(10, 26)); // 输出 [6, 4]
+        ```
 
         代码的第一行定义了一个名为 calculateChickenAndRabbit 的函数，该函数接受两个参数 n 和 m 分别代表总头数和总脚数。函数的第二行使用以上的代数方程计算得到 y 的值，然后根据方程 x + y = n，我们可以得到 x 的值。最后，如果计算得到的 x 和 y 不是非负整数，或者 y 不等于整数，函数将返回 "无解"。否则，函数将返回一个数组，包含鸡和兔的数量。
 
         第三步. 代码执行：
         我们可以通过在 JavaScript Console 中输入以上代码并提供测试数据来执行代码。例如，我们可以使用以下代码进行测试：
 
-        javascript
-
+        ```javascript
         console.log(calculateChickenAndRabbit(10, 26)); // 输出 [6, 4]
         console.log(calculateChickenAndRabbit(20, 60)); // 输出 [10, 10]
         console.log(calculateChickenAndRabbit(2, 8)); // 输出 "无解"
+        ```
 
         这将分别调用 calculateChickenAndRabbit 函数，并将不同的参数传递给这个函数。执行结果将在控制台中输出。
 
