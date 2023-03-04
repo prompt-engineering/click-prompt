@@ -8,10 +8,9 @@ import {
   SimpleGrid,
   Text
 } from '@chakra-ui/react'
-import { useFormik } from 'formik'
+import { FormikErrors, FormikProps, useFormik } from 'formik'
 import sdImage from '@/assets/stable-diffusion-demo.jpeg'
 import Image from 'next/image'
-import { MaterialPicker } from 'react-color'
 import CopyComponent from '@/components/CopyComponent'
 import SimpleColorPicker from '@/components/SimpleColorPicker'
 
@@ -287,6 +286,20 @@ const sdPersonPromptFields: SdPromptField[] = [
   }
 ]
 
+function promptFieldForm(field: SdPromptField, formik: FormikProps<any>) {
+  return <FormControl key={ field.name } id={ field.name } mt={ 2 }>
+    <FormLabel>{ field.label } { field.colored && <SimpleColorPicker /> } </FormLabel>
+    <Select name={ field.name } placeholder={ `Select ${ field.label }` }
+            onChange={ formik.handleChange }>
+      { field.selectValues.map((select, index) => (
+        <option key={ field.name + '-' + index } value={ select.value }>
+          { select.key }
+        </option>
+      )) }
+    </Select>
+  </FormControl>
+}
+
 function StableDiffusionGenerator() {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
   const [text, setText] = React.useState('')
@@ -298,6 +311,8 @@ function StableDiffusionGenerator() {
       return acc
     }, {}),
     onSubmit: (values) => {
+      console.log(formik.initialValues)
+      console.log(values)
       const filteredValues = Object.keys(values).reduce((acc: any, key) => {
         if (values[key] !== '') {
           acc[key] = values[key]
@@ -340,37 +355,14 @@ function StableDiffusionGenerator() {
       <Heading as={ 'h3' }>方式 二：手动画人</Heading>
       <form onSubmit={ formik.handleSubmit }>
         <SimpleGrid gap={ 3 } p={ 3 } columns={ 6 }>
-          { sdCommonPrompts.map((field) => (
-            <FormControl key={ field.name } id={ field.name } mt={ 2 }>
-              <FormLabel>{ field.label }</FormLabel>
-              <Select name={ field.name } placeholder={ `Select ${ field.label }` } onChange={ formik.handleChange }>
-                { field.selectValues.map((select, index) => (
-                  <option key={ field.name + '-' + index } value={ select.value }>
-                    { select.key }
-                  </option>
-                )) }
-              </Select>
-            </FormControl>
-          )) }
+          { sdCommonPrompts.map((field) => promptFieldForm(field, formik)) }
         </SimpleGrid>
 
         <Flex alignItems='start' gap='2'>
           <Grid>
             <Text>人物</Text>
             <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
-              { sdPersonPromptFields.map((field) => (
-                <FormControl key={ field.name } id={ field.name } mt={ 2 }>
-                  <FormLabel>{ field.label }</FormLabel>
-                  <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
-                    { field.selectValues.map((select, index) => (
-                      <option key={ field.name + '-' + index } value={ select.value }>
-                        { select.key }
-                      </option>
-                    )) }
-                  </Select>
-                </FormControl>
-              )) }
-
+              { sdPersonPromptFields.map((field) => promptFieldForm(field, formik)) }
             </SimpleGrid>
           </Grid>
 
@@ -379,18 +371,7 @@ function StableDiffusionGenerator() {
           <Grid>
             <Text>身体</Text>
             <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
-              { sdDetailedPromptFields.map((field) => (
-                <FormControl key={ field.name } id={ field.name } mt={ 2 }>
-                  <FormLabel>{ field.label } { field.colored && <SimpleColorPicker /> } </FormLabel>
-                  <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
-                    { field.selectValues.map((select, index) => (
-                      <option key={ field.name + '-' + index } value={ select.value }>
-                        { select.key }
-                      </option>
-                    )) }
-                  </Select>
-                </FormControl>
-              )) }
+              { sdDetailedPromptFields.map((field) => promptFieldForm(field, formik)) }
             </SimpleGrid>
           </Grid>
         </Flex>
