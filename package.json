@@ -54,6 +54,7 @@
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "tailwindcss": "^3.2.7",
-    "walkdir": "^0.4.1"
+    "walkdir": "^0.4.1",
+    "yaml-loader": "^0.8.0"
   }
 }

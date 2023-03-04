@@ -1,14 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  FormControl,
-  FormLabel,
-  Heading,
-  IconButton,
-  Input,
-  Select,
-  Grid,
-  GridItem,
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, Heading, IconButton, Input, Select, Grid, GridItem } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
@@ -33,9 +24,7 @@ function ChatGptCotGenerator() {
     setMarkdown(
       `我们来玩一个编程游戏名为 ${name}，包含五个步骤：
 
-${lines
-  .map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}`)
-  .join("\n")}
+${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}`).join("\n")}
 
 明白这个游戏怎么玩儿了嘛？那我们开始吧！`.replaceAll("<GameName>", name),
     );
@@ -83,11 +72,7 @@ ${lines
         <Form>
           <FormControl key='name' id='name' mt={4}>
             <FormLabel>GameName</FormLabel>
-            <Input
-              placeholder={"Your game name"}
-              value={name}
-              onChange={(ev) => setName(ev.target.value)}
-            />
+            <Input placeholder={"Your game name"} value={name} onChange={(ev) => setName(ev.target.value)} />
           </FormControl>
           <Grid gap={6} p={6} templateColumns={"auto 4rem"} alignItems='end'>
             {/* 第一步到第 N 步 */}
@@ -117,13 +102,7 @@ ${lines
   );
 }
 
-function RemovableLable({
-  removeLine,
-  index,
-}: {
-  removeLine: (index: number) => void;
-  index: number;
-}) {
+function RemovableLable({ removeLine, index }: { removeLine: (index: number) => void; index: number }) {
   const [hover, setHover] = useState(false);
   return (
     <FormLabel
@@ -132,11 +111,7 @@ function RemovableLable({
       onPointerEnter={() => setHover(true)}
       onPointerLeave={() => setHover(false)}
     >
-      {hover ? (
-        <span className='text-red-500'>delete</span>
-      ) : (
-        "Step " + (index + 1)
-      )}
+      {hover ? <span className='text-red-500'>delete</span> : "Step " + (index + 1)}
     </FormLabel>
   );
 }

@@ -3,6 +3,10 @@ import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
 import { Button, CardBody, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import ReactMarkdown from "react-markdown";
 
+import Link from "next/link";
+
+import samples from "@/assets/chatgpt/samples/index.json";
+
 type SampleStep = {
   ask: string;
   response: string;
@@ -17,17 +21,8 @@ type Sample = {
 };
 
 function ChatGptSamples(props: any) {
-  // 1. fetch Samples from data/chatgpt/templates/index.json
   // 2. render Samples to DataTable
   // 3. add route for Sample
-  const [samples, setSamples] = React.useState<Sample[]>([]);
-  React.useEffect(() => {
-    fetch("/data/chatgpt/samples/index.json")
-      .then((response) => response.json())
-      .then((json) => {
-        setSamples(json);
-      });
-  });
 
   return (
     <>
@@ -47,7 +42,9 @@ function ChatGptSamples(props: any) {
               </CardBody>
 
               <CardFooter>
-                <Button>View here</Button>
+                <Link href={"/ChatGptSamples/" + sample.path.split(".")[0]}>
+                  <Button>View here</Button>
+                </Link>
               </CardFooter>
             </Card>
           ))}
