@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
-import { Grid, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
-import Papa from "papaparse";
 import { DataTable } from "@/components/DataTable/DataTable";
-import { DefaultPapaConfig } from "@/DefaultPapaConfig";
+import parseCsv from "@/data-processor/CsvParser";
 
 type ReadingResource = {
   name: string;
@@ -37,9 +36,7 @@ function ReadingList() {
     fetch("/data/reading-list-cn.csv")
       .then((response) => response.text())
       .then((csv) => {
-        const parseResult = Papa.parse(csv, DefaultPapaConfig);
-
-        console.log(parseResult.data);
+        const parseResult = parseCsv(csv);
         setCnData(parseResult.data);
       });
   }, []);
@@ -48,9 +45,7 @@ function ReadingList() {
     fetch("/data/reading-list-en.csv")
       .then((response) => response.text())
       .then((csv) => {
-        const parseResult = Papa.parse(csv, DefaultPapaConfig);
-
-        console.log(parseResult.data);
+        const parseResult = parseCsv(csv);
         setEnData(parseResult.data);
       });
   }, []);
@@ -59,7 +54,7 @@ function ReadingList() {
     fetch("/data/ai-resources.csv")
       .then((response) => response.text())
       .then((csv) => {
-        const parseResult = Papa.parse(csv, DefaultPapaConfig);
+        const parseResult = parseCsv(csv);
         setAiResource(parseResult.data);
       });
   }, []);
