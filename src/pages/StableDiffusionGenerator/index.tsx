@@ -13,6 +13,7 @@ import sdImage from '@/assets/stable-diffusion-demo.jpeg'
 import Image from 'next/image'
 import { MaterialPicker } from 'react-color'
 import CopyComponent from '@/components/CopyComponent'
+import SimpleColorPicker from '@/components/SimpleColorPicker'
 
 type SdPromptField = {
   name: string;
@@ -379,9 +380,7 @@ function StableDiffusionGenerator() {
             <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
               { sdDetailedPromptFields.map((field) => (
                 <FormControl key={ field.name } id={ field.name } mt={ 2 }>
-                  <FormLabel>{ field.label }</FormLabel>
-                  { field.colored && <MaterialPicker /> }
-
+                  <FormLabel>{ field.label } { field.colored && <SimpleColorPicker /> } </FormLabel>
                   <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
                     { field.selectValues.map((select, index) => (
                       <option key={ field.name + '-' + index } value={ select.value }>
