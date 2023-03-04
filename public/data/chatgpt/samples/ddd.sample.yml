@@ -2,7 +2,7 @@ name: DDD Sample
 description: A sample template for DDD
 category: programming
 author: Phodal Huang
-
+homepage: https://www.phodal.com/
 preview: |
   我们来定义一下 DDD 游戏的步骤，一共有 6 个步骤，步骤如下:
   """

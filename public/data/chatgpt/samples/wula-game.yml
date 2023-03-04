@@ -2,6 +2,7 @@ name: 让 AI 一步步分析问题：Wula 游戏
 description: Wula 是一个基于 CoT 思维的游戏，通过游戏的方式来学习 CoT。
 category: normal
 author: Phodal Huang
+homepage: https://www.phodal.com/
 preview: |
   我们来玩一个编程游戏名为 wula，包含五个步骤：
 
