@@ -1,10 +1,33 @@
-import React from "react";
-import { CompactPicker, SketchPicker } from "react-color";
-import styled from "@emotion/styled";
+import React from 'react'
+import { ChromePicker, ColorResult } from 'react-color'
+import styled from '@emotion/styled'
+// @ts-ignore
+import nearestColor from 'nearest-color'
+import colorNameList from 'color-name-list'
 
-function SimpleColorPicker() {
-  const [color, setColor] = React.useState("rgba(241, 112, 19, 1)");
-  const [displayColorPicker, setDisplayColorPicker] = React.useState(false);
+export enum ColorType {
+  HumanSkin = 'HumanSkin',
+  // Normal Safe Colors
+  Normal = 'Normal',
+}
+
+export enum HumanSkinColor {
+  White = 'rgba(255, 255, 255, 1)',
+  Black = 'rgba(0, 0, 0, 1)',
+  Yellow = 'rgba(255, 255, 0, 1)',
+  Brown = 'rgba(255, 165, 0, 1)',
+  DarkBrown = 'rgba(139, 69, 19, 1)',
+}
+
+type SimpleColorProps = {
+  colorType?: ColorType;
+
+  updateColor?: (color: string) => void;
+}
+
+function SimpleColorPicker(props: SimpleColorProps) {
+  const [color, setColor] = React.useState('rgba(255, 255, 255, 1))')
+  const [displayColorPicker, setDisplayColorPicker] = React.useState(false)
 
   const handleClick = () => {
     setDisplayColorPicker(!displayColorPicker);
@@ -14,21 +37,26 @@ function SimpleColorPicker() {
     setDisplayColorPicker(false);
   };
 
-  const handleChange = (color: any) => {
-    setColor(`rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`);
-  };
+  const colors = colorNameList.reduce((o, { name, hex }) => Object.assign(o, { [name]: hex }), {});
+  const nearest = nearestColor.from(colors);
+  const handleChange = (color: ColorResult) => {
+    let newColor = `rgba(${ color.rgb.r }, ${ color.rgb.g }, ${ color.rgb.b }, ${ color.rgb.a })`
+    setColor(newColor)
+    if (props.updateColor) {
+      let colorName = nearest(color.hex).name
+      console.log("nearest color: " + colorName)
+      props.updateColor(colorName)
+    }
+  }
 
   return (
     <>
-      <Swatch onClick={handleClick}>
-        <StyleColor color={color} />
-      </Swatch>
-      {displayColorPicker ? (
-        <StylePopover>
-          <StyleCover onClick={handleClose} />
-          <CompactPicker color={color} onChange={handleChange} />
-        </StylePopover>
-      ) : null}
+      <Swatch onClick={ handleClick }>
+        <StyleColor color={ color } /></Swatch>
+      { displayColorPicker ? <StylePopover>
+        <StyleCover onClick={ handleClose } />
+        <ChromePicker color={ color } onChange={ handleChange } />
+      </StylePopover> : null }
     </>
   );
 }
@@ -37,8 +65,10 @@ const StyleColor = styled.div`
   width: 16px;
   height: 14px;
   border-radius: 2px;
-  background: ${(props) => props.color};
-`;
+  background: ${
+    props => props.color
+  };
+`
 
 const Swatch = styled.div`
   display: inline-block;
