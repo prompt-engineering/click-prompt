@@ -67,8 +67,8 @@ const sdDetailedPromptFields: SdPromptField[] = [
     ]
   },
   {
-    name: '嘴唇',
-    label: 'tips',
+    name: 'tips',
+    label: '嘴唇',
     colored: true,
     selectValues: [{
       key: '嘴唇', value: 'lips'
@@ -303,7 +303,7 @@ function StableDiffusionGenerator() {
         } }
       >
         <Form>
-          <SimpleGrid gap={ 3 } p={ 3 } columns={ 5 }>
+          <SimpleGrid gap={ 3 } p={ 3 } columns={ 6 }>
             { sdCommonPrompts.map((field) => (
               <FormControl key={ field.name } id={ field.name } mt={ 2 }>
                 <FormLabel>{ field.label }</FormLabel>
