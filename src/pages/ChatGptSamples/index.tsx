@@ -7,19 +7,6 @@ import Link from "next/link";
 
 import samples from "@/assets/chatgpt/samples/index.json";
 
-type SampleStep = {
-  ask: string;
-  response: string;
-};
-
-type Sample = {
-  name: string;
-  author: string;
-  path: string;
-  preview?: string;
-  steps: SampleStep[];
-};
-
 function ChatGptSamples() {
   return (
     <>
