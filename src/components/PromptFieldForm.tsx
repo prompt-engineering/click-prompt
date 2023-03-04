@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 import SimpleColorPicker, { ColorType } from "@/components/SimpleColorPicker";
 import { FormikProps } from "formik";
@@ -30,6 +30,16 @@ function PromptFieldForm(props: FieldFormProp) {
   const [color, setColor] = useState("");
   const [value, setValue] = useState("");
 
+  useEffect(() => {
+    const fieldValue = formik.values[field.name]?.split(" color ") ?? [];
+    let initValue,
+      initColor = "";
+    if (fieldValue.length > 1) [initColor, initValue] = fieldValue;
+    else [initValue = ""] = fieldValue;
+    setColor(initColor ? `${initColor} color` : "");
+    setValue(initValue);
+  }, [formik.values[field.name]]);
+
   if (!field) return null;
   const onColorChange = debounce((color: string) => {
     setColor(color);
@@ -39,16 +49,26 @@ function PromptFieldForm(props: FieldFormProp) {
   return (
     <FormControl key={field.name} id={field.name} mt={2}>
       <FormLabel>
-        {field.label} {field.colored && <SimpleColorPicker colorType={ColorType.Normal} updateColor={onColorChange} />}
+        {field.label}{" "}
+        {field.colored && (
+          <SimpleColorPicker initColor={color} colorType={ColorType.Normal} updateColor={onColorChange} />
+        )}
       </FormLabel>
 
       <Select
         name={field.name}
+        value={value}
         placeholder={`-`}
         onChange={(event) => {
-          setValue(event.target.value);
-          const value = color ? `${color} ${event.target.value}` : event.target.value;
-          formik.setFieldValue(field.name, value);
+          const inputValue = event.target.value;
+          setValue(inputValue);
+          if (inputValue) {
+            const value = color ? `${color} ${inputValue}` : inputValue;
+            formik.setFieldValue(field.name, value);
+          } else {
+            setColor("");
+            formik.setFieldValue(field.name, "");
+          }
         }}
       >
         {field.selectValues.map((select, index) => (

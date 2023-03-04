@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { Button, Flex, Grid, Heading, Input, InputGroup, InputRightElement, SimpleGrid, Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import Image from "next/image";
 import CopyComponent from "@/components/CopyComponent";
 import PromptFieldForm, { SdPromptField } from "@/components/PromptFieldForm";
 import sdImage from "@/assets/stable-diffusion-demo.jpeg";
+import { WebStorage } from "@/utils/storage.util";
+import { flatten } from "lodash-es";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
@@ -337,28 +339,56 @@ const sdOtherPromptFields: SdPromptField[] = [
   },
 ];
 
+let fields = [...sdDetailedPromptFields, ...sdPersonPromptFields, ...sdCommonPrompts];
+const generateEmptyForm = () =>
+  fields.reduce((acc: any, field) => {
+    acc[field.name] = "";
+    return acc;
+  }, {});
+const sdGeneratorFormStorage = new WebStorage<Record<string, string>>("sdGeneratorForm");
+const copyToClipboard = (text: string) => {
+  const textarea = document.createElement("textarea");
+  // prevent mobile device popup keyboard
+  textarea.setAttribute("readonly", "readonly");
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+};
+
 function StableDiffusionGenerator() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [text, setText] = React.useState("");
+  const promptResultRef = useRef<HTMLDivElement | null>(null);
 
-  let fields = sdDetailedPromptFields.concat(sdPersonPromptFields).concat(sdCommonPrompts);
   const formik = useFormik({
-    initialValues: fields.reduce((acc: any, field) => {
-      acc[field.name] = "";
-      return acc;
-    }, {}),
+    initialValues: generateEmptyForm(),
     onSubmit: (values) => {
-      console.log(formik.initialValues);
-      console.log(values);
-      const filteredValues = Object.keys(values).reduce((acc: any, key) => {
-        if (values[key] !== "") acc[key] = values[key];
-        return acc;
-      }, {});
-
-      const prompt = Object.values(filteredValues).join(",");
-      setText(prompt);
+      sdGeneratorFormStorage.set(values);
+      copyToClipboard(promptResultRef.current?.innerText ?? "");
     },
   });
+
+  const text = useMemo(() => {
+    let values = formik.values;
+    const filteredValues = Object.keys(values).reduce((acc: any, key) => {
+      if (values[key] !== "") acc[key] = values[key];
+      return acc;
+    }, {});
+
+    return flatten(Object.values<string>(filteredValues).map((it) => it.split(",").map((it) => it.trim()))).join(", ");
+  }, [formik.values]);
+
+  useEffect(() => {
+    const formStorage = sdGeneratorFormStorage.get();
+    if (formStorage) formik.setValues(formStorage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onClear = () => {
+    sdGeneratorFormStorage.remove();
+    formik.setValues(generateEmptyForm());
+  };
 
   const [lazyText, setLazyText] = React.useState("");
   const handleChange = (event: any) => setLazyText(event.target.value);
@@ -416,10 +446,13 @@ function StableDiffusionGenerator() {
           </Grid>
         </Flex>
 
-        <Text> {text}</Text>
+        <Text ref={promptResultRef}>{text}</Text>
 
         <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
-          创造
+          复制咒语并保存
+        </Button>
+        <Button mt={4} marginLeft={1} isLoading={isSubmitting} onClick={onClear}>
+          清除缓存
         </Button>
       </form>
 
