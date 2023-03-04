@@ -10,7 +10,7 @@ import {
   SimpleGrid,
   Text
 } from '@chakra-ui/react'
-import { Form, Formik } from 'formik'
+import { Form, Formik, useFormik } from 'formik'
 import sdImage from '@/assets/stable-diffusion-demo.jpeg'
 import Image from 'next/image'
 import { MaterialPicker } from 'react-color'
@@ -289,100 +289,92 @@ const sdPersonPromptFields: SdPromptField[] = [
 
 function StableDiffusionGenerator() {
   const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [text, setText] = React.useState('')
+
+  let fields = sdDetailedPromptFields.concat(sdPersonPromptFields).concat(sdCommonPrompts)
+  const formik = useFormik({
+    initialValues: fields.reduce((acc: any, field) => {
+      acc[field.name] = ''
+      return acc
+    }, {}),
+    onSubmit: (values) => {
+      setText(values.values.join(','))
+    }
+  })
 
   return (
     <SimpleGrid spacing={ 10 }>
       <Heading as={ 'h3' }>画人</Heading>
-      <Formik
-        initialValues={ { quality: 'Normal' } }
-        onSubmit={ (values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
-            actions.setSubmitting(false)
-          }, 1000)
-        } }
-      >
-        <Form>
-          <SimpleGrid gap={ 3 } p={ 3 } columns={ 6 }>
-            { sdCommonPrompts.map((field) => (
-              <FormControl key={ field.name } id={ field.name } mt={ 2 }>
-                <FormLabel>{ field.label }</FormLabel>
-                <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
-                  { field.selectValues.map((select, index) => (
-                    <option key={ field.name + '-' + index } value={ select.value }>
-                      { select.key }
-                    </option>
-                  )) }
-                </Select>
-              </FormControl>
-            )) }
-          </SimpleGrid>
-
-          <Flex alignItems='start' gap='2'>
-            <Grid>
-              <Text>人物</Text>
-              <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
-                { sdPersonPromptFields.map((field) => (
-                  <FormControl key={ field.name } id={ field.name } mt={ 2 }>
-                    <FormLabel>{ field.label }</FormLabel>
-                    <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
-                      { field.selectValues.map((select, index) => (
-                        <option key={ field.name + '-' + index } value={ select.value }>
-                          { select.key }
-                        </option>
-                      )) }
-                    </Select>
-                  </FormControl>
+      <form onSubmit={ formik.handleSubmit }>
+        <SimpleGrid gap={ 3 } p={ 3 } columns={ 6 }>
+          { sdCommonPrompts.map((field) => (
+            <FormControl key={ field.name } id={ field.name } mt={ 2 }>
+              <FormLabel>{ field.label }</FormLabel>
+              <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
+                { field.selectValues.map((select, index) => (
+                  <option key={ field.name + '-' + index } value={ select.value }>
+                    { select.key }
+                  </option>
                 )) }
+              </Select>
+            </FormControl>
+          )) }
+        </SimpleGrid>
 
-              </SimpleGrid>
-            </Grid>
+        <Flex alignItems='start' gap='2'>
+          <Grid>
+            <Text>人物</Text>
+            <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
+              { sdPersonPromptFields.map((field) => (
+                <FormControl key={ field.name } id={ field.name } mt={ 2 }>
+                  <FormLabel>{ field.label }</FormLabel>
+                  <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
+                    { field.selectValues.map((select, index) => (
+                      <option key={ field.name + '-' + index } value={ select.value }>
+                        { select.key }
+                      </option>
+                    )) }
+                  </Select>
+                </FormControl>
+              )) }
 
-            <Image src={ sdImage } alt='stable-diffusion-demo' />
+            </SimpleGrid>
+          </Grid>
 
-            <Grid>
-              <Text>身体</Text>
-              <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
-                { sdDetailedPromptFields.map((field) => (
-                  <FormControl key={ field.name } id={ field.name } mt={ 2 }>
-                    <FormLabel>{ field.label }</FormLabel>
-                    { field.colored && <MaterialPicker /> }
+          <Image src={ sdImage } alt='stable-diffusion-demo' />
 
-                    <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
-                      { field.selectValues.map((select, index) => (
-                        <option key={ field.name + '-' + index } value={ select.value }>
-                          { select.key }
-                        </option>
-                      )) }
-                    </Select>
-                  </FormControl>
-                )) }
-              </SimpleGrid>
-            </Grid>
-          </Flex>
+          <Grid>
+            <Text>身体</Text>
+            <SimpleGrid gap={ 3 } p={ 3 } columns={ 2 }>
+              { sdDetailedPromptFields.map((field) => (
+                <FormControl key={ field.name } id={ field.name } mt={ 2 }>
+                  <FormLabel>{ field.label }</FormLabel>
+                  { field.colored && <MaterialPicker /> }
 
-          <Text>
-            Pormpt： particle effects small breasts, 1 girl, solo, masterpiece, best
-            quality, highres, original, extremely detailed 8K wallpaper, greasy
-            skin, realistic and delicate facial features, slim
-            waist,ultra-detailed,illustration ,ray tracing,intricate detail, colored
-            tips,colored inner hair, gradient eyes,eyelashes,finely detail, depth of
-            field, beyond compare, cinematic lighting, tranditional, in gentle
-            breeze dance from ethereal chance. An aura of peace,beyond compare,
-            cinematic lighting, dramatic angle, (arms arms behind back), fov,
-            detailed eyes, peach blossom
-          </Text>
+                  <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
+                    { field.selectValues.map((select, index) => (
+                      <option key={ field.name + '-' + index } value={ select.value }>
+                        { select.key }
+                      </option>
+                    )) }
+                  </Select>
+                </FormControl>
+              )) }
+            </SimpleGrid>
+          </Grid>
+        </Flex>
 
-          <Button
-            mt={ 4 }
-            colorScheme='teal'
-            isLoading={ isSubmitting }
-            type='submit'
-          >
-            创造
-          </Button>
-        </Form>
-      </Formik>
+        <Text> { text }</Text>
+
+        <Button
+          mt={ 4 }
+          colorScheme='teal'
+          isLoading={ isSubmitting }
+          type='submit'
+        >
+          创造
+        </Button>
+      </form>
 
       <Heading as={ 'h3' }>画xx（Todo）</Heading>
     </SimpleGrid>
