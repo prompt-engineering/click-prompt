@@ -41,7 +41,6 @@ function PromptFieldForm(props: FieldFormProp) {
         name={field.name}
         placeholder={`-`}
         onChange={(event) => {
-          console.log(color);
           if (color !== "") {
             formik.setFieldValue(field.name, `${color} ${event.target.value}`);
           } else {

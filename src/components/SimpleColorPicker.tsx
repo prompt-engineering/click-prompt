@@ -6,7 +6,6 @@ import colorNameList from "color-name-list";
 
 export enum ColorType {
   HumanSkin = "HumanSkin",
-  // Normal Safe Colors
   Normal = "Normal",
 }
 

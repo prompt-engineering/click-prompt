@@ -26,7 +26,6 @@ export function parseStableDiffusionPrompt(prompt: string): StableDiffusionPromp
     throw new Error("Invalid negative prompt");
   }
 
-  console.log(otherInfosLine);
   // parse other infos by split comma
   const otherInfosMatch = otherInfosLine.split(",").map((item) => {
     const match = item.match(/(.+): (.*)/);

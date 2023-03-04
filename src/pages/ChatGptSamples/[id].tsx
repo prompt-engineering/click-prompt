@@ -1,7 +1,18 @@
 import type { GetStaticProps, GetStaticPaths } from "next";
 import React from "react";
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Card,
+  CardBody,
+  Heading,
+} from "@chakra-ui/react";
 import ReactMarkdown from "react-markdown";
+import SimpleMarkdown from "@/components/SimpleMarkdown";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
@@ -45,26 +56,40 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export default function Sample({ content }: Props) {
+  console.log(content);
   return (
     <>
       <h1>
         {content.name} by {content.author}
       </h1>
-      <p>{content.category}</p>
-      <p>{content.description}</p>
       <Accordion allowMultiple>
         {content.steps.map((step, index) => (
           <AccordionItem key={index}>
             <h2>
-              <AccordionButton>
+              <AccordionButton _expanded={{ bg: "tomato", color: "white" }}>
                 <Box flex='1' textAlign='left'>
-                  <ReactMarkdown>{step.ask?.replaceAll("\n", "\n\n")}</ReactMarkdown>
+                  <h3>Question {index}</h3>
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              <ReactMarkdown>{step.response?.replaceAll("\n", "\n\n")}</ReactMarkdown>
+              <Card>
+                <CardBody>
+                  <Heading as={"h2"} size={"md"}>
+                    Human
+                  </Heading>
+                  <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                </CardBody>
+              </Card>
+              <Card>
+                <CardBody>
+                  <Heading as={"h2"} size={"md"}>
+                    AI
+                  </Heading>
+                  <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
+                </CardBody>
+              </Card>
             </AccordionPanel>
           </AccordionItem>
         ))}
