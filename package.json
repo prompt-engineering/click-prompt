@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "husky install",
     "dev": "next dev",
     "build": "next build && next export -o dist",
     "start": "npm run dev",
@@ -41,6 +42,10 @@
     "autoprefixer": "^10.4.13",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "tailwindcss": "^3.2.7"

@@ -1,8 +1,8 @@
-import * as React from 'react'
-import { FormControl, FormLabel, Heading, Input, Select, SimpleGrid } from '@chakra-ui/react'
-import ChakraUIRenderer from 'chakra-ui-markdown-renderer'
-import ReactMarkdown from 'react-markdown'
-import { Form, Formik } from 'formik'
+import * as React from "react";
+import { FormControl, FormLabel, Heading, Input, Select, SimpleGrid } from "@chakra-ui/react";
+import ChakraUIRenderer from "chakra-ui-markdown-renderer";
+import ReactMarkdown from "react-markdown";
+import { Form, Formik } from "formik";
 
 function ChatGptCotGenerator() {
   const markdown = `
@@ -19,38 +19,38 @@ function ChatGptCotGenerator() {
 """
 ...
 """
-`
+`;
 
   return (
     <div>
       <Heading as='h2' size='xl'>
         预期输出
       </Heading>
-      <ReactMarkdown components={ ChakraUIRenderer() } skipHtml>
-        { markdown }
+      <ReactMarkdown components={ChakraUIRenderer()} skipHtml>
+        {markdown}
       </ReactMarkdown>
       <Formik
-        initialValues={ { name: '' } }
-        onSubmit={ (values, actions) => {
-          console.log(values)
-        } }
+        initialValues={{ name: "" }}
+        onSubmit={(values, actions) => {
+          console.log(values);
+        }}
       >
         <Form>
-          <FormControl key='name' id='name' mt={ 4 }>
+          <FormControl key='name' id='name' mt={4}>
             <FormLabel>GameName</FormLabel>
-            <Input placeholder={ 'Your game name' } />
+            <Input placeholder={"Your game name"} />
           </FormControl>
-          <SimpleGrid gap={ 12 } p={ 12 } columns={ 3 }>
-            {/* 第一步到第 N 步 */ }
-            <FormControl key='step' id='step' mt={ 4 }>
+          <SimpleGrid gap={12} p={12} columns={3}>
+            {/* 第一步到第 N 步 */}
+            <FormControl key='step' id='step' mt={4}>
               <FormLabel>Step 1</FormLabel>
-              <Input placeholder={ 'Step' } />
+              <Input placeholder={"Step"} />
             </FormControl>
           </SimpleGrid>
         </Form>
       </Formik>
     </div>
-  )
+  );
 }
 
-export default ChatGptCotGenerator
+export default ChatGptCotGenerator;

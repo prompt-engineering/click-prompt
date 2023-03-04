@@ -35,9 +35,7 @@ function ChatGptPromptList() {
   const [data, setData] = React.useState<any>(null);
 
   React.useEffect(() => {
-    fetch(
-      "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
-    )
+    fetch("https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv")
       .then((response) => response.text())
       .then((csv) => {
         const parseResult = Papa.parse(csv, DefaultPapaConfig);

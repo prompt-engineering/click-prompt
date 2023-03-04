@@ -1,8 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import {
-  Container,
-} from "@chakra-ui/react";
-import NavBar from '../components/NavBar/NavBar'
+import { Container } from "@chakra-ui/react";
+import NavBar from "../components/NavBar/NavBar";
 
 import Head from "next/head";
 
@@ -16,8 +14,8 @@ export default function App({ Component, pageProps }: any) {
       </Head>
       <ChakraProvider resetCSS={true}>
         <div id='root'>
-          <NavBar/>
-          <Container maxW='8xl' p="2rem">
+          <NavBar />
+          <Container maxW='8xl' p='2rem'>
             <Component {...pageProps} />
           </Container>
         </div>
