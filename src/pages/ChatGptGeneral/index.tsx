@@ -1,8 +1,7 @@
 import React from "react";
-import Papa from "papaparse";
 import { DataTable } from "@/components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import { DefaultPapaConfig } from "@/DefaultPapaConfig";
+import parseCsv from "@/data-processor/CsvParser";
 
 type GeneralCommand = {
   english: string;
@@ -31,7 +30,7 @@ function ChatGptGeneral() {
     fetch("/data/chatgpt-specific.csv")
       .then((response) => response.text())
       .then((csv) => {
-        const parseResult = Papa.parse(csv, DefaultPapaConfig);
+        const parseResult = parseCsv(csv);
 
         setData(parseResult.data);
       })

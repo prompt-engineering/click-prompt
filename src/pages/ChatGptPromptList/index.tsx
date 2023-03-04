@@ -1,11 +1,10 @@
 import React from "react";
 import { Heading, Input, Text } from "@chakra-ui/react";
-import Papa from "papaparse";
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "@/components/DataTable/DataTable";
 import { LinkIcon } from "@chakra-ui/icons";
-import { DefaultPapaConfig } from "@/DefaultPapaConfig";
 import CopyComponent from "@/components/CopyComponent";
+import parseCsv from "@/data-processor/CsvParser";
 
 type ActPrompt = {
   act: string;
@@ -38,8 +37,7 @@ function ChatGptPromptList() {
     fetch("https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv")
       .then((response) => response.text())
       .then((csv) => {
-        const parseResult = Papa.parse(csv, DefaultPapaConfig);
-
+        const parseResult = parseCsv(csv);
         setData(parseResult);
       });
   }, []);
