@@ -15,11 +15,12 @@ const index = files
   .map((f) => {
     const content = fs.readFileSync(f, "utf8");
     const doc = yaml.load(content);
-    const { name, description, author, preview } = doc;
+    const { name, description, author, category, preview } = doc;
     return {
       name,
       description,
       author,
+      category,
       preview,
       path: path.relative(templatesDir, f),
     };
