@@ -48,12 +48,10 @@ function ChatGptPromptList() {
       <Text>Todo: add JavaScript database to query in frontend</Text>
       <Input placeholder='Search' />
       <Text>
-        base on:{" "}
+        base on:
         <a href={"https://github.com/f/awesome-chatgpt-prompts"}>
-          {" "}
-          <LinkIcon />
-          https://github.com/f/awesome-chatgpt-prompts
-        </a>{" "}
+          awesome-chatgpt-prompts <LinkIcon />
+        </a>
       </Text>
       {data && <DataTable data={data.data} columns={columns} />}
     </div>
