@@ -122,19 +122,19 @@ const sdCommonPrompts: SdPromptField[] = [
     name: 'time',
     label: '时间',
     selectValues: [
-      { key: '早上', value: 'Morning' },
-      { key: '下午', value: 'Afternoon' },
-      { key: '傍晚', value: 'Evening' },
-      { key: '晚上', value: 'Night' }
+      { key: '早上', value: 'morning' },
+      { key: '下午', value: 'afternoon' },
+      { key: '傍晚', value: 'evening' },
+      { key: '晚上', value: 'night' }
     ]
   },
   {
     name: 'light',
     label: '光线',
     selectValues: [
-      { key: '白天', value: 'Daylight' },
-      { key: '夜晚', value: 'Night' },
-      { key: '室内', value: 'Indoor' },
+      { key: '白天', value: 'daylight' },
+      { key: '夜晚', value: 'night' },
+      { key: '室内', value: 'indoor' },
       { value: 'cinematic lighting', key: '电影灯光' },
       { value: 'natural lighting', key: '自然光' },
       { value: 'artificial lighting', key: '人造光' }
@@ -298,7 +298,16 @@ function StableDiffusionGenerator() {
       return acc
     }, {}),
     onSubmit: (values) => {
-      setText(values.values.join(','))
+      const filteredValues = Object.keys(values).reduce((acc: any, key) => {
+        if (values[key] !== '') {
+          acc[key] = values[key]
+        }
+        return acc
+      }, {})
+
+      // join with ,
+      const prompt = Object.values(filteredValues).join(',')
+      setText(prompt)
     }
   })
 
@@ -310,7 +319,7 @@ function StableDiffusionGenerator() {
           { sdCommonPrompts.map((field) => (
             <FormControl key={ field.name } id={ field.name } mt={ 2 }>
               <FormLabel>{ field.label }</FormLabel>
-              <Select name={ field.name } placeholder={ `Select ${ field.label }` }>
+              <Select name={ field.name } placeholder={ `Select ${ field.label }` } onChange={ formik.handleChange }>
                 { field.selectValues.map((select, index) => (
                   <option key={ field.name + '-' + index } value={ select.value }>
                     { select.key }
