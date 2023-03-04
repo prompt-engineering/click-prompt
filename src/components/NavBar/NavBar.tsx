@@ -29,7 +29,7 @@ export default function NavBar() {
       title: "学习资料",
     },
     {
-      url: "/ChatGptExamples",
+      url: "/ChatGptSamples",
       title: "ChatGPT 示例",
     },
     {

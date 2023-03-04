@@ -6,7 +6,7 @@ const path = require("path");
 const walkdir = require("walkdir");
 const yaml = require("js-yaml");
 
-const templatesDir = path.join(__dirname, "../src/assets/chatgpt/templates");
+const templatesDir = path.join(__dirname, "../public/data/chatgpt/samples");
 const indexFile = path.join(templatesDir, "index.json");
 
 const files = walkdir.sync(templatesDir, { no_recurse: true });
@@ -15,11 +15,12 @@ const index = files
   .map((f) => {
     const content = fs.readFileSync(f, "utf8");
     const doc = yaml.load(content);
-    const { name, description, author } = doc;
+    const { name, description, author, preview } = doc;
     return {
       name,
       description,
       author,
+      preview,
       path: path.relative(templatesDir, f),
     };
   });
