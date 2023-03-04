@@ -28,6 +28,14 @@ export default function NavBar() {
       url: "/ReadingList",
       title: "学习资料",
     },
+    {
+      url: "/ChatGptExamples",
+      title: "ChatGPT 示例",
+    },
+    {
+      url: "/StableDiffusionExamples",
+      title: "StableDiffusion 示例",
+    },
   ];
 
   return (

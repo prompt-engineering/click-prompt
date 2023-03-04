@@ -12,19 +12,19 @@ const sdDetailedPromptFields: SdPromptField[] = [
     label: "发型",
     colored: true,
     selectValues: [
-      { key: "长发", value: "Long Hair" },
-      { key: "短发", value: "Short Hair" },
-      { key: "中发", value: "Medium Hair" },
-      { key: "高马尾", value: "High Ponytail" },
-      { key: "低马尾", value: "Low Ponytail" },
-      { key: "双马尾", value: "Twin Tails" },
+      { key: "长发", value: "long hair" },
+      { key: "短发", value: "short hair" },
+      { key: "中发", value: "medium hair" },
+      { key: "高马尾", value: "high ponytail" },
+      { key: "低马尾", value: "low ponytail" },
+      { key: "双马尾", value: "twin tails" },
     ],
   },
   {
     name: "eyes",
     label: "眼睛",
     colored: true,
-    selectValues: [{ key: "细节", value: "Details eyes" }],
+    selectValues: [{ key: "细节", value: "details eyes" }],
   },
   {
     name: "face",
@@ -43,12 +43,7 @@ const sdDetailedPromptFields: SdPromptField[] = [
     name: "tips",
     label: "嘴唇",
     colored: true,
-    selectValues: [
-      {
-        key: "嘴唇",
-        value: "lips",
-      },
-    ],
+    selectValues: [{ key: "细节", value: "details lips" }],
   },
   {
     name: "chest",
@@ -181,8 +176,8 @@ const sdPersonPromptFields: SdPromptField[] = [
     name: "clothes_styles",
     label: "服饰风格",
     selectValues: [
-      { key: "中国风", value: "Chinese Style" },
-      { key: "日本风", value: "Japanese Style" },
+      { key: "中国风", value: "chinese clothes style" },
+      { key: "日本风", value: "japanese clothes style" },
     ],
   },
   {
@@ -205,7 +200,6 @@ const sdPersonPromptFields: SdPromptField[] = [
       { key: "披肩", value: "poncho" },
       { key: "围裙", value: "apron" },
       { key: "制服", value: "uniform" },
-      // bra, bikini, swimsuit, lingerie, pajamas, robe, towel, underwear, other
       { key: "Bra", value: "bra" },
       { key: "比基尼", value: "bikini" },
       { key: "泳装", value: "swimsuit" },
