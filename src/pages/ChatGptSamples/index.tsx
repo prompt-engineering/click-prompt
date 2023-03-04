@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, CardHeader } from "@chakra-ui/card";
-import { CardBody, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
+import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
+import { Button, CardBody, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import ReactMarkdown from "react-markdown";
 
 type SampleStep = {
@@ -45,6 +45,10 @@ function ChatGptSamples(props: any) {
                   <ReactMarkdown>{sample?.preview ? sample.preview : "no preview"}</ReactMarkdown>
                 </Stack>
               </CardBody>
+
+              <CardFooter>
+                <Button>View here</Button>
+              </CardFooter>
             </Card>
           ))}
         </SimpleGrid>
