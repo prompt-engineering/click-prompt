@@ -28,12 +28,12 @@ export type FieldFormProp = {
 function PromptFieldForm(props: FieldFormProp) {
   const { field, formik } = props;
   const [color, setColor] = useState("");
+  const [value, setValue] = useState("");
 
   if (!field) return null;
   const onColorChange = debounce((color: string) => {
     setColor(color);
-    let fieldValue = formik.values[field.name];
-    if (fieldValue) formik.setFieldValue(field.name, `${color} ${fieldValue}`);
+    if (value) formik.setFieldValue(field.name, `${color} ${value}`);
   }, 100);
 
   return (
@@ -46,6 +46,7 @@ function PromptFieldForm(props: FieldFormProp) {
         name={field.name}
         placeholder={`-`}
         onChange={(event) => {
+          setValue(event.target.value);
           const value = color ? `${color} ${event.target.value}` : event.target.value;
           formik.setFieldValue(field.name, value);
         }}
