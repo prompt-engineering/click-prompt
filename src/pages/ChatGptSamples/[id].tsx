@@ -58,37 +58,41 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export default function Sample({ content }: Props) {
-  console.log(content);
   return (
     <>
-      <h1>
-        {content.name} by {content.author}
-      </h1>
-      <Accordion allowMultiple index={content.steps.map((_, index) => index)}>
-        {content.steps.map((step, index) => (
-          <AccordionItem key={index}>
-            <h2>
-              <AccordionButton _expanded={{ bg: "tomato", color: "white" }}>
-                <Box flex='1' textAlign='left'>
-                  <h3>Question {index}</h3>
-                </Box>
-                <AccordionIcon />
-              </AccordionButton>
-            </h2>
-            <AccordionPanel pb={4}>
-              <Heading size='md'>Human</Heading>
-              <HumanBlock>
-                <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
-                <CopyComponent value={step.ask} />
-              </HumanBlock>
-              <AiBlock>
-                <Heading size='md'>AI</Heading>
-                <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
-              </AiBlock>
-            </AccordionPanel>
-          </AccordionItem>
-        ))}
-      </Accordion>
+      {" "}
+      {content && (
+        <>
+          <h1>
+            {content.name} by {content.author}
+          </h1>
+          <Accordion allowMultiple index={content.steps.map((_, index) => index)}>
+            {content.steps.map((step, index) => (
+              <AccordionItem key={index}>
+                <h2>
+                  <AccordionButton _expanded={{ bg: "tomato", color: "white" }}>
+                    <Box flex='1' textAlign='left'>
+                      <h3>Question {index}</h3>
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <Heading size='md'>Human</Heading>
+                  <HumanBlock>
+                    <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                    <CopyComponent value={step.ask} />
+                  </HumanBlock>
+                  <AiBlock>
+                    <Heading size='md'>AI</Heading>
+                    <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
+                  </AiBlock>
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </>
+      )}
     </>
   );
 }
