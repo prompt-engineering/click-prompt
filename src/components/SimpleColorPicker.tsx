@@ -1,7 +1,6 @@
 import React from "react";
 import { ChromePicker, ColorResult } from "react-color";
 import styled from "@emotion/styled";
-// @ts-ignore
 import nearestColor from "nearest-color";
 import colorNameList from "color-name-list";
 
@@ -37,7 +36,10 @@ function SimpleColorPicker(props: SimpleColorProps) {
     setDisplayColorPicker(false);
   };
 
-  const colors = colorNameList.reduce((o, { name, hex }) => Object.assign(o, { [name]: hex }), {});
+  const colors = colorNameList.reduce<Record<string, string>>(
+    (o, { name, hex }) => Object.assign(o, { [name]: hex }),
+    {},
+  );
   const nearest = nearestColor.from(colors);
   const handleChange = (color: ColorResult) => {
     let newColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
