@@ -1,6 +1,7 @@
 import React from 'react'
-import { ChromePicker, ColorResult, SwatchesPicker } from 'react-color'
+import { ChromePicker, ColorResult } from 'react-color'
 import styled from '@emotion/styled'
+// @ts-ignore
 import nearestColor from 'nearest-color'
 import colorNameList from 'color-name-list'
 
