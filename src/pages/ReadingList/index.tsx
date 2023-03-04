@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react'
 import { Grid, Heading, SimpleGrid, Text } from '@chakra-ui/react'
 import { createColumnHelper } from "@tanstack/react-table";
 import Papa from "papaparse";
@@ -33,7 +33,7 @@ function ReadingList() {
   const [enData, setEnData] = React.useState<any>(null);
   const [aiResource, setAiResource] = React.useState<any>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch("/data/reading-list-cn.csv")
       .then((response) => response.text())
       .then((csv) => {
@@ -44,7 +44,7 @@ function ReadingList() {
       });
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch("/data/reading-list-en.csv")
       .then((response) => response.text())
       .then((csv) => {
