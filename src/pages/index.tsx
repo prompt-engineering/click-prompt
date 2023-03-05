@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 export default function RedirectToHome() {
   useEffect(() => {
-    Router.replace("/chatgpt-general").then();
+    Router.replace("/home").then();
   }, []);
   return <></>;
 }
