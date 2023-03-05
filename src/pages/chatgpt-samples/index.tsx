@@ -8,7 +8,7 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 
 function ChatGptSamples() {
-  const chatgptLink = "https://github.com/prompt-engineering/prompt-generator/tree/master/src/assets/chatgpt";
+  const chatgptLink = "https://github.com/prompt-engineering/click-prompt/tree/master/src/assets/chatgpt";
 
   return (
     <>

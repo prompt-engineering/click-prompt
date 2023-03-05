@@ -38,7 +38,7 @@ function ReadingList() {
     <SimpleGrid columns={1} spacing={10}>
       <Text align={"center"}>
         创建 &nbsp;
-        <a href={"https://github.com/prompt-engineering/prompt-generator/tree/master/public/data"}>
+        <a href={"https://github.com/prompt-engineering/click-prompt/tree/master/public/data"}>
           Pull Request <ExternalLinkIcon />{" "}
         </a>{" "}
         ，添加更多的阅读材料
