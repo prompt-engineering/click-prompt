@@ -18,6 +18,15 @@
     "path": "ddd-sample.yml"
   },
   {
+    "name": "使用 ChatGPT 写作",
+    "description": "如何使用 ChatGPT 进行写作",
+    "author": "Phodal Huang",
+    "category": "writing",
+    "homepage": "https://www.phodal.com/",
+    "preview": "ArchGuard Pipeline，是 ArchGuard 计划构建轻量级架构治理 pipeline\nJenkins pipeline 有什么优点？\n类比到 ArchGuard Pipeline，它会有什么优点？\n当前版本 ArchGuard Pipeline 参考了 GitHub Action 的架构设计，当前可以支持插件化、高度定制化、自动化流程，能为 ArchGuard Pipeline 写一个介绍吗？\n提取一下 GitHub Action 与 Jenkins Pipeline 的相似性，中文表示\n给出如下文章的潜在 10 个标题 当我们构建企业级的架构治理流程时，需要考虑到一些重要的因素，比如定制性、可扩展性、任务可追溯性等。为了解决这些问题，我们开始设计 ArchGuard Pipeline 来构建轻量级的架构治理流程。\n",
+    "path": "writing.yml"
+  },
+  {
     "name": "让 AI 一步步分析问题：Wula 游戏",
     "description": "Wula 是一个基于 CoT 思维的游戏，通过游戏的方式来学习 CoT。",
     "author": "Phodal Huang",
