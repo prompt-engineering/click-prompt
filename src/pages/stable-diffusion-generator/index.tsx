@@ -1,5 +1,16 @@
 import React, { useEffect, useMemo, useRef } from "react";
-import { Button, Flex, Grid, Heading, Input, InputGroup, InputRightElement, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  Input,
+  InputGroup,
+  InputRightElement,
+  SimpleGrid,
+  Text,
+  Link,
+} from "@chakra-ui/react";
 import { useFormik } from "formik";
 import Image from "next/image";
 import CopyComponent from "@/components/CopyComponent";
@@ -455,6 +466,13 @@ function StableDiffusionGenerator() {
         <Button mt={4} marginLeft={1} isLoading={isSubmitting} onClick={onClear}>
           清除缓存
         </Button>
+
+        <Text>
+          在线测试工具：
+          <Link href={"https://lexica.art/"} isExternal>
+            Lexica
+          </Link>
+        </Text>
       </form>
 
       <Heading as={"h3"}>画xx（Todo）</Heading>
