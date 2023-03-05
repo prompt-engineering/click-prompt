@@ -1,27 +1,11 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  Link,
-  SimpleGrid,
-  Spacer,
-  Tooltip,
-  Center,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Link, Spacer, Tooltip } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { ExternalLinkIcon, LinkIcon, QuestionIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
-import ChatGptIcon from "@/components/Logo/ChatGPTIcon";
+import { ChatGptIcon } from "@/components/CustomIcon";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);

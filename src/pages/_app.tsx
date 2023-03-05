@@ -8,6 +8,7 @@ import Image from "next/image";
 import NavBar from "../layout/NavBar";
 
 import "./globals.css";
+import Image from "next/image";
 
 export default function App({ Component, pageProps }: any) {
   return (
