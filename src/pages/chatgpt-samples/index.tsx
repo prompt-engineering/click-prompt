@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
-import { Box, Button, CardBody, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, CardBody, Heading, SimpleGrid, Stack, Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
+
 import Link from "next/link";
 
 import samples from "@/assets/chatgpt/samples/index.json";
@@ -12,16 +13,17 @@ function ChatGptSamples() {
 
   return (
     <>
-      <Text>
-        分享我的 ChatGPT 心得：
+      <Alert status='info'>
+        <AlertIcon />
+        <AlertTitle>分享我的 ChatGPT 心得：</AlertTitle>
         <Link href={chatgptLink}>
           Pull Request <ExternalLinkIcon />
         </Link>
-      </Text>
+      </Alert>
       {samples.length > 0 && (
-        <SimpleGrid columns={4} spacing={4}>
+        <SimpleGrid columns={{ md: 4, base: 1 }} spacing={4}>
           {samples.map((sample, index) => (
-            <Card key={`sample-${index}`}>
+            <Card key={`sample-${index}`} mt='2'>
               <CardHeader>
                 <Heading size='md'>
                   {sample.name} - {sample.author}

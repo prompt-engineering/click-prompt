@@ -23,7 +23,7 @@ export default function App({ Component, pageProps }: any) {
       <ChakraProvider resetCSS={true}>
         <div id='root'>
           <NavBar />
-          <Container maxW='8xl' p='2rem'>
+          <Container maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
             <Component {...pageProps} />
           </Container>
         </div>
