@@ -37,7 +37,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: ["lts/gallium"]
+          node-version: "lts/gallium"
       - run: npm ci
       - run: npm run format
       - run: npm run lint
