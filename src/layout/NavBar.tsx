@@ -15,6 +15,7 @@ import {
 import { ExternalLinkIcon, HamburgerIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { ClickPromptIcon } from "@/components/CustomIcon";
 
 export default function NavBar() {
   const router = useRouter();
@@ -68,7 +69,9 @@ export default function NavBar() {
     <Flex align='center' py='4' pl='20px' pr={{ md: "20px", base: "4px" }} boxShadow='base'>
       <Flex>
         <Heading size='md' mr={4}>
-          <Link href={"/"}>ClickPrompt</Link>
+          <Link href={"/"}>
+            <ClickPromptIcon /> ClickPrompt
+          </Link>
         </Heading>
         <Flex display={{ md: "flex", base: "none" }}>
           {NavList.map((nav) => {

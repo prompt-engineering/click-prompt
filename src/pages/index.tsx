@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Text, Container, chakra, Stack, Link, Button } from "@chakra-ui/react";
+import { ClickPromptIcon } from "@/components/CustomIcon";
 
 function Home() {
   return (
@@ -7,6 +8,8 @@ function Home() {
       <Box as='section' pt='6rem' pb={{ base: "0", md: "5rem" }}>
         <Container>
           <Box textAlign='center'>
+            <ClickPromptIcon width={128} height={128} />
+
             <chakra.h1
               maxW='16ch'
               mx='auto'

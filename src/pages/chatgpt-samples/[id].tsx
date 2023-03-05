@@ -21,7 +21,7 @@ import styled from "@emotion/styled";
 import { ExternalLinkIcon, LinkIcon, QuestionIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
-import ChatGptIcon from "@/components/Logo/ChatGPTIcon";
+import { ChatGptIcon } from "@/components/ChatGPTIcon";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
