@@ -14,7 +14,15 @@ export type User = {
   id: string;
   openai: OpenAIApi;
 };
-export let users: User[] = [];
+let users: User[] = [];
+
+export function getClientByUserId(userId: string) {
+  const user = users.find((user) => user.id === userId);
+  if (!user) {
+    return null;
+  }
+  return user.openai;
+}
 
 type Request = {
   action: "login" | "logout";
@@ -37,10 +45,12 @@ const handler: NextApiHandler = async (req, res) => {
           res.status(400).json({ error: "No key provided" } as Response);
           return;
         }
+        const userId = UUID();
         users.push({
-          id: UUID(),
+          id: userId,
           openai: createNewOpenAIApi(key),
         });
+        res.setHeader("Set-Cookie", `${COOKIE_FOR_USER_ID}=${userId}; Max-Age=3600;`);
         return res.status(200).json({ message: "Logged in" } as Response);
       } else if (action === "logout") {
         if (!userId) {

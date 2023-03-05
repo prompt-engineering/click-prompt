@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { users } from "./user";
+import { getClientByUserId } from "./user";
 
 const handler: NextApiHandler = async (req, res) => {
   const userId = req.cookies["PROMPT_GENERATOR_USER"];
@@ -7,9 +7,10 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(400).json({ error: "You're not logged in yet!" });
     return;
   }
-  const user = users.find((user) => user.id === userId);
+  const user = getClientByUserId(userId);
   if (!user) {
-    res.status(400).json({ error: "You're not logged in yet!" });
+    res.setHeader("Set-Cookie", "PROMPT_GENERATOR_USER=; Max-Age=0");
+    res.status(400).json({ error: "Your login session has been expired!" });
     return;
   }
   const openai = user.openai;
