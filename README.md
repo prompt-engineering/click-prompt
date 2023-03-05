@@ -25,9 +25,9 @@ Todos:
 
 - [x] setup projects
   - [x] init project
-  - [ ] setup CI
+  - [x] setup CI
   - [x] config prettier, eslint, husky
-  - [ ] commit lint, style lint
+  - [x] commit lint, style lint
 - [ ] setup docs
 - [ ] our cheatsheet
 - [ ] ChatGPT prompts
