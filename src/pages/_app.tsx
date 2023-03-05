@@ -1,26 +1,23 @@
+import { NEXT_SEO_DEFAULT } from "@/configs/next-seo-config";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Container } from "@chakra-ui/react";
 import { Analytics } from "@vercel/analytics/react";
+import { NextSeo } from "next-seo";
 import Head from "next/head";
-
+import Image from "next/image";
 import NavBar from "../layout/NavBar";
 
 import "./globals.css";
-import Image from "next/image";
 
 export default function App({ Component, pageProps }: any) {
   return (
     <>
       <Head>
-        <title>ClickPrompt - Streamline your prompt design </title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-        <meta
-          name='description'
-          content='ClickPrompt 是一款专为Prompt编写者设计的工具，它支持多种基于Prompt的AI应用，例如Stable Diffusion、ChatGPT和GitHub Copilot等。使用ClickPrompt，您可以轻松地查看、分享和一键运行这些模型，同时提供在线的Prompt生成器，使用户能够根据自己的需求轻松创建符合要求的Prompt，并与其他人分享'
-        />
         <link rel='shortcut icon' href='/favicon/favicon.ico' />
       </Head>
+      <NextSeo {...NEXT_SEO_DEFAULT} />
       <Analytics />
       <ChakraProvider resetCSS={true}>
         <div id='root'>
@@ -35,6 +32,8 @@ export default function App({ Component, pageProps }: any) {
         <a className='flex gap-4 items-center' href='https://vercel.com?utm_source=prompt-engineering&utm_campaign=oss'>
           <span>Powered by</span>
           <Image
+            height={23.99}
+            width={(23.99 / 43.99) * 211.99}
             src='https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg'
             alt='Vercel Logo'
           />
