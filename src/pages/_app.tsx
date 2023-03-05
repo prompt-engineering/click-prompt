@@ -18,6 +18,7 @@ export default function App({ Component, pageProps }: any) {
           name='description'
           content='ClickPrompt 是一款专为Prompt编写者设计的工具，它支持多种基于Prompt的AI应用，例如Stable Diffusion、ChatGPT和GitHub Copilot等。使用ClickPrompt，您可以轻松地查看、分享和一键运行这些模型，同时提供在线的Prompt生成器，使用户能够根据自己的需求轻松创建符合要求的Prompt，并与其他人分享'
         />
+        <link rel='shortcut icon' href='/favicon/favicon.ico' />
       </Head>
       <Analytics />
       <ChakraProvider resetCSS={true}>
