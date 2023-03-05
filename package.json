@@ -27,6 +27,7 @@
     "color-name-list": "^10.5.0",
     "formik": "^2.2.9",
     "framer-motion": "^10.0.1",
+    "lodash-es": "^4.17.21",
     "nearest-color": "^0.4.4",
     "next": "13.2.3",
     "papaparse": "^5.4.0",
@@ -41,6 +42,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "@types/lodash-es": "^4.17.6",
     "@types/node": "18.14.5",
     "@types/papaparse": "^5.3.7",
     "@types/react": "18.0.28",

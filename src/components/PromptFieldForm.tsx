@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormControl, FormLabel, Select } from "@chakra-ui/react";
 import SimpleColorPicker, { ColorType } from "@/components/SimpleColorPicker";
 import { FormikProps } from "formik";
+import { debounce } from "lodash-es";
 
 export type SelectValue = {
   key: string;
@@ -27,24 +28,46 @@ export type FieldFormProp = {
 function PromptFieldForm(props: FieldFormProp) {
   const { field, formik } = props;
   const [color, setColor] = useState("");
+  const [value, setValue] = useState("");
+
+  useEffect(() => {
+    const fieldValue = formik.values[field.name]?.split(" color ") ?? [];
+    let initValue,
+      initColor = "";
+    if (fieldValue.length > 1) [initColor, initValue] = fieldValue;
+    else [initValue = ""] = fieldValue;
+    setColor(initColor ? `${initColor} color` : "");
+    setValue(initValue);
+  }, [formik.values[field.name]]);
 
   if (!field) return null;
+  const onColorChange = debounce((color: string) => {
+    setColor(color);
+    if (value) formik.setFieldValue(field.name, `${color} ${value}`);
+  }, 100);
 
   return (
     <FormControl key={field.name} id={field.name} mt={2}>
       <FormLabel>
         {field.label}{" "}
-        {field.colored && <SimpleColorPicker colorType={ColorType.Normal} updateColor={(color) => setColor(color)} />}
+        {field.colored && (
+          <SimpleColorPicker initColor={color} colorType={ColorType.Normal} updateColor={onColorChange} />
+        )}
       </FormLabel>
 
       <Select
         name={field.name}
+        value={value}
         placeholder={`-`}
         onChange={(event) => {
-          if (color !== "") {
-            formik.setFieldValue(field.name, `${color} ${event.target.value}`);
+          const inputValue = event.target.value;
+          setValue(inputValue);
+          if (inputValue) {
+            const value = color ? `${color} ${inputValue}` : inputValue;
+            formik.setFieldValue(field.name, value);
           } else {
-            formik.setFieldValue(field.name, event.target.value);
+            setColor("");
+            formik.setFieldValue(field.name, "");
           }
         }}
       >

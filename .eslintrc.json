@@ -2,6 +2,7 @@
   "root": true,
   "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
   "rules": {
-    "prettier/prettier": "warn"
+    "prettier/prettier": "warn",
+    "react-hooks/exhaustive-deps": "off"
   }
 }

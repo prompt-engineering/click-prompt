@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ChromePicker, ColorResult } from "react-color";
 import styled from "@emotion/styled";
 import nearestColor from "nearest-color";
@@ -11,13 +11,29 @@ export enum ColorType {
 
 type SimpleColorProps = {
   colorType?: ColorType;
-
+  initColor?: string;
   updateColor?: (color: string) => void;
 };
 
+const colorNameMap: Record<string, string> = colorNameList.reduce(
+  (o, { name, hex }) => Object.assign(o, { [name]: hex }),
+  {},
+);
+const nearest = nearestColor.from(colorNameMap);
+const hexToRgbString = (hex: string) => {
+  const { rgb } = nearest(hex);
+  return `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+};
+const defaultColor = "rgb(255, 255, 255)";
+
 function SimpleColorPicker(props: SimpleColorProps) {
-  const [color, setColor] = React.useState("rgba(255, 255, 255, 1))");
-  const [displayColorPicker, setDisplayColorPicker] = React.useState(false);
+  const [color, setColor] = useState(defaultColor);
+  const [displayColorPicker, setDisplayColorPicker] = useState(false);
+
+  useEffect(() => {
+    const initColor = props.initColor && colorNameMap[props.initColor.replace(/ color$/, "")];
+    setColor(initColor ? hexToRgbString(initColor) : defaultColor);
+  }, [props.initColor]);
 
   const handleClick = () => {
     setDisplayColorPicker(!displayColorPicker);
@@ -27,11 +43,6 @@ function SimpleColorPicker(props: SimpleColorProps) {
     setDisplayColorPicker(false);
   };
 
-  const colors = colorNameList.reduce<Record<string, string>>(
-    (o, { name, hex }) => Object.assign(o, { [name]: hex }),
-    {},
-  );
-  const nearest = nearestColor.from(colors);
   const handleChange = (color: ColorResult) => {
     let newColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
     setColor(newColor);
@@ -47,12 +58,12 @@ function SimpleColorPicker(props: SimpleColorProps) {
       <Swatch onClick={handleClick}>
         <StyleColor color={color} />
       </Swatch>
-      {displayColorPicker ? (
+      {displayColorPicker && (
         <StylePopover>
           <StyleCover onClick={handleClose} />
           <ChromePicker color={color} onChange={handleChange} />
         </StylePopover>
-      ) : null}
+      )}
     </>
   );
 }
