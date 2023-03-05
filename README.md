@@ -2,24 +2,51 @@
 
 [![ci](https://github.com/prompt-engineering/prompt-generator/actions/workflows/ci.yaml/badge.svg)](https://github.com/prompt-engineering/prompt-generator/actions/workflows/ci.yaml)
 
-> ClickPrompt 是一款全新的 Prompt 工具应用，可以帮助用户更好地编写 Prompt 并解放生产力。通过查看用户分享的 Prompt、一键运行多种 Prompt、
-> 以及在线 Prompt 生成器，ClickPrompt 可以帮助你轻松高效地完成 Prompt 的编写。
-
-## Features
-
-- ChatGPT
-  - 一键运行 ChatGPT
-  - 查看用户分享 ChatGPT 的样例
-  - 使用 ChatGPT 的 Prompt 生成器
-- StableDiffusion
-  - StableDiffusion 生成器
-  - 查看用户分享 StableDiffusion 的样例
-- ChatGPT
-  - 查看用户分享 GitHub Copilot 的样例
+> ClickPrompt 是一款专为 Prompt 编写者设计的工具，它支持多种基于 Prompt 的 AI 应用，例如 Stable Diffusion、ChatGPT 和 GitHub Copilot 等。
+> 使用 ClickPrompt，您可以轻松地查看、分享和一键运行这些模型，同时提供在线的 Prompt 生成器，使用户能够根据自己的需求轻松创建符合要求的 Prompt，并与其他人分享。
 
 在线地址：https://prompt.phodal.com
 
 备用地址：https://clickprompt.vercel.app
+
+Features:
+
+- [x] 支持用户样例展示功能，让用户可以查看、分享和参考其他用户的 Prompt 样例；
+  - [x] 基于 GitHub Pull Request
+  - [x] StableDiffusion
+  - [x] ChatGPT
+  - [x] GitHub Copilot
+- [ ] 在线 Prompt 生成器，帮助用户快速生成符合需求的 Prompt；
+  - [x] StableDiffusion 人物生成器
+  - [x] StableDiffusion -> ChatGPT 生成器
+- [ ] 提供一键运行功能，让用户轻松运行不同的 AI 应用；
+  - [ ] ChatGPT 集成
+  - [ ] StableDiffusion 集成
+- [ ] 行业 Prompt 生成 API，为各行业提供高效的 AI 应用解决方案；
+  - [ ] 编程
+  - [ ] 写作
+  - [ ] 设计
+
+## Roadmap
+
+Phase 1: MVP
+
+- 支持基于 Prompt 的 AI 应用，包括 ChatGPT 和 Stable Diffusion。
+- 提供 Prompt 生成器和一键运行功能。
+- 提供用户样例展示功能。
+
+Phase 2: 拓展功能
+
+- 增加 GPT-3 和 DALL-E 等基于 Prompt 的 AI 应用。
+- 提供用户自定义选项和多语言支持功能。
+- 增加 AI 编辑器和用户权限管理功能。
+- 支持 API 接口和其他第三方平台的集成。
+
+Phase 3: 提高质量
+
+- [ ] 改进 Prompt 生成器的算法，提高生成的文本质量和准确性。
+- [ ] 增加用户反馈和评价功能，收集用户的建议和意见。
+- [ ] 推广 ClickPrompt，并与各行业合作，为其提供高效的 AI 应用解决方案。
 
 ## Join us
 
