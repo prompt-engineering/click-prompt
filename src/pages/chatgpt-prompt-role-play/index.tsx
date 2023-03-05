@@ -55,7 +55,6 @@ function ChatGptPromptList() {
   return (
     <div>
       <Heading></Heading>
-      <Text>Todo: add JavaScript database to query in frontend</Text>
       <Input placeholder='Search' value={search} onChange={(ev) => setSearch(ev.target.value)} />
       <Text>
         base on:
