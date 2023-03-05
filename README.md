@@ -9,6 +9,10 @@
 
 备用地址：https://clickprompt.vercel.app
 
+Join our WeChat group:
+
+<img src="./public/wechat.jpg" width='256' height='auto' />
+
 Features:
 
 - [x] 支持用户样例展示功能，让用户可以查看、分享和参考其他用户的 Prompt 样例；
@@ -48,14 +52,6 @@ Phase 3: 提高质量
 - [ ] 增加用户反馈和评价功能，收集用户的建议和意见。
 - [ ] 推广 ClickPrompt，并与各行业合作，为其提供高效的 AI 应用解决方案。
 
-## Join us
-
-![Powered by Vercel](https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg)
-
-Only for discuss prompt engineering.
-
-<img src="./public/wechat.jpg" width='256' height='auto' />
-
 ## Development
 
 Tech Stacks:
@@ -91,6 +87,8 @@ Todos:
   - [x] samples
 - [ ] GitHub Copilot
   - [x] samples
+
+![Powered by Vercel](https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg)
 
 ## License
 
