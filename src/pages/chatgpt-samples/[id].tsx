@@ -15,6 +15,7 @@ import {
   SimpleGrid,
   Spacer,
   Tooltip,
+  Center,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { ExternalLinkIcon, LinkIcon, QuestionIcon } from "@chakra-ui/icons";
@@ -77,26 +78,20 @@ export default function Sample({ content }: Props) {
             {content.steps.map((step, index) => (
               <>
                 <HumanBlock gap={2}>
-                  <Box>
-                    <SimpleGrid spacing={4}>
-                      {/*<QuestionIcon boxSize={22} />*/}
-                      <CopyComponent value={step.ask} />
-                      <Tooltip label='Open In ChatGPT'>
-                        <Link href={"https://chat.openai.com/"} isExternal>
-                          <ExternalLinkIcon boxSize={22} />
-                        </Link>
-                      </Tooltip>
-                    </SimpleGrid>
-                  </Box>
-                  <Box>
-                    <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
-                  </Box>
+                  {/*<QuestionIcon boxSize={22} />*/}
+                  <CopyComponent value={step.ask} />
+                  <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                  <Tooltip label='Open In ChatGPT'>
+                    <Link href={"https://chat.openai.com/"} isExternal>
+                      <ExternalLinkIcon boxSize={22} />
+                    </Link>
+                  </Tooltip>
                 </HumanBlock>
                 <AiBlock>
                   <Box>
                     <ChatGptIcon />
                   </Box>
-                  <Box>
+                  <Box ml='2'>
                     <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
                   </Box>
                 </AiBlock>

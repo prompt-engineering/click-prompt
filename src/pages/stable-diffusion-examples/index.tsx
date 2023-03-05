@@ -1,6 +1,19 @@
 import React from "react";
 
-import { Box, Button, ButtonGroup, CardBody, Heading, Link, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  CardBody,
+  Heading,
+  Link,
+  SimpleGrid,
+  Stack,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+} from "@chakra-ui/react";
 import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
 import Image from "next/image";
 
@@ -26,7 +39,7 @@ function Index() {
     const parsedPrompt = parseStableDiffusionData(artist.prompt);
 
     return (
-      <Card key={`sample-${index}`}>
+      <Card key={`sample-${index}`} mt='2'>
         <CardHeader>
           <Heading size='md'>
             {sample.name} -{" "}
@@ -57,14 +70,15 @@ function Index() {
     "https://github.com/prompt-engineering/click-prompt/tree/master/src/assets/stable-diffusion/samples";
   return (
     <>
-      <Text>
-        分享我的 Stable Diffusion 美图：
+      <Alert>
+        <AlertIcon />
+        <AlertTitle>分享我的 Stable Diffusion 美图：</AlertTitle>
         <Link href={stableDiffusionLink}>
           Pull Request <ExternalLinkIcon />
         </Link>
-      </Text>
+      </Alert>
       {samples.length > 0 && (
-        <Box padding={4} w='100%' maxW='1200px' mx='auto' sx={{ columnCount: [1, 2, 3], columnGap: "8px" }}>
+        <Box w='100%' maxW='1200px' mx='auto' sx={{ columnCount: [1, 2, 3], columnGap: "8px" }}>
           {samples.map((sample) => sample.artists.map((artist, index) => ArticleCard(index, sample, artist)))}
         </Box>
       )}
