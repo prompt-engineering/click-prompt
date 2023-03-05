@@ -55,5 +55,30 @@ function genStableDiffusionSamples() {
   fs.writeFileSync(indexFile, JSON.stringify(index, null, 2));
 }
 
+function genGitHubCopilotSamples() {
+  const templatesDir = path.join(__dirname, "../src/assets/github-copilot/samples");
+  const indexFile = path.join(templatesDir, "index.json");
+
+  const files = walkdir.sync(templatesDir, { no_recurse: true });
+  const index = files
+    .filter((f) => f.endsWith(".yml"))
+    .map((f) => {
+      const content = fs.readFileSync(f, "utf8");
+      const doc = yaml.load(content);
+      const { name, author, homepage, category, snippets } = doc;
+      return {
+        name,
+        author,
+        category,
+        homepage,
+        snippets,
+        path: path.relative(templatesDir, f),
+      };
+    });
+
+  fs.writeFileSync(indexFile, JSON.stringify(index, null, 2));
+}
+
 genChatGptSamples();
 genStableDiffusionSamples();
+genGitHubCopilotSamples();
