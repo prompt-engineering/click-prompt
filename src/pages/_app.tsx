@@ -12,8 +12,8 @@ export default function App({ Component, pageProps }: any) {
     <>
       <Head>
         <title>
-          PromptGenerator - 各种在线符咒（Prompt）生成器，帮助你更好地编写 Prompt，解放生产力，计划支持：Stable
-          Diffusion、ChatGPT、GitHub Copilot。
+          ClickPrompt - 是一款全新的 Prompt 工具应用，可以帮助用户更好地编写 Prompt 并解放生产力。通过查看用户分享的
+          Prompt、一键运行多种 Prompt、 以及在线 Prompt 生成器，ClickPrompt 可以帮助你轻松高效地完成 Prompt 的编写。
         </title>
         <meta charSet='utf-8' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />

@@ -1,13 +1,25 @@
-# Prompt Generator
+# ClickPrompt
 
 [![ci](https://github.com/prompt-engineering/prompt-generator/actions/workflows/ci.yaml/badge.svg)](https://github.com/prompt-engineering/prompt-generator/actions/workflows/ci.yaml)
 
-Prompt Cheatsheet provides a collection of prompts and prompt tools for different use cases.
-It is a community-driven project, and we welcome contributions from everyone.
+> ClickPrompt 是一款全新的 Prompt 工具应用，可以帮助用户更好地编写 Prompt 并解放生产力。通过查看用户分享的 Prompt、一键运行多种 Prompt、
+> 以及在线 Prompt 生成器，ClickPrompt 可以帮助你轻松高效地完成 Prompt 的编写。
+
+## Features
+
+- ChatGPT
+  - 一键运行 ChatGPT
+  - 查看用户分享 ChatGPT 的样例
+  - 使用 ChatGPT 的 Prompt 生成器
+- StableDiffusion
+  - StableDiffusion 生成器
+  - 查看用户分享 StableDiffusion 的样例
+- ChatGPT
+  - 查看用户分享 GitHub Copilot 的样例
 
 在线地址：https://prompt.phodal.com
 
-备用地址：https://prompt-engineering.vercel.app
+备用地址：https://clickprompt.vercel.app
 
 ## Join us
 
