@@ -2,7 +2,13 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { CopyIcon } from "@chakra-ui/icons";
 import React from "react";
 
-function CopyComponent({ value, className = "" }: { value: string; className?: string }) {
+type CopyProps = {
+  value: string;
+  className?: string;
+  children?: React.ReactNode;
+};
+
+function CopyComponent({ value, className = "", children }: CopyProps) {
   return (
     <div className={className}>
       <CopyToClipboard
@@ -12,6 +18,7 @@ function CopyComponent({ value, className = "" }: { value: string; className?: s
         }}
       >
         <div className='cursor-pointer flex justify-center'>
+          {children ? children : ""}
           <CopyIcon boxSize={22} />
         </div>
       </CopyToClipboard>
