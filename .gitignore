@@ -11,6 +11,7 @@ pnpm-lock.yaml
 
 # next.js
 /.next/
+/.swc/
 /out/
 
 # production
