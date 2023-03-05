@@ -75,19 +75,16 @@ export default function Sample({ content }: Props) {
           <Box>
             {content.steps.map((step, index) => (
               <>
-                <Heading size='md'>Human</Heading>
-                <HumanBlock>
+                <HumanBlock gap={2}>
                   <Box>
-                    <QuestionIcon w='24px' height='24px' />
+                    <QuestionIcon w='26px' height='26px' />
+                    <StyledCopyComponent value={step.ask} />
                   </Box>
                   <Box>
                     <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
                   </Box>
-                  <Box>
-                    <CopyComponent value={step.ask} />
-                  </Box>
                 </HumanBlock>
-                <AiBlock gap={2}>
+                <AiBlock>
                   <Box>
                     <ChatGptIcon />
                   </Box>
@@ -103,6 +100,10 @@ export default function Sample({ content }: Props) {
     </>
   );
 }
+
+const StyledCopyComponent = styled(CopyComponent)`
+  margin-top: 1rem;
+`;
 
 const HumanBlock = styled(Flex)`
   background-color: rgba(247, 247, 248);
