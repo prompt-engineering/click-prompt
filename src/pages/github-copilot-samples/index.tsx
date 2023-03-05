@@ -43,7 +43,7 @@ function GitHubCopilotSamples() {
   }
 
   let githubCopilotLink =
-    "https://github.com/prompt-engineering/prompt-generator/tree/master/src/assets/github-copilot/samples";
+    "https://github.com/prompt-engineering/click-prompt/tree/master/src/assets/github-copilot/samples";
   return (
     <div>
       <Text>

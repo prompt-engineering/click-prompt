@@ -45,14 +45,14 @@ export default function NavBar() {
       title: "StableDiffusion",
       children: [
         {
-          url: "/stable-diffusion-generator",
-          title: "AI 绘画生成器",
-        },
-        {
           url: "/stable-diffusion-examples",
           title: "StableDiffusion 示例",
         },
       ],
+    },
+    {
+      url: "/stable-diffusion-generator",
+      title: "AI 绘画生成器",
     },
     {
       url: "/github-copilot-samples",
@@ -68,7 +68,7 @@ export default function NavBar() {
     <Flex align='center' py='4' pl='20px' pr={{ md: "20px", base: "4px" }} boxShadow='base'>
       <Flex>
         <Heading size='md' mr={4}>
-          <Link href={"/"}>PromptGenerator</Link>
+          <Link href={"/"}>ClickPrompt</Link>
         </Heading>
         <Flex display={{ md: "flex", base: "none" }}>
           {NavList.map((nav) => {

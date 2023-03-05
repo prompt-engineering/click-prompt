@@ -54,7 +54,7 @@ function Index() {
   }
 
   let stableDiffusionLink =
-    "https://github.com/prompt-engineering/prompt-generator/tree/master/src/assets/stable-diffusion/samples";
+    "https://github.com/prompt-engineering/click-prompt/tree/master/src/assets/stable-diffusion/samples";
   return (
     <>
       <Text>
