@@ -33,6 +33,10 @@ export default function NavBar() {
       title: "StableDiffusion 示例",
     },
     {
+      url: "/github-copilot-samples",
+      title: "GitHub Copilot 示例",
+    },
+    {
       url: "/resources",
       title: "学习资料",
     },
