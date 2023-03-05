@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FormControl, FormLabel, Grid, Heading, IconButton, Input } from "@chakra-ui/react";
+import { FormControl, FormLabel, Grid, Heading, IconButton, Input, useToast } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
@@ -9,6 +9,7 @@ import { numberToChineseOrdinal } from "chinese-numbering";
 import CopyComponent from "@/components/CopyComponent";
 
 function ChatGptCotGenerator() {
+  const toast = useToast();
   const [markdown, setMarkdown] = useState("");
 
   const [name, setName] = useState("wula");
@@ -32,7 +33,10 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
 
   const addLine = () => {
     if (lines.length === 20) {
-      alert("You can't add more than 20 lines");
+      toast({
+        title: "You can't add more than 20 lines",
+        position: "top",
+      });
       return;
     }
     setLines((lines) => [...lines, ""]);
@@ -40,7 +44,10 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
 
   const removeLine = (index: number) => {
     if (lines.length === 1) {
-      alert("You can't remove the last line");
+      toast({
+        title: "You can't remove the last line",
+        position: "top",
+      });
       return;
     }
     setLines((lines) => lines.filter((_, i) => i !== index));
@@ -48,7 +55,10 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
 
   const changeLine = (index: number, value: string) => {
     if (value.length > 200) {
-      alert("You can't add more than 200 characters");
+      toast({
+        title: "You can't add more than 200 characters",
+        position: "top",
+      });
       return;
     }
     setLines((lines) => lines.map((line, i) => (i === index ? value : line)));

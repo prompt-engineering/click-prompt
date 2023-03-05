@@ -1,7 +1,7 @@
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { CopyIcon } from "@chakra-ui/icons";
 import React from "react";
-import { Tooltip } from "@chakra-ui/react";
+import { Tooltip, useToast } from "@chakra-ui/react";
 
 type CopyProps = {
   value: string;
@@ -10,12 +10,17 @@ type CopyProps = {
 };
 
 function CopyComponent({ value, className = "", children }: CopyProps) {
+  const toast = useToast();
   return (
     <div className={className}>
       <CopyToClipboard
         text={value}
         onCopy={() => {
-          alert("Copied to clipboard");
+          toast({
+            title: "Copied to clipboard",
+            position: "top",
+            status: "success",
+          });
         }}
       >
         <div className='cursor-pointer flex justify-center'>

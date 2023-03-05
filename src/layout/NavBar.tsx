@@ -1,6 +1,17 @@
 import React from "react";
-import { Flex, Spacer, Box, Heading, Link as NavLink } from "@chakra-ui/react";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+import {
+  Flex,
+  Spacer,
+  Box,
+  Heading,
+  Link as NavLink,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
+} from "@chakra-ui/react";
+import { ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -43,23 +54,50 @@ export default function NavBar() {
   ];
 
   return (
-    <Flex py='4' pl='20' pr='20' boxShadow='base'>
+    <Flex align='center' py='4' pl='20px' pr={{ md: "20px", base: "4px" }} boxShadow='base'>
       <Flex>
         <Heading size='md' mr={4}>
           <Link href={"/"}>PromptGenerator</Link>
         </Heading>
-        {NavList.map((nav) => (
-          <Link key={nav.url} href={nav.url}>
-            <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
-              {nav.title}
-            </Box>
-          </Link>
-        ))}
+        <Flex display={{ md: "flex", base: "none" }}>
+          {NavList.map((nav) => (
+            <Link key={nav.url} href={nav.url}>
+              <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
+                {nav.title}
+              </Box>
+            </Link>
+          ))}
+        </Flex>
       </Flex>
       <Spacer />
-      <NavLink href='https://github.com/phodal/prompt-generator' isExternal>
+      <NavLink display={{ md: "block", base: "none" }} href='https://github.com/phodal/prompt-generator' isExternal>
         GitHub <ExternalLinkIcon mx='2px' />
       </NavLink>
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label='Options'
+          icon={<HamburgerIcon />}
+          variant='outline'
+          display={{ md: "none", base: "block" }}
+        />
+        <MenuList display={{ md: "none", base: "block" }}>
+          {NavList.map((nav) => (
+            <MenuItem key={nav.url}>
+              <Link href={nav.url}>
+                <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
+                  {nav.title}
+                </Box>
+              </Link>
+            </MenuItem>
+          ))}
+          <MenuItem>
+            <NavLink href='https://github.com/phodal/prompt-generator' isExternal>
+              GitHub <ExternalLinkIcon mx='2px' />
+            </NavLink>
+          </MenuItem>
+        </MenuList>
+      </Menu>
     </Flex>
   );
 }
