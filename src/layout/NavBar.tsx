@@ -120,7 +120,7 @@ export default function NavBar() {
           {NavList.map((nav) =>
             nav.children ? (
               nav.children.map((child) => (
-                <MenuItem key={child.url} as={Link} href={nav.url}>
+                <MenuItem key={child.url} as={Link} href={child.url}>
                   <Box mr={4} color={router.asPath === child.url ? "#108EE9" : "black"}>
                     {child.title}
                   </Box>
