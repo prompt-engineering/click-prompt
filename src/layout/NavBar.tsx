@@ -82,12 +82,10 @@ export default function NavBar() {
                   </MenuButton>
                   <MenuList>
                     {nav.children.map((child) => (
-                      <MenuItem key={child.url}>
-                        <Link href={child.url}>
-                          <Box mr={4} color={router.asPath === child.url ? "#108EE9" : "black"}>
-                            {child.title}
-                          </Box>
-                        </Link>
+                      <MenuItem key={child.url} as={Link} href={child.url}>
+                        <Box mr={4} color={router.asPath === child.url ? "#108EE9" : "black"}>
+                          {child.title}
+                        </Box>
                       </MenuItem>
                     ))}
                   </MenuList>
@@ -122,21 +120,17 @@ export default function NavBar() {
           {NavList.map((nav) =>
             nav.children ? (
               nav.children.map((child) => (
-                <MenuItem key={child.url}>
-                  <Link href={child.url}>
-                    <Box mr={4} color={router.asPath === child.url ? "#108EE9" : "black"}>
-                      {child.title}
-                    </Box>
-                  </Link>
+                <MenuItem key={child.url} as={Link} href={child.url}>
+                  <Box mr={4} color={router.asPath === child.url ? "#108EE9" : "black"}>
+                    {child.title}
+                  </Box>
                 </MenuItem>
               ))
             ) : (
-              <MenuItem key={nav.url}>
-                <Link href={nav.url}>
-                  <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
-                    {nav.title}
-                  </Box>
-                </Link>
+              <MenuItem as={Link} href={nav.url} key={nav.url}>
+                <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
+                  {nav.title}
+                </Box>
               </MenuItem>
             ),
           )}
