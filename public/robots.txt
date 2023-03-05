@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://prompt.phodal.com
+
+# Sitemaps
+Sitemap: https://prompt.phodal.com/sitemap.xml
