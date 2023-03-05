@@ -1,7 +1,5 @@
 import React from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { Box, Card, CardBody, CardHeader, Heading, Link, Stack } from "@chakra-ui/react";
+import { Box, Card, CardBody, CardHeader, Heading, Link, Stack, Text } from "@chakra-ui/react";
 import samples from "@/assets/github-copilot/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
@@ -44,8 +42,16 @@ function GitHubCopilotSamples() {
     );
   }
 
+  let githubCopilotLink =
+    "https://github.com/prompt-engineering/prompt-generator/tree/master/src/assets/github-copilot/samples";
   return (
     <div>
+      <Text>
+        分享我的 GitHub Copilot 心得：
+        <Link href={githubCopilotLink}>
+          Pull Request <ExternalLinkIcon />
+        </Link>
+      </Text>
       {samples.length > 0 && (
         <Box padding={4} w='100%' maxW='1200px' mx='auto'>
           {samples.map((sample) => sample.snippets.map((artist, index) => SnippetCode(index, sample, artist)))}
