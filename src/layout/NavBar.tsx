@@ -45,14 +45,14 @@ export default function NavBar() {
       title: "StableDiffusion",
       children: [
         {
-          url: "/stable-diffusion-generator",
-          title: "AI 绘画生成器",
-        },
-        {
           url: "/stable-diffusion-examples",
           title: "StableDiffusion 示例",
         },
       ],
+    },
+    {
+      url: "/stable-diffusion-generator",
+      title: "AI 绘画生成器",
     },
     {
       url: "/github-copilot-samples",
