@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "dev": "next dev",
-    "build": "next build && next export -o dist",
+    "build": "next build",
     "postbuild": "next-sitemap",
     "start": "npm run dev",
     "lint": "next lint",
