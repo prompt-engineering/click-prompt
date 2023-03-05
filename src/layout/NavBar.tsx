@@ -10,8 +10,9 @@ import {
   MenuList,
   MenuItem,
   IconButton,
+  Button,
 } from "@chakra-ui/react";
-import { ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon, HamburgerIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -20,28 +21,38 @@ export default function NavBar() {
 
   const NavList = [
     {
-      url: "/chatgpt-general",
-      title: "ChatGPT 常用指令",
+      title: "ChatGPT",
+      children: [
+        {
+          url: "/chatgpt-general",
+          title: "ChatGPT 常用指令",
+        },
+        {
+          url: "/chatgpt-prompt-role-play",
+          title: "ChatGPT 角色扮演",
+        },
+        {
+          url: "/chatgpt-generator-cot",
+          title: "ChatGPT 游戏模式",
+        },
+        {
+          url: "/chatgpt-samples",
+          title: "ChatGPT 示例",
+        },
+      ],
     },
     {
-      url: "/chatgpt-prompt-role-play",
-      title: "ChatGPT 角色扮演",
-    },
-    {
-      url: "/chatgpt-generator-cot",
-      title: "ChatGPT 游戏模式",
-    },
-    {
-      url: "/stable-diffusion-generator",
-      title: "AI 绘画生成器",
-    },
-    {
-      url: "/chatgpt-samples",
-      title: "ChatGPT 示例",
-    },
-    {
-      url: "/stable-diffusion-examples",
-      title: "StableDiffusion 示例",
+      title: "StableDiffusion",
+      children: [
+        {
+          url: "/stable-diffusion-generator",
+          title: "AI 绘画生成器",
+        },
+        {
+          url: "/stable-diffusion-examples",
+          title: "StableDiffusion 示例",
+        },
+      ],
     },
     {
       url: "/github-copilot-samples",
@@ -60,13 +71,36 @@ export default function NavBar() {
           <Link href={"/"}>PromptGenerator</Link>
         </Heading>
         <Flex display={{ md: "flex", base: "none" }}>
-          {NavList.map((nav) => (
-            <Link key={nav.url} href={nav.url}>
-              <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
-                {nav.title}
-              </Box>
-            </Link>
-          ))}
+          {NavList.map((nav) => {
+            // 如果当前导航项有子菜单，则呈现为下拉菜单
+            if (nav.children) {
+              return (
+                <Menu key={nav.title}>
+                  <MenuButton mr={4}>{nav.title}</MenuButton>
+                  <MenuList>
+                    {nav.children.map((child) => (
+                      <MenuItem key={child.url}>
+                        <Link href={child.url}>
+                          <Box mr={4} color={router.asPath === child.url ? "#108EE9" : "black"}>
+                            {child.title}
+                          </Box>
+                        </Link>
+                      </MenuItem>
+                    ))}
+                  </MenuList>
+                </Menu>
+              );
+            } else {
+              // 否则呈现为单独的链接
+              return (
+                <Link key={nav.url} href={nav.url}>
+                  <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
+                    {nav.title}
+                  </Box>
+                </Link>
+              );
+            }
+          })}
         </Flex>
       </Flex>
       <Spacer />
@@ -82,15 +116,27 @@ export default function NavBar() {
           display={{ md: "none", base: "block" }}
         />
         <MenuList display={{ md: "none", base: "block" }}>
-          {NavList.map((nav) => (
-            <MenuItem key={nav.url}>
-              <Link href={nav.url}>
-                <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
-                  {nav.title}
-                </Box>
-              </Link>
-            </MenuItem>
-          ))}
+          {NavList.map((nav) =>
+            nav.children ? (
+              nav.children.map((child) => (
+                <MenuItem key={child.url}>
+                  <Link href={child.url}>
+                    <Box mr={4} color={router.asPath === child.url ? "#108EE9" : "black"}>
+                      {child.title}
+                    </Box>
+                  </Link>
+                </MenuItem>
+              ))
+            ) : (
+              <MenuItem key={nav.url}>
+                <Link href={nav.url}>
+                  <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
+                    {nav.title}
+                  </Box>
+                </Link>
+              </MenuItem>
+            ),
+          )}
           <MenuItem>
             <NavLink href='https://github.com/phodal/prompt-generator' isExternal>
               GitHub <ExternalLinkIcon mx='2px' />
