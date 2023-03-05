@@ -1,13 +1,13 @@
 import React from "react";
 
-import { Button, ButtonGroup, CardBody, Heading, Link, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, CardBody, Heading, Link, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
 import Image from "next/image";
 
 import CopyComponent from "@/components/CopyComponent";
 import samples from "@/assets/stable-diffusion/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { parseStableDiffusionPrompt } from "@/data-processor/SduiParser";
+import { parseStableDiffusionData } from "@/data-processor/SduiParser";
 
 type StableDiffusionSample = {
   name: string;
@@ -23,7 +23,7 @@ type StableDiffusionSample = {
 
 function Index() {
   function ArticleCard(index: number, sample: StableDiffusionSample, artist: { preview: string; prompt: string }) {
-    const parsedPrompt = parseStableDiffusionPrompt(artist.prompt);
+    const parsedPrompt = parseStableDiffusionData(artist.prompt);
 
     return (
       <Card key={`sample-${index}`}>
@@ -39,6 +39,7 @@ function Index() {
           <Image src={artist.preview} alt='' width={512} height={512} />
           <Stack>
             <Text>Model: {parsedPrompt.model}</Text>
+            {parsedPrompt.lora.length > 0 && <Text>Lora: {parsedPrompt.lora.join(", ")} </Text>}
           </Stack>
         </CardBody>
         <CardFooter>
@@ -55,12 +56,8 @@ function Index() {
   return (
     <>
       {samples.length > 0 && (
-        <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(320px, 1fr))'>
-          {samples.map((sample, index) => (
-            <div key={"index-" + index}>
-              {sample.artists.map((artist, index) => ArticleCard(index, sample, artist))}
-            </div>
-          ))}
+        <SimpleGrid templateColumns='repeat(auto-fill, minmax(320px, 1fr))' columns={6} gap={3} p={3}>
+          {samples.map((sample) => sample.artists.map((artist, index) => ArticleCard(index, sample, artist)))}
         </SimpleGrid>
       )}
     </>

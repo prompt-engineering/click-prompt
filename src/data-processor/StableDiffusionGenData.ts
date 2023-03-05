@@ -1,4 +1,4 @@
-export type StableDiffusionPrompt = {
+export type StableDiffusionGenData = {
   prompt: string;
   negativePrompt: string;
   steps: number;
@@ -8,4 +8,5 @@ export type StableDiffusionPrompt = {
   size: string;
   modelHash: string;
   model: string;
+  lora: string[];
 };
