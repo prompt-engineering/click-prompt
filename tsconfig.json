@@ -6,6 +6,7 @@
     "lib": [
       "dom",
       "dom.iterable",
+      "ES2021.String",
       "esnext"
     ],
     "allowJs": true,
