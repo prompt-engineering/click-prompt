@@ -53,7 +53,7 @@ function GitHubCopilotSamples() {
         </Link>
       </Text>
       {samples.length > 0 && (
-        <Box padding={4} w='100%' maxW='1200px' mx='auto'>
+        <Box w='100%' maxW='1600px' mx='auto' sx={{ columnCount: [1, 2], columnGap: "8px" }}>
           {samples.map((sample) => sample.snippets.map((artist, index) => SnippetCode(index, sample, artist)))}
         </Box>
       )}
