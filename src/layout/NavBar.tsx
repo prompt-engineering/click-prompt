@@ -76,7 +76,10 @@ export default function NavBar() {
             if (nav.children) {
               return (
                 <Menu key={nav.title}>
-                  <MenuButton mr={4}>{nav.title}</MenuButton>
+                  <MenuButton mr={4}>
+                    {nav.title}
+                    <ChevronDownIcon />
+                  </MenuButton>
                   <MenuList>
                     {nav.children.map((child) => (
                       <MenuItem key={child.url}>
