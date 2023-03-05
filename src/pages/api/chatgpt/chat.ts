@@ -7,25 +7,24 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(400).json({ error: "You're not logged in yet!" });
     return;
   }
-  const user = getClientByUserId(userId);
-  if (!user) {
+  const client = getClientByUserId(userId);
+  if (!client) {
     res.setHeader("Set-Cookie", "PROMPT_GENERATOR_USER=; Max-Age=0");
     res.status(400).json({ error: "Your login session has been expired!" });
     return;
   }
-  const openai = user.openai;
 
   if (req.method === "POST" && req.body) {
     const { prompt } = req.body;
     if (prompt) {
       try {
-        const response = await openai.createCompletion({
+        const response = await client.createCompletion({
           model: "gpt-3.5-turbo",
           prompt,
           frequency_penalty: 0.0,
           presence_penalty: 0.0,
           max_tokens: 1024,
-          user: user.id,
+          user: userId,
           stop: ["\n", "User:", "AI:"],
         });
         if (response.status !== 200) {
