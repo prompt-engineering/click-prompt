@@ -14,6 +14,9 @@ export default function App({ Component, pageProps }: any) {
           PromptGenerator - 各种在线符咒（Prompt）生成器，帮助你更好地编写 Prompt，解放生产力，计划支持：Stable
           Diffusion、ChatGPT、GitHub Copilot。
         </title>
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='description' content='Powered by Vercel and Next.js' />
       </Head>
       <ChakraProvider resetCSS={true}>
         <div id='root'>
