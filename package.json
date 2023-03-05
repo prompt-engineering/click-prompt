@@ -13,7 +13,8 @@
     "format": "prettier .",
     "format:fix": "prettier --write .",
     "gen:samples:index": "node gen/generate-samples-index.js",
-    "test": "jest --watch"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
