@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "dev": "next dev",
+    "dev": "npm run prepare:data && next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "npm run dev",

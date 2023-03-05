@@ -6,7 +6,7 @@ const Papa = require("papaparse");
 // 3. generating the json file to src/assets/data/ai-resources.json
 function convertCsvToJson(csvName) {
   const csvFilePath = `./public/data/${csvName}.csv`;
-  const jsonFilePath = `./public/data/${csvName}.json`;
+  const jsonFilePath = `./src/assets/resources/${csvName}.json`;
   const csvFile = fs.readFileSync(csvFilePath, "utf8");
   const json = Papa.parse(csvFile, {
     header: true,
@@ -18,4 +18,4 @@ function convertCsvToJson(csvName) {
 
 convertCsvToJson("ai-resources");
 convertCsvToJson("reading-list-en");
-convertCsvToJson("reading-list-cnde");
+convertCsvToJson("reading-list-cn");
