@@ -10,7 +10,10 @@ export default function App({ Component, pageProps }: any) {
   return (
     <>
       <Head>
-        <title>Prompt Generator - a opensource prompt online generator</title>
+        <title>
+          PromptGenerator - 各种在线符咒（Prompt）生成器，帮助你更好地编写 Prompt，解放生产力，计划支持：Stable
+          Diffusion、ChatGPT、GitHub Copilot。
+        </title>
       </Head>
       <ChakraProvider resetCSS={true}>
         <div id='root'>

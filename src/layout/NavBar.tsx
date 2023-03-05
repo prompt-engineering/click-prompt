@@ -9,32 +9,32 @@ export default function NavBar() {
 
   const NavList = [
     {
-      url: "/ChatGptGeneral",
-      title: "类 ChatGPT 常用指令",
+      url: "/chatgpt-general",
+      title: "ChatGPT 常用指令",
     },
     {
-      url: "/ChatGptPromptList",
-      title: "类 ChatGPT 角色扮演",
+      url: "/chatgpt-prompt-role-play",
+      title: "ChatGPT 角色扮演",
     },
     {
-      url: "/StableDiffusionGenerator",
+      url: "/chatgpt-generator-cot",
+      title: "ChatGPT 游戏模式",
+    },
+    {
+      url: "/stable-diffusion-generator",
       title: "AI 绘画生成器",
     },
     {
-      url: "/ChatGptCotGenerator",
-      title: "类 ChatGPT 游戏模式",
-    },
-    {
-      url: "/ReadingList",
-      title: "学习资料",
-    },
-    {
-      url: "/ChatGptSamples",
+      url: "/chatgpt-samples",
       title: "ChatGPT 示例",
     },
     {
-      url: "/StableDiffusionExamples",
+      url: "/stable-diffusion-examples",
       title: "StableDiffusion 示例",
+    },
+    {
+      url: "/resources",
+      title: "学习资料",
     },
   ];
 
