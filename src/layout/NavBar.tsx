@@ -105,7 +105,7 @@ export default function NavBar() {
         </Flex>
       </Flex>
       <Spacer />
-      <NavLink display={{ md: "block", base: "none" }} href='https://github.com/phodal/prompt-generator' isExternal>
+      <NavLink display={{ md: "block", base: "none" }} href='https://github.com/phodal/click-prompt' isExternal>
         GitHub <ExternalLinkIcon mx='2px' />
       </NavLink>
       <Menu>
@@ -135,7 +135,7 @@ export default function NavBar() {
             ),
           )}
           <MenuItem>
-            <NavLink href='https://github.com/phodal/prompt-generator' isExternal>
+            <NavLink href='https://github.com/phodal/click-prompt' isExternal>
               GitHub <ExternalLinkIcon mx='2px' />
             </NavLink>
           </MenuItem>

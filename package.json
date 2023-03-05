@@ -1,5 +1,5 @@
 {
-  "name": "prompt-generator",
+  "name": "click-prompt",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -34,6 +34,7 @@
     "lodash-es": "^4.17.21",
     "nearest-color": "^0.4.4",
     "next": "13.2.3",
+    "next-seo": "^5.15.0",
     "next-sitemap": "^4.0.2",
     "openai": "^3.2.1",
     "papaparse": "^5.4.0",
