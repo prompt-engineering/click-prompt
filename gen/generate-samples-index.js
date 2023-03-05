@@ -82,3 +82,12 @@ function genGitHubCopilotSamples() {
 genChatGptSamples();
 genStableDiffusionSamples();
 genGitHubCopilotSamples();
+
+function listAllFileUnderDist() {
+  const distDir = path.join(__dirname, "../dist");
+  const files = walkdir.sync(distDir, { no_recurse: true });
+  const index = files.map((f) => {
+    return path.relative(distDir, f);
+  });
+  fs.writeFileSync(path.join(distDir, "index.json"), JSON.stringify(index, null, 2));
+}
