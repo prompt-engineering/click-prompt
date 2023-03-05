@@ -14,5 +14,6 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(200).json({ message: "Your login session has been expired!", loggedIn: false });
     return;
   }
-  res.status(200).json({ message: "You're logged in!", loggedIn: true });
+  return res.status(200).json({ message: "You're logged in!", loggedIn: true });
 };
+export default handler;

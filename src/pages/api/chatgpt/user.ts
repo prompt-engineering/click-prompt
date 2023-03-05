@@ -38,7 +38,7 @@ const COOKIE_FOR_USER_ID = "PROMPT_GENERATOR_USER";
 const handler: NextApiHandler = async (req, res) => {
   if (req.method === "POST" && req.body) {
     const userId = req.cookies[COOKIE_FOR_USER_ID];
-    const { key, action } = req.body;
+    const { key, action } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     if (action) {
       if (action === "login") {
         if (!key) {

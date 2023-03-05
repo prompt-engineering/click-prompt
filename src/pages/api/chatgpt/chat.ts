@@ -15,7 +15,7 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   if (req.method === "POST" && req.body) {
-    const { prompt } = req.body;
+    const { prompt } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     if (prompt) {
       try {
         const response = await client.createCompletion({
