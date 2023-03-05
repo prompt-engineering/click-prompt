@@ -7,14 +7,19 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Flex,
+  Grid,
+  GridItem,
   Heading,
   Link,
+  SimpleGrid,
   Spacer,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon, QuestionIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
+import ChatGptIcon from "@/components/Logo/ChatGPTIcon";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
@@ -67,55 +72,45 @@ export default function Sample({ content }: Props) {
             </Link>
           </Heading>
           <Spacer />
-          <Accordion allowMultiple index={content.steps.map((_, index) => index)}>
+          <Box>
             {content.steps.map((step, index) => (
-              <AccordionItem key={index}>
-                <h2>
-                  <AccordionButton _expanded={{ bg: "tomato", color: "white" }}>
-                    <Box flex='1' textAlign='left'>
-                      <h3>Question {index}</h3>
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                <AccordionPanel pb={4}>
-                  <Heading size='md'>Human</Heading>
-                  <HumanBlock>
+              <>
+                <Heading size='md'>Human</Heading>
+                <HumanBlock>
+                  <Box>
+                    <QuestionIcon w='24px' height='24px' />
+                  </Box>
+                  <Box>
                     <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                  </Box>
+                  <Box>
                     <CopyComponent value={step.ask} />
-                  </HumanBlock>
-                  <AiBlock>
-                    <Heading size='md'>AI</Heading>
+                  </Box>
+                </HumanBlock>
+                <AiBlock gap={2}>
+                  <Box>
+                    <ChatGptIcon />
+                  </Box>
+                  <Box>
                     <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
-                  </AiBlock>
-                </AccordionPanel>
-              </AccordionItem>
+                  </Box>
+                </AiBlock>
+              </>
             ))}
-          </Accordion>
+          </Box>
         </>
       )}
     </>
   );
 }
 
-const HumanBlock = styled.div`
+const HumanBlock = styled(Flex)`
   background-color: rgba(247, 247, 248);
   border-color: rgba(0, 0, 0, 0.1);
   padding: 1rem;
 `;
 
-const AiBlock = styled.div`
+const AiBlock = styled(Flex)`
   background-color: #fff;
   padding: 1rem;
-
-  p {
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  .empty-language {
-    float: left;
-    width: 100%;
-    padding: 0.5rem;
-  }
 `;
