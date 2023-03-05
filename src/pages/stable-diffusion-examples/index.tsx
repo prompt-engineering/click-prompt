@@ -53,8 +53,16 @@ function Index() {
     );
   }
 
+  let stableDiffusionLink =
+    "https://github.com/prompt-engineering/prompt-generator/tree/master/src/assets/stable-diffusion/samples";
   return (
     <>
+      <Text>
+        分享我的 Stable Diffusion 美图：
+        <Link href={stableDiffusionLink}>
+          Pull Request <ExternalLinkIcon />
+        </Link>
+      </Text>
       {samples.length > 0 && (
         <SimpleGrid templateColumns='repeat(auto-fill, minmax(320px, 1fr))' columns={6} gap={3} p={3}>
           {samples.map((sample) => sample.artists.map((artist, index) => ArticleCard(index, sample, artist)))}
