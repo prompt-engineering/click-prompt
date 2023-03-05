@@ -1,7 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
-import { Button, CardBody, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, CardBody, Heading, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
 import samples from "@/assets/chatgpt/samples/index.json";
@@ -19,9 +19,9 @@ function ChatGptSamples() {
         </Link>
       </Text>
       {samples.length > 0 && (
-        <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(400px, 1fr))'>
+        <Box padding={4} w='100%' maxW='1200px' mx='auto' sx={{ columnCount: [1, 2, 3], columnGap: "8px" }}>
           {samples.map((sample, index) => (
-            <Card key={`sample-${index}`}>
+            <Card key={`sample-${index}`} maxH='400px'>
               <CardHeader>
                 <Heading size='md'>
                   {sample.name} - {sample.author}
@@ -36,13 +36,13 @@ function ChatGptSamples() {
               </CardBody>
 
               <CardFooter>
-                <Link href={"/ChatGptSamples/" + sample.path.split(".")[0]}>
+                <Link href={"/chatgpt-samples/" + sample.path.split(".")[0]}>
                   <Button>View here</Button>
                 </Link>
               </CardFooter>
             </Card>
           ))}
-        </SimpleGrid>
+        </Box>
       )}
     </>
   );

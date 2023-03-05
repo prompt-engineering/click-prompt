@@ -64,9 +64,9 @@ function Index() {
         </Link>
       </Text>
       {samples.length > 0 && (
-        <SimpleGrid templateColumns='repeat(auto-fill, minmax(320px, 1fr))' columns={6} gap={3} p={3}>
+        <Box padding={4} w='100%' maxW='1200px' mx='auto' sx={{ columnCount: [1, 2, 3], columnGap: "8px" }}>
           {samples.map((sample) => sample.artists.map((artist, index) => ArticleCard(index, sample, artist)))}
-        </SimpleGrid>
+        </Box>
       )}
     </>
   );
