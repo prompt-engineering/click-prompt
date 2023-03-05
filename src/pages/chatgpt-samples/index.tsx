@@ -1,11 +1,11 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
 import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
-import { Box, Button, CardBody, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, CardBody, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
 import samples from "@/assets/chatgpt/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import SimpleMarkdown from "@/components/SimpleMarkdown";
 
 function ChatGptSamples() {
   const chatgptLink = "https://github.com/prompt-engineering/prompt-generator/tree/master/src/assets/chatgpt";
@@ -19,19 +19,18 @@ function ChatGptSamples() {
         </Link>
       </Text>
       {samples.length > 0 && (
-        <Box padding={4} w='100%' maxW='1200px' mx='auto' sx={{ columnCount: [1, 2, 3], columnGap: "8px" }}>
+        <SimpleGrid columns={4} spacing={4}>
           {samples.map((sample, index) => (
-            <Card key={`sample-${index}`} maxH='400px'>
+            <Card key={`sample-${index}`}>
               <CardHeader>
                 <Heading size='md'>
                   {sample.name} - {sample.author}
                 </Heading>
               </CardHeader>
-              <CardBody>
+
+              <CardBody maxH='320px' overflow='auto'>
                 <Stack>
-                  <ReactMarkdown>
-                    {sample?.preview ? sample.preview.replaceAll("\n", "\n\n") : "no preview"}
-                  </ReactMarkdown>
+                  <SimpleMarkdown content={sample?.preview ? sample.preview.replaceAll("\n", "\n\n") : "no preview"} />
                 </Stack>
               </CardBody>
 
@@ -42,7 +41,7 @@ function ChatGptSamples() {
               </CardFooter>
             </Card>
           ))}
-        </Box>
+        </SimpleGrid>
       )}
     </>
   );
