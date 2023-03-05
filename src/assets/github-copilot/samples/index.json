@@ -23,7 +23,7 @@
       {
         "name": "编程语言间翻译",
         "prompt": "使用注释复制其它语言的代码，如输入 TypeScript，输出语言是 Kotlin\n```typescript\n//  async checkout(ref: string, startPoint: string): Promise<void> {\n//    const args = ['checkout', '--progress', '--force']\n//    if (startPoint) {\n//      args.push('-B', ref, startPoint)\n//    } else {\n//      args.push(ref)\n//    }\n//\n//    await this.execGit(args)\n//  }\nfun checkout...\n```\n",
-        "results": "```kotlin\n fun checkout(ref: String, startPoint: String): Promise<Unit> {\n  val args = mutableListOf(\"checkout\", \"--progress\", \"--force\")\n  if (startPoint != null) {\n    args.add(\"-B\")\n    args.add(ref)\n    args.add(startPoint)\n  } else {\n    args.add(ref)\n  }\n  return execGit(args)\n}\n```\n"
+        "result": "```kotlin\n fun checkout(ref: String, startPoint: String): Promise<Unit> {\n  val args = mutableListOf(\"checkout\", \"--progress\", \"--force\")\n  if (startPoint != null) {\n    args.add(\"-B\")\n    args.add(ref)\n    args.add(startPoint)\n  } else {\n    args.add(ref)\n  }\n  return execGit(args)\n}\n```\n"
       }
     ],
     "path": "phodal-tips.yml"

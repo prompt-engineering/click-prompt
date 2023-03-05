@@ -70,7 +70,7 @@ snippets:
       //  }
       fun checkout...
       ```
-    results: |
+    result: |
       ```kotlin
        fun checkout(ref: String, startPoint: String): Promise<Unit> {
         val args = mutableListOf("checkout", "--progress", "--force")

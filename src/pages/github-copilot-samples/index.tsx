@@ -48,7 +48,7 @@ function GitHubCopilotSamples() {
     <div>
       <Text>
         分享我的 GitHub Copilot 心得：
-        <Link href={githubCopilotLink}>
+        <Link href={githubCopilotLink} isExternal>
           Pull Request <ExternalLinkIcon />
         </Link>
       </Text>
