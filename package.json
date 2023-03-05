@@ -23,6 +23,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@tanstack/react-table": "^8.7.9",
+    "@vercel/analytics": "^0.1.11",
     "apache-arrow": "^11.0.0",
     "chakra-ui-markdown-renderer": "^4.1.0",
     "chinese-numbering": "^1.0.0",

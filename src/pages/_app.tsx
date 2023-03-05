@@ -1,8 +1,9 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { Container } from "@chakra-ui/react";
-import NavBar from "../layout/NavBar";
-
+import { Analytics } from "@vercel/analytics/react";
 import Head from "next/head";
+
+import NavBar from "../layout/NavBar";
 
 import "./globals.css";
 
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }: any) {
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <meta name='description' content='Powered by Vercel and Next.js' />
       </Head>
+      <Analytics />
       <ChakraProvider resetCSS={true}>
         <div id='root'>
           <NavBar />
