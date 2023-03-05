@@ -9,7 +9,7 @@ const nextConfig = {
     return [
       {
         source: "/",
-        destination: "/ChatGptGeneral",
+        destination: "/chatgpt-general",
         permanent: true,
       },
     ];
