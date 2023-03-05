@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "dev": "next dev",
+    "dev": "npm run prepare:data && next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "npm run dev",
@@ -12,7 +12,8 @@
     "lint:fix": "next lint --fix",
     "format": "prettier .",
     "format:fix": "prettier --write .",
-    "gen:samples:index": "node gen/generate-samples-index.js",
+    "postinstall": "npm run prepare:data",
+    "prepare:data": "node gen/generate-samples-index.js && node gen/generate-resources-csv.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -23,6 +24,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@tanstack/react-table": "^8.7.9",
+    "@vercel/analytics": "^0.1.11",
     "apache-arrow": "^11.0.0",
     "chakra-ui-markdown-renderer": "^4.1.0",
     "chinese-numbering": "^1.0.0",
@@ -41,7 +43,8 @@
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.5",
     "react-syntax-highlighter": "^15.5.0",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -54,6 +57,7 @@
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "18.0.11",
     "@types/react-syntax-highlighter": "^15.5.6",
+    "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.13",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
