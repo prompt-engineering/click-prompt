@@ -14,9 +14,10 @@ import {
   Link,
   SimpleGrid,
   Spacer,
+  Tooltip,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { ExternalLinkIcon, QuestionIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon, LinkIcon, QuestionIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import ChatGptIcon from "@/components/Logo/ChatGPTIcon";
@@ -65,7 +66,7 @@ export default function Sample({ content }: Props) {
     <>
       {content && (
         <>
-          <Heading as='h3'>
+          <Heading as='h4'>
             {content.name} by &nbsp;
             <Link href={content.homepage} isExternal>
               {content.author} <ExternalLinkIcon />
@@ -77,8 +78,15 @@ export default function Sample({ content }: Props) {
               <>
                 <HumanBlock gap={2}>
                   <Box>
-                    <QuestionIcon w='26px' height='26px' />
-                    <StyledCopyComponent value={step.ask} />
+                    <SimpleGrid spacing={4}>
+                      {/*<QuestionIcon boxSize={22} />*/}
+                      <CopyComponent value={step.ask} />
+                      <Tooltip label='Open In ChatGPT'>
+                        <Link href={"https://chat.openai.com/"} isExternal>
+                          <ExternalLinkIcon boxSize={22} />
+                        </Link>
+                      </Tooltip>
+                    </SimpleGrid>
                   </Box>
                   <Box>
                     <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
@@ -100,10 +108,6 @@ export default function Sample({ content }: Props) {
     </>
   );
 }
-
-const StyledCopyComponent = styled(CopyComponent)`
-  margin-top: 1rem;
-`;
 
 const HumanBlock = styled(Flex)`
   background-color: rgba(247, 247, 248);
