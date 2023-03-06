@@ -44,7 +44,7 @@ function Home() {
                 h='4rem'
                 px='40px'
                 fontSize='1.2rem'
-                href='https://github.com/chakra-ui/chakra-ui/'
+                href='https://github.com/prompt-engineering/click-prompt/'
                 target='__blank'
               >
                 GitHub
