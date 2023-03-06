@@ -51,6 +51,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@svgr/webpack": "^6.5.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/lodash-es": "^4.17.6",

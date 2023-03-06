@@ -6,6 +6,10 @@ import { ChatCompletionRequestMessage } from "openai";
 
 import content from "@/assets/icons/content.png";
 import send from "@/assets/icons/send.png";
+import NewChat from "@/assets/icons/new-chat.svg";
+import MessageIcon from "@/assets/icons/message.svg";
+import TrashcanIcon from "@/assets/icons/trashcan.svg";
+import LogoutIcon from "@/assets/icons/logout.svg";
 
 import styled from "@emotion/styled";
 
@@ -156,14 +160,15 @@ export function ChatGPTApp() {
       } else {
         alert("Error: " + JSON.stringify(data.error));
       }
-    } catch (err) { console.log(err) }
-    finally {
+    } catch (err) {
+      console.log(err);
+    } finally {
       setDisable(false);
     }
   }
 
   useEffect(() => {
-    const listener = (event: KeyboardEvent)=> {
+    const listener = (event: KeyboardEvent) => {
       if (event.code === "Enter" || event.code === "NumpadEnter") {
         event.preventDefault();
 
@@ -206,44 +211,63 @@ export function ChatGPTApp() {
   }
 
   return (
-    <div className='relative flex flex-col items-center justify-start gap-16 h-[85vh] py-4'>
-      { chatHistory.length === 0 && <Image src={content} alt='background image'></Image>}
+    <div className='grid grid-cols-[200px_1fr]'>
+      {/* left */}
+      <div className='bg-gray-900 text-white p-2 grid grid-rows-[45px_1fr_100px]'>
+        <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
+          <NewChat color='white' />
+          New chat
+        </div>
+        <div className='overflow-y-auto overflow-container'></div>
+        <div>
+          <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
+            <TrashcanIcon color='white' />
+            Clear conversations
+          </div>
+          <div
+            className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'
+            onClick={logout}
+          >
+            <LogoutIcon color='white' />
+            Log out
+          </div>
+        </div>
+      </div>
 
-      {/* chats */}
-      <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-[70vh] overflow-y-auto'>
-        {chatHistory.map((chat, index) => {
-          return (
-            <div key={index} className='flex flex-col gap-14 '>
-              {
-                chat.role === "user" ?
-                <div className='self-end flex'>
-                  {/* chat bubble badge */}
-                  <div className='rounded-md bg-green-400 text-white text-xl px-4 py-2 max-w-xl'>
-                    {chat.content}
+      {/* right */}
+      <div className='relative flex flex-col items-center justify-start gap-16 h-[85vh] py-4'>
+        {chatHistory.length === 0 && <Image className='mt-8' src={content} alt='background image'></Image>}
+
+        {/* chats */}
+        <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-[70vh] overflow-y-auto'>
+          {chatHistory.map((chat, index) => {
+            return (
+              <div key={index} className='flex flex-col gap-14 '>
+                {chat.role === "user" ? (
+                  <div className='self-end flex'>
+                    {/* chat bubble badge */}
+                    <div className='rounded-md bg-green-400 text-white text-xl px-4 py-2 max-w-xl'>{chat.content}</div>
                   </div>
-                </div>
-              :
-              <div className='self-start flex'>
-                <p className='rounded-md bg-orange-400 text-white text-xl px-4 py-2 max-w-xl'>{chat.content}</p>
+                ) : (
+                  <div className='self-start flex'>
+                    <p className='rounded-md bg-orange-400 text-white text-xl px-4 py-2 max-w-xl'>{chat.content}</p>
+                  </div>
+                )}
               </div>
-              }
-            </div>
-          );
-        })}
-      </ChatsWrapper>
+            );
+          })}
+        </ChatsWrapper>
 
-      <ChatInputWrapper>
-        <ChatInput
-          disabled={disable}
-          placeholder='Type your message here...'
-          value={message}
-          onChange={(ev) => setMessage(ev.target.value)}
-        />
-        <ChatSendButton disabled={disable} onClick={sendMessage} />
-      </ChatInputWrapper>
-      <Button className='!absolute bottom-4 right-4' onClick={logout}>
-        Logout
-      </Button>
+        <ChatInputWrapper>
+          <ChatInput
+            disabled={disable}
+            placeholder='Type your message here...'
+            value={message}
+            onChange={(ev) => setMessage(ev.target.value)}
+          />
+          <ChatSendButton disabled={disable} onClick={sendMessage} />
+        </ChatInputWrapper>
+      </div>
     </div>
   );
 }

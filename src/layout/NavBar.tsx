@@ -44,7 +44,7 @@ export default function NavBar() {
         {
           url: "/chatgpt",
           title: "ChatGPT 聊天室",
-        }
+        },
       ],
     },
     {

@@ -2,6 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  /* good looking scrollbar */
+  .overflow-container::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .overflow-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .overflow-container::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  .overflow-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
 #root {
   margin: 0 auto;
   text-align: center;
