@@ -78,7 +78,11 @@ const ChatsWrapper = styled("div")`
   }
 `;
 
-export function ChatGPTApp() {
+type ChatGptAppProp = {
+  message?: string;
+};
+
+export function ChatGPTApp(props: ChatGptAppProp) {
   const [isLoggedin, setIsLoggedin] = React.useState<boolean | null>(null);
   useEffect(() => {
     (async () => {
@@ -128,7 +132,8 @@ export function ChatGPTApp() {
   const chatsWrapper = React.useRef<HTMLDivElement>(null);
   const [disable, setDisable] = React.useState(false);
   const [chatHistory, setChatHistory] = React.useState<ChatCompletionRequestMessage[]>([]);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = React.useState(props?.message ? props?.message.toString() : "");
+
   async function sendMessage() {
     if (message.length === 0) {
       alert("Please enter your message first.");
