@@ -38,7 +38,7 @@ export function ClickPromptButton(props: CPButtonProps) {
   function NormalSize() {
     return (
       <StyledPromptButton>
-        <Button colorScheme='blackAlpha' onClick={handleClick} {...props}>
+        <Button colorScheme='twitter' onClick={handleClick} {...props}>
           {!isLoading && <Text>Prompt</Text>}
           {isLoading && <BeatLoader size={8} color='black' />}
         </Button>
@@ -66,6 +66,7 @@ export function ClickPromptButton(props: CPButtonProps) {
 }
 
 const StyledPromptButton = styled.div`
+  width: 88px;
   position: relative;
 `;
 
