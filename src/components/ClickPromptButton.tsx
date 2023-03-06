@@ -44,8 +44,6 @@ function ClickPromptBird(props: ClickPromptBirdParams) {
 export function ClickPromptButton(props: CPButtonProps) {
   const [isLoading, setIsLoading] = React.useState(props.loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
-  const toast = useToast();
 
   const handleClick = (event: any) => {
     // todo: check token
