@@ -1,3 +1,5 @@
+"use client";
+
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { CopyIcon } from "@chakra-ui/icons";
 import React from "react";

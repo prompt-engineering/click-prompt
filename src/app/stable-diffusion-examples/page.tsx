@@ -1,27 +1,26 @@
-import React from "react";
+"use client";
 
+import React from "react";
 import {
-  Box,
-  Button,
-  ButtonGroup,
-  CardBody,
-  Link,
-  Stack,
-  Text,
   Alert,
   AlertIcon,
   AlertTitle,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Link,
   Popover,
   PopoverArrow,
-  PopoverTrigger,
+  PopoverBody,
   PopoverCloseButton,
   PopoverContent,
-  PopoverBody,
+  Stack,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
 import Image from "next/image";
-
 import CopyComponent from "@/components/CopyComponent";
 import samples from "@/assets/stable-diffusion/samples/index.json";
 import { ExternalLinkIcon, InfoIcon } from "@chakra-ui/icons";
@@ -81,7 +80,7 @@ const StyledGreyBox = styled(Box)`
   height: 100px;
 `;
 
-function Index() {
+function Page() {
   function ArticleCard(index: number, sample: StableDiffusionSample, artist: { preview: string; prompt: string }) {
     const parsedPrompt = parseStableDiffusionData(artist.prompt);
     const { isOpen, onToggle, onClose } = useDisclosure();
@@ -140,4 +139,4 @@ const StyledInfoIcon = styled(InfoIcon)`
   height: 16px;
 `;
 
-export default Index;
+export default Page;

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { MouseEventHandler } from "react";
 import {
   Box,
@@ -9,7 +11,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  Input,
   Text,
   Tooltip,
   useDisclosure,
@@ -19,8 +20,7 @@ import { BeatLoader } from "react-spinners";
 import clickPromptBird from "@/assets/images/click-button-bird.svg?url";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { CopyIcon } from "@chakra-ui/icons";
-import { ChatGPTApp } from "@/pages/chatgpt";
+import { ChatGPTApp } from "@/app/chatgpt/page";
 
 type ButtonSize = "sm" | "md" | "lg";
 

@@ -1,25 +1,24 @@
 import React from "react";
 import {
-  Flex,
-  Spacer,
   Box,
+  Flex,
   Heading,
+  IconButton,
   Link as NavLink,
   Menu,
   MenuButton,
-  MenuList,
   MenuItem,
-  IconButton,
-  Center,
+  MenuList,
+  Spacer,
 } from "@chakra-ui/react";
-import { HamburgerIcon, ChevronDownIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/const";
 
 export default function NavBar() {
-  const router = useRouter();
+  const pathname = usePathname();
 
   const NavList = [
     {
@@ -95,7 +94,7 @@ export default function NavBar() {
                   <MenuList>
                     {nav.children.map((child) => (
                       <MenuItem key={child.url} as={Link} href={child.url}>
-                        <Box mr={4} color={router.asPath === child.url ? "#108EE9" : "black"}>
+                        <Box mr={4} color={pathname === child.url ? "#108EE9" : "black"}>
                           {child.title}
                         </Box>
                       </MenuItem>
@@ -107,7 +106,7 @@ export default function NavBar() {
               // 否则呈现为单独的链接
               return (
                 <Link key={nav.url} href={nav.url}>
-                  <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
+                  <Box mr={4} color={pathname === nav.url ? "#108EE9" : "black"}>
                     {nav.title}
                   </Box>
                 </Link>
@@ -134,14 +133,14 @@ export default function NavBar() {
             nav.children ? (
               nav.children.map((child) => (
                 <MenuItem key={child.url} as={Link} href={child.url}>
-                  <Box mr={4} color={router.asPath === child.url ? "#108EE9" : "black"}>
+                  <Box mr={4} color={pathname === child.url ? "#108EE9" : "black"}>
                     {child.title}
                   </Box>
                 </MenuItem>
               ))
             ) : (
               <MenuItem as={Link} href={nav.url} key={nav.url}>
-                <Box mr={4} color={router.asPath === nav.url ? "#108EE9" : "black"}>
+                <Box mr={4} color={pathname === nav.url ? "#108EE9" : "black"}>
                   {nav.title}
                 </Box>
               </MenuItem>
