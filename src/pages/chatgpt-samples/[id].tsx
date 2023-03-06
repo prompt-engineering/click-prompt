@@ -62,14 +62,16 @@ export default function Sample({ content }: Props) {
           <Box>
             {content.steps.map((step, index) => (
               <>
-                <HumanBlock gap={2}>
-                  <Avatar bg='teal.500' name='Phodal' size='sm' />
+                <HumanBlock>
+                  <Avatar bg='teal.500' name='Phodal' size='sm' mr={2} />
                   <Flex flex='1'>
-                    <CopyComponent value={step.ask} />
-                    <ClickPromptButton size={"sm"} text={step.ask} />
                     <Flex flexDirection='column'>
                       <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
                     </Flex>
+                    <ClickPromptButton size={"sm"} text={step.ask} />
+                    <Box ml={2} mt={1} mr={2}>
+                      <CopyComponent value={step.ask} />
+                    </Box>
                     <Tooltip label='Open In ChatGPT'>
                       <Link href={"https://chat.openai.com/"} isExternal>
                         <ExternalLinkIcon boxSize={22} />
