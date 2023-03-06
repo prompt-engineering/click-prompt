@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import chatgptLogo from "@/assets/chatgpt-logo.svg";
+import chatgptLogo from "@/assets/images/chatgpt-logo.svg";
 import clickPromptLogo from "@/assets/clickprompt-logo.svg";
 import styled from "@emotion/styled";
 

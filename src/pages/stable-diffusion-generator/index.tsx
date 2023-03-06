@@ -15,7 +15,7 @@ import { useFormik } from "formik";
 import Image from "next/image";
 import CopyComponent from "@/components/CopyComponent";
 import PromptFieldForm, { SdPromptField } from "@/components/PromptFieldForm";
-import sdImage from "@/assets/stable-diffusion-demo.jpeg";
+import sdImage from "@/assets/images/stable-diffusion-demo.jpeg";
 import { WebStorage } from "@/utils/storage.util";
 import { flatten } from "lodash-es";
 
