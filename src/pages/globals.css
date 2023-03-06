@@ -26,6 +26,10 @@
   text-align: center;
 }
 
+code {
+  text-shadow: none !important;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
