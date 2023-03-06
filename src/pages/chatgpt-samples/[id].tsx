@@ -6,6 +6,7 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ChatGptIcon } from "@/components/CustomIcon";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
@@ -65,6 +66,7 @@ export default function Sample({ content }: Props) {
                   <Avatar bg='teal.500' name='Phodal' size='sm' />
                   <Flex flex='1'>
                     <CopyComponent value={step.ask} />
+                    <ClickPromptButton size={"sm"} text={step.ask} />
                     <Flex flexDirection='column'>
                       <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
                     </Flex>

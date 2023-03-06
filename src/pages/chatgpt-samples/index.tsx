@@ -54,7 +54,7 @@ function ChatGptSamples() {
                   <Link href={"/chatgpt-samples/" + sample.path.split(".")[0]}>
                     <Button>View here</Button>
                   </Link>
-                  <ClickPromptButton />
+                  <ClickPromptButton text={sample.preview} />
                 </ButtonGroup>
               </CardFooter>
             </Card>
