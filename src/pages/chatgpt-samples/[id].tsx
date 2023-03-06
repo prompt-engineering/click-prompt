@@ -64,7 +64,9 @@ export default function Sample({ content }: Props) {
                 <HumanBlock gap={2}>
                   {/*<QuestionIcon boxSize={22} />*/}
                   <CopyComponent value={step.ask} />
-                  <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                  <Flex flexDirection='column'>
+                    <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                  </Flex>
                   <Tooltip label='Open In ChatGPT'>
                     <Link href={"https://chat.openai.com/"} isExternal>
                       <ExternalLinkIcon boxSize={22} />
