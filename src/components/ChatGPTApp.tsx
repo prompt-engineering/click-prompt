@@ -81,7 +81,7 @@ type ChatGptAppProp = {
 // copy from https://chat.openai.com/chat
 function ChatGPTDesc({ onClick }: any) {
   return (
-    <div className='text-gray-800 w-full md:max-w-2xl lg:max-w-3xl md:h-full md:flex md:flex-col px-6 dark:text-gray-100'>
+    <div className='text-gray-800 w-full md:flex md:flex-col px-6 dark:text-gray-100'>
       <h1 className='text-4xl font-semibold text-center mt-6 sm:mt-[20vh] ml-auto mr-auto mb-10 sm:mb-16 flex gap-2 items-center justify-center'>
         ChatGPT
       </h1>
@@ -353,7 +353,7 @@ export function ChatGPTApp(props: ChatGptAppProp) {
   }
 
   return (
-    <div className={`grid grid-cols-[${fold ? "200px" : "1rem"}_1fr]`}>
+    <div className={`grid grid-cols-[${fold ? "200px" : "1rem"}_1fr]  w-full`}>
       {/* left */}
       <div className='flex relative'>
         <div className={`bg-gray-900 text-white p-2 grid grid-rows-[45px_1fr_100px] ${fold ? "block" : "hidden"}`}>
