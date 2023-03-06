@@ -1,12 +1,24 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
-import { Box, Flex, Heading, Link, Spacer, Tooltip, Avatar } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Link,
+  Spacer,
+  Tooltip,
+  Avatar,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+} from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ChatGptIcon } from "@/components/CustomIcon";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { useRouter } from "next/router";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
@@ -48,10 +60,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export default function Sample({ content }: Props) {
+  const router = useRouter();
+
   return (
     <>
       {content && (
         <>
+          <Box>
+            <Breadcrumb>
+              <BreadcrumbItem>
+                <BreadcrumbLink href='/chatgpt-samples'>ChatGPT 示例</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/chatgpt-samples/${router.asPath}`}>{content.name}</BreadcrumbLink>
+              </BreadcrumbItem>
+            </Breadcrumb>
+          </Box>
           <Heading as='h4'>
             {content.name} by &nbsp;
             <Link href={content.homepage} isExternal>
