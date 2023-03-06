@@ -20,7 +20,7 @@ import { BeatLoader } from "react-spinners";
 import clickPromptBird from "@/assets/images/click-button-bird.svg?url";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { ChatGPTApp } from "@/app/chatgpt/page";
+import { ChatGPTApp } from "@/components/ChatGPTApp";
 
 type ButtonSize = "sm" | "md" | "lg";
 
