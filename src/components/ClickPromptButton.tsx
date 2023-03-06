@@ -45,6 +45,11 @@ export function ClickPromptButton(props: CPButtonProps) {
     props.onClick && props.onClick(event);
   };
 
+  const handleClose = () => {
+    setIsLoading(false);
+    onClose();
+  };
+
   function NormalSize() {
     return (
       <StyledPromptButton>
@@ -72,23 +77,22 @@ export function ClickPromptButton(props: CPButtonProps) {
       {props.size !== "sm" && <NormalSize />}
       {props.size === "sm" && <SmallSize />}
 
-      <Drawer isOpen={isOpen} placement='right' onClose={onClose} size={"lg"}>
+      <Drawer isOpen={isOpen} placement='right' onClose={handleClose} size={"lg"}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>ChatGPT</DrawerHeader>
 
           <DrawerBody>
-            <div className='bg-[#343541]'>
+            <div className='bg-[#343541] flex h-[100%]'>
               <ChatGPTApp message={props?.text ? props?.text.toString() : ""} />
             </div>
           </DrawerBody>
-
+          {/* TODO condition */}
           <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={onClose}>
-              Cancel
+            <Button variant='outline' mr={3} onClick={handleClose}>
+              Close
             </Button>
-            <Button colorScheme='blue'>Save</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

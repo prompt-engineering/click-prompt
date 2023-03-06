@@ -19,7 +19,7 @@ const ChatInput = styled("input")`
   border-radius: 8px;
   border: none;
   padding: 0.5rem 1rem;
-  width: 768px;
+  width: 100%;
   height: 48px;
   font-size: 1rem;
   font-weight: 500;
@@ -39,7 +39,7 @@ const ChatInput = styled("input")`
 const ChatInputWrapper = styled("div")`
   position: absolute;
   bottom: 8px;
-  width: 768px;
+  width: 100%;
   height: 48px;
 `;
 
@@ -192,7 +192,7 @@ export function ChatGPTApp(props: ChatGptAppProp) {
 
   if (!isLoggedin) {
     return (
-      <div className='flex flex-col items-center justify-center h-[85vh]'>
+      <div className='flex flex-col items-center justify-center'>
         <h1 className='text-white text-[34px] font-bold'>ChatGPT</h1>
         <p className='text-white text-xl'>You need to login first.</p>
 
@@ -263,7 +263,7 @@ export function ChatGPTApp(props: ChatGptAppProp) {
           })}
         </ChatsWrapper>
 
-        <ChatInputWrapper>
+        <ChatInputWrapper className='mx-2'>
           <ChatInput
             disabled={disable}
             placeholder='Type your message here...'
