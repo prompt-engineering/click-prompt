@@ -154,7 +154,7 @@ export function ChatGPTApp() {
           }, 100);
         }
       } else {
-        alert("Error: " + data.error);
+        alert("Error: " + JSON.stringify(data.error));
       }
     } catch (err) { console.log(err) }
     finally {
