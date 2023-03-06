@@ -1,6 +1,17 @@
 import React from "react";
 import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
-import { Box, Button, CardBody, Heading, SimpleGrid, Stack, Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  CardBody,
+  Heading,
+  SimpleGrid,
+  Stack,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  ButtonGroup,
+} from "@chakra-ui/react";
 
 import Link from "next/link";
 
@@ -38,10 +49,12 @@ function ChatGptSamples() {
               </CardBody>
 
               <CardFooter>
-                <Link href={"/chatgpt-samples/" + sample.path.split(".")[0]}>
-                  <Button>View here</Button>
-                </Link>
-                <ClickPromptButton />
+                <ButtonGroup spacing='4'>
+                  <Link href={"/chatgpt-samples/" + sample.path.split(".")[0]}>
+                    <Button>View here</Button>
+                  </Link>
+                  <ClickPromptButton />
+                </ButtonGroup>
               </CardFooter>
             </Card>
           ))}
