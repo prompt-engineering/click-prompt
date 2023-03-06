@@ -85,12 +85,12 @@ function ChatGptCotGenerator() {
       <ReactMarkdown components={ChakraUIRenderer()} skipHtml>
         {markdown}
       </ReactMarkdown>
-
+      <CopyComponent className='flex justify-end p-4' value={markdown} />
       <Heading as='h3' size='md' mt='20px'>
         User 输入
       </Heading>
       <Text>你好，我是{name}。</Text>
-      <CopyComponent className='flex justify-end p-4' value={markdown} />
+      <CopyComponent className='flex justify-end p-4' value={`你好，我是${name}。`} />
       <Formik
         initialValues={{ name: "" }}
         onSubmit={(values, actions) => {
