@@ -1,7 +1,6 @@
 import React from "react";
 
-import { Heading, SimpleGrid, Text } from "@chakra-ui/react";
-import Link from "next/link";
+import { Heading, SimpleGrid, Text, Link } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
@@ -21,7 +20,7 @@ const columnHelper = createColumnHelper<ReadingResource>();
 const columns = [
   columnHelper.accessor("name", {
     cell: (info) => (
-      <Link href={info.row.original.link}>
+      <Link href={info.row.original.link} isExternal>
         {info.getValue()} <ExternalLinkIcon />
       </Link>
     ),

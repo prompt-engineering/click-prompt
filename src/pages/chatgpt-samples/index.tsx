@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
 import {
-  Box,
   Button,
   CardBody,
   Heading,
@@ -11,6 +10,7 @@ import {
   AlertIcon,
   AlertTitle,
   ButtonGroup,
+  Link as NavLink,
 } from "@chakra-ui/react";
 
 import Link from "next/link";
@@ -28,9 +28,9 @@ function ChatGptSamples() {
       <Alert status='info'>
         <AlertIcon />
         <AlertTitle>分享我的 ChatGPT 心得：</AlertTitle>
-        <Link href={chatgptLink}>
+        <NavLink href={chatgptLink} isExternal>
           Pull Request <ExternalLinkIcon />
-        </Link>
+        </NavLink>
       </Alert>
       {samples.length > 0 && (
         <SimpleGrid columns={{ md: 4, base: 1 }} spacing={4}>
