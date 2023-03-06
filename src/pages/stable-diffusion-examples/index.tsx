@@ -20,6 +20,7 @@ import CopyComponent from "@/components/CopyComponent";
 import samples from "@/assets/stable-diffusion/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { parseStableDiffusionData } from "@/data-processor/SduiParser";
+import { CP_GITHUB_ASSETS } from "@/configs/const";
 
 type StableDiffusionSample = {
   name: string;
@@ -65,8 +66,7 @@ function Index() {
     );
   }
 
-  let stableDiffusionLink =
-    "https://github.com/prompt-engineering/click-prompt/tree/master/src/assets/stable-diffusion/samples";
+  let stableDiffusionLink = `${CP_GITHUB_ASSETS}/stable-diffusion/samples`;
   return (
     <>
       <Alert>

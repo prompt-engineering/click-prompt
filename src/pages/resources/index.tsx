@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Heading, SimpleGrid, Text, Link } from "@chakra-ui/react";
+import { Heading, SimpleGrid, Link, AlertTitle, Alert, AlertIcon } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 
@@ -9,6 +9,7 @@ import { DataTable } from "@/components/DataTable/DataTable";
 import aiResource from "@/assets/resources/ai-resources.json";
 import cnData from "@/assets/resources/reading-list-cn.json";
 import enData from "@/assets/resources/reading-list-en.json";
+import { GITHUB_URL } from "@/configs/const";
 
 type ReadingResource = {
   name: string;
@@ -35,13 +36,17 @@ const columns = [
 function ReadingList() {
   return (
     <SimpleGrid columns={1} spacing={10}>
-      <Text align={"center"}>
-        创建 &nbsp;
-        <a href={"https://github.com/prompt-engineering/click-prompt/tree/master/public/data"}>
-          Pull Request <ExternalLinkIcon />{" "}
-        </a>{" "}
-        ，添加更多的阅读材料
-      </Text>
+      <Alert status='info'>
+        <AlertIcon />
+        <AlertTitle>
+          创建 &nbsp;
+          <Link href={`${GITHUB_URL}/tree/master/public/data`} isExternal>
+            Pull Request <ExternalLinkIcon />
+          </Link>{" "}
+          &nbsp; ，添加更多的阅读材料
+        </AlertTitle>
+      </Alert>
+
       <Heading as='h3'>AI Resources</Heading>
       {aiResource && <DataTable data={aiResource} columns={columns} />}
       <Heading as='h3'>中文</Heading>

@@ -19,9 +19,10 @@ import samples from "@/assets/chatgpt/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { CP_GITHUB_ASSETS } from "@/configs/const";
 
 function ChatGptSamples() {
-  const chatgptLink = "https://github.com/prompt-engineering/click-prompt/tree/master/src/assets/chatgpt";
+  const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt`;
 
   return (
     <>

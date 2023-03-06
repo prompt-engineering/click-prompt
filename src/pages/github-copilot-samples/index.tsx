@@ -3,6 +3,7 @@ import { Box, Card, CardBody, CardHeader, Heading, Link, Stack, Alert, AlertIcon
 import samples from "@/assets/github-copilot/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
+import { CP_GITHUB_ASSETS, GITHUB_URL } from "@/configs/const";
 
 type Snippet = {
   name: string;
@@ -42,8 +43,7 @@ function GitHubCopilotSamples() {
     );
   }
 
-  let githubCopilotLink =
-    "https://github.com/prompt-engineering/click-prompt/tree/master/src/assets/github-copilot/samples";
+  let githubCopilotLink = `${CP_GITHUB_ASSETS}/github-copilot/samples`;
   return (
     <div>
       <Alert status='info'>
