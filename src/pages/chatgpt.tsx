@@ -122,6 +122,7 @@ export function ChatGPTApp() {
   }
 
   const chatsWrapper = React.useRef<HTMLDivElement>(null);
+  const [disable, setDisable] = React.useState(false);
   const [chatHistory, setChatHistory] = React.useState<ChatCompletionRequestMessage[]>([]);
   const [message, setMessage] = React.useState("");
   async function sendMessage() {
@@ -130,30 +131,50 @@ export function ChatGPTApp() {
       return;
     }
 
-    const response = await fetch("/api/chatgpt/chat", {
-      method: "POST",
-      body: JSON.stringify({
-        conversation_name: "chatgpt",
-        prompt: message,
-      }),
-    });
-    const data = await response.json();
+    try {
+      setDisable(true);
+      const response = await fetch("/api/chatgpt/chat", {
+        method: "POST",
+        body: JSON.stringify({
+          conversation_name: "chatgpt",
+          prompt: message,
+        }),
+      });
+      const data = await response.json();
 
-    if (!data.error) {
-      if (data.messages) {
-        setChatHistory([...data.messages]);
-        setTimeout(() => {
-          if (typeof chatsWrapper.current?.scrollTop !== "undefined") {
-            // scroll to bottom
-            chatsWrapper.current.scrollTop = chatsWrapper.current.scrollHeight;
-          }
-          setMessage("");
-        }, 100);
+      if (!data.error) {
+        if (data.messages) {
+          setChatHistory([...data.messages]);
+          setTimeout(() => {
+            if (typeof chatsWrapper.current?.scrollTop !== "undefined") {
+              // scroll to bottom
+              chatsWrapper.current.scrollTop = chatsWrapper.current.scrollHeight;
+            }
+            setMessage("");
+          }, 100);
+        }
+      } else {
+        alert("Error: " + data.error);
       }
-    } else {
-      alert("Error: " + data.error);
+    } catch (err) { console.log(err) }
+    finally {
+      setDisable(false);
     }
   }
+
+  useEffect(() => {
+    const listener = (event: KeyboardEvent)=> {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        event.preventDefault();
+
+        sendMessage();
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, []);
 
   if (isLoggedin === null) {
     return <></>;
@@ -213,11 +234,12 @@ export function ChatGPTApp() {
 
       <ChatInputWrapper>
         <ChatInput
+          disabled={disable}
           placeholder='Type your message here...'
           value={message}
           onChange={(ev) => setMessage(ev.target.value)}
         />
-        <ChatSendButton onClick={sendMessage} />
+        <ChatSendButton disabled={disable} onClick={sendMessage} />
       </ChatInputWrapper>
       <Button className='!absolute bottom-4 right-4' onClick={logout}>
         Logout
