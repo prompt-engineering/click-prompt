@@ -22,7 +22,7 @@ type GitHubCopilotSample = {
 function GitHubCopilotSamples() {
   function SnippetCode(index: number, sample: GitHubCopilotSample, snippet: Snippet) {
     return (
-      <Card>
+      <Card sx={{ breakInside: "avoid-column" }}>
         <CardHeader>
           <Heading size='md'>
             {snippet.name} -{" "}
