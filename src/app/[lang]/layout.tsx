@@ -19,8 +19,8 @@ type RootLayoutProps = {
   };
   children: React.ReactNode;
 };
-export default function RootLayout({params, children }: RootLayoutProps) {
-  const {lang} = params;
+export default function RootLayout({ params, children }: RootLayoutProps) {
+  const { lang } = params;
 
   const theme = extendTheme({
     components: {
@@ -52,7 +52,7 @@ export default function RootLayout({params, children }: RootLayoutProps) {
       <NextSeo {...NEXT_SEO_DEFAULT} />
       <body>
         <ChakraProvider theme={theme} resetCSS={true}>
-          <NavBar locale={lang}/>
+          <NavBar locale={lang} />
           <Container maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
             {children}
           </Container>

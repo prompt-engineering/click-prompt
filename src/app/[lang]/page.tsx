@@ -10,7 +10,7 @@ import { getDictionary, type SupportedLocale } from "@/i18n";
 
 type Props = {
   params: { lang: SupportedLocale };
-}
+};
 
 function Page({ params: { lang } }: Props) {
   const pathname = usePathname();

@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/const";
 
-export default function NavBar({locale}: {locale: string}) {
+export default function NavBar({ locale }: { locale: string }) {
   const pathname = usePathname();
 
   const NavList = [

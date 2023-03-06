@@ -86,23 +86,23 @@ function Page() {
     const { isOpen, onToggle, onClose } = useDisclosure();
 
     return (
-        <Card key={`sample-${index}`} mt='2' sx={{ breakInside: "avoid-column" }}>
-          <CardHeader>
-            <Text>
-              {sample.name} -{" "}
-              <Link href={sample.homepage} isExternal>
-                {sample.author} <ExternalLinkIcon />
-              </Link>
-            </Text>
-          </CardHeader>
-          <CardBody>
-            <StyledStack>
-              <Image src={artist.preview} alt='' width={512} height={512} />
-              {SdPromptPopover(isOpen, onClose, parsedPrompt, artist.prompt)}
-              <StyledInfoIcon color={"white"} onClick={onToggle} onFocus={onToggle} />
-            </StyledStack>
-          </CardBody>
-        </Card>
+      <Card key={`sample-${index}`} mt='2' sx={{ breakInside: "avoid-column" }}>
+        <CardHeader>
+          <Text>
+            {sample.name} -{" "}
+            <Link href={sample.homepage} isExternal>
+              {sample.author} <ExternalLinkIcon />
+            </Link>
+          </Text>
+        </CardHeader>
+        <CardBody>
+          <StyledStack>
+            <Image src={artist.preview} alt='' width={512} height={512} />
+            {SdPromptPopover(isOpen, onClose, parsedPrompt, artist.prompt)}
+            <StyledInfoIcon color={"white"} onClick={onToggle} onFocus={onToggle} />
+          </StyledStack>
+        </CardBody>
+      </Card>
     );
   }
 
