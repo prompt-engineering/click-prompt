@@ -6,10 +6,10 @@ import { ChatCompletionRequestMessage } from "openai";
 
 import content from "@/assets/icons/content.png";
 import send from "@/assets/icons/send.png";
-import NewChat from "@/assets/icons/new-chat.svg";
-import MessageIcon from "@/assets/icons/message.svg";
-import TrashcanIcon from "@/assets/icons/trashcan.svg";
-import LogoutIcon from "@/assets/icons/logout.svg";
+import NewChat from "@/assets/icons/new-chat.c.svg";
+import MessageIcon from "@/assets/icons/message.c.svg";
+import TrashcanIcon from "@/assets/icons/trashcan.c.svg";
+import LogoutIcon from "@/assets/icons/logout.c.svg";
 
 import styled from "@emotion/styled";
 

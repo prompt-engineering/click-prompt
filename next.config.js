@@ -12,7 +12,7 @@ const nextConfig = {
     });
 
     config.module.rules.push({
-      test: /\.svg$/,
+      test: /\.c.svg$/,
       use: ["@svgr/webpack"],
     });
 
