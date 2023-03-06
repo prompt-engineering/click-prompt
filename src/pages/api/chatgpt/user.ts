@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { Configuration, OpenAIApi } from "openai";
+import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
 import { v4 as UUID } from "uuid";
 
 function createNewOpenAIApi(apiKey: string) {
@@ -13,15 +13,17 @@ function createNewOpenAIApi(apiKey: string) {
 export type User = {
   id: string;
   openai: OpenAIApi;
+  conversations: Map<string, ChatCompletionRequestMessage[]>;
 };
 let users: User[] = [];
 
-export function getClientByUserId(userId: string) {
+export function getUserByUserId(userId: string) {
+  console.log(`Looking for user ${userId} in ${users.length} users`, users.map((user) => user.id).join(","));
   const user = users.find((user) => user.id === userId);
   if (!user) {
     return null;
   }
-  return user.openai;
+  return user;
 }
 
 type Request = {
@@ -49,12 +51,14 @@ const handler: NextApiHandler = async (req, res) => {
         users.push({
           id: userId,
           openai: createNewOpenAIApi(key),
+          conversations: new Map(),
         });
+        console.log(`User ${userId} logged in with key ${key}`);
         res.setHeader("Set-Cookie", `${COOKIE_FOR_USER_ID}=${userId}; Max-Age=3600;`);
         return res.status(200).json({ message: "Logged in" } as Response);
       } else if (action === "logout") {
         if (!userId) {
-          res.status(400).json({ error: "You're not logged in yet!" } as Response);
+          res.status(200).json({ error: "You're not logged in yet!" } as Response);
           return;
         }
 

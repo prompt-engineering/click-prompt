@@ -1,5 +1,7 @@
 import { NextApiHandler } from "next";
-import { getClientByUserId } from "./user";
+import { getUserByUserId } from "./user";
+
+import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from "openai";
 
 const handler: NextApiHandler = async (req, res) => {
   const userId = req.cookies["PROMPT_GENERATOR_USER"];
@@ -7,36 +9,52 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(400).json({ error: "You're not logged in yet!" });
     return;
   }
-  const client = getClientByUserId(userId);
-  if (!client) {
+  const user = getUserByUserId(userId);
+  if (!user) {
     res.setHeader("Set-Cookie", "PROMPT_GENERATOR_USER=; Max-Age=0");
     res.status(400).json({ error: "Your login session has been expired!" });
     return;
   }
 
+  const { id, openai: client, conversations } = user;
+
   if (req.method === "POST" && req.body) {
-    const { prompt } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    if (prompt) {
+    const { prompt, conversation_name } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    if (prompt && conversation_name) {
+      const conversation = [
+        ...(conversations.get(conversation_name) || []),
+        {
+          role: "user",
+          content: prompt,
+        } as ChatCompletionRequestMessage,
+      ];
       try {
-        const response = await client.createCompletion({
+        const response = await client.createChatCompletion({
           model: "gpt-3.5-turbo",
-          prompt,
-          frequency_penalty: 0.0,
-          presence_penalty: 0.0,
+          messages: [...conversation],
+          temperature: 0.5,
           max_tokens: 1024,
-          user: userId,
-          stop: ["\n", "User:", "AI:"],
         });
         if (response.status !== 200) {
           res.status(response.status).json({ error: response.statusText });
           return;
         }
-        return res.status(200).json(response.data);
+        const { choices } = response.data as CreateChatCompletionResponse;
+
+        if (choices.length === 0 || !choices[0].message) {
+          res.status(500).json({ error: "No response from OpenAI" });
+          return;
+        }
+
+        conversation.push(choices[0].message);
+        conversations.set(conversation_name, conversation);
+        return res.status(200).json({ messages: conversation });
       } catch (e: any) {
-        res.status(500).json({ error: e.message });
+        console.log("error", e.request);
+        res.status(500).json({ error: e.response.data.error });
       }
     } else {
-      res.status(400).json({ error: "No query provided" });
+      res.status(400).json({ error: "Missing prompt or conversation_name" });
     }
   } else {
     res.status(404).json({ error: "Not found" });
