@@ -38,6 +38,10 @@ export default function NavBar() {
           title: "ChatGPT 思维链模式",
         },
         {
+          url: "/chatgpt-interactive-game",
+          title: "ChatGPT 交互式游戏",
+        },
+        {
           url: "/chatgpt-samples",
           title: "ChatGPT 示例",
         },
