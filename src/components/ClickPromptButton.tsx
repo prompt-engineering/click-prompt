@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useState, useRef } from "react";
 import {
   Box,
   Button,
@@ -42,9 +42,9 @@ function ClickPromptBird(props: ClickPromptBirdParams) {
 }
 
 export function ClickPromptButton(props: CPButtonProps) {
-  const [isLoading, setIsLoading] = React.useState(props.loading);
+  const [isLoading, setIsLoading] = useState(props.loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
+  const btnRef = useRef();
   const toast = useToast();
 
   const handleClick = (event: any) => {
@@ -52,9 +52,6 @@ export function ClickPromptButton(props: CPButtonProps) {
     setIsLoading(true);
     onOpen();
     props.onClick && props.onClick(event);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
   };
 
   const handleClose = () => {
@@ -92,20 +89,13 @@ export function ClickPromptButton(props: CPButtonProps) {
       <Drawer isOpen={isOpen} placement='right' onClose={handleClose} size={"lg"}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>ChatGPT</DrawerHeader>
-
-          <DrawerBody>
+          <DrawerCloseButton className='text-white z-50' />
+          {/* <DrawerHeader>ChatGPT</DrawerHeader> */}
+          <DrawerBody padding={0}>
             <div className='bg-[#343541] flex h-[100%]'>
               <ChatGPTApp message={props?.text ? props?.text.toString() : ""} />
             </div>
           </DrawerBody>
-          {/* TODO condition */}
-          <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={handleClose}>
-              Close
-            </Button>
-          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </Box>

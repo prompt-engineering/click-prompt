@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
   Flex,
@@ -371,7 +371,7 @@ const copyToClipboard = (text: string) => {
 };
 
 function StableDiffusionGenerator() {
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const promptResultRef = useRef<HTMLDivElement | null>(null);
 
   const formik = useFormik({
@@ -403,7 +403,7 @@ function StableDiffusionGenerator() {
     formik.setValues(generateEmptyForm());
   };
 
-  const [lazyText, setLazyText] = React.useState("");
+  const [lazyText, setLazyText] = useState("");
   const handleChange = (event: any) => setLazyText(event.target.value);
   const toGptTemplate = (text: string) => `我在用 NovelAI 画画，我的场景是：${text}，结果需要转为 tag 格式。要求如下：
 第一步：请用 100 字左右中文描述这个场景。
