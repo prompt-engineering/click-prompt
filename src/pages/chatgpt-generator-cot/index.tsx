@@ -84,7 +84,7 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
             <FormLabel>GameName</FormLabel>
             <Input placeholder={"Your game name"} value={name} onChange={(ev) => setName(ev.target.value)} />
           </FormControl>
-          <Grid gap={6} p={6} templateColumns={"auto 4rem"} alignItems='end'>
+          <Grid gap={6} templateColumns={"auto 4rem"} alignItems='end'>
             {/* 第一步到第 N 步 */}
             {lines.map((line, index) => (
               <>
