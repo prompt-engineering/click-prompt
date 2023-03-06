@@ -16,7 +16,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
-import clickPromptBird from "@/assets/images/click-button-bird.svg";
+import clickPromptBird from "@/assets/images/click-button-bird.svg?url";
 import Image from "next/image";
 import styled from "@emotion/styled";
 import { CopyIcon } from "@chakra-ui/icons";
