@@ -41,6 +41,10 @@ export default function NavBar() {
           url: "/chatgpt-samples",
           title: "ChatGPT 示例",
         },
+        {
+          url: "/chatgpt",
+          title: "ChatGPT 聊天室",
+        }
       ],
     },
     {

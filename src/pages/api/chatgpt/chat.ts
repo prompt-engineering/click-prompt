@@ -50,7 +50,6 @@ const handler: NextApiHandler = async (req, res) => {
         conversations.set(conversation_name, conversation);
         return res.status(200).json({ messages: conversation });
       } catch (e: any) {
-        console.log("error", e.request);
         res.status(500).json({ error: e.response.data.error });
       }
     } else {

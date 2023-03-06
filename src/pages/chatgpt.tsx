@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Button, Input } from "@chakra-ui/react";
 import Image from "next/image";
 
+import { ChatCompletionRequestMessage } from "openai";
+
 import content from "@/assets/icons/content.png";
 import send from "@/assets/icons/send.png";
 
@@ -31,7 +33,8 @@ const ChatInput = styled("input")`
 `;
 
 const ChatInputWrapper = styled("div")`
-  position: relative;
+  position: absolute;
+  bottom: 8px;
   width: 768px;
   height: 48px;
 `;
@@ -50,6 +53,25 @@ const ChatSendButton = styled("button")`
   cursor: pointer;
   border: none;
   outline: none;
+`;
+
+const ChatsWrapper = styled("div")`
+  // good looking scrollbar
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 export function ChatGPTApp() {
@@ -99,6 +121,8 @@ export function ChatGPTApp() {
     setIsLoggedin(false);
   }
 
+  const chatsWrapper = React.useRef<HTMLDivElement>(null);
+  const [chatHistory, setChatHistory] = React.useState<ChatCompletionRequestMessage[]>([]);
   const [message, setMessage] = React.useState("");
   async function sendMessage() {
     if (message.length === 0) {
@@ -109,14 +133,25 @@ export function ChatGPTApp() {
     const response = await fetch("/api/chatgpt/chat", {
       method: "POST",
       body: JSON.stringify({
+        conversation_name: "chatgpt",
         prompt: message,
       }),
     });
     const data = await response.json();
+
     if (!data.error) {
-      console.log("resp: ", data);
+      if (data.messages) {
+        setChatHistory([...data.messages]);
+        setTimeout(() => {
+          if (typeof chatsWrapper.current?.scrollTop !== "undefined") {
+            // scroll to bottom
+            chatsWrapper.current.scrollTop = chatsWrapper.current.scrollHeight;
+          }
+          setMessage("");
+        }, 100);
+      }
     } else {
-      console.log("error: ", data);
+      alert("Error: " + data.error);
     }
   }
 
@@ -150,8 +185,31 @@ export function ChatGPTApp() {
   }
 
   return (
-    <div className='relative flex flex-col items-center justify-center gap-16 h-[85vh]'>
-      <Image src={content} alt='background image'></Image>
+    <div className='relative flex flex-col items-center justify-start gap-16 h-[85vh] py-4'>
+      { chatHistory.length === 0 && <Image src={content} alt='background image'></Image>}
+
+      {/* chats */}
+      <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-[70vh] overflow-y-auto'>
+        {chatHistory.map((chat, index) => {
+          return (
+            <div key={index} className='flex flex-col gap-14 '>
+              {
+                chat.role === "user" ?
+                <div className='self-end flex'>
+                  {/* chat bubble badge */}
+                  <div className='rounded-md bg-green-400 text-white text-xl px-4 py-2 max-w-xl'>
+                    {chat.content}
+                  </div>
+                </div>
+              :
+              <div className='self-start flex'>
+                <p className='rounded-md bg-orange-400 text-white text-xl px-4 py-2 max-w-xl'>{chat.content}</p>
+              </div>
+              }
+            </div>
+          );
+        })}
+      </ChatsWrapper>
 
       <ChatInputWrapper>
         <ChatInput
@@ -170,7 +228,7 @@ export function ChatGPTApp() {
 
 export default function ChatGPTPage() {
   return (
-    <div className='bg-[#1E1E1E]'>
+    <div className='bg-[#343541]'>
       <ChatGPTApp />
     </div>
   );

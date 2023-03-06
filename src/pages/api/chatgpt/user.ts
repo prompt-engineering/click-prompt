@@ -18,7 +18,6 @@ export type User = {
 let users: User[] = [];
 
 export function getUserByUserId(userId: string) {
-  console.log(`Looking for user ${userId} in ${users.length} users`, users.map((user) => user.id).join(","));
   const user = users.find((user) => user.id === userId);
   if (!user) {
     return null;
