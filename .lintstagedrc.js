@@ -1,8 +1,4 @@
 module.exports = {
-  "**/*.{js,jsx,ts,tsx}": (filenames) =>
-    `next lint --fix --file ${filenames
-      .map((file) => file.split(process.cwd())[1])
-      .join(" --file ")}`,
-  "!**/*.{js.jsx,ts,tsx}": [
-  ],
+  "**/*.{js,jsx,ts,tsx}": "npm run lint:fix",
+  "{src/pages,src/components,src/layout}/**/*.{js,jsx,ts,tsx}": "prettier --write",
 };
