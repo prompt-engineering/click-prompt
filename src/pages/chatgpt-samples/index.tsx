@@ -7,6 +7,7 @@ import Link from "next/link";
 import samples from "@/assets/chatgpt/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
+import { ClickPromptButton } from "@/components/CustomIcon";
 
 function ChatGptSamples() {
   const chatgptLink = "https://github.com/prompt-engineering/click-prompt/tree/master/src/assets/chatgpt";
@@ -40,6 +41,7 @@ function ChatGptSamples() {
                 <Link href={"/chatgpt-samples/" + sample.path.split(".")[0]}>
                   <Button>View here</Button>
                 </Link>
+                <ClickPromptButton />
               </CardFooter>
             </Card>
           ))}

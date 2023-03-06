@@ -20,6 +20,7 @@
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.5.1",
+    "@chakra-ui/spinner": "^2.0.13",
     "@chakra-ui/system": "^2.5.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -43,6 +44,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.5",
+    "react-spinners": "^0.13.8",
     "react-syntax-highlighter": "^15.5.0",
     "sharp": "^0.31.3",
     "typescript": "4.9.5",
