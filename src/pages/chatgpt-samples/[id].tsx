@@ -1,6 +1,6 @@
 import type { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
-import { Box, Flex, Heading, Link, Spacer, Tooltip } from "@chakra-ui/react";
+import { Box, Flex, Heading, Link, Spacer, Tooltip, Avatar } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
@@ -62,22 +62,24 @@ export default function Sample({ content }: Props) {
             {content.steps.map((step, index) => (
               <>
                 <HumanBlock gap={2}>
-                  {/*<QuestionIcon boxSize={22} />*/}
-                  <CopyComponent value={step.ask} />
-                  <Flex flexDirection='column'>
-                    <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                  <Avatar bg='teal.500' name='Phodal' size='sm' />
+                  <Flex flex='1'>
+                    <CopyComponent value={step.ask} />
+                    <Flex flexDirection='column'>
+                      <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                    </Flex>
+                    <Tooltip label='Open In ChatGPT'>
+                      <Link href={"https://chat.openai.com/"} isExternal>
+                        <ExternalLinkIcon boxSize={22} />
+                      </Link>
+                    </Tooltip>
                   </Flex>
-                  <Tooltip label='Open In ChatGPT'>
-                    <Link href={"https://chat.openai.com/"} isExternal>
-                      <ExternalLinkIcon boxSize={22} />
-                    </Link>
-                  </Tooltip>
                 </HumanBlock>
                 <AiBlock>
                   <Box>
                     <ChatGptIcon />
                   </Box>
-                  <Box ml='2'>
+                  <Box ml='2' flex='1'>
                     <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
                   </Box>
                 </AiBlock>
