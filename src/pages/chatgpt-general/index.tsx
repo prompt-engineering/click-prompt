@@ -2,12 +2,15 @@ import React from "react";
 import { DataTable } from "@/components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import parseCsv from "@/data-processor/CsvParser";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 type GeneralCommand = {
   english: string;
   chinese: string;
   description: string;
   example: string;
+  prompt?: string;
+  clickPrompt?: any;
 };
 
 const columnHelper = createColumnHelper<GeneralCommand>();
@@ -20,6 +23,12 @@ const columns = [
   columnHelper.accessor("example", {
     cell: (info) => info.getValue(),
     header: "示例",
+  }),
+  columnHelper.accessor("clickPrompt", {
+    cell: (info) => {
+      return info.row.original.prompt !== "" ? <ClickPromptButton text={info.row.original.prompt} /> : null;
+    },
+    header: "",
   }),
 ];
 
