@@ -5,22 +5,30 @@ import {
   Button,
   ButtonGroup,
   CardBody,
-  Heading,
   Link,
   Stack,
   Text,
   Alert,
   AlertIcon,
   AlertTitle,
+  Popover,
+  PopoverArrow,
+  PopoverTrigger,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverBody,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
 import Image from "next/image";
 
 import CopyComponent from "@/components/CopyComponent";
 import samples from "@/assets/stable-diffusion/samples/index.json";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { ExternalLinkIcon, InfoIcon } from "@chakra-ui/icons";
 import { parseStableDiffusionData } from "@/data-processor/SduiParser";
 import { CP_GITHUB_ASSETS } from "@/configs/const";
+import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
+import styled from "@emotion/styled";
 
 type StableDiffusionSample = {
   name: string;
@@ -34,35 +42,70 @@ type StableDiffusionSample = {
   path: string;
 };
 
+function SdPromptPopover(
+  isOpen: boolean,
+  onClose: () => void,
+  parsedPrompt: StableDiffusionGenData,
+  originPrompt: string,
+) {
+  return (
+    <Popover returnFocusOnClose={false} isOpen={isOpen} onClose={onClose} placement='right' closeOnBlur={true}>
+      <PopoverContent w={"360px"}>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverBody>
+          Prompt:
+          <StyledGreyBox overflow={"auto"}>
+            <Text>{parsedPrompt.prompt} </Text>
+          </StyledGreyBox>
+          NegativePrompt:
+          <StyledGreyBox overflow={"auto"}>
+            <Text>{parsedPrompt.negativePrompt} </Text>
+          </StyledGreyBox>
+          <Text>Model: {parsedPrompt.model}</Text>
+          {parsedPrompt.lora.length > 0 && <Text>Lora: {parsedPrompt.lora.join(", ")} </Text>}
+          <Text>CFG Scale: {parsedPrompt.cfgScale}</Text>
+          <Text>Seed: {parsedPrompt.seed}</Text>
+          <Text>Size: {parsedPrompt.size}</Text>
+          <Button variant='solid' colorScheme='blue'>
+            <CopyComponent value={originPrompt}>复制</CopyComponent>
+          </Button>
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+const StyledGreyBox = styled(Box)`
+  background-color: #f7fafc;
+  height: 100px;
+`;
+
 function Index() {
   function ArticleCard(index: number, sample: StableDiffusionSample, artist: { preview: string; prompt: string }) {
     const parsedPrompt = parseStableDiffusionData(artist.prompt);
+    const { isOpen, onToggle, onClose } = useDisclosure();
 
     return (
-      <Card key={`sample-${index}`} mt='2' sx={{ breakInside: "avoid-column" }}>
-        <CardHeader>
-          <Heading size='md'>
-            {sample.name} -{" "}
-            <Link href={sample.homepage} isExternal>
-              {sample.author} <ExternalLinkIcon />
-            </Link>
-          </Heading>
-        </CardHeader>
-        <CardBody>
-          <Image src={artist.preview} alt='' width={512} height={512} />
-          <Stack>
-            <Text>Model: {parsedPrompt.model}</Text>
-            {parsedPrompt.lora.length > 0 && <Text>Lora: {parsedPrompt.lora.join(", ")} </Text>}
-          </Stack>
-        </CardBody>
-        <CardFooter>
-          <ButtonGroup spacing='2'>
-            <Button variant='solid' colorScheme='blue'>
-              <CopyComponent value={artist.prompt}>复制</CopyComponent>
-            </Button>
-          </ButtonGroup>
-        </CardFooter>
-      </Card>
+      <>
+        <Card key={`sample-${index}`} mt='2' sx={{ breakInside: "avoid-column" }}>
+          <CardHeader>
+            <Text>
+              {sample.name} -{" "}
+              <Link href={sample.homepage} isExternal>
+                {sample.author} <ExternalLinkIcon />
+              </Link>
+            </Text>
+          </CardHeader>
+          <CardBody>
+            <StyledStack>
+              <Image src={artist.preview} alt='' width={512} height={512} />
+              {SdPromptPopover(isOpen, onClose, parsedPrompt, artist.prompt)}
+              <StyledInfoIcon color={"white"} onClick={onToggle} onFocus={onToggle} />
+            </StyledStack>
+          </CardBody>
+        </Card>
+      </>
     );
   }
 
@@ -84,5 +127,17 @@ function Index() {
     </>
   );
 }
+
+const StyledStack = styled(Stack)`
+  position: relative;
+`;
+
+const StyledInfoIcon = styled(InfoIcon)`
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 16px;
+  height: 16px;
+`;
 
 export default Index;
