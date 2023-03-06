@@ -52,6 +52,9 @@ export function ClickPromptButton(props: CPButtonProps) {
     setIsLoading(true);
     onOpen();
     props.onClick && props.onClick(event);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   };
 
   function NormalSize() {
@@ -97,7 +100,6 @@ export function ClickPromptButton(props: CPButtonProps) {
             <Button variant='outline' mr={3} onClick={onClose}>
               Cancel
             </Button>
-            <Button colorScheme='blue'>Save</Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
