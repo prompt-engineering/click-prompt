@@ -84,7 +84,7 @@ export function ClickPromptButton(props: CPButtonProps) {
       {props.size !== "sm" && <NormalSize />}
       {props.size === "sm" && <SmallSize />}
 
-      <Drawer isOpen={isOpen} placement='right' onClose={onClose} size={"lg"}>
+      <Drawer isOpen={isOpen} placement='right' onClose={onClose} size={"2xl"}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />

@@ -1,5 +1,5 @@
 import { NEXT_SEO_DEFAULT } from "@/configs/next-seo-config";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { Container } from "@chakra-ui/react";
 import { Analytics } from "@vercel/analytics/react";
 import { NextSeo } from "next-seo";
@@ -10,6 +10,16 @@ import NavBar from "../layout/NavBar";
 import "./globals.css";
 
 export default function App({ Component, pageProps }: any) {
+  const theme = extendTheme({
+    components: {
+      Drawer: {
+        sizes: {
+          "2xl": { dialog: { maxW: "8xl" } },
+        },
+      },
+    },
+  });
+
   return (
     <>
       <Head>
@@ -19,7 +29,7 @@ export default function App({ Component, pageProps }: any) {
       </Head>
       <NextSeo {...NEXT_SEO_DEFAULT} />
       <Analytics />
-      <ChakraProvider resetCSS={true}>
+      <ChakraProvider theme={theme} resetCSS={true}>
         <div id='root'>
           <NavBar />
           <Container maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
