@@ -384,7 +384,7 @@ export function ChatGPTApp(props: ChatGptAppProp) {
         {chatHistory.length === 0 && <ChatGPTDesc onClick={(text: string) => setMessage(text)} />}
 
         {/* chats */}
-        <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-[70vh] overflow-y-auto'>
+        <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-[70vh] overflow-y-auto mt-11'>
           {chatHistory.map((chat, index) => {
             return (
               <div key={index} className='flex flex-col gap-14 '>
