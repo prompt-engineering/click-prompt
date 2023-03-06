@@ -52,7 +52,7 @@ const handler: NextApiHandler = async (req, res) => {
           openai: createNewOpenAIApi(key),
           conversations: new Map(),
         });
-        console.log(`User ${userId} logged in with key ${key}`);
+        console.log(`User ${userId} logged in`);
         res.setHeader("Set-Cookie", `${COOKIE_FOR_USER_ID}=${userId}; Max-Age=3600;`);
         return res.status(200).json({ message: "Logged in" } as Response);
       } else if (action === "logout") {

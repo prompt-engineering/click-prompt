@@ -35,7 +35,11 @@ export default function NavBar() {
         },
         {
           url: "/chatgpt-generator-cot",
-          title: "ChatGPT 游戏模式",
+          title: "ChatGPT 思维链模式",
+        },
+        {
+          url: "/chatgpt-interactive-game",
+          title: "ChatGPT 交互式游戏",
         },
         {
           url: "/chatgpt-samples",
