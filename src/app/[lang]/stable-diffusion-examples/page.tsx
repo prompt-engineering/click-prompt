@@ -86,7 +86,6 @@ function Page() {
     const { isOpen, onToggle, onClose } = useDisclosure();
 
     return (
-      <>
         <Card key={`sample-${index}`} mt='2' sx={{ breakInside: "avoid-column" }}>
           <CardHeader>
             <Text>
@@ -104,7 +103,6 @@ function Page() {
             </StyledStack>
           </CardBody>
         </Card>
-      </>
     );
   }
 

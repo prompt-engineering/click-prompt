@@ -1,12 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Button, chakra, Container, Stack, Text } from "@chakra-ui/react";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/const";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 
-function Page() {
+type Props = {
+  params: { lang: string };
+}
+
+function Page({ params: { lang } }: Props) {
+  useEffect(() => {
+    console.log("lang", lang);
+    // if (lang === "zh-CN") {
+    //   import("@/i18n/zh-CN");
+    // } else {
+    //   import("@/i18n/en-US");
+    // }
+  }, [lang]);
+
   return (
     <Box mb={20}>
       <Box as='section' pt='6rem' pb={{ base: "0", md: "5rem" }}>

@@ -16,8 +16,8 @@ import {
   Tooltip,
 } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
-import { AiBlock } from "@/app/chatgpt-samples/components/AiBlock";
-import { HumanBlock } from "@/app/chatgpt-samples/components/HumanBlock";
+import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
+import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
 
 interface Sample {
   name: string;

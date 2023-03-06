@@ -1,6 +1,6 @@
 "use client";
 
-import "./globals.css";
+import "@/app/globals.css";
 import React from "react";
 // import type { Metadata } from "next";
 import { AnalyticsWrapper } from "@/components/Analytics";
@@ -13,7 +13,15 @@ import { NEXT_SEO_DEFAULT } from "@/configs/next-seo-config";
 // TODO: fix metadata
 // export const metadata: Metadata = NEXT_SEO_DEFAULT;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+type RootLayoutProps = {
+  params: {
+    lang: string;
+  };
+  children: React.ReactNode;
+};
+export default function RootLayout({params, children }: RootLayoutProps) {
+  const {lang} = params;
+
   const theme = extendTheme({
     components: {
       Drawer: {
@@ -26,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     // TODO: should make en page lang as `en`
-    <html lang='zh-CN'>
+    <html lang={lang}>
       <head>
         <meta charSet='utf-8' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
@@ -44,7 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <NextSeo {...NEXT_SEO_DEFAULT} />
       <body>
         <ChakraProvider theme={theme} resetCSS={true}>
-          <NavBar />
+          <NavBar locale={lang}/>
           <Container maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
             {children}
           </Container>
