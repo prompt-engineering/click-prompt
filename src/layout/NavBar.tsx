@@ -10,9 +10,8 @@ import {
   MenuList,
   MenuItem,
   IconButton,
-  Button,
 } from "@chakra-ui/react";
-import { ExternalLinkIcon, HamburgerIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, ChevronDownIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ClickPromptIcon } from "@/components/CustomIcon";
@@ -108,7 +107,11 @@ export default function NavBar() {
         </Flex>
       </Flex>
       <Spacer />
-      <NavLink display={{ md: "block", base: "none" }} href='https://github.com/phodal/click-prompt' isExternal>
+      <NavLink
+        display={{ md: "block", base: "none" }}
+        href='https://github.com/prompt-engineering/click-prompt'
+        isExternal
+      >
         GitHub <ExternalLinkIcon mx='2px' />
       </NavLink>
       <Menu>
@@ -138,7 +141,7 @@ export default function NavBar() {
             ),
           )}
           <MenuItem>
-            <NavLink href='https://github.com/phodal/click-prompt' isExternal>
+            <NavLink href='https://github.com/prompt-engineering/click-prompt' isExternal>
               GitHub <ExternalLinkIcon mx='2px' />
             </NavLink>
           </MenuItem>
