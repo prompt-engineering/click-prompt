@@ -7,7 +7,6 @@ import {
   CardBody,
   Heading,
   Link,
-  SimpleGrid,
   Stack,
   Text,
   Alert,
@@ -73,7 +72,7 @@ function Index() {
       <Alert>
         <AlertIcon />
         <AlertTitle>分享我的 Stable Diffusion 美图：</AlertTitle>
-        <Link href={stableDiffusionLink}>
+        <Link href={stableDiffusionLink} isExternal>
           Pull Request <ExternalLinkIcon />
         </Link>
       </Alert>

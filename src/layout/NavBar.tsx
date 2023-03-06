@@ -10,12 +10,13 @@ import {
   MenuList,
   MenuItem,
   IconButton,
-  Button,
+  Center,
 } from "@chakra-ui/react";
-import { ExternalLinkIcon, HamburgerIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, ChevronDownIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ClickPromptIcon } from "@/components/CustomIcon";
+import { GITHUB_URL } from "@/configs/const";
 
 export default function NavBar() {
   const router = useRouter();
@@ -73,7 +74,7 @@ export default function NavBar() {
             <ClickPromptIcon /> ClickPrompt
           </Link>
         </Heading>
-        <Flex display={{ md: "flex", base: "none" }}>
+        <Flex align='center' display={{ md: "flex", base: "none" }}>
           {NavList.map((nav) => {
             // 如果当前导航项有子菜单，则呈现为下拉菜单
             if (nav.children) {
@@ -108,7 +109,7 @@ export default function NavBar() {
         </Flex>
       </Flex>
       <Spacer />
-      <NavLink display={{ md: "block", base: "none" }} href='https://github.com/phodal/click-prompt' isExternal>
+      <NavLink display={{ md: "block", base: "none" }} href={GITHUB_URL} isExternal>
         GitHub <ExternalLinkIcon mx='2px' />
       </NavLink>
       <Menu>
@@ -118,6 +119,7 @@ export default function NavBar() {
           icon={<HamburgerIcon />}
           variant='outline'
           display={{ md: "none", base: "block" }}
+          mr={4}
         />
         <MenuList display={{ md: "none", base: "block" }}>
           {NavList.map((nav) =>
@@ -138,7 +140,7 @@ export default function NavBar() {
             ),
           )}
           <MenuItem>
-            <NavLink href='https://github.com/phodal/click-prompt' isExternal>
+            <NavLink href={GITHUB_URL} isExternal>
               GitHub <ExternalLinkIcon mx='2px' />
             </NavLink>
           </MenuItem>

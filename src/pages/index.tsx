@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Text, Container, chakra, Stack, Link, Button } from "@chakra-ui/react";
 import { ClickPromptIcon } from "@/components/CustomIcon";
+import { GITHUB_URL } from "@/configs/const";
 
 function Home() {
   return (
@@ -38,15 +39,7 @@ function Home() {
             </Text>
 
             <Stack mt='10' spacing='4' justify='center' direction={{ base: "column", sm: "row" }}>
-              <Button
-                as='a'
-                size='lg'
-                h='4rem'
-                px='40px'
-                fontSize='1.2rem'
-                href='https://github.com/chakra-ui/chakra-ui/'
-                target='__blank'
-              >
+              <Button as='a' size='lg' h='4rem' px='40px' fontSize='1.2rem' href={GITHUB_URL} target='__blank'>
                 GitHub
               </Button>
             </Stack>

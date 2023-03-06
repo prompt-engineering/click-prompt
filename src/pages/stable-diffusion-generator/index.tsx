@@ -10,14 +10,16 @@ import {
   SimpleGrid,
   Text,
   Link,
+  Stack,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import Image from "next/image";
 import CopyComponent from "@/components/CopyComponent";
 import PromptFieldForm, { SdPromptField } from "@/components/PromptFieldForm";
-import sdImage from "@/assets/stable-diffusion-demo.jpeg";
+import sdImage from "@/assets/images/stable-diffusion-demo.jpeg";
 import { WebStorage } from "@/utils/storage.util";
 import { flatten } from "lodash-es";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
@@ -425,8 +427,11 @@ function StableDiffusionGenerator() {
       <Heading as={"h3"}>方式 一：ChatGPT 生成 Tag</Heading>
       <InputGroup size='lg'>
         <Input placeholder={"懒人模式，输入你的场景"} value={lazyText} onChange={handleChange} />
-        <InputRightElement width='4.5rem'>
-          <CopyComponent value={toGptTemplate(lazyText)} />
+        <InputRightElement width='6rem'>
+          <Stack spacing={2} direction='row' align='center'>
+            <CopyComponent value={toGptTemplate(lazyText)} />
+            <ClickPromptButton size={"sm"} />
+          </Stack>
         </InputRightElement>
       </InputGroup>
       <Heading as={"h3"}>方式 二：手动画人</Heading>

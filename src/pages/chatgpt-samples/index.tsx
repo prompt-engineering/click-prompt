@@ -1,12 +1,24 @@
 import React from "react";
 import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
-import { Box, Button, CardBody, Heading, SimpleGrid, Stack, Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
+import {
+  Button,
+  CardBody,
+  Heading,
+  SimpleGrid,
+  Stack,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  ButtonGroup,
+  Link as NavLink,
+} from "@chakra-ui/react";
 
 import Link from "next/link";
 
 import samples from "@/assets/chatgpt/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 function ChatGptSamples() {
   const chatgptLink = "https://github.com/prompt-engineering/click-prompt/tree/master/src/assets/chatgpt";
@@ -16,9 +28,9 @@ function ChatGptSamples() {
       <Alert status='info'>
         <AlertIcon />
         <AlertTitle>分享我的 ChatGPT 心得：</AlertTitle>
-        <Link href={chatgptLink}>
+        <NavLink href={chatgptLink} isExternal>
           Pull Request <ExternalLinkIcon />
-        </Link>
+        </NavLink>
       </Alert>
       {samples.length > 0 && (
         <SimpleGrid columns={{ md: 4, base: 1 }} spacing={4}>
@@ -37,9 +49,12 @@ function ChatGptSamples() {
               </CardBody>
 
               <CardFooter>
-                <Link href={"/chatgpt-samples/" + sample.path.split(".")[0]}>
-                  <Button>View here</Button>
-                </Link>
+                <ButtonGroup spacing='4'>
+                  <Link href={"/chatgpt-samples/" + sample.path.split(".")[0]}>
+                    <Button>View here</Button>
+                  </Link>
+                  <ClickPromptButton />
+                </ButtonGroup>
               </CardFooter>
             </Card>
           ))}

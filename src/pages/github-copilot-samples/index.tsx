@@ -49,7 +49,7 @@ function GitHubCopilotSamples() {
       <Alert status='info'>
         <AlertIcon />
         <AlertTitle>分享我的 GitHub Copilot 心得：</AlertTitle>
-        <Link href={githubCopilotLink}>
+        <Link href={githubCopilotLink} isExternal>
           Pull Request <ExternalLinkIcon />
         </Link>
       </Alert>
