@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Text, Container, chakra, Stack, Link, Button } from "@chakra-ui/react";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/const";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 function Home() {
   return (
@@ -42,6 +43,7 @@ function Home() {
               <Button as='a' size='lg' h='4rem' px='40px' fontSize='1.2rem' href={GITHUB_URL} target='__blank'>
                 GitHub
               </Button>
+              <ClickPromptButton size='lg' h='4rem' px='40px' text='Hello World' />
             </Stack>
           </Box>
         </Container>

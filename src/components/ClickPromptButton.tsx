@@ -32,6 +32,15 @@ type CPButtonProps = {
   [key: string]: any;
 };
 
+type ClickPromptBirdParams = { width?: number; height?: number };
+
+function ClickPromptBird(props: ClickPromptBirdParams) {
+  let width = props.width || 38;
+  let height = props.height || 32;
+
+  return <StyledBird src={clickPromptBird} alt='ClickPrompt Logo' width={width} height={height} />;
+}
+
 export function ClickPromptButton(props: CPButtonProps) {
   const [isLoading, setIsLoading] = React.useState(props.loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -52,7 +61,7 @@ export function ClickPromptButton(props: CPButtonProps) {
           {!isLoading && <Text>Prompt</Text>}
           {isLoading && <BeatLoader size={8} color='black' />}
         </Button>
-        <StyledBird src={clickPromptBird} alt='ClickPrompt Logo' width={38} height={32} />
+        <ClickPromptBird />
       </StyledPromptButton>
     );
   }
@@ -97,8 +106,8 @@ export function ClickPromptButton(props: CPButtonProps) {
 }
 
 const StyledPromptButton = styled.div`
-  width: 88px;
   position: relative;
+  width: min-content;
 `;
 
 const StyledBird = styled(Image)`
