@@ -15,7 +15,7 @@ import {
   Spacer,
   Tooltip,
 } from "@/components/ChakraUI";
-import { notFound, usePathname } from "next/navigation";
+import { notFound } from "next/navigation";
 import { AiBlock } from "@/app/chatgpt-samples/components/AiBlock";
 import { HumanBlock } from "@/app/chatgpt-samples/components/HumanBlock";
 
@@ -38,7 +38,6 @@ export const generateStaticParams = async () => {
 };
 
 async function Sample({ params }: { params: { id: string } }) {
-  const pathname = usePathname();
   const content: Sample = await import(`@/assets/chatgpt/samples/${params.id}.yml`).then((mod) => mod.default);
 
   if (!content) {
@@ -55,7 +54,7 @@ async function Sample({ params }: { params: { id: string } }) {
                 <BreadcrumbLink href='/chatgpt-samples'>ChatGPT 示例</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <BreadcrumbLink href={`/chatgpt-samples/${pathname}`}>{content.name}</BreadcrumbLink>
+                <BreadcrumbLink href={`/chatgpt-samples/${params.id}`}>{content.name}</BreadcrumbLink>
               </BreadcrumbItem>
             </Breadcrumb>
           </Box>
