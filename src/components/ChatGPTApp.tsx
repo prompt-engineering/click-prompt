@@ -8,10 +8,8 @@ import Send from "@/assets/icons/send.svg";
 import NewChat from "@/assets/icons/new-chat.svg";
 import TrashcanIcon from "@/assets/icons/trashcan.svg";
 import LogoutIcon from "@/assets/icons/logout.svg";
-
 import styled from "@emotion/styled";
 
-// chatgpt input box
 const ChatInput = styled("input")`
   background: #ffffff;
   border-radius: 0.5rem;
@@ -33,14 +31,12 @@ const ChatInput = styled("input")`
     color: #1e1e1e;
   }
 `;
-
 const ChatInputWrapper = styled("div")`
   position: absolute;
   bottom: 0.75rem;
   width: calc(100% - 1rem);
   height: 3rem;
 `;
-
 const ChatSendButton = styled("button")`
   position: absolute;
   top: 1rem;
@@ -52,7 +48,6 @@ const ChatSendButton = styled("button")`
   border: none;
   outline: none;
 `;
-
 const ChatsWrapper = styled("div")`
   // good looking scrollbar
   &::-webkit-scrollbar {
@@ -420,14 +415,6 @@ export function ChatGPTApp(props: ChatGptAppProp) {
           </ChatSendButton>
         </ChatInputWrapper>
       </div>
-    </div>
-  );
-}
-
-export default function ChatGPTPage() {
-  return (
-    <div className='bg-[#343541]'>
-      <ChatGPTApp />
     </div>
   );
 }

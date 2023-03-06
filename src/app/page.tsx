@@ -1,10 +1,12 @@
+"use client";
+
 import React from "react";
-import { Box, Text, Container, chakra, Stack, Link, Button } from "@chakra-ui/react";
+import { Box, Button, chakra, Container, Stack, Text } from "@chakra-ui/react";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/const";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 
-function Home() {
+function Page() {
   return (
     <Box mb={20}>
       <Box as='section' pt='6rem' pb={{ base: "0", md: "5rem" }}>
@@ -52,4 +54,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Page;

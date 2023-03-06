@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
-import { FormControl, FormLabel, Grid, Heading, IconButton, Input, useToast } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Grid, Heading, IconButton, Input, useToast } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
@@ -7,6 +9,7 @@ import { Form, Formik } from "formik";
 import { numberToChineseOrdinal } from "chinese-numbering";
 
 import CopyComponent from "@/components/CopyComponent";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 function ChatGptCotGenerator() {
   const toast = useToast();
@@ -72,7 +75,10 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
       <ReactMarkdown components={ChakraUIRenderer()} skipHtml>
         {markdown}
       </ReactMarkdown>
-      <CopyComponent className='flex justify-end p-4' value={markdown} />
+      <Box className='flex justify-end p-4'>
+        <CopyComponent boxSize={10} value={markdown} />
+        <ClickPromptButton text={markdown} />
+      </Box>
       <Formik
         initialValues={{ name: "" }}
         onSubmit={(values, actions) => {
@@ -89,7 +95,7 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
             {lines.map((line, index) => (
               <>
                 <FormControl key='step' id='step' mt={4}>
-                  <RemovableLable removeLine={removeLine} index={index} />
+                  <RemovableLabel removeLine={removeLine} index={index} />
                   <Input
                     placeholder={"Step"}
                     value={line}
@@ -112,7 +118,7 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
   );
 }
 
-function RemovableLable({ removeLine, index }: { removeLine: (index: number) => void; index: number }) {
+function RemovableLabel({ removeLine, index }: { removeLine: (index: number) => void; index: number }) {
   const [hover, setHover] = useState(false);
   return (
     <FormLabel

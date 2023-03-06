@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 
-import { Heading, SimpleGrid, Link, AlertTitle, Alert, AlertIcon } from "@chakra-ui/react";
+import { Alert, AlertIcon, AlertTitle, Heading, Link, SimpleGrid } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 

@@ -1,34 +1,23 @@
-import type { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
+import CopyComponent from "@/components/CopyComponent";
+import SimpleMarkdown from "@/components/SimpleMarkdown";
+import { ChatGptIcon } from "@/components/CustomIcon";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 import {
+  Avatar,
   Box,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
   Flex,
   Heading,
   Link,
   Spacer,
   Tooltip,
-  Avatar,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-} from "@chakra-ui/react";
-import styled from "@emotion/styled";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
-import CopyComponent from "@/components/CopyComponent";
-import SimpleMarkdown from "@/components/SimpleMarkdown";
-import { ChatGptIcon } from "@/components/CustomIcon";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
-import { useRouter } from "next/router";
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
-  const paths = index.map((item) => item.path);
-
-  return {
-    paths: paths.map((it) => ({ params: { id: it.split(".").slice(0, -1).join(".") } })),
-    fallback: true,
-  };
-};
+} from "@/components/ChakraUI";
+import { notFound } from "next/navigation";
+import { AiBlock } from "@/app/chatgpt-samples/components/AiBlock";
+import { HumanBlock } from "@/app/chatgpt-samples/components/HumanBlock";
 
 interface Sample {
   name: string;
@@ -43,24 +32,17 @@ interface Sample {
   }[];
 }
 
-interface Props {
-  content: Sample;
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (params === undefined) {
-    return {
-      props: {},
-    };
-  }
-
-  const { id } = params;
-  const content: Sample = await import(`@/assets/chatgpt/samples/${id}.yml`).then((mod) => mod.default);
-  return { props: { content } };
+export const generateStaticParams = async () => {
+  const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
+  return index.map((item) => ({ id: item.path.split(".").slice(0, -1).join(".") }));
 };
 
-export default function Sample({ content }: Props) {
-  const router = useRouter();
+async function Sample({ params }: { params: { id: string } }) {
+  const content: Sample = await import(`@/assets/chatgpt/samples/${params.id}.yml`).then((mod) => mod.default);
+
+  if (!content) {
+    notFound();
+  }
 
   return (
     <>
@@ -72,14 +54,14 @@ export default function Sample({ content }: Props) {
                 <BreadcrumbLink href='/chatgpt-samples'>ChatGPT 示例</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem>
-                <BreadcrumbLink href={`/chatgpt-samples/${router.asPath}`}>{content.name}</BreadcrumbLink>
+                <BreadcrumbLink href={`/chatgpt-samples/${params.id}`}>{content.name}</BreadcrumbLink>
               </BreadcrumbItem>
             </Breadcrumb>
           </Box>
           <Heading as='h4'>
             {content.name} by &nbsp;
             <Link href={content.homepage} isExternal>
-              {content.author} <ExternalLinkIcon />
+              {/*{content.author} <ExternalLinkIcon />*/}
             </Link>
           </Heading>
           <Spacer />
@@ -98,7 +80,7 @@ export default function Sample({ content }: Props) {
                     </Box>
                     <Tooltip label='Open In ChatGPT'>
                       <Link href={"https://chat.openai.com/"} isExternal>
-                        <ExternalLinkIcon boxSize={22} />
+                        {/*<ExternalLinkIcon boxSize={22} />*/}
                       </Link>
                     </Tooltip>
                   </Flex>
@@ -120,13 +102,4 @@ export default function Sample({ content }: Props) {
   );
 }
 
-const HumanBlock = styled(Flex)`
-  background-color: rgba(247, 247, 248);
-  border-color: rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-`;
-
-const AiBlock = styled(Flex)`
-  background-color: #fff;
-  padding: 1rem;
-`;
+export default Sample;

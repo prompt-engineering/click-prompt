@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
   reactStrictMode: true,
   images: {
     unoptimized: true,
@@ -11,9 +14,9 @@ const nextConfig = {
       use: "yaml-loader",
     });
 
-    config.module.rules.push(    {
+    config.module.rules.push({
       test: /\.svg$/i,
-      type: 'asset',
+      type: "asset",
       resourceQuery: /url/, // *.svg?url
     });
 
@@ -21,7 +24,7 @@ const nextConfig = {
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
       resourceQuery: { not: [/url/] }, // exclude react component if *.svg?url
-      use: ['@svgr/webpack'],
+      use: ["@svgr/webpack"],
     });
 
     return config;

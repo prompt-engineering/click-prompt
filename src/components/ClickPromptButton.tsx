@@ -1,4 +1,6 @@
-import React, { MouseEventHandler, useState, useRef } from "react";
+"use client";
+
+import React, { MouseEventHandler, useState } from "react";
 import {
   Box,
   Button,
@@ -6,21 +8,16 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
-  Input,
   Text,
   Tooltip,
   useDisclosure,
-  useToast,
 } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 import clickPromptBird from "@/assets/images/click-button-bird.svg?url";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { CopyIcon } from "@chakra-ui/icons";
-import { ChatGPTApp } from "@/pages/chatgpt";
+import { ChatGPTApp } from "@/components/ChatGPTApp";
 
 type ButtonSize = "sm" | "md" | "lg";
 
@@ -44,8 +41,6 @@ function ClickPromptBird(props: ClickPromptBirdParams) {
 export function ClickPromptButton(props: CPButtonProps) {
   const [isLoading, setIsLoading] = useState(props.loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
-  const toast = useToast();
 
   const handleClick = (event: any) => {
     // todo: check token
@@ -86,7 +81,7 @@ export function ClickPromptButton(props: CPButtonProps) {
       {props.size !== "sm" && <NormalSize />}
       {props.size === "sm" && <SmallSize />}
 
-      <Drawer isOpen={isOpen} placement='right' onClose={handleClose} size={"lg"}>
+      <Drawer isOpen={isOpen} placement='right' onClose={handleClose} size={"2xl"}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton className='text-white z-50' />

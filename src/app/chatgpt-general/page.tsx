@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { DataTable } from "@/components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
