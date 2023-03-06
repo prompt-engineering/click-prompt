@@ -38,7 +38,7 @@ function Index() {
     const parsedPrompt = parseStableDiffusionData(artist.prompt);
 
     return (
-      <Card key={`sample-${index}`} mt='2'>
+      <Card key={`sample-${index}`} mt='2' sx={{ breakInside: "avoid-column" }}>
         <CardHeader>
           <Heading size='md'>
             {sample.name} -{" "}
