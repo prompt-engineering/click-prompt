@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { getClientByUserId } from "./user";
+import { getUserByUserId } from "./user";
 
 // verify login state
 const handler: NextApiHandler = async (req, res) => {
@@ -8,8 +8,8 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(200).json({ message: "You're not logged in yet!", loggedIn: false });
     return;
   }
-  const client = getClientByUserId(userId);
-  if (!client) {
+  const user = getUserByUserId(userId);
+  if (!user) {
     res.setHeader("Set-Cookie", "PROMPT_GENERATOR_USER=; Max-Age=0");
     res.status(200).json({ message: "Your login session has been expired!", loggedIn: false });
     return;
