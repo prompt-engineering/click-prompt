@@ -1,17 +1,7 @@
+"use client";
+
 import React from "react";
-import {
-  Box,
-  Card,
-  CardBody,
-  CardHeader,
-  Heading,
-  Link,
-  Stack,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Alert, AlertIcon, AlertTitle, Box, Card, CardBody, CardHeader, Heading, Link, Stack } from "@chakra-ui/react";
 import samples from "@/assets/github-copilot/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";

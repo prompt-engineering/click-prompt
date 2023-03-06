@@ -1,16 +1,20 @@
+"use client";
+
 import React from "react";
-import { Card, CardFooter, CardHeader } from "@chakra-ui/card";
 import {
-  Button,
-  CardBody,
-  Heading,
-  SimpleGrid,
-  Stack,
   Alert,
   AlertIcon,
   AlertTitle,
+  Button,
   ButtonGroup,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Heading,
   Link as NavLink,
+  SimpleGrid,
+  Stack,
 } from "@chakra-ui/react";
 
 import Link from "next/link";

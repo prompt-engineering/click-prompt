@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { FormControl, FormLabel, Grid, Heading, IconButton, Input, useToast } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from "react";
 import { Button, Input } from "@chakra-ui/react";
 import Image from "next/image";
@@ -7,7 +9,6 @@ import { ChatCompletionRequestMessage } from "openai";
 import content from "@/assets/icons/content.png";
 import send from "@/assets/icons/send.png";
 import NewChat from "@/assets/icons/new-chat.svg";
-import MessageIcon from "@/assets/icons/message.svg";
 import TrashcanIcon from "@/assets/icons/trashcan.svg";
 import LogoutIcon from "@/assets/icons/logout.svg";
 

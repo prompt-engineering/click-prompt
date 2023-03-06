@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useMemo, useRef } from "react";
 import {
   Button,
@@ -7,10 +9,10 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  SimpleGrid,
-  Text,
   Link,
+  SimpleGrid,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import Image from "next/image";
