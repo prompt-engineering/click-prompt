@@ -430,7 +430,7 @@ function StableDiffusionGenerator() {
         <InputRightElement width='6rem'>
           <Stack spacing={2} direction='row' align='center'>
             <CopyComponent value={toGptTemplate(lazyText)} />
-            <ClickPromptButton size={"sm"} />
+            <ClickPromptButton size={"sm"} text={toGptTemplate(lazyText)} />
           </Stack>
         </InputRightElement>
       </InputGroup>

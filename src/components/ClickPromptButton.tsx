@@ -28,6 +28,7 @@ type CPButtonProps = {
   loading?: boolean;
   onClick?: MouseEventHandler;
   size?: ButtonSize;
+  text?: string;
   [key: string]: any;
 };
 
