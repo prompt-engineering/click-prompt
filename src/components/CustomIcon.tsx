@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
-import chatgptLogo from "@/assets/images/chatgpt-logo.svg?url";
-import clickPromptLogo from "@/assets/clickprompt-logo.svg?url";
+import chatgptLogo from "@/assets/images/chatgpt-logo.svg";
+import clickPromptLogo from "@/assets/clickprompt-logo.svg";
 import styled from "@emotion/styled";
 
 export function ChatGptIcon({ width = 32, height = 32 }) {
