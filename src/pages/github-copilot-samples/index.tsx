@@ -1,15 +1,28 @@
 import React from "react";
-import { Box, Card, CardBody, CardHeader, Heading, Link, Stack, Alert, AlertIcon, AlertTitle } from "@chakra-ui/react";
+import {
+  Box,
+  Card,
+  CardBody,
+  CardHeader,
+  Heading,
+  Link,
+  Stack,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  SimpleGrid,
+} from "@chakra-ui/react";
 import samples from "@/assets/github-copilot/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
-import { CP_GITHUB_ASSETS, GITHUB_URL } from "@/configs/const";
+import { CP_GITHUB_ASSETS } from "@/configs/const";
 
 type Snippet = {
   name: string;
   prompt: string;
   result: string;
 };
+
 type GitHubCopilotSample = {
   name: string;
   author: string;
@@ -54,7 +67,7 @@ function GitHubCopilotSamples() {
         </Link>
       </Alert>
       {samples.length > 0 && (
-        <Box w='100%' maxW='1600px' mx='auto' sx={{ columnCount: [1, 2], columnGap: "8px" }}>
+        <Box w='100%' maxW='1600px' mx='auto' sx={{ columnCount: [1, 2, 3], columnGap: "8px" }}>
           {samples.map((sample) => sample.snippets.map((artist, index) => SnippetCode(index, sample, artist)))}
         </Box>
       )}
