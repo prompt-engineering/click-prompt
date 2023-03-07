@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm run lint;
+# TODO(CGQAQ): uncomment this when next 13.2.4 came out
+# npm run lint;
 npm run format;

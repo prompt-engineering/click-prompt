@@ -17,7 +17,7 @@ import { usePathname } from "next/navigation";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/const";
 
-export default function NavBar() {
+export default function NavBar({ locale }: { locale: string }) {
   const pathname = usePathname();
 
   const NavList = [
@@ -25,27 +25,27 @@ export default function NavBar() {
       title: "ChatGPT",
       children: [
         {
-          url: "/chatgpt-general",
+          url: `/${locale}/chatgpt-general`,
           title: "ChatGPT 常用指令",
         },
         {
-          url: "/chatgpt-prompt-role-play",
+          url: `/${locale}/chatgpt-prompt-role-play`,
           title: "ChatGPT 角色扮演",
         },
         {
-          url: "/chatgpt-generator-cot",
+          url: `/${locale}/chatgpt-generator-cot`,
           title: "ChatGPT 思维链模式",
         },
         {
-          url: "/chatgpt-interactive-game",
+          url: `/${locale}/chatgpt-interactive-game`,
           title: "ChatGPT 交互式游戏",
         },
         {
-          url: "/chatgpt-samples",
+          url: `/${locale}/chatgpt-samples`,
           title: "ChatGPT 示例",
         },
         {
-          url: "/chatgpt",
+          url: `/${locale}/chatgpt`,
           title: "ChatGPT 聊天室",
         },
       ],
@@ -54,21 +54,21 @@ export default function NavBar() {
       title: "StableDiffusion",
       children: [
         {
-          url: "/stable-diffusion-examples",
+          url: `/${locale}/stable-diffusion-examples`,
           title: "StableDiffusion 示例",
         },
       ],
     },
     {
-      url: "/stable-diffusion-generator",
+      url: `/${locale}/stable-diffusion-generator`,
       title: "AI 绘画生成器",
     },
     {
-      url: "/github-copilot-samples",
+      url: `/${locale}/github-copilot-samples`,
       title: "GitHub Copilot 示例",
     },
     {
-      url: "/resources",
+      url: `/${locale}/resources`,
       title: "学习资料",
     },
   ];

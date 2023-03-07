@@ -4,9 +4,6 @@ const nextConfig = {
     appDir: true,
   },
   reactStrictMode: true,
-  images: {
-    unoptimized: true,
-  },
   transpilePackages: ["react-syntax-highlighter"],
   webpack: (config, options) => {
     config.module.rules.push({

@@ -16,8 +16,8 @@ import {
   Tooltip,
 } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
-import { AiBlock } from "@/app/chatgpt-samples/components/AiBlock";
-import { HumanBlock } from "@/app/chatgpt-samples/components/HumanBlock";
+import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
+import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
 
 interface Sample {
   name: string;
@@ -34,7 +34,8 @@ interface Sample {
 
 export const generateStaticParams = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
-  return index.map((item) => ({ id: item.path.split(".").slice(0, -1).join(".") }));
+  // TODO(CGQAQ): figure out how to do this.
+  return index.map((item) => ({ id: item.path.split(".").slice(0, -1).join("."), lang: "zh-cn" }));
 };
 
 async function Sample({ params }: { params: { id: string } }) {
