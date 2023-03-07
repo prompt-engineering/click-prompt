@@ -2,8 +2,8 @@ import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
 const dictionaries = {
-  "en-US": () => import("./en-us.json").then((module) => module.default),
-  "zh-CN": () => import("./zh-cn.json").then((module) => module.default),
+  "en-US": () => import("./en-US.json").then((module) => module.default),
+  "zh-CN": () => import("./zh-CN.json").then((module) => module.default),
 };
 
 export type SupportedLocale = keyof typeof dictionaries;
