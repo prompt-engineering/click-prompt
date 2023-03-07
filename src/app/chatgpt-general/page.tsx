@@ -7,6 +7,7 @@ import parseCsv from "@/data-processor/CsvParser";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 import gptCategorySamples from "@/assets/chatgpt/category/index.json";
+import chatgptSpecific from "@/assets/resources/chatgpt-specific.json";
 import {
   Card,
   CardBody,
@@ -75,24 +76,11 @@ const columns = [
 ];
 
 function ChatGptGeneral() {
-  const [data, setData] = useState<any>(null);
-
-  useEffect(() => {
-    fetch("/data/chatgpt-specific.csv")
-      .then((response) => response.text())
-      .then((csv) => {
-        const parseResult = parseCsv(csv);
-
-        setData(parseResult.data);
-      })
-      .then();
-  }, []);
-
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt/category`;
 
   return (
     <div>
-      {data && <DataTable data={data} columns={columns} />}
+      {chatgptSpecific && <DataTable data={chatgptSpecific} columns={columns} />}
       <Alert status='info'>
         <AlertIcon />
         <AlertTitle>分享我的 ChatGPT 场景：</AlertTitle>
