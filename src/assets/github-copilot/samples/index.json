@@ -28,7 +28,7 @@
       {
         "name": "测试用例生成",
         "prompt": "```kotlin\n@Test\nfun `test command manager git branch list`() {\n```\n",
-        "result": "```kotlin\n@Test\n  fun `test command manager git branch list`() {\n  val output = gitCommandManager.branchList(false)\n\n  output.contains(\"master\") shouldBe true\n\n  val branchList = gitCommandManager.parseBranchList(listOf(\"refs/heads/master\"))\n  branchList.contains(\"refs/heads/master\") shouldBe false\n  branchList.contains(\"master\") shouldBe true\n}\n```\n"
+        "result": "```kotlin\n@Test\n  fun `test command manager git branch list`() {\n  val output = gitCommandManager.branchList(false)\n  output.contains(\"master\") shouldBe true\n  val branchList = gitCommandManager.parseBranchList(listOf(\"refs/heads/master\"))\n  branchList.contains(\"refs/heads/master\") shouldBe false\n  branchList.contains(\"master\") shouldBe true\n}\n```\n"
       }
     ],
     "path": "phodal-tips.yml"
