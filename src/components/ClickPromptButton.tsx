@@ -1,6 +1,6 @@
 "use client";
 
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useState } from "react";
 import {
   Box,
   Button,
@@ -8,13 +8,10 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   Text,
   Tooltip,
   useDisclosure,
-  useToast,
 } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 import clickPromptBird from "@/assets/images/click-button-bird.svg?url";
@@ -42,7 +39,7 @@ function ClickPromptBird(props: ClickPromptBirdParams) {
 }
 
 export function ClickPromptButton(props: CPButtonProps) {
-  const [isLoading, setIsLoading] = React.useState(props.loading);
+  const [isLoading, setIsLoading] = useState(props.loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClick = (event: any) => {
@@ -50,9 +47,11 @@ export function ClickPromptButton(props: CPButtonProps) {
     setIsLoading(true);
     onOpen();
     props.onClick && props.onClick(event);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
+  };
+
+  const handleClose = () => {
+    setIsLoading(false);
+    onClose();
   };
 
   function NormalSize() {
@@ -82,23 +81,16 @@ export function ClickPromptButton(props: CPButtonProps) {
       {props.size !== "sm" && <NormalSize />}
       {props.size === "sm" && <SmallSize />}
 
-      <Drawer isOpen={isOpen} placement='right' onClose={onClose} size={"2xl"}>
+      <Drawer isOpen={isOpen} placement='right' onClose={handleClose} size={"2xl"}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>ChatGPT</DrawerHeader>
-
-          <DrawerBody>
-            <div className='bg-[#343541]'>
+          <DrawerCloseButton className='text-white z-50' />
+          {/* <DrawerHeader>ChatGPT</DrawerHeader> */}
+          <DrawerBody padding={0}>
+            <div className='bg-[#343541] flex h-[100%] overflow-y-auto'>
               <ChatGPTApp message={props?.text ? props?.text.toString() : ""} />
             </div>
           </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </Box>

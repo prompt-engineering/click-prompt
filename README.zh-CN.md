@@ -1,6 +1,7 @@
 # ClickPrompt - Streamline your prompt design
 
 [![ci](https://github.com/prompt-engineering/click-prompt/actions/workflows/ci.yaml/badge.svg)](https://github.com/prompt-engineering/click-prompt/actions/workflows/ci.yaml)
+![GitHub](https://img.shields.io/github/license/prompt-engineering/click-prompt)
 
 <img src="src/assets/clickprompt-logo.svg" width='128' height='128' alt='ClickPrompt Logo' />
 
@@ -19,6 +20,8 @@
 扫一扫加入 ClickPrompt 微信群:
 
 <img src="./public/wechat.jpg" width='256' height='auto' />
+
+**二维码达到上限，加小助手微信【`JavaScript_2333`】发送【`ClickPrompt`】邀请进群**
 
 ## 功能:
 

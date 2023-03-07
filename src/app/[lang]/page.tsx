@@ -1,8 +1,5 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { Box, Button, chakra, Container, Stack, Text } from "@chakra-ui/react";
+import React from "react";
+import { Box, Button, Container, Heading, Stack, Text } from "@/components/ChakraUI";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/const";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
@@ -12,16 +9,9 @@ type Props = {
   params: { lang: SupportedLocale };
 };
 
-function Page({ params: { lang } }: Props) {
-  const pathname = usePathname();
-  const [dict, setDict] = useState<any>(null);
-
-  useEffect(() => {
-    const dictionary = getDictionary(lang, pathname ?? "/");
-    dictionary.then((dict) => {
-      setDict(dict.currentPage);
-    });
-  }, [lang]);
+async function Page({ params: { lang } }: Props) {
+  const dictionary = await getDictionary(lang);
+  const currentPage = dictionary.currentPage;
 
   return (
     <Box mb={20}>
@@ -29,8 +19,8 @@ function Page({ params: { lang } }: Props) {
         <Container>
           <Box textAlign='center'>
             <ClickPromptIcon width={128} height={128} />
-
-            <chakra.h1
+            <Heading
+              as='h1'
               maxW='16ch'
               mx='auto'
               fontSize={{ base: "2.25rem", sm: "3rem", lg: "4rem" }}
@@ -40,8 +30,8 @@ function Page({ params: { lang } }: Props) {
               mb='16px'
               lineHeight='1.2'
             >
-              {dict?.title}
-            </chakra.h1>
+              {currentPage.title}
+            </Heading>
 
             <Text
               maxW='560px'
@@ -51,7 +41,7 @@ function Page({ params: { lang } }: Props) {
               fontSize={{ base: "lg", lg: "xl" }}
               mt='6'
             >
-              {dict?.description}
+              {currentPage.description}
             </Text>
 
             <Stack mt='10' spacing='4' justify='center' direction={{ base: "column", sm: "row" }}>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Heading, Input, Text } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "@/components/DataTable/DataTable";
@@ -38,9 +38,9 @@ const genColumns = (highlight: string) => [
 type Prompts = { act: string; prompt: string }[];
 
 function ChatGptPromptList() {
-  const [data, setData] = React.useState<Prompts>([]);
-  const [search, setSearch] = React.useState<string>("");
-  React.useEffect(() => {
+  const [data, setData] = useState<Prompts>([]);
+  const [search, setSearch] = useState<string>("");
+  useEffect(() => {
     // read local json data
     let localData = true;
     if (!localData) {

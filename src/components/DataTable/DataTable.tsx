@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { chakra, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import {
@@ -16,7 +16,7 @@ export type DataTableProps<Data extends object> = {
 };
 
 export function DataTable<Data extends object>({ data, columns }: DataTableProps<Data>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
   const table = useReactTable({
     columns,
     data,

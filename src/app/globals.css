@@ -71,3 +71,10 @@ ul li,
 p {
   text-align: left;
 }
+/* custom grid-cols */
+.grid-cols-\[1rem_1fr\] {
+  grid-template-columns: 1rem 1fr;
+}
+.grid-cols-\[200px_1fr\] {
+  grid-template-columns: 200px 1fr;
+}
