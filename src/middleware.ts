@@ -2,7 +2,7 @@ import { NextMiddleware, NextRequest, NextResponse } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
-let locales = ["en-US", "zh-CN"];
+let locales = ["en-us", "zh-cn"];
 
 // Get the preferred locale, similar to above or using a library
 function getLocale(request: NextRequest): string {
@@ -11,9 +11,9 @@ function getLocale(request: NextRequest): string {
     return acc;
   }, {} as Record<string, string>);
   let languages = new Negotiator({ headers }).languages();
-  let defaultLocale = "zh-CN";
+  let defaultLocale = "zh-cn";
 
-  return match(languages, locales, defaultLocale); // -> 'en-US'
+  return match(languages, locales, defaultLocale).toLowerCase(); // -> 'en-US'
 }
 
 export const middleware: NextMiddleware = (request) => {

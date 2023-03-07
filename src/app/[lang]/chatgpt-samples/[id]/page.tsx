@@ -35,7 +35,7 @@ interface Sample {
 export const generateStaticParams = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
   // TODO(CGQAQ): figure out how to do this.
-  return index.map((item) => ({ id: item.path.split(".").slice(0, -1).join("."), lang: "zh-CN" }));
+  return index.map((item) => ({ id: item.path.split(".").slice(0, -1).join("."), lang: "zh-cn" }));
 };
 
 async function Sample({ params }: { params: { id: string } }) {

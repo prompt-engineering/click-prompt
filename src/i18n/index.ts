@@ -1,6 +1,6 @@
 const dictionaries = {
-  "en-US": () => import("./en-US.json").then((module) => module.default),
-  "zh-CN": () => import("./zh-CN.json").then((module) => module.default),
+  "en-us": () => import("./en-us.json").then((module) => module.default),
+  "zh-cn": () => import("./zh-cn.json").then((module) => module.default),
 };
 
 export type SupportedLocale = keyof typeof dictionaries;
@@ -23,7 +23,7 @@ export async function getDictionary(
 ): Promise<{ all: any; currentPage: any }> {
   let dictionary = dictionaries[locale];
   if (!dictionary) {
-    dictionary = dictionaries["en-US"];
+    dictionary = dictionaries["en-us"];
   }
   return dictionary().then((module) => ({
     all: module,
