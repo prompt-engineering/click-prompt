@@ -1,6 +1,5 @@
 const fs = require("fs");
 const Papa = require("papaparse");
-const iconv = require("iconv-lite");
 
 // 1. loading the csv file from src/assets/data/ai-resources.csv
 // 2. parsing the csv file
