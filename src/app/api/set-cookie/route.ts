@@ -5,7 +5,7 @@ export async function POST(request: Request) {
   const response = new Response("OK", {
     status: 200,
     headers: {
-        "Set-Cookie": `${SITE_LOCALE_COOKIE}=${locale}; Path=/;`,
+      "Set-Cookie": `${SITE_LOCALE_COOKIE}=${locale}; Path=/;`,
     },
   });
   return response;
