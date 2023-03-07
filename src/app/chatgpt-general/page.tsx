@@ -7,8 +7,21 @@ import parseCsv from "@/data-processor/CsvParser";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 import gptCategorySamples from "@/assets/chatgpt/category/index.json";
-import { Card, CardBody, CardHeader, Flex, Heading, Box } from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Flex,
+  Heading,
+  Box,
+  AlertIcon,
+  AlertTitle,
+  Alert,
+  Link as NavLink,
+} from "@chakra-ui/react";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
+import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { CP_GITHUB_ASSETS } from "@/configs/const";
 
 type GeneralCommand = {
   english: string;
@@ -75,9 +88,18 @@ function ChatGptGeneral() {
       .then();
   }, []);
 
+  const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt/category`;
+
   return (
     <div>
       {data && <DataTable data={data} columns={columns} />}
+      <Alert status='info'>
+        <AlertIcon />
+        <AlertTitle>分享我的 ChatGPT 心得：</AlertTitle>
+        <NavLink href={chatgptLink} isExternal>
+          Pull Request <ExternalLinkIcon />
+        </NavLink>
+      </Alert>
       <Flex flexDirection={"column"} gap={4}>
         {gptCategorySamples.map((category: CategoryGpt, index: number) => {
           return (
