@@ -84,3 +84,22 @@ snippets:
         return execGit(args)
       }
       ```
+  - name: 测试用例生成
+    prompt: |
+      ```kotlin
+      @Test
+      fun `test command manager git branch list`() {
+      ```
+    result: |
+      ```kotlin
+      @Test
+        fun `test command manager git branch list`() {
+        val output = gitCommandManager.branchList(false)
+
+        output.contains("master") shouldBe true
+
+        val branchList = gitCommandManager.parseBranchList(listOf("refs/heads/master"))
+        branchList.contains("refs/heads/master") shouldBe false
+        branchList.contains("master") shouldBe true
+      }
+      ```
