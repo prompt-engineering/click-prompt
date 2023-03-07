@@ -35,21 +35,13 @@ export const middleware: NextMiddleware = (request) => {
 
 export const config = {
   matcher: [
-    // Skip all internal paths (_next)
-    "/((?!_next).*)",
-    // skip all API routes
-    "/((?!api).*)",
-    // skip favicon
-    "/((?!favicon.ico).*)",
-    // skip robots.txt
-    "/((?!robots.txt).*)",
-    // skip sitemap.xml
-    "/((?!sitemap.xml).*)",
-    // skip manifest.json
-    "/((?!manifest.json).*)",
-    // skip all static files
-    "/((?!static).*)",
-    // Optional: only run on root (/) URL
-    // '/'
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 };
