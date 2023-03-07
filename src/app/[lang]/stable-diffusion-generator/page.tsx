@@ -374,6 +374,12 @@ const copyToClipboard = (text: string) => {
 
 function StableDiffusionGenerator() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [huggingFace, setHuggingFace] = useState({
+    image: "",
+    loading: false,
+    error: "",
+    prompt: ""
+  });
   const promptResultRef = useRef<HTMLDivElement | null>(null);
 
   const formik = useFormik({
@@ -399,6 +405,49 @@ function StableDiffusionGenerator() {
     if (formStorage) formik.setValues(formStorage);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const callHuggingFace = async () => {
+    const generatedPrompt = await navigator.clipboard.readText();
+    console.log(generatedPrompt);
+    console.log(process.env.NEXT_PUBLIC_HUGGING_FACE_ACCESS_TOKEN);
+    setHuggingFace({
+      image: "",
+      loading: true,
+      error: "",
+      prompt: generatedPrompt
+    });
+    const response = await fetch("https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2-1-base", {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + process.env.NEXT_PUBLIC_HUGGING_FACE_ACCESS_TOKEN
+      },
+      body: JSON.stringify({
+        inputs: generatedPrompt
+      }),
+    });
+    if (response.status == 200) {
+      const imgBlob = await response.blob()
+      const objectURL = URL.createObjectURL(imgBlob);
+      setHuggingFace({
+        image: objectURL,
+        loading: false,
+        error: "",
+        prompt: huggingFace.prompt
+      });
+    }
+    else {
+      const errJson = await response.json();
+      console.error(errJson);
+      setHuggingFace({
+        image: "",
+        loading: false,
+        error: response.status == 503 ? "正在生成，请" + errJson.estimated_time + "秒后再次点击生成按钮" : errJson.error,
+        prompt: huggingFace.prompt
+      });
+    }
+  };
 
   const onClear = () => {
     sdGeneratorFormStorage.remove();
@@ -474,12 +523,30 @@ function StableDiffusionGenerator() {
           清除缓存
         </Button>
 
-        <Text>
-          在线测试工具：
-          <Link href={"https://lexica.art/"} isExternal>
-            Lexica
-          </Link>
-        </Text>
+        <Grid>
+          <Text>在线测试咒语</Text>
+          <Flex alignItems='start' gap='2'>
+            <SimpleGrid gap={3} p={3} columns={1}>
+              <Link href={"https://lexica.art/"} isExternal>
+                Lexica
+              </Link>
+            </SimpleGrid>
+            <SimpleGrid gap={3} p={3} columns={1}>
+              <Grid>
+                <Link href={"https://huggingface.co/stabilityai/stable-diffusion-2-1-base"} isExternal>
+                  Hugging Face - stabilityai/stable-diffusion-2-1-base
+                </Link>
+                <Button mt={4} colorScheme='teal' isLoading={huggingFace && huggingFace.loading} onClick={callHuggingFace}>
+                    使用剪贴板的咒语生成
+                </Button>
+              </Grid>
+              <Grid>
+                {huggingFace && huggingFace.image && <Image alt={huggingFace.prompt} src={huggingFace.image} width={512} height={512} />}
+                {huggingFace && huggingFace.error && <Text>{huggingFace.error}</Text>}
+              </Grid>
+            </SimpleGrid>
+          </Flex>
+        </Grid>
       </form>
 
       <Heading as={"h3"}>画xx（Todo）</Heading>

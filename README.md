@@ -105,6 +105,9 @@ cd click-prompt
 
 npm install
 
+# If you want to run Hugging Face integration locally
+echo "NEXT_PUBLIC_HUGGING_FACE_ACCESS_TOKEN={Your Hugging Face Access Token}" > .env.local
+
 npm run dev
 
 # Build
