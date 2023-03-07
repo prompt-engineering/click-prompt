@@ -6,6 +6,10 @@ import { createColumnHelper } from "@tanstack/react-table";
 import parseCsv from "@/data-processor/CsvParser";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 
+import gptCategorySamples from "@/assets/chatgpt/category/index.json";
+import { Card, CardBody, CardHeader, Flex, Heading, Box } from "@chakra-ui/react";
+import SimpleMarkdown from "@/components/SimpleMarkdown";
+
 type GeneralCommand = {
   english: string;
   chinese: string;
@@ -13,6 +17,29 @@ type GeneralCommand = {
   example: string;
   prompt?: string;
   clickPrompt?: any;
+};
+
+// ```yml
+// name:
+//   zh-cn: 编程
+//   en-us: Programming
+// category: Programming
+// samples:
+//   - name: name
+//     ask: string
+//     response: string
+// ```
+type CategoryGpt = {
+  name: {
+    "zh-cn": string;
+    "en-us": string;
+  };
+  category: string;
+  samples: {
+    name: string;
+    ask: string;
+    response: string;
+  }[];
 };
 
 const columnHelper = createColumnHelper<GeneralCommand>();
@@ -48,7 +75,41 @@ function ChatGptGeneral() {
       .then();
   }, []);
 
-  return <div>{data && <DataTable data={data} columns={columns} />}</div>;
+  return (
+    <div>
+      {data && <DataTable data={data} columns={columns} />}
+      <Flex flexDirection={"column"} gap={4}>
+        {gptCategorySamples.map((category: CategoryGpt, index: number) => {
+          return (
+            <>
+              <Heading as={"h2"}>{category.name["zh-cn"]}</Heading>
+              <Box w='100%' maxH='400px' my='auto' sx={{ columnCount: [1, 2, 3, 4], columnGap: "8px" }}>
+                <div key={`category-${index}`}>
+                  {category.samples.map((sample, sIndex: number) => {
+                    return (
+                      <Card key={`sample-${index}-${sIndex}`} sx={{ breakInside: "avoid-column" }}>
+                        <CardHeader>
+                          <ClickPromptButton text={sample.ask} size={"sm"}>
+                            {sample.name}
+                          </ClickPromptButton>
+                        </CardHeader>
+                        <CardBody maxH='320px' overflow='auto'>
+                          <Heading size={"md"}>Prompt</Heading>
+                          <SimpleMarkdown content={sample.ask} />
+                          <Heading size={"md"}>Result</Heading>
+                          <SimpleMarkdown content={sample.response} />
+                        </CardBody>
+                      </Card>
+                    );
+                  })}
+                </div>
+              </Box>
+            </>
+          );
+        })}
+      </Flex>
+    </div>
+  );
 }
 
 export default ChatGptGeneral;

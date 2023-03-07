@@ -26,6 +26,7 @@ type CPButtonProps = {
   onClick?: MouseEventHandler;
   size?: ButtonSize;
   text?: string;
+  children?: React.ReactNode;
   [key: string]: any;
 };
 
@@ -58,6 +59,7 @@ export function ClickPromptButton(props: CPButtonProps) {
     return (
       <StyledPromptButton>
         <Button colorScheme='twitter' onClick={handleClick} {...props}>
+          {props.children}
           {!isLoading && <Text>Prompt</Text>}
           {isLoading && <BeatLoader size={8} color='black' />}
         </Button>
@@ -69,8 +71,9 @@ export function ClickPromptButton(props: CPButtonProps) {
   function SmallSize() {
     return (
       <Button variant='unstyled' onClick={handleClick} {...props}>
+        {props.children}
         <Tooltip label='执行 ChatGPT Prompt' aria-label='A tooltip'>
-          <Image src={clickPromptBird} alt='ClickPrompt Logo' width={24} height={24} />
+          <InlinedBird src={clickPromptBird} alt='ClickPrompt Logo' width={24} height={24} />
         </Tooltip>
       </Button>
     );
@@ -96,6 +99,11 @@ export function ClickPromptButton(props: CPButtonProps) {
     </Box>
   );
 }
+
+const InlinedBird = styled(Image)`
+  display: inline-block;
+  padding-left: 4px;
+`;
 
 const StyledPromptButton = styled.div`
   position: relative;
