@@ -14,7 +14,6 @@ function convertCsvToJson(csvName) {
     dynamicTyping: true,
     skipEmptyLines: true,
   });
-  console.log(json);
   fs.writeFileSync(jsonFilePath, JSON.stringify(json.data), "utf8");
 }
 

@@ -60,11 +60,8 @@ function ChatGptPromptList() {
     } else {
       // read local json data
       let promptsConcat = promptsCn.concat(prompts);
-      console.log(promptsConcat.length)
-      if (promptsConcat.length > 0) {
-        console.log(promptsConcat);
+      if (promptsConcat != undefined && promptsConcat.length > 0) {
         setData(promptsConcat as Prompts);
-        // console.log(Prompts);
       } else {
         setData([]);
         throw new Error("parse csv error: " + promptsConcat.join(","));
