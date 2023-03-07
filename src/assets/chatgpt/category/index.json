@@ -1,0 +1,45 @@
+[
+  {
+    "name": {
+      "zh-cn": "编程",
+      "en-us": "Programming"
+    },
+    "category": "Programming",
+    "samples": [
+      {
+        "name": "程序转换",
+        "ask": "将转换下面的程序转换为 JavaScript 代码：\n```python\ndef foo():\n    print(\"Hello World\")\n```\n",
+        "response": "将这个 Python 函数转换为 JavaScript 函数，可以使用以下代码：\n```javascript\nfunction foo() {\n  console.log(\"Hello World\");\n}\n```\n在 JavaScript 中，我们使用 function 关键字来声明函数，然后在大括号中定义函数体。与 Python 不同的是，在 JavaScript 中，我们使用 console.log() 方法来打印输出而不是 print() 函数。因此，我们可以通过将 print() 语句替换为 console.log() 语句来将这个函数从 Python 转换为 JavaScript。\n"
+      },
+      {
+        "name": "编写测试用例",
+        "ask": "使用 Java + MockMvc 为下面的场景编写测试用例\n- 测试 `/user/1` 的 GET 请求\n- 测试 `/user/1` 的 DELETE 请求\n- 测试 `/user/1` 的 PUT 请求\n",
+        "response": "下面是使用 Java + MockMvc 编写测试用例的示例代码：\n```java\n...\n@SpringBootTest\n@AutoConfigureMockMvc\npublic class UserControllerTest {\n\n  @Autowired\n  private MockMvc mockMvc;\n\n  @Test\n  public void testGetUser() throws Exception {\n  mockMvc.perform(MockMvcRequestBuilders.get(\"/user/1\"))\n  .andExpect(MockMvcResultMatchers.status().isOk());\n}\n\n  @Test\n  public void testDeleteUser() throws Exception {\n  mockMvc.perform(MockMvcRequestBuilders.delete(\"/user/1\"))\n  .andExpect(MockMvcResultMatchers.status().isOk());\n}\n\n  @Test\n  public void testUpdateUser() throws Exception {\nString requestBody = \"{\\\"name\\\": \\\"John\\\", \\\"age\\\": 30}\";\n  mockMvc.perform(MockMvcRequestBuilders.put(\"/user/1\")\n  .contentType(MediaType.APPLICATION_JSON)\n  .content(requestBody))\n  .andExpect(MockMvcResultMatchers.status().isOk());\n}\n\n}\n```\n在上面的代码中，我们首先使用 @AutoConfigureMockMvc 注解配置了 MockMvc 对象，然后分别编写了针对 /user/1 的 GET、DELETE 和 PUT 请求的测试用例。其中，perform() 方法用于执行请求，andExpect() 方法用于断言结果。在 PUT 请求的测试用例中，我们需要设置请求的 Content-Type 为 JSON，并提供请求体。\n"
+      },
+      {
+        "name": "SQL 查询",
+        "ask": "我想查询在 user 表查询所有 user id 为 1 的所有用户\n",
+        "response": "在 SQL 中，您可以使用以下语句查询 user 表中所有 user id 为 1 的记录：\n```sql\nSELECT * FROM user WHERE id = 1;\n```\n这个查询语句将会从名为 user 的表中选择所有符合条件 id = 1 的记录，并将它们全部返回。如果您只想查询其中的一些特定列，例如 name 和 age，则可以指定这些列的名称，如下所示：\n```sql\nSELECT name, age FROM user WHERE id = 1;\n```\n这个查询语句将只返回 user 表中符合条件 id = 1 的记录中的 name 和 age 两列的值。\n\n请注意，上述语句中的 user 和 id 是根据您的实际数据库结构而定的表名和列名，请根据您自己的表结构进行相应的更改。\n"
+      },
+      {
+        "name": "编写注释",
+        "ask": "为下面的代码编写注释：\n```typescript\nexport const middleware: NextMiddleware = (request) => {\n  const pathname = request.nextUrl.pathname;\n  const pathnameIsMissingLocale = locales.every(\n    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,\n  );\n\n  if (pathnameIsMissingLocale) {\n    const locale = getLocale(request);\n\n    return NextResponse.redirect(new URL(`/${locale}/${pathname}`, request.url));\n  }\n};\n```\n",
+        "response": "下面是对这段 TypeScript 代码的注释：\n\n```typescript\n// 定义一个 Next.js 中间件函数，用于检查路由路径是否包含语言环境前缀，并在需要时将请求重定向到带有语言前缀的路径\nexport const middleware: NextMiddleware = (request) => {\n  // 获取请求的路径名，即路由路径\n  const pathname = request.nextUrl.pathname;\n\n  // 检查路由路径是否包含语言环境前缀。locales 变量是一个字符串数组，包含应用支持的所有语言环境前缀。\n  const pathnameIsMissingLocale = locales.every(\n  (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,\n  );\n\n  // 如果路由路径缺少语言环境前缀，则将请求重定向到带有语言前缀的路径\n  if (pathnameIsMissingLocale) {\n  // 获取请求的语言环境\n  const locale = getLocale(request);\n\n  // 构建带有语言前缀的 URL，然后将请求重定向到该 URL\n  return NextResponse.redirect(new URL(`/${locale}/${pathname}`, request.url));\n  }\n};\n```\n\n这段代码定义了一个 Next.js 中间件函数 middleware，用于检查路由路径是否包含语言环境前缀。如果路由路径不包含任何语言环境前缀，则将请求重定向到带有语言前缀的路径。其中：\n\nNextMiddleware 是 Next.js 中间件函数类型的别名，它接受一个参数 request，该参数代表当前的请求对象。\npathname 变量存储了请求的路径名，即路由路径。\nlocales 是一个字符串数组，包含应用支持的所有语言环境前缀。\npathnameIsMissingLocale 变量表示路由路径是否缺少语言环境前缀。它使用 every() 方法迭代 locales 数组，检查路由路径是否以其中任何一个语言环境前缀开头，或者是否等于其中任何一个语言环境前缀。如果没有一个语言环境前缀被匹配到，则返回 true。\n如果 pathnameIsMissingLocale 为 true，则说明路由路径缺少语言环境前缀。此时，使用 getLocale() 函数获取请求的语言环境，然后构建带有语言前缀的 URL，并将请求重定向到该 URL。如果 pathnameIsMissingLocale 为 false，则不做任何操作，直接继续执行后续的中间件或页面渲染逻辑。\n"
+      }
+    ]
+  },
+  {
+    "name": {
+      "zh-cn": "写作",
+      "en-us": "Writing"
+    },
+    "category": "Writing",
+    "samples": [
+      {
+        "name": "修饰文字",
+        "ask": "翻译并优化一下这个句子 \" ClickPrompt - Streamline your prompt design, with ClickPrompt, you can easily view, share, and run these prompts with just one click. \"\n",
+        "response": "Refine the introduction of ClickPrompt:\n\nClickPrompt can streamline your prompt design. With ClickPrompt, you can effortlessly view, share, and execute your prompts with just one click.\n"
+      }
+    ]
+  }
+]

@@ -117,6 +117,7 @@ npm run build
 更多请查阅[贡献指南](./CONTRIBUTING.md)。
 
 ## 贡献指南
+
 欢迎新的贡献者。查看我们的[贡献指南](./CONTRIBUTING.md)帮助你开始你的贡献。
 
 ![Powered by Vercel](https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg)

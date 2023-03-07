@@ -1,0 +1,12 @@
+name:
+  zh-cn: 写作
+  en-us: Writing
+category: Writing
+samples:
+  - name: 修饰文字
+    ask: |
+      翻译并优化一下这个句子 " ClickPrompt - Streamline your prompt design, with ClickPrompt, you can easily view, share, and run these prompts with just one click. "
+    response: |
+      Refine the introduction of ClickPrompt:
+
+      ClickPrompt can streamline your prompt design. With ClickPrompt, you can effortlessly view, share, and execute your prompts with just one click.
