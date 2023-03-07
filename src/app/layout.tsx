@@ -43,10 +43,10 @@ export default function RootLayout({ params, children }: RootLayoutProps) {
           </Container>
         </Provider>
         <div className='flex justify-center py-4'>
-          {/* Vercel footer */}
           <a
             className='flex gap-4 items-center'
             href='https://vercel.com?utm_source=prompt-engineering&utm_campaign=oss'
+            target={"_blank"}
           >
             <span>Powered by</span>
             <Image
