@@ -203,6 +203,20 @@ export function ChatGPTApp(props: ChatGptAppProp) {
             Login
           </Button>
         </div>
+        <div>
+          <p className='text-white'>Don't have a key now? <a href="https://platform.openai.com/account/api-keys" target="_blank">Chick Here</a> </p>
+        </div>
+        <div>
+          <span className='text-white'>Or you can try our key now!
+          </span>
+          <Button
+            onClick={async () => {
+              await login('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');
+            }}
+          >
+            Try it Now!
+          </Button>
+        </div>
       </div>
     );
   }
