@@ -378,7 +378,7 @@ function StableDiffusionGenerator() {
     image: "",
     loading: false,
     error: "",
-    prompt: ""
+    prompt: "",
   });
   const promptResultRef = useRef<HTMLDivElement | null>(null);
 
@@ -414,37 +414,37 @@ function StableDiffusionGenerator() {
       image: "",
       loading: true,
       error: "",
-      prompt: generatedPrompt
+      prompt: generatedPrompt,
     });
     const response = await fetch("https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2-1-base", {
       method: "POST",
       cache: "no-cache",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + process.env.NEXT_PUBLIC_HUGGING_FACE_ACCESS_TOKEN
+        Authorization: "Bearer " + process.env.NEXT_PUBLIC_HUGGING_FACE_ACCESS_TOKEN,
       },
       body: JSON.stringify({
-        inputs: generatedPrompt
+        inputs: generatedPrompt,
       }),
     });
     if (response.status == 200) {
-      const imgBlob = await response.blob()
+      const imgBlob = await response.blob();
       const objectURL = URL.createObjectURL(imgBlob);
       setHuggingFace({
         image: objectURL,
         loading: false,
         error: "",
-        prompt: huggingFace.prompt
+        prompt: huggingFace.prompt,
       });
-    }
-    else {
+    } else {
       const errJson = await response.json();
       console.error(errJson);
       setHuggingFace({
         image: "",
         loading: false,
-        error: response.status == 503 ? "正在生成，请" + errJson.estimated_time + "秒后再次点击生成按钮" : errJson.error,
-        prompt: huggingFace.prompt
+        error:
+          response.status == 503 ? "正在生成，请" + errJson.estimated_time + "秒后再次点击生成按钮" : errJson.error,
+        prompt: huggingFace.prompt,
       });
     }
   };
@@ -536,12 +536,19 @@ function StableDiffusionGenerator() {
                 <Link href={"https://huggingface.co/stabilityai/stable-diffusion-2-1-base"} isExternal>
                   Hugging Face - stabilityai/stable-diffusion-2-1-base
                 </Link>
-                <Button mt={4} colorScheme='teal' isLoading={huggingFace && huggingFace.loading} onClick={callHuggingFace}>
-                    使用剪贴板的咒语生成
+                <Button
+                  mt={4}
+                  colorScheme='teal'
+                  isLoading={huggingFace && huggingFace.loading}
+                  onClick={callHuggingFace}
+                >
+                  使用剪贴板的咒语生成
                 </Button>
               </Grid>
               <Grid>
-                {huggingFace && huggingFace.image && <Image alt={huggingFace.prompt} src={huggingFace.image} width={512} height={512} />}
+                {huggingFace && huggingFace.image && (
+                  <Image alt={huggingFace.prompt} src={huggingFace.image} width={512} height={512} />
+                )}
                 {huggingFace && huggingFace.error && <Text>{huggingFace.error}</Text>}
               </Grid>
             </SimpleGrid>

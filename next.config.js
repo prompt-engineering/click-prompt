@@ -1,13 +1,31 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   experimental: {
     appDir: true,
   },
+  transpilePackages: ["react-syntax-highlighter"],
   images: {
     domains: ["prompt-engineering.github.io"],
   },
-  reactStrictMode: true,
-  transpilePackages: ["react-syntax-highlighter"],
+
+  i18n: {
+    locales: ["en-US", "zh-CN"],
+    defaultLocale: "en-US",
+    domains: [
+      {
+        domain: "www.clickprompt.org",
+        defaultLocale: "zh-CN",
+        locales: ["zh-CN"],
+      },
+      {
+        domain: "en.clickprompt.org",
+        defaultLocale: "en-US",
+        locales: ["en-US", "en-GB"],
+      },
+    ],
+  },
+
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.yml/,
