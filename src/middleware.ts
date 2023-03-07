@@ -38,17 +38,17 @@ export const config = {
     // Skip all internal paths (_next)
     "/((?!_next).*)",
     // skip all API routes
-    "/((?!api)/.*)",
+    "/((?!api).*)",
     // skip favicon
-    "/((?!favicon.ico)/.*)",
+    "/((?!favicon.ico).*)",
     // skip robots.txt
-    "/((?!robots.txt)/.*)",
+    "/((?!robots.txt).*)",
     // skip sitemap.xml
-    "/((?!sitemap.xml)/.*)",
+    "/((?!sitemap.xml).*)",
     // skip manifest.json
-    "/((?!manifest.json)/.*)",
+    "/((?!manifest.json).*)",
     // skip all static files
-    "/((?!static)/.*)",
+    "/((?!static).*)",
     // Optional: only run on root (/) URL
     // '/'
   ],
