@@ -10,8 +10,10 @@ const nextConfig = {
   },
 
   i18n: {
-    locales: ["en-US", "zh-CN"],
-    defaultLocale: "en-US",
+    locales: ["zh-CN", "en-US"],
+    defaultLocale: "zh-CN",
+    localeDetection: false,
+
     domains: [
       {
         domain: "www.clickprompt.org",
@@ -21,8 +23,8 @@ const nextConfig = {
       {
         domain: "en.clickprompt.org",
         defaultLocale: "en-US",
-        locales: ["en-US", "en-GB"],
-      },
+        locales: ["en-US"],
+      }
     ],
   },
 
