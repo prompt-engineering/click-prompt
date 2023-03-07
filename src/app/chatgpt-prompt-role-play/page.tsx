@@ -7,8 +7,6 @@ import { DataTable } from "@/components/DataTable/DataTable";
 import { LinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import Highlight from "@/components/Highlight";
-import promptsEn from "@/assets/resources/prompts_en.json";
-import promptsCn from "@/assets/resources/prompts_cn.json";
 
 type ActPrompt = {
   act: string;
@@ -36,19 +34,19 @@ const genColumns = (highlight: string) => [
 
 type Prompts = { act: string; prompt: string }[];
 
-function ChatGptPromptList() {
-  const [data, setData] = useState<Prompts>([]);
+import { SupportedLocales } from "@/i18n";
+
+export const generateStaticParams = async () => {
+  return SupportedLocales.map(async (language) => ({
+    prompts: await import(`@/assets/resources/prompts_${language}.json`).then((mod) => mod.default),
+    lang: language,
+  }));
+};
+
+async function ChatGptPromptList({ prompts }: { prompts: Prompts }) {
+  console.log(prompts);
+  // const dictionary = await getDictionary(headers());
   const [search, setSearch] = useState<string>("");
-  useEffect(() => {
-    // read local json data
-    let promptsConcat = promptsCn.concat(promptsEn);
-    if (promptsConcat != undefined && promptsConcat.length > 0) {
-      setData(promptsConcat as Prompts);
-    } else {
-      setData([]);
-      throw new Error("parse csv error: " + promptsConcat.join(","));
-    }
-  }, []);
 
   return (
     <div>
@@ -63,9 +61,9 @@ function ChatGptPromptList() {
           awesome-chatgpt-prompts-zh <LinkIcon />
         </a>
       </Text>
-      {data && (
+      {prompts && (
         <DataTable
-          data={data.filter(
+          data={prompts.filter(
             (it) =>
               (it.act != undefined && it.act.includes(search)) ||
               (it.prompt != undefined && it.prompt.includes(search)),

@@ -8,9 +8,9 @@ const dictionaries = {
 
 export type SupportedLocale = keyof typeof dictionaries;
 
-export async function getDictionary(headers: Headers, pathname: string = "/"): Promise<{ all: any; currentPage: any }> {
-  let locales = ["en-US", "zh-CN"];
+export const SupportedLocales = ["en-US", "zh-CN"];
 
+export async function getDictionary(headers: Headers, pathname: string = "/"): Promise<{ all: any; currentPage: any }> {
   let languages = new Negotiator({
     headers: [...headers].reduce((pre, [key, value]) => {
       // @ts-ignore
@@ -23,7 +23,7 @@ export async function getDictionary(headers: Headers, pathname: string = "/"): P
   let locale: SupportedLocale;
 
   try {
-    locale = match(languages, locales, defaultLocale) as SupportedLocale;
+    locale = match(languages, SupportedLocales, defaultLocale) as SupportedLocale;
   } catch (error) {
     locale = defaultLocale;
   }
