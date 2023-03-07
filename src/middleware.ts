@@ -1,18 +1,29 @@
 import { NextMiddleware, NextResponse } from "next/server";
-import { getLocale, getSubdomainByLocale } from "@/i18n";
-import { SITE_DOMAIN } from "./configs/const";
+import { getLocale, getSubdomainByLocale, SupportedLocales, DefaultLocale, type SupportedLocale } from "@/i18n";
+import { SITE_DOMAIN, SITE_LOCALE_COOKIE } from "./configs/const";
 
 const middleware: NextMiddleware = async (req) => {
     const headers = req.headers;
-    const locale = getLocale(headers);
-    const subdomain = getSubdomainByLocale(locale);
-    console.log("subdomain", subdomain);
-    console.log("locale", locale);
+    let locale = getLocale(headers);
 
+    // Check if the user has a cookie for the locale
+    const cookie = req.cookies.get(SITE_LOCALE_COOKIE);
+    if (cookie && SupportedLocales.includes(cookie.value)) {
+        locale = cookie.value as SupportedLocale;
+    }
+
+    const subdomain = getSubdomainByLocale(locale);
+
+    // don't redirect if we are on localhost
+    if (req.nextUrl.hostname === "localhost") {
+        return NextResponse.next();
+    }
+
+    // redirect to the subdomain if we are on production environment
     if (subdomain.length > 0) {
-        NextResponse.redirect(`https://${subdomain}.${SITE_DOMAIN}${req.nextUrl.pathname}${req.nextUrl.search}`);
+        return NextResponse.redirect(`https://${subdomain}.${SITE_DOMAIN}${req.nextUrl.pathname}${req.nextUrl.search}`, );
     } else {
-        NextResponse.redirect(`https://www.${SITE_DOMAIN}${req.nextUrl.pathname}${req.nextUrl.search}`);
+        return NextResponse.redirect(`https://www.${SITE_DOMAIN}${req.nextUrl.pathname}${req.nextUrl.search}`);
     }
 };
 

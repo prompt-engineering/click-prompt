@@ -7,6 +7,7 @@ const dictionaries = {
 };
 
 export type SupportedLocale = keyof typeof dictionaries;
+export const DefaultLocale: SupportedLocale = "zh-CN";
 export const SupportedLocales = ["en-US", "zh-CN"]
 export function getSubdomainByLocale(locale: SupportedLocale) {
   switch (locale) {
@@ -23,9 +24,9 @@ export function getLocaleBySubdomain(subdomain: string) {
     case "en":
       return "en-US";
     case "":
-      return "zh-CN";
+      return DefaultLocale;
     default:
-      return "zh-CN";
+      return DefaultLocale;
   }
 }
 export function getLocale(headers: Headers) {
@@ -37,13 +38,12 @@ export function getLocale(headers: Headers) {
     }, {}),
   }).languages();
 
-  let defaultLocale: SupportedLocale = "zh-CN";
   let locale: SupportedLocale;
 
   try {
-    locale = match(languages, SupportedLocales, defaultLocale) as SupportedLocale;
+    locale = match(languages, SupportedLocales, DefaultLocale) as SupportedLocale;
   } catch (error) {
-    locale = defaultLocale;
+    locale = DefaultLocale;
   }
 
   return locale;
