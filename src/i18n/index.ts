@@ -7,10 +7,28 @@ const dictionaries = {
 };
 
 export type SupportedLocale = keyof typeof dictionaries;
-
-export async function getDictionary(headers: Headers, pathname: string = "/"): Promise<{ all: any; currentPage: any }> {
-  let locales = ["en-US", "zh-CN"];
-
+export const SupportedLocales = ["en-US", "zh-CN"]
+export function getSubdomainByLocale(locale: SupportedLocale) {
+  switch (locale) {
+    case "en-US":
+      return "en";
+    case "zh-CN":
+      return "";
+    default:
+      return "";
+  }
+}
+export function getLocaleBySubdomain(subdomain: string) {
+  switch (subdomain) {
+    case "en":
+      return "en-US";
+    case "":
+      return "zh-CN";
+    default:
+      return "zh-CN";
+  }
+}
+export function getLocale(headers: Headers) {
   let languages = new Negotiator({
     headers: [...headers].reduce((pre, [key, value]) => {
       // @ts-ignore
@@ -23,10 +41,16 @@ export async function getDictionary(headers: Headers, pathname: string = "/"): P
   let locale: SupportedLocale;
 
   try {
-    locale = match(languages, locales, defaultLocale) as SupportedLocale;
+    locale = match(languages, SupportedLocales, defaultLocale) as SupportedLocale;
   } catch (error) {
     locale = defaultLocale;
   }
+
+  return locale;
+}
+
+export async function getDictionary(headers: Headers, pathname: string = "/"): Promise<{ all: any; currentPage: any }> {
+  const locale = getLocale(headers);
 
   let dictionary = dictionaries[locale];
   return dictionary().then((module) => ({

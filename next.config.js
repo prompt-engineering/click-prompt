@@ -9,25 +9,6 @@ const nextConfig = {
     domains: ["prompt-engineering.github.io"],
   },
 
-  i18n: {
-    locales: ["zh-CN", "en-US"],
-    defaultLocale: "zh-CN",
-    localeDetection: false,
-
-    domains: [
-      {
-        domain: "www.clickprompt.org",
-        defaultLocale: "zh-CN",
-        locales: ["zh-CN"],
-      },
-      {
-        domain: "en.clickprompt.org",
-        defaultLocale: "en-US",
-        locales: ["en-US"],
-      }
-    ],
-  },
-
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.yml/,
