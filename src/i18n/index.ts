@@ -8,18 +8,6 @@ const dictionaries = {
 
 export type SupportedLocale = keyof typeof dictionaries;
 
-function normalizePathname(pathname: string) {
-  const segments = pathname.split("/");
-
-  if (segments.length === 2) {
-    return "/";
-  } else if (segments.length === 3) {
-    return `/${segments[2]}`;
-  }
-
-  return segments.slice(2).join("/");
-}
-
 export async function getDictionary(headers: Headers, pathname: string = "/"): Promise<{ all: any; currentPage: any }> {
   let locales = ["en-US", "zh-CN"];
 
@@ -44,6 +32,6 @@ export async function getDictionary(headers: Headers, pathname: string = "/"): P
   return dictionary().then((module) => ({
     all: module,
     // @ts-ignore
-    currentPage: module[normalizePathname(pathname)],
+    currentPage: module[pathname],
   }));
 }
