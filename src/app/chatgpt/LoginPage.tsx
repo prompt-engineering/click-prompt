@@ -2,7 +2,7 @@
 
 import { Button, Input } from "@/components/ChakraUI";
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export const LoginPage = () => {
   const [openAiKey, setOpenAiKey] = React.useState("");
@@ -22,7 +22,7 @@ export const LoginPage = () => {
     });
     const data = await response.json();
     if (!data.error) {
-      router.reload();
+      router.refresh();
     } else {
       alert("Error: " + JSON.stringify(data.error, null, 2));
     }

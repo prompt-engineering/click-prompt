@@ -9,7 +9,7 @@ import send from "@/assets/icons/send.svg?url";
 import React, { useEffect } from "react";
 import { ChatCompletionRequestMessage } from "openai";
 import styled from "@emotion/styled";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -139,7 +139,7 @@ export const ChatRoom = ({ initMessage }: { initMessage?: string }) => {
     });
     const data = await response.json();
     console.log("logout: ", data);
-    router.reload();
+    router.refresh();
   }
 
   return (
