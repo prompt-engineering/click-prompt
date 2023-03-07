@@ -1,0 +1,75 @@
+name:
+  zh-cn: 写作
+  en-us: Writing
+category: Writing
+samples:
+  - name: 修饰文字
+    ask: |
+      翻译并优化一下这个句子 " ClickPrompt - Streamline your prompt design, with ClickPrompt, you can easily view, share, and run these prompts with just one click. "
+    response: |
+      Refine the introduction of ClickPrompt:
+
+      ClickPrompt can streamline your prompt design. With ClickPrompt, you can effortlessly view, share, and execute your prompts with just one click.
+  - name: 创作
+    ask: 为一家咖啡公司写一句标语
+    response: 每一杯，都是你与世界的浪漫邂逅
+  - name: 联想
+    ask: 我想写一篇介绍 Python  + 人工智能的文章，帮我想 10 个标题
+    response: |
+      当然可以，以下是十个可能的标题：
+
+      - 初探人工智能：Python 编程的入门指南
+      - Python 与人工智能：现代编程中的黄金搭档
+      - 探索 Python 在机器学习中的应用
+      - 从零开始学习 Python 和人工智能
+      - Python: 人工智能的必备编程语言
+      - Python 编程语言在深度学习中的应用
+      - 学习人工智能：使用 Python 的初学者指南
+      - 让人工智能更易入门：Python 编程语言的优势
+      - 使用 Python 打造自己的人工智能项目
+      - Python 人工智能编程：从入门到精通
+  - name: 大纲创作
+    ask: 围绕 "Python 人工智能编程：从入门到精通" 的主题写个大纲
+    response: |
+      当然可以，以下是围绕 "Python 人工智能编程：从入门到精通" 主题的一个大纲：
+
+      I. 介绍
+
+      简要介绍 Python 编程语言和人工智能的关系
+      为什么 Python 成为了人工智能开发的首选语言
+
+      II. 入门
+
+      Python 的基础语法
+      Python 的数据类型、运算符、流程控制
+      Python 的函数和模块
+
+      III. 数据分析
+
+      Python 在数据科学中的应用
+      NumPy 和 Pandas 的使用
+      数据可视化
+
+      IV. 机器学习
+
+      机器学习的基本概念
+      Scikit-learn 库的使用
+      数据预处理和特征工程
+      常用的机器学习算法和模型
+  - name: 写作
+    ask: |
+      围绕下面的大纲写一篇文章
+      """
+      机器学习的基本概念
+      Scikit-learn 库的使用
+      数据预处理和特征工程
+      常用的机器学习算法和模型
+      """
+    response: |
+      机器学习是人工智能领域的重要分支，它使用算法和数学模型来让计算机能够从数据中学习并做出预测。在这篇文章中，我们将探讨机器学习的基本概念，介绍 Scikit-learn 库的使用以及数据预处理和特征工程的重要性，最后讨论几个常用的机器学习算法和模型。
+
+      ## 机器学习的基本概念
+
+      机器学习是一种从数据中学习的技术。它通过使用许多统计学和数学模型，将数据转换成可预测的模式，并通过分析这些模式来进行决策。在机器学习中，有三种不同的学习方式：监督学习、无监督学习和强化学习。
+
+      监督学习是一种学习方式，其中给定一组标记的训练数据，并通过这些数据来构建一个预测模型。监督学习的目标是根据输入数据的特征预测输出变量的值。例如，我们可以使用监督学习来预测房屋价格，其中训练数据包含了房屋的各种特征和对应的价格。

@@ -3,7 +3,6 @@
 import React, { MouseEventHandler, useState } from "react";
 import {
   Box,
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -13,6 +12,7 @@ import {
   Tooltip,
   useDisclosure,
 } from "@chakra-ui/react";
+import { Button } from "@/components/ChakraUI";
 import { BeatLoader } from "react-spinners";
 import clickPromptBird from "@/assets/images/click-button-bird.svg?url";
 import Image from "next/image";

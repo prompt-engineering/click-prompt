@@ -1,0 +1,18 @@
+name:
+  zh-cn: 商业
+  en-us: Business
+category: Business
+samples:
+  - name: 修饰文字
+    ask: |
+      翻译并优化一下这个句子 " ClickPrompt - Streamline your prompt design, with ClickPrompt, you can easily view, share, and run these prompts with just one click. "
+    response: |
+      Refine the introduction of ClickPrompt:
+
+      ClickPrompt can streamline your prompt design. With ClickPrompt, you can effortlessly view, share, and execute your prompts with just one click.
+  - name: 头脑风暴
+    ask: 帮我想一个关于人工智能的创业项目
+    response: |
+      一个关于人工智能的创业项目是基于人工智能技术的自动化客服机器人。该机器人能够使用自然语言处理技术和机器学习算法来理解客户的问题，并提供准确和及时的解决方案。
+      它可以通过多种渠道（如社交媒体、电子邮件、短信等）与客户进行交互，并在需要时将问题转交给人工客服代表。该机器人还可以收集并分析客户的反馈和数据，
+      以改进服务和提高客户满意度。这个创业项目将提供高效、便捷、个性化的客户服务，提高企业的效率和品牌形象。
