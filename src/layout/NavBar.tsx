@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import {
   Box,
@@ -12,15 +10,16 @@ import {
   MenuItem,
   MenuList,
   Spacer,
-} from "@chakra-ui/react";
-import { ChevronDownIcon, ExternalLinkIcon, HamburgerIcon } from "@chakra-ui/icons";
+} from "@/components/ChakraUI";
+import { ChevronDownIcon, ExternalLinkIcon, HamburgerIcon } from "@/components/ChakraUI/icons";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { headers } from "next/headers";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/const";
+import LocaleSwitcher from "@/components/LocaleSwtcher";
 
-export default function NavBar() {
-  const pathname = usePathname();
+export default function NavBar({ locale }: { locale: string }) {
+  const pathname = headers().get("$$$x-pathname") || "";
 
   const NavList = [
     {
@@ -118,6 +117,7 @@ export default function NavBar() {
         </Flex>
       </Flex>
       <Spacer />
+      <LocaleSwitcher locale={locale} />
       <NavLink display={{ md: "block", base: "none" }} href={GITHUB_URL} isExternal>
         GitHub <ExternalLinkIcon mx='2px' />
       </NavLink>

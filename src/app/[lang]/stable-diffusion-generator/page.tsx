@@ -483,14 +483,17 @@ function StableDiffusionGenerator() {
       </form>
       <Heading as={"h3"}>在线测试咒语</Heading>
       <SimpleGrid gap={3} p={3} columns={1}>
-          <Link href={"https://lexica.art/"} isExternal>
-            Lexica
-          </Link>
-        </SimpleGrid>
+        <Link href={"https://lexica.art/"} isExternal>
+          Lexica
+        </Link>
+      </SimpleGrid>
       <Flex alignItems='start' gap='2'>
-        <HuggingFaceTxt2Img model="stabilityai/stable-diffusion-2-1-base" prompt={promptResultRef.current?.innerText ?? ""} />
-        <HuggingFaceTxt2Img model="andite/anything-v4.0" prompt={promptResultRef.current?.innerText ?? ""} />
-        <HuggingFaceTxt2Img model="prompthero/openjourney" prompt={promptResultRef.current?.innerText ?? ""} />
+        <HuggingFaceTxt2Img
+          model='stabilityai/stable-diffusion-2-1-base'
+          prompt={promptResultRef.current?.innerText ?? ""}
+        />
+        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={promptResultRef.current?.innerText ?? ""} />
+        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={promptResultRef.current?.innerText ?? ""} />
       </Flex>
     </SimpleGrid>
   );
