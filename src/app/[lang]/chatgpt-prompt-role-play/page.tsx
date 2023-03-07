@@ -9,11 +9,13 @@ import CopyComponent from "@/components/CopyComponent";
 import Highlight from "@/components/Highlight";
 import promptsEn from "@/assets/resources/prompts_en.json";
 import promptsCn from "@/assets/resources/prompts_cn.json";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 type ActPrompt = {
   act: string;
   prompt: string;
   icon: string;
+  clickPrompt?: any;
 };
 
 const columnHelper = createColumnHelper<ActPrompt>();
@@ -31,6 +33,12 @@ const genColumns = (highlight: string) => [
     id: "icon",
     cell: (info) => CopyComponent({ value: info.getValue() }),
     header: "copy",
+  }),
+  columnHelper.accessor("clickPrompt", {
+    cell: (info) => {
+      return info.row.original.prompt !== "" ? <ClickPromptButton text={info.row.original.prompt} /> : null;
+    },
+    header: "",
   }),
 ];
 

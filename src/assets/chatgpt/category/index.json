@@ -1,6 +1,40 @@
 [
   {
     "name": {
+      "zh-cn": "写作",
+      "en-us": "Writing"
+    },
+    "category": "Writing",
+    "samples": [
+      {
+        "name": "修饰文字",
+        "ask": "翻译并优化一下这个句子 \" ClickPrompt - Streamline your prompt design, with ClickPrompt, you can easily view, share, and run these prompts with just one click. \"\n",
+        "response": "Refine the introduction of ClickPrompt:\n\nClickPrompt can streamline your prompt design. With ClickPrompt, you can effortlessly view, share, and execute your prompts with just one click.\n"
+      },
+      {
+        "name": "创作",
+        "ask": "为一家咖啡公司写一句标语",
+        "response": "每一杯，都是你与世界的浪漫邂逅"
+      },
+      {
+        "name": "联想",
+        "ask": "我想写一篇介绍 Python  + 人工智能的文章，帮我想 10 个标题",
+        "response": "当然可以，以下是十个可能的标题：\n\n- 初探人工智能：Python 编程的入门指南\n- Python 与人工智能：现代编程中的黄金搭档\n- 探索 Python 在机器学习中的应用\n- 从零开始学习 Python 和人工智能\n- Python: 人工智能的必备编程语言\n- Python 编程语言在深度学习中的应用\n- 学习人工智能：使用 Python 的初学者指南\n- 让人工智能更易入门：Python 编程语言的优势\n- 使用 Python 打造自己的人工智能项目\n- Python 人工智能编程：从入门到精通\n"
+      },
+      {
+        "name": "大纲创作",
+        "ask": "围绕 \"Python 人工智能编程：从入门到精通\" 的主题写个大纲",
+        "response": "当然可以，以下是围绕 \"Python 人工智能编程：从入门到精通\" 主题的一个大纲：\n\nI. 介绍\n\n简要介绍 Python 编程语言和人工智能的关系\n为什么 Python 成为了人工智能开发的首选语言\n\nII. 入门\n\nPython 的基础语法\nPython 的数据类型、运算符、流程控制\nPython 的函数和模块\n\nIII. 数据分析\n\nPython 在数据科学中的应用\nNumPy 和 Pandas 的使用\n数据可视化\n\nIV. 机器学习\n\n机器学习的基本概念\nScikit-learn 库的使用\n数据预处理和特征工程\n常用的机器学习算法和模型\n"
+      },
+      {
+        "name": "写作",
+        "ask": "围绕下面的大纲写一篇文章\n\"\"\"\n机器学习的基本概念\nScikit-learn 库的使用\n数据预处理和特征工程\n常用的机器学习算法和模型\n\"\"\"\n",
+        "response": "机器学习是人工智能领域的重要分支，它使用算法和数学模型来让计算机能够从数据中学习并做出预测。在这篇文章中，我们将探讨机器学习的基本概念，介绍 Scikit-learn 库的使用以及数据预处理和特征工程的重要性，最后讨论几个常用的机器学习算法和模型。\n\n## 机器学习的基本概念\n\n机器学习是一种从数据中学习的技术。它通过使用许多统计学和数学模型，将数据转换成可预测的模式，并通过分析这些模式来进行决策。在机器学习中，有三种不同的学习方式：监督学习、无监督学习和强化学习。\n\n监督学习是一种学习方式，其中给定一组标记的训练数据，并通过这些数据来构建一个预测模型。监督学习的目标是根据输入数据的特征预测输出变量的值。例如，我们可以使用监督学习来预测房屋价格，其中训练数据包含了房屋的各种特征和对应的价格。\n"
+      }
+    ]
+  },
+  {
+    "name": {
       "zh-cn": "编程",
       "en-us": "Programming"
     },
@@ -30,15 +64,34 @@
   },
   {
     "name": {
-      "zh-cn": "写作",
-      "en-us": "Writing"
+      "zh-cn": "商业",
+      "en-us": "Business"
     },
-    "category": "Writing",
+    "category": "Business",
     "samples": [
       {
         "name": "修饰文字",
         "ask": "翻译并优化一下这个句子 \" ClickPrompt - Streamline your prompt design, with ClickPrompt, you can easily view, share, and run these prompts with just one click. \"\n",
         "response": "Refine the introduction of ClickPrompt:\n\nClickPrompt can streamline your prompt design. With ClickPrompt, you can effortlessly view, share, and execute your prompts with just one click.\n"
+      },
+      {
+        "name": "头脑风暴",
+        "ask": "帮我想一个关于人工智能的创业项目",
+        "response": "一个关于人工智能的创业项目是基于人工智能技术的自动化客服机器人。该机器人能够使用自然语言处理技术和机器学习算法来理解客户的问题，并提供准确和及时的解决方案。\n它可以通过多种渠道（如社交媒体、电子邮件、短信等）与客户进行交互，并在需要时将问题转交给人工客服代表。该机器人还可以收集并分析客户的反馈和数据，\n以改进服务和提高客户满意度。这个创业项目将提供高效、便捷、个性化的客户服务，提高企业的效率和品牌形象。\n"
+      }
+    ]
+  },
+  {
+    "name": {
+      "zh-cn": "社交",
+      "en-us": "Social"
+    },
+    "category": "Social",
+    "samples": [
+      {
+        "name": "Gift",
+        "ask": "推荐一个合适的礼物给我 18 岁的女性朋友？",
+        "response": "为一个18岁的女性朋友挑选礼物时，可以考虑以下几个方面：\n- 兴趣爱好：了解她的兴趣爱好，可以让你更容易挑选到她喜欢的礼物。例如，如果她喜欢阅读，可以送她一本她喜欢的书；如果她喜欢音乐，可以送她一张她喜欢的专辑或音乐会门票。\n- 年龄：18岁的女性正处于青春期，对于时尚、美容、健康等方面比较敏感。可以考虑购买一些适合她年龄段的化妆品、护肤品、服装、配饰等。\n- 个性：每个人都有自己的个性和喜好，为了挑选到一份特别的礼物，可以考虑她的个性特点，例如她是否喜欢手工艺、设计艺术等，或者她是否喜欢收藏某种物品。\n基于以上几点建议，以下是几个适合18岁女性的礼物推荐：\n1. 一款美丽的化妆品套装：18岁的女性通常对自己的外表比较关注，送她一款美丽的化妆品套装可以让她更好地展现自己的美丽。\n2. 一本她喜欢的书：如果她喜欢阅读，送她一本她感兴趣的书，可以让她在业余时间享受阅读的乐趣。\n3. 一件漂亮的衣服或配饰：\n...\n"
       }
     ]
   }
