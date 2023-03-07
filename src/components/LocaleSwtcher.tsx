@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { SITE_LOCALE_COOKIE } from "@/configs/const";
 
 export default function LocaleSwitcher({ locale }: { locale: string }) {
   const classZh = locale === "zh-CN" ? "text-blue-500" : "text-gray-500";
@@ -13,7 +12,7 @@ export default function LocaleSwitcher({ locale }: { locale: string }) {
       method: "POST",
       body: "en-US",
     }).then(() => {
-      router.refresh();
+      window.location.reload();
     });
   }
 
@@ -22,7 +21,7 @@ export default function LocaleSwitcher({ locale }: { locale: string }) {
       method: "POST",
       body: "zh-CN",
     }).then(() => {
-      router.refresh();
+      window.location.reload();
     });
   }
 
