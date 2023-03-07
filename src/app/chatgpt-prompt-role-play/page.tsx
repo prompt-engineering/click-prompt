@@ -8,6 +8,8 @@ import { LinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import parseCsv from "@/data-processor/CsvParser";
 import Highlight from "@/components/Highlight";
+import prompts from "@/assets/resources/prompts.json";
+import promptsCn from "@/assets/resources/prompts_cn.json";
 
 type ActPrompt = {
   act: string;
@@ -38,20 +40,15 @@ type Prompts = { act: string; prompt: string }[];
 function ChatGptPromptList() {
   const [data, setData] = useState<Prompts>([]);
   const [search, setSearch] = useState<string>("");
-
   useEffect(() => {
-    fetch("https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv")
-      .then((response) => response.text())
-      .then((csv) => {
-        const parseResult = parseCsv(csv);
-
-        if (parseResult.errors.length === 0) {
-          setData(parseResult.data as Prompts);
-        } else {
-          setData([]);
-          throw new Error("parse csv error: " + parseResult.errors.join(","));
-        }
-      });
+    // read local json data
+    let promptsConcat = promptsCn.concat(prompts);
+    if (promptsConcat != undefined && promptsConcat.length > 0) {
+      setData(promptsConcat as Prompts);
+    } else {
+      setData([]);
+      throw new Error("parse csv error: " + promptsConcat.join(","));
+    }
   }, []);
 
   return (
@@ -63,10 +60,17 @@ function ChatGptPromptList() {
         <a href={"https://github.com/f/awesome-chatgpt-prompts"}>
           awesome-chatgpt-prompts <LinkIcon />
         </a>
+        <a href={"https://github.com/PlexPt/awesome-chatgpt-prompts-zh"}>
+          awesome-chatgpt-prompts-zh <LinkIcon />
+        </a>
       </Text>
       {data && (
         <DataTable
-          data={data.filter((it) => it.act.includes(search) || it.prompt.includes(search))}
+          data={data.filter(
+            (it) =>
+              (it.act != undefined && it.act.includes(search)) ||
+              (it.prompt != undefined && it.prompt.includes(search)),
+          )}
           columns={genColumns(search) as any}
         />
       )}

@@ -4,10 +4,11 @@ import React from "react";
  * Hight light keywords in paragraph
  */
 export default function Highlight({ value, keyword }: { value: string; keyword: string }) {
-  if (!keyword) {
+  if (!(value != undefined && keyword != undefined && value.length > 0 && keyword.length > 0)) {
     return value;
   }
   const regex = new RegExp(keyword, "gi");
+
   return value
     .split(regex)
     .reduce((acc: any, part: string, i: number) => {

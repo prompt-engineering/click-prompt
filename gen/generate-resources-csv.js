@@ -13,9 +13,11 @@ function convertCsvToJson(csvName) {
     dynamicTyping: true,
     skipEmptyLines: true,
   });
-  fs.writeFileSync(jsonFilePath, JSON.stringify(json.data));
+  fs.writeFileSync(jsonFilePath, JSON.stringify(json.data), "utf8");
 }
 
 convertCsvToJson("ai-resources");
 convertCsvToJson("reading-list-en");
 convertCsvToJson("reading-list-cn");
+convertCsvToJson("prompts");
+convertCsvToJson("prompts_cn");

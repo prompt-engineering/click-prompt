@@ -123,5 +123,3 @@ samples:
       locales 是一个字符串数组，包含应用支持的所有语言环境前缀。
       pathnameIsMissingLocale 变量表示路由路径是否缺少语言环境前缀。它使用 every() 方法迭代 locales 数组，检查路由路径是否以其中任何一个语言环境前缀开头，或者是否等于其中任何一个语言环境前缀。如果没有一个语言环境前缀被匹配到，则返回 true。
       如果 pathnameIsMissingLocale 为 true，则说明路由路径缺少语言环境前缀。此时，使用 getLocale() 函数获取请求的语言环境，然后构建带有语言前缀的 URL，并将请求重定向到该 URL。如果 pathnameIsMissingLocale 为 false，则不做任何操作，直接继续执行后续的中间件或页面渲染逻辑。
-
-
