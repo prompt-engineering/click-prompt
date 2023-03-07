@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ["prompt-engineering.github.io"],
+  },
   reactStrictMode: true,
   transpilePackages: ["react-syntax-highlighter"],
   webpack: (config, options) => {

@@ -40,6 +40,6 @@ next-env.d.ts
 
 /dist
 public/sitemap-0.xml
-src/assets/resources/ai-resources.json
-src/assets/resources/reading-list-en.json
-src/assets/resources/reading-list-cn.json
+src/assets/resources/**/ai-resources.json
+src/assets/resources/**/reading-list-en.json
+src/assets/resources/**/reading-list-cn.json
