@@ -406,10 +406,8 @@ function StableDiffusionGenerator() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const callHuggingFace = async () => {
-    const generatedPrompt = await navigator.clipboard.readText();
-    console.log(generatedPrompt);
-    console.log(process.env.NEXT_PUBLIC_HUGGING_FACE_ACCESS_TOKEN);
+  const callHuggingFace = async (useClipboard = true) => {
+    const generatedPrompt = useClipboard ? await navigator.clipboard.readText() : (promptResultRef.current?.innerText ?? "");
     setHuggingFace({
       image: "",
       loading: true,
@@ -536,9 +534,14 @@ function StableDiffusionGenerator() {
                 <Link href={"https://huggingface.co/stabilityai/stable-diffusion-2-1-base"} isExternal>
                   Hugging Face - stabilityai/stable-diffusion-2-1-base
                 </Link>
-                <Button mt={4} colorScheme='teal' isLoading={huggingFace && huggingFace.loading} onClick={callHuggingFace}>
-                    使用剪贴板的咒语生成
-                </Button>
+                <SimpleGrid gap={1} p={0} columns={2}>
+                  <Button mt={4} colorScheme='teal' isLoading={huggingFace && huggingFace.loading} onClick={() => callHuggingFace(false)}>
+                      使用方式二的咒语生成
+                  </Button>
+                  <Button mt={4} colorScheme='teal' isLoading={huggingFace && huggingFace.loading} onClick={() => callHuggingFace(true)}>
+                      从剪贴板读取咒语生成
+                  </Button>
+                </SimpleGrid>
               </Grid>
               <Grid>
                 {huggingFace && huggingFace.image && <Image alt={huggingFace.prompt} src={huggingFace.image} width={512} height={512} />}
