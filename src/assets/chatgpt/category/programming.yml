@@ -10,7 +10,7 @@ samples:
       def foo():
           print("Hello World")
       ```
-    response:
+    response: |
       将这个 Python 函数转换为 JavaScript 函数，可以使用以下代码：
       ```javascript
       function foo() {

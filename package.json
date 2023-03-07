@@ -13,7 +13,7 @@
     "format": "prettier .",
     "format:fix": "prettier --write .",
     "postinstall": "npm run prepare:data",
-    "prepare:data": "node gen/generate-samples-index.js && node gen/generate-resources-csv.js",
+    "prepare:data": "node gen/generate-samples-index.js && node gen/generate-resources-csv.js && node gen/generate-chatgpt-by-category.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },
