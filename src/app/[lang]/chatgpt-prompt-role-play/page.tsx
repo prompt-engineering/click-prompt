@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Heading, Input, Text } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "@/components/DataTable/DataTable";
@@ -36,10 +36,10 @@ const genColumns = (highlight: string) => [
 type Prompts = { act: string; prompt: string }[];
 
 function ChatGptPromptList() {
-  const [data, setData] = React.useState<Prompts>([]);
-  const [search, setSearch] = React.useState<string>("");
+  const [data, setData] = useState<Prompts>([]);
+  const [search, setSearch] = useState<string>("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch("https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv")
       .then((response) => response.text())
       .then((csv) => {

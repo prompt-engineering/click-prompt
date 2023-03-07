@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { DataTable } from "@/components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
 import parseCsv from "@/data-processor/CsvParser";
@@ -35,9 +35,9 @@ const columns = [
 ];
 
 function ChatGptGeneral() {
-  const [data, setData] = React.useState<any>(null);
+  const [data, setData] = useState<any>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch("/data/chatgpt-specific.csv")
       .then((response) => response.text())
       .then((csv) => {

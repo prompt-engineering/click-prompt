@@ -1,21 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { Button, Input, Icon, useMediaQuery } from "@chakra-ui/react";
+
 import { ChatCompletionRequestMessage } from "openai";
-import { Button, Input } from "@chakra-ui/react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import Image from "next/image";
+import Send from "@/assets/icons/send.svg";
 import NewChat from "@/assets/icons/new-chat.svg";
 import TrashcanIcon from "@/assets/icons/trashcan.svg";
 import LogoutIcon from "@/assets/icons/logout.svg";
-import Image from "next/image";
-import content from "@/assets/icons/content.png";
+import content from "@/assets/images/content.png";
 import styled from "@emotion/styled";
-import send from "@/assets/icons/send.png";
 
 const ChatInput = styled("input")`
   background: #ffffff;
-  border-radius: 8px;
+  border-radius: 0.5rem;
   border: none;
-  padding: 0.5rem 1rem;
-  width: 768px;
-  height: 48px;
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  width: 100%;
+  height: 3rem;
   font-size: 1rem;
   font-weight: 500;
   color: #1e1e1e;
@@ -32,21 +34,17 @@ const ChatInput = styled("input")`
 `;
 const ChatInputWrapper = styled("div")`
   position: absolute;
-  bottom: 8px;
-  width: 768px;
-  height: 48px;
+  bottom: 0.75rem;
+  width: calc(100% - 1rem);
+  height: 3rem;
 `;
 const ChatSendButton = styled("button")`
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 4px;
-  width: 48px;
-  height: 48px;
-  background-image: url(${send.src});
-  background-size: 24px;
-  background-position: center;
-  background-repeat: no-repeat;
+  top: 1rem;
+  bottom: 1rem;
+  right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
   cursor: pointer;
   border: none;
   outline: none;
@@ -69,12 +67,21 @@ const ChatsWrapper = styled("div")`
     background: #555;
   }
 `;
+const SendIcon = () => {
+  return (
+    <Icon viewBox='0 0 24 24' color='currentColor'>
+      <line x1='22' y1='2' x2='11' y2='13'></line>
+      <polygon points='22 2 15 22 11 13 2 9 22 2'></polygon>
+    </Icon>
+  );
+};
+
 type ChatGptAppProp = {
   message?: string;
 };
 
 export function ChatGPTApp(props: ChatGptAppProp) {
-  const [isLoggedin, setIsLoggedin] = React.useState<boolean | null>(null);
+  const [isLoggedin, setIsLoggedin] = useState<boolean | null>(null);
   useEffect(() => {
     (async () => {
       try {
@@ -87,8 +94,7 @@ export function ChatGPTApp(props: ChatGptAppProp) {
     })();
   }, []);
 
-  const [openAiKey, setOpenAiKey] = React.useState("");
-
+  const [openAiKey, setOpenAiKey] = useState("");
   async function login(key: string) {
     if (key.length === 0) {
       alert("Please enter your OpenAI API key first.");
@@ -121,10 +127,10 @@ export function ChatGPTApp(props: ChatGptAppProp) {
     setIsLoggedin(false);
   }
 
-  const chatsWrapper = React.useRef<HTMLDivElement>(null);
-  const [disable, setDisable] = React.useState(false);
-  const [chatHistory, setChatHistory] = React.useState<ChatCompletionRequestMessage[]>([]);
-  const [message, setMessage] = React.useState(props?.message ? props?.message.toString() : "");
+  const chatsWrapper = useRef<HTMLDivElement>(null);
+  const [disable, setDisable] = useState(false);
+  const [chatHistory, setChatHistory] = useState<ChatCompletionRequestMessage[]>([]);
+  const [message, setMessage] = useState(props?.message ? props?.message.toString() : "");
 
   async function sendMessage() {
     if (message.length === 0) {
@@ -178,18 +184,36 @@ export function ChatGPTApp(props: ChatGptAppProp) {
     };
   }, []);
 
+  const [isLargerMd] = useMediaQuery(["(min-width: 980px)"]);
+  const [fold, setFold] = useState(isLargerMd);
+  useEffect(() => {
+    if (isLargerMd !== fold) {
+      setFold(isLargerMd);
+    }
+  }, [isLargerMd]);
+
+  function SideBarBtn() {
+    return (
+      <div
+        className='absolute inset-y-0 right-0 flex items-center justify-center z-50 cursor-pointer text-white'
+        onClick={() => setFold(!fold)}
+      >
+        {fold ? <ArrowLeftIcon boxSize='0.875rem' /> : <ArrowRightIcon boxSize='0.875rem' />}{" "}
+      </div>
+    );
+  }
+
   if (isLoggedin === null) {
     return <></>;
   }
 
   if (!isLoggedin) {
     return (
-      <div className='flex flex-col items-center justify-center h-[85vh]'>
+      <div className='flex flex-col items-center justify-center w-3/4 mx-auto'>
         <h1 className='text-white text-[34px] font-bold'>ChatGPT</h1>
         <p className='text-white text-xl'>You need to login first.</p>
-
-        <div className='my-4 flex w-3/4 gap-2 items-center'>
-          <p className='text-white text-xl w-[14rem]'>OpenAI API Key:</p>
+        <div className='my-4 flex gap-2 items-center'>
+          <p className='text-white w-[14rem]'>OpenAI API Key:</p>
           <Input
             className='bg-white text-white'
             value={openAiKey}
@@ -208,35 +232,38 @@ export function ChatGPTApp(props: ChatGptAppProp) {
   }
 
   return (
-    <div className='grid grid-cols-[200px_1fr]'>
+    <div className={`grid grid-cols-[${fold ? "200px" : "1rem"}_1fr]  w-full`}>
       {/* left */}
-      <div className='bg-gray-900 text-white p-2 grid grid-rows-[45px_1fr_100px]'>
-        <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
-          <NewChat color='white' />
-          New chat
-        </div>
-        <div className='overflow-y-auto overflow-container'></div>
-        <div>
+      <div className='flex relative'>
+        <div className={`bg-gray-900 text-white p-2 grid grid-rows-[45px_1fr_100px] ${fold ? "block" : "hidden"}`}>
           <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
-            <TrashcanIcon color='white' />
-            Clear conversations
+            <NewChat color='white' />
+            New chat
           </div>
-          <div
-            className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'
-            onClick={logout}
-          >
-            <LogoutIcon color='white' />
-            Log out
+          <div className='overflow-y-auto overflow-container'></div>
+          <div>
+            <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
+              <TrashcanIcon color='white' />
+              Clear conversations
+            </div>
+            <div
+              className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'
+              onClick={logout}
+            >
+              <LogoutIcon color='white' />
+              Log out
+            </div>
           </div>
         </div>
+        <SideBarBtn />
       </div>
 
       {/* right */}
-      <div className='relative flex flex-col items-center justify-start gap-16 h-[85vh] py-4'>
+      <div className='relative flex flex-col items-center justify-start gap-16'>
         {chatHistory.length === 0 && <Image className='mt-8' src={content} alt='background image'></Image>}
 
         {/* chats */}
-        <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-[70vh] overflow-y-auto'>
+        <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-[70vh] overflow-y-auto mt-11'>
           {chatHistory.map((chat, index) => {
             return (
               <div key={index} className='flex flex-col gap-14 '>
@@ -262,7 +289,9 @@ export function ChatGPTApp(props: ChatGptAppProp) {
             value={message}
             onChange={(ev) => setMessage(ev.target.value)}
           />
-          <ChatSendButton disabled={disable} onClick={sendMessage} />
+          <ChatSendButton disabled={disable} onClick={sendMessage}>
+            <Send />
+          </ChatSendButton>
         </ChatInputWrapper>
       </div>
     </div>
