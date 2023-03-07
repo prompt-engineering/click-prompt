@@ -24,6 +24,11 @@
         "name": "编程语言间翻译",
         "prompt": "使用注释复制其它语言的代码，如输入 TypeScript，输出语言是 Kotlin\n```typescript\n//  async checkout(ref: string, startPoint: string): Promise<void> {\n//    const args = ['checkout', '--progress', '--force']\n//    if (startPoint) {\n//      args.push('-B', ref, startPoint)\n//    } else {\n//      args.push(ref)\n//    }\n//\n//    await this.execGit(args)\n//  }\nfun checkout...\n```\n",
         "result": "```kotlin\n fun checkout(ref: String, startPoint: String): Promise<Unit> {\n  val args = mutableListOf(\"checkout\", \"--progress\", \"--force\")\n  if (startPoint != null) {\n    args.add(\"-B\")\n    args.add(ref)\n    args.add(startPoint)\n  } else {\n    args.add(ref)\n  }\n  return execGit(args)\n}\n```\n"
+      },
+      {
+        "name": "测试用例生成",
+        "prompt": "```kotlin\n@Test\nfun `test command manager git branch list`() {\n```\n",
+        "result": "```kotlin\n@Test\n  fun `test command manager git branch list`() {\n  val output = gitCommandManager.branchList(false)\n\n  output.contains(\"master\") shouldBe true\n\n  val branchList = gitCommandManager.parseBranchList(listOf(\"refs/heads/master\"))\n  branchList.contains(\"refs/heads/master\") shouldBe false\n  branchList.contains(\"master\") shouldBe true\n}\n```\n"
       }
     ],
     "path": "phodal-tips.yml"
