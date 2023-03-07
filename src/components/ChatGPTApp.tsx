@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { LoginPage } from "@/app/chatgpt/LoginPage";
-import { ChatRoom } from "@/app/chatgpt/ChatRoom";
+import { LoginPage } from "@/app/[lang]/chatgpt/LoginPage";
+import { ChatRoom } from "@/app/[lang]/chatgpt/ChatRoom";
 
 type ChatGptAppProp = {
   message?: string;
