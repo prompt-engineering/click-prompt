@@ -1,14 +1,11 @@
-"use client";
-
 import "@/app/globals.css";
 import React from "react";
 // import type { Metadata } from "next";
 import { AnalyticsWrapper } from "@/components/Analytics";
 import Image from "next/image";
 import NavBar from "@/layout/NavBar";
-import { ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
-import { NextSeo } from "next-seo";
-import { NEXT_SEO_DEFAULT } from "@/configs/next-seo-config";
+import { Container } from "@/components/ChakraUI";
+import { Provider } from "@/components/ChakraUI/Provider";
 
 // TODO: fix metadata
 // export const metadata: Metadata = NEXT_SEO_DEFAULT;
@@ -21,16 +18,6 @@ type RootLayoutProps = {
 };
 export default function RootLayout({ params, children }: RootLayoutProps) {
   const { lang } = params;
-
-  const theme = extendTheme({
-    components: {
-      Drawer: {
-        sizes: {
-          "2xl": { dialog: { maxW: "8xl" } },
-        },
-      },
-    },
-  });
 
   return (
     // TODO: should make en page lang as `en`
@@ -49,14 +36,14 @@ export default function RootLayout({ params, children }: RootLayoutProps) {
         />
         <meta name='keywords' content='GitHub Copilot, Prompt Programming, Prompt, Stable Diffusion' />
       </head>
-      <NextSeo {...NEXT_SEO_DEFAULT} />
+      {/*<NextSeo {...NEXT_SEO_DEFAULT} />*/}
       <body>
-        <ChakraProvider theme={theme} resetCSS={true}>
+        <Provider>
           <NavBar locale={lang} />
           <Container maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
             {children}
           </Container>
-        </ChakraProvider>
+        </Provider>
         <div className='flex justify-center py-4'>
           {/* Vercel footer */}
           <a
