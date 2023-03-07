@@ -67,7 +67,9 @@ function ChatGptPromptList() {
       {data && (
         <DataTable
           data={data.filter(
-            (it) => (it.act != undefined && it.act.includes(search)) || (it.prompt != undefined && it.prompt.includes(search))
+            (it) =>
+              (it.act != undefined && it.act.includes(search)) ||
+              (it.prompt != undefined && it.prompt.includes(search)),
           )}
           columns={genColumns(search) as any}
         />
