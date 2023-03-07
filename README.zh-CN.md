@@ -20,7 +20,7 @@
 
 <img src="./public/wechat.jpg" width='256' height='auto' />
 
-**二维码达到上限，加小助手微信【JavaScript_2333】发送【ClickPrompt】邀请进群**
+**二维码达到上限，加小助手微信【`JavaScript_2333`】发送【`ClickPrompt`】邀请进群**
 
 ## 功能:
 
