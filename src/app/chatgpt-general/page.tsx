@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { DataTable } from "@/components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import parseCsv from "@/data-processor/CsvParser";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 import gptCategorySamples from "@/assets/chatgpt/category/index.json";
@@ -23,6 +22,7 @@ import {
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { CP_GITHUB_ASSETS } from "@/configs/const";
+import styled from "@emotion/styled";
 
 type GeneralCommand = {
   english: string;
@@ -91,35 +91,85 @@ function ChatGptGeneral() {
       <Flex flexDirection={"column"} gap={4}>
         {gptCategorySamples.map((category: CategoryGpt, index: number) => {
           return (
-            <>
+            <Box key={`category-${index}`}>
               <Heading as={"h2"}>{category.name["zh-cn"]}</Heading>
-              <Box w='100%' maxH='400px' my='auto' sx={{ columnCount: [1, 2, 3, 4], columnGap: "8px" }}>
-                <div key={`category-${index}`}>
-                  {category.samples.map((sample, sIndex: number) => {
-                    return (
-                      <Card key={`sample-${index}-${sIndex}`} sx={{ breakInside: "avoid-column" }}>
-                        <CardHeader>
-                          <ClickPromptButton text={sample.ask} size={"sm"}>
-                            {sample.name}
-                          </ClickPromptButton>
-                        </CardHeader>
-                        <CardBody maxH='320px' overflow='auto'>
-                          <Heading size={"md"}>Prompt</Heading>
-                          <SimpleMarkdown content={sample.ask} />
-                          <Heading size={"md"}>Result</Heading>
-                          <SimpleMarkdown content={sample.response} />
-                        </CardBody>
-                      </Card>
-                    );
-                  })}
-                </div>
-              </Box>
-            </>
+              <StyleCardList>
+                {category.samples.map((sample, sIndex: number) => {
+                  return (
+                    <StyledCard
+                      boxShadow='md'
+                      minW='320px'
+                      key={`sample-${index}-${sIndex}`}
+                      sx={{ breakInside: "avoid-column" }}
+                    >
+                      <CardHeader>
+                        <ClickPromptButton text={sample.ask} size={"sm"}>
+                          {sample.name}
+                        </ClickPromptButton>
+                      </CardHeader>
+                      <StyledCardBody maxH='320px' overflow='auto'>
+                        <Heading size={"md"}>Prompt</Heading>
+                        <SimpleMarkdown content={sample.ask} />
+                        <Heading size={"md"}>Result</Heading>
+                        <SimpleMarkdown content={sample.response} />
+                      </StyledCardBody>
+                    </StyledCard>
+                  );
+                })}
+              </StyleCardList>
+            </Box>
           );
         })}
       </Flex>
     </div>
   );
 }
+
+const StyledCard = styled(Card)`
+  margin: 8px;
+`;
+
+const StyledCardBody = styled(CardBody)`
+  &::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: darkgrey;
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%);
+    box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+    border-radius: 100px;
+  }
+`;
+
+const StyleCardList = styled.div`
+  height: 400px;
+  max-height: 400px;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: row;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: darkgrey;
+    border-radius: 100px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(180deg, #d0368a 0%, #708ad4 99%);
+    box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+    border-radius: 100px;
+  }
+`;
 
 export default ChatGptGeneral;
