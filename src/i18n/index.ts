@@ -2,13 +2,13 @@ import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
 const dictionaries = {
-  "en-us": () => import("./en-US.json").then((module) => module.default),
-  "zh-cn": () => import("./zh-CN.json").then((module) => module.default),
+  "en-US": () => import("./en-US.json").then((module) => module.default),
+  "zh-CN": () => import("./zh-CN.json").then((module) => module.default),
 };
 
 export type SupportedLocale = keyof typeof dictionaries;
 export const SupportedLocales = Object.keys(dictionaries) as SupportedLocale[];
-export const DefaultLocale: SupportedLocale = "zh-cn";
+export const DefaultLocale: SupportedLocale = "zh-CN";
 export function stripLocaleInPath(pathname: string): string {
   const locale = pathname.split("/")[1];
   if (SupportedLocales.includes(locale as SupportedLocale)) {
@@ -49,9 +49,8 @@ export function getLocale(headers: Headers): SupportedLocale {
   return locale;
 }
 
-export async function getDictionary(headers: Headers, pathname: string = "/"): Promise<{ all: any; currentPage: any }> {
-  const locale = getLocale(headers);
-  const dictionary = dictionaries[locale];
+export async function getDictionary(locale: SupportedLocale, pathname: string = "/"): Promise<{ all: any; currentPage: any }> {
+  const dictionary = dictionaries[locale] ?? dictionaries[DefaultLocale];
   return dictionary().then((module) => ({
     all: module,
     // @ts-ignore
