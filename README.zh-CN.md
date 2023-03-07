@@ -1,6 +1,7 @@
 # ClickPrompt - Streamline your prompt design
 
 [![ci](https://github.com/prompt-engineering/click-prompt/actions/workflows/ci.yaml/badge.svg)](https://github.com/prompt-engineering/click-prompt/actions/workflows/ci.yaml)
+![GitHub](https://img.shields.io/github/license/prompt-engineering/click-prompt)
 
 <img src="src/assets/clickprompt-logo.svg" width='128' height='128' alt='ClickPrompt Logo' />
 

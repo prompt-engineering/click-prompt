@@ -1,6 +1,8 @@
 # ClickPrompt - Streamline your prompt design
 
 [![ci](https://github.com/prompt-engineering/click-prompt/actions/workflows/ci.yaml/badge.svg)](https://github.com/prompt-engineering/click-prompt/actions/workflows/ci.yaml)
+![GitHub](https://img.shields.io/github/license/prompt-engineering/click-prompt)
+[![Discord](https://img.shields.io/discord/1082563233593966612)](https://discord.gg/FSWXq4DmEj)
 
 <img src="src/assets/clickprompt-logo.svg" width='128' height='128' alt='ClickPrompt Logo' />
 
@@ -16,9 +18,9 @@ Mirrors：
 - https://prompt.phodal.com
 - https://clickprompt.vercel.app
 
-Join our WeChat group:
+Join us:
 
-<img src="./public/wechat.jpg" width='256' height='auto' />
+[![Chat Server](https://img.shields.io/badge/chat-discord-7289da.svg)](https://discord.gg/FSWXq4DmEj)
 
 ## Features:
 
