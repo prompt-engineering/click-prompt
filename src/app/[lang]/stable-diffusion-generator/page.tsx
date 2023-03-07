@@ -22,6 +22,7 @@ import sdImage from "@/assets/images/stable-diffusion-demo.jpeg";
 import { WebStorage } from "@/utils/storage.util";
 import { flatten } from "lodash-es";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { HuggingFaceText2Img } from "./HuggingFaceText2Img";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
@@ -406,47 +407,6 @@ function StableDiffusionGenerator() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const callHuggingFace = async (useClipboard = true) => {
-    const generatedPrompt = useClipboard ? await navigator.clipboard.readText() : (promptResultRef.current?.innerText ?? "");
-    setHuggingFace({
-      image: "",
-      loading: true,
-      error: "",
-      prompt: generatedPrompt
-    });
-    const response = await fetch("https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2-1-base", {
-      method: "POST",
-      cache: "no-cache",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + process.env.NEXT_PUBLIC_HUGGING_FACE_ACCESS_TOKEN
-      },
-      body: JSON.stringify({
-        inputs: generatedPrompt
-      }),
-    });
-    if (response.status == 200) {
-      const imgBlob = await response.blob()
-      const objectURL = URL.createObjectURL(imgBlob);
-      setHuggingFace({
-        image: objectURL,
-        loading: false,
-        error: "",
-        prompt: huggingFace.prompt
-      });
-    }
-    else {
-      const errJson = await response.json();
-      console.error(errJson);
-      setHuggingFace({
-        image: "",
-        loading: false,
-        error: response.status == 503 ? "正在生成，请" + errJson.estimated_time + "秒后再次点击生成按钮" : errJson.error,
-        prompt: huggingFace.prompt
-      });
-    }
-  };
-
   const onClear = () => {
     sdGeneratorFormStorage.remove();
     formik.setValues(generateEmptyForm());
@@ -520,39 +480,18 @@ function StableDiffusionGenerator() {
         <Button mt={4} marginLeft={1} isLoading={isSubmitting} onClick={onClear}>
           清除缓存
         </Button>
-
-        <Grid>
-          <Text>在线测试咒语</Text>
-          <Flex alignItems='start' gap='2'>
-            <SimpleGrid gap={3} p={3} columns={1}>
-              <Link href={"https://lexica.art/"} isExternal>
-                Lexica
-              </Link>
-            </SimpleGrid>
-            <SimpleGrid gap={3} p={3} columns={1}>
-              <Grid>
-                <Link href={"https://huggingface.co/stabilityai/stable-diffusion-2-1-base"} isExternal>
-                  Hugging Face - stabilityai/stable-diffusion-2-1-base
-                </Link>
-                <SimpleGrid gap={1} p={0} columns={2}>
-                  <Button mt={4} colorScheme='teal' isLoading={huggingFace && huggingFace.loading} onClick={() => callHuggingFace(false)}>
-                      使用方式二的咒语生成
-                  </Button>
-                  <Button mt={4} colorScheme='teal' isLoading={huggingFace && huggingFace.loading} onClick={() => callHuggingFace(true)}>
-                      从剪贴板读取咒语生成
-                  </Button>
-                </SimpleGrid>
-              </Grid>
-              <Grid>
-                {huggingFace && huggingFace.image && <Image alt={huggingFace.prompt} src={huggingFace.image} width={512} height={512} />}
-                {huggingFace && huggingFace.error && <Text>{huggingFace.error}</Text>}
-              </Grid>
-            </SimpleGrid>
-          </Flex>
-        </Grid>
       </form>
-
-      <Heading as={"h3"}>画xx（Todo）</Heading>
+      <Heading as={"h3"}>在线测试咒语</Heading>
+      <SimpleGrid gap={3} p={3} columns={1}>
+          <Link href={"https://lexica.art/"} isExternal>
+            Lexica
+          </Link>
+        </SimpleGrid>
+      <Flex alignItems='start' gap='2'>
+        <HuggingFaceText2Img model="stabilityai/stable-diffusion-2-1-base" prompt={promptResultRef.current?.innerText ?? ""} />
+        <HuggingFaceText2Img model="andite/anything-v4.0" prompt={promptResultRef.current?.innerText ?? ""} />
+        <HuggingFaceText2Img model="prompthero/openjourney" prompt={promptResultRef.current?.innerText ?? ""} />
+      </Flex>
     </SimpleGrid>
   );
 }
