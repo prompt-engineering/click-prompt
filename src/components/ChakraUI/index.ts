@@ -19,5 +19,6 @@ export {
   MenuButton,
   MenuItem,
   MenuList,
+  Input,
   Container,
 } from "@chakra-ui/react";
