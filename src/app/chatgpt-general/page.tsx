@@ -95,7 +95,7 @@ function ChatGptGeneral() {
       {data && <DataTable data={data} columns={columns} />}
       <Alert status='info'>
         <AlertIcon />
-        <AlertTitle>分享我的 ChatGPT 心得：</AlertTitle>
+        <AlertTitle>分享我的 ChatGPT 场景：</AlertTitle>
         <NavLink href={chatgptLink} isExternal>
           Pull Request <ExternalLinkIcon />
         </NavLink>
