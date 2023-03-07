@@ -2,11 +2,11 @@ import NewChat from "@/assets/icons/new-chat.svg";
 import TrashcanIcon from "@/assets/icons/trashcan.svg";
 import LogoutIcon from "@/assets/icons/logout.svg";
 import Image from "next/image";
-import content from "@/assets/icons/content.png";
+import content from "@/assets/images/content.png";
+import send from "@/assets/icons/send.svg?url";
 import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { ChatCompletionRequestMessage } from "openai";
 import styled from "@emotion/styled";
-import send from "@/assets/icons/send.png";
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -60,7 +60,7 @@ const ChatSendButton = styled("button")`
   right: 4px;
   width: 48px;
   height: 48px;
-  background-image: url(${send.src});
+  background-image: url(${send});
   background-size: 24px;
   background-position: center;
   background-repeat: no-repeat;
