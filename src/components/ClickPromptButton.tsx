@@ -91,7 +91,6 @@ export function ClickPromptButton(props: CPButtonProps) {
           {/* <DrawerHeader>ChatGPT</DrawerHeader> */}
           <DrawerBody padding={0}>
             <div className='bg-[#343541] flex h-[100%] overflow-y-auto'>
-              {/* @ts-expect-error Async Server Component */}
               <ChatGPTApp message={props?.text ? props?.text.toString() : ""} />
             </div>
           </DrawerBody>
