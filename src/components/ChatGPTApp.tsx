@@ -203,6 +203,9 @@ export function ChatGPTApp(props: ChatGptAppProp) {
             Login
           </Button>
         </div>
+        <div>
+          <p className='text-white'>Don't have a key now? <a href="https://platform.openai.com/account/api-keys" target="_blank">Chick Here</a> </p>
+        </div>
       </div>
     );
   }
