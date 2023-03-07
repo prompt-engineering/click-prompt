@@ -27,7 +27,6 @@ function GitHubCopilotSamples() {
     return (
       <Card mt={4} boxShadow="md" key={`SnippetCode-${index}`} sx={{ breakInside: "avoid-column" }}>
         <CardHeader>
-          
           <Heading size='md'>
             {snippet.name} -{" "}
             <Link href={sample.homepage} isExternal>
