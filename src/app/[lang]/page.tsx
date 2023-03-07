@@ -9,8 +9,8 @@ type Props = {
   params: {
     lang: SupportedLocale;
   };
-}
-async function Page({params: {lang}}: Props) {
+};
+async function Page({ params: { lang } }: Props) {
   const dictionary = await getDictionary(lang);
   const currentPage = dictionary.currentPage;
 

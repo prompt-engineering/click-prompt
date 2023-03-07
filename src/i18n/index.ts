@@ -49,7 +49,10 @@ export function getLocale(headers: Headers): SupportedLocale {
   return locale;
 }
 
-export async function getDictionary(locale: SupportedLocale, pathname: string = "/"): Promise<{ all: any; currentPage: any }> {
+export async function getDictionary(
+  locale: SupportedLocale,
+  pathname: string = "/",
+): Promise<{ all: any; currentPage: any }> {
   const dictionary = dictionaries[locale] ?? dictionaries[DefaultLocale];
   return dictionary().then((module) => ({
     all: module,
