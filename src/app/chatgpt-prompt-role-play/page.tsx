@@ -42,32 +42,13 @@ function ChatGptPromptList() {
   const [search, setSearch] = useState<string>("");
   useEffect(() => {
     // read local json data
-    let localData = true;
-    if (!localData) {
-      // request remote data
-      fetch("https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv")
-        .then((response) => response.text())
-        .then((csv) => {
-          const parseResult = parseCsv(csv);
-
-          if (parseResult.errors.length === 0) {
-            setData(parseResult.data as Prompts);
-          } else {
-            setData([]);
-            throw new Error("parse csv error: " + parseResult.errors.join(","));
-          }
-        });
+    let promptsConcat = promptsCn.concat(prompts);
+    if (promptsConcat != undefined && promptsConcat.length > 0) {
+      setData(promptsConcat as Prompts);
     } else {
-      // read local json data
-      let promptsConcat = promptsCn.concat(prompts);
-      if (promptsConcat != undefined && promptsConcat.length > 0) {
-        setData(promptsConcat as Prompts);
-      } else {
-        setData([]);
-        throw new Error("parse csv error: " + promptsConcat.join(","));
-      }
+      setData([]);
+      throw new Error("parse csv error: " + promptsConcat.join(","));
     }
-
   }, []);
 
   return (
