@@ -6,12 +6,12 @@
 
 English | [简体中文](./README.zh-CN.md)
 
-> ClickPrompt 是一款专为 Prompt 编写者设计的工具，它支持多种基于 Prompt 的 AI 应用，例如 Stable Diffusion、ChatGPT 和 GitHub Copilot 等。
-> 使用 ClickPrompt，您可以轻松地查看、分享和一键运行这些模型，同时提供在线的 Prompt 生成器，使用户能够根据自己的需求轻松创建符合要求的 Prompt，并与其他人分享。
+> ClickPrompt is a tool designed for Prompt writers, it supports a variety of Prompt-based AI applications, such as Stable Diffusion, ChatGPT, and GitHub Copilot, etc.
+> With ClickPrompt, you can easily view, share, and run these models with one click, and an online prompt generator is provided to enable users to easily create prompts that meet their requirements and share them with others.
 
 Try it：https://www.clickprompt.org/
 
-备用地址：
+Mirrors：
 
 - https://prompt.phodal.com
 - https://clickprompt.vercel.app
@@ -22,42 +22,42 @@ Join our WeChat group:
 
 ## Features:
 
-- [x] 支持用户样例展示功能，让用户可以查看、分享和参考其他用户的 Prompt 样例；
-  - [x] 基于 GitHub Pull Request
+- [x] Support samples display, allow users to view, share and refer to other users' prompt samples;
+  - [x] Based on GitHub Pull Request
   - [x] StableDiffusion
   - [x] ChatGPT
   - [x] GitHub Copilot
-- [ ] 在线 Prompt 生成器，帮助用户快速生成符合需求的 Prompt；
-  - [x] StableDiffusion 人物生成器
-  - [x] StableDiffusion -> ChatGPT 生成器
-- [ ] 提供一键运行功能，让用户轻松运行不同的 AI 应用；
-  - [ ] ChatGPT 集成
-  - [ ] StableDiffusion 集成
-- [ ] 行业 Prompt 生成 API，为各行业提供高效的 AI 应用解决方案；
-  - [ ] 编程
-  - [ ] 写作
-  - [ ] 设计
+- [ ] Online prompt generator, help users generate customized prompts which meet their requirements quickly;
+  - [x] StableDiffusion character generator
+  - [x] StableDiffusion -> ChatGPT generator
+- [ ] Provide one-click run feature, support users to easily run different AI applications;
+  - [ ] ChatGPT integration
+  - [ ] StableDiffusion integration
+- [ ] Industry Prompt generates APIs to provide efficient AI application solutions for various industries;
+  - [ ] Coding
+  - [ ] Writing
+  - [ ] Design
 
 ## Roadmap
 
 Phase 1: MVP
 
-- 支持基于 Prompt 的 AI 应用，包括 ChatGPT 和 Stable Diffusion。
-- 提供 Prompt 生成器和一键运行功能。
-- 提供用户样例展示功能。
+- Support for Prompt-based AI applications, including ChatGPT and Stable Diffusion.
+- Provides prompt generator and one-click run.
+- Provide user samples display.
 
-Phase 2: 拓展功能
+Phase 2: Enhancement
 
-- 增加 GPT-3 和 DALL-E 等基于 Prompt 的 AI 应用。
-- 提供用户自定义选项和多语言支持功能。
-- 增加 AI 编辑器和用户权限管理功能。
-- 支持 API 接口和其他第三方平台的集成。
+- Added Prompt-based AI applications like GPT-3 and DALL-E.
+- Provides user customization options and multilingual support.
+- Added AI editor and user rights management feature.
+- Support API interface and integration of other third-party platforms.
 
-Phase 3: 提高质量
+Phase 3: Improvement
 
-- [ ] 改进 Prompt 生成器的算法，提高生成的文本质量和准确性。
-- [ ] 增加用户反馈和评价功能，收集用户的建议和意见。
-- [ ] 推广 ClickPrompt，并与各行业合作，为其提供高效的 AI 应用解决方案。
+- [ ] Improve the Prompt generator's algorithm to improve the quality and accuracy of the generated text.
+- [ ] Add user feedback and evaluation features to collect user suggestions and opinions.
+- [ ] Promote ClickPrompt and cooperate with various industries to provide them with efficient AI application solutions.
 
 ## Development
 
@@ -95,7 +95,7 @@ Phase 3: 提高质量
 - [ ] GitHub Copilot
   - [x] samples
 
-### 在本地运行 ClickPrompt
+### Run ClickPrompt
 
 ```shell
 # Clone click-prompt
