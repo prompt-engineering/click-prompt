@@ -25,8 +25,9 @@ type GitHubCopilotSample = {
 function GitHubCopilotSamples() {
   function SnippetCode(index: number, sample: GitHubCopilotSample, snippet: Snippet) {
     return (
-      <Card key={`SnippetCode-${index}`} sx={{ breakInside: "avoid-column" }}>
+      <Card mt={4} boxShadow="md" key={`SnippetCode-${index}`} sx={{ breakInside: "avoid-column" }}>
         <CardHeader>
+          
           <Heading size='md'>
             {snippet.name} -{" "}
             <Link href={sample.homepage} isExternal>
