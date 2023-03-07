@@ -6,9 +6,8 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "@/components/DataTable/DataTable";
 import { LinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
-import parseCsv from "@/data-processor/CsvParser";
 import Highlight from "@/components/Highlight";
-import prompts from "@/assets/resources/prompts.json";
+import promptsEn from "@/assets/resources/prompts_en.json";
 import promptsCn from "@/assets/resources/prompts_cn.json";
 
 type ActPrompt = {
@@ -42,7 +41,7 @@ function ChatGptPromptList() {
   const [search, setSearch] = useState<string>("");
   useEffect(() => {
     // read local json data
-    let promptsConcat = promptsCn.concat(prompts);
+    let promptsConcat = promptsCn.concat(promptsEn);
     if (promptsConcat != undefined && promptsConcat.length > 0) {
       setData(promptsConcat as Prompts);
     } else {
