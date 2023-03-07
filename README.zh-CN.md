@@ -98,9 +98,16 @@
 ### 在本地运行 ClickPrompt
 
 ```shell
-git clone && cd ...
+# Clone click-prompt
+git clone https://github.com/prompt-engineering/click-prompt
+
+cd click-prompt
+
 npm install
+
 npm run dev
+
+# Build
 npm run build
 ```
 
