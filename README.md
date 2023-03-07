@@ -20,7 +20,6 @@ Join our WeChat group:
 
 <img src="./public/wechat.jpg" width='256' height='auto' />
 
-**QR code reached the limit, add small assistant WeChat friends [`JavaScript_2333`] send [`ClickPrompt`] to invite into the group**
 
 ## Features:
 
