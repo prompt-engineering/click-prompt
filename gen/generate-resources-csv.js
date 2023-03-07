@@ -1,5 +1,6 @@
 const fs = require("fs");
 const Papa = require("papaparse");
+const iconv = require("iconv-lite");
 
 // 1. loading the csv file from src/assets/data/ai-resources.csv
 // 2. parsing the csv file
@@ -13,9 +14,12 @@ function convertCsvToJson(csvName) {
     dynamicTyping: true,
     skipEmptyLines: true,
   });
-  fs.writeFileSync(jsonFilePath, JSON.stringify(json.data));
+  console.log(json);
+  fs.writeFileSync(jsonFilePath, JSON.stringify(json.data), "utf8");
 }
 
 convertCsvToJson("ai-resources");
 convertCsvToJson("reading-list-en");
 convertCsvToJson("reading-list-cn");
+convertCsvToJson("prompts");
+convertCsvToJson("prompts_cn");

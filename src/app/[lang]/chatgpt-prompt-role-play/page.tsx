@@ -8,6 +8,8 @@ import { LinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import parseCsv from "@/data-processor/CsvParser";
 import Highlight from "@/components/Highlight";
+import prompts from "@/assets/resources/prompts.json";
+import promptsCn from "@/assets/resources/prompts_cn.json";
 
 type ActPrompt = {
   act: string;
@@ -38,20 +40,37 @@ type Prompts = { act: string; prompt: string }[];
 function ChatGptPromptList() {
   const [data, setData] = React.useState<Prompts>([]);
   const [search, setSearch] = React.useState<string>("");
-
   React.useEffect(() => {
-    fetch("https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv")
-      .then((response) => response.text())
-      .then((csv) => {
-        const parseResult = parseCsv(csv);
+    // read local json data
+    let localData = true;
+    if (!localData) {
+      // request remote data
+      fetch("https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv")
+        .then((response) => response.text())
+        .then((csv) => {
+          const parseResult = parseCsv(csv);
 
-        if (parseResult.errors.length === 0) {
-          setData(parseResult.data as Prompts);
-        } else {
-          setData([]);
-          throw new Error("parse csv error: " + parseResult.errors.join(","));
-        }
-      });
+          if (parseResult.errors.length === 0) {
+            setData(parseResult.data as Prompts);
+          } else {
+            setData([]);
+            throw new Error("parse csv error: " + parseResult.errors.join(","));
+          }
+        });
+    } else {
+      // read local json data
+      let promptsConcat = promptsCn.concat(prompts);
+      console.log(promptsConcat.length)
+      if (promptsConcat.length > 0) {
+        console.log(promptsConcat);
+        setData(promptsConcat as Prompts);
+        // console.log(Prompts);
+      } else {
+        setData([]);
+        throw new Error("parse csv error: " + promptsConcat.join(","));
+      }
+    }
+
   }, []);
 
   return (
@@ -63,10 +82,15 @@ function ChatGptPromptList() {
         <a href={"https://github.com/f/awesome-chatgpt-prompts"}>
           awesome-chatgpt-prompts <LinkIcon />
         </a>
+        <a href={"https://github.com/PlexPt/awesome-chatgpt-prompts-zh"}>
+          awesome-chatgpt-prompts-zh <LinkIcon />
+        </a>
       </Text>
       {data && (
         <DataTable
-          data={data.filter((it) => it.act.includes(search) || it.prompt.includes(search))}
+          data={data.filter(
+            (it) => (it.act != undefined && it.act.includes(search)) || (it.prompt != undefined && it.prompt.includes(search))
+          )}
           columns={genColumns(search) as any}
         />
       )}
