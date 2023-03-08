@@ -25,21 +25,11 @@
 
 ## 功能:
 
-- [x] 支持用户样例展示功能，让用户可以查看、分享和参考其他用户的 Prompt 样例；
-  - [x] 基于 GitHub Pull Request
-  - [x] StableDiffusion
-  - [x] ChatGPT
-  - [x] GitHub Copilot
-- [ ] 在线 Prompt 生成器，帮助用户快速生成符合需求的 Prompt；
-  - [x] StableDiffusion 人物生成器
-  - [x] StableDiffusion -> ChatGPT 生成器
-- [ ] 提供一键运行功能，让用户轻松运行不同的 AI 应用；
-  - [ ] ChatGPT 集成
-  - [ ] StableDiffusion 集成
-- [ ] 行业 Prompt 生成 API，为各行业提供高效的 AI 应用解决方案；
-  - [ ] 编程
-  - [ ] 写作
-  - [ ] 设计
+- 一键运行：支持 ChatGPT 和 StableDiffusion 的一键运行，让您更轻松地学习和使用 Prompt。
+- Prompt 在线生成器：使用热门的 StableDiffusion 人物生成器和 StableDiffusion -> ChatGPT 生成器，快速创建符合您需求的高质量 Prompt。
+- Prompt 样例库：从我们的用户生成的 Prompt 样例中学习，包括 StableDiffusion、ChatGPT 和 GitHub Copilot。展示您的工作并与他人分享。
+- 行业特定的 Prompt 生成器：提高您的工作效率，目前提供的领域包括编程、写作和设计。
+- Prompt 优化（PoC 思考中）：使用 Prompt 优化器，帮助您提高 Prompt 的质量。
 
 ## 路线图
 
@@ -66,37 +56,14 @@
 
 ### 技术栈:
 
-- Next.js with Typescript
-- Chakra UI
-- Styled Components: @emotion/styled
-- React Table
+- ServerVercel
+- React + Next.js + Typescript
+- UI
+  - Chakra UI
+  - Styled Components: @emotion/styled
+  - Tailwind CSS
+  - React Table
 - React Markdown for render markdown
-- Data processing
-  - papaparse: parse csv
-  - arrow: parse json
-
-### 待办:
-
-- [x] setup projects
-  - [x] init project
-  - [x] setup CI
-  - [x] config prettier, eslint, husky
-  - [x] commit lint, style lint
-- [ ] setup docs
-- [ ] our cheatsheet
-- [x] ChatGPT prompts
-  - [ ] awesome act prompts
-  - [ ] chinese version prompts
-  - [ ] normal generator by category
-  - [ ] random generator
-  - [x] samples
-- [x] Stable Diffusion
-  - [ ] awesome act prompts
-  - [ ] random generator
-  - [x] normal generator
-  - [x] samples
-- [ ] GitHub Copilot
-  - [x] samples
 
 ### 在本地运行 ClickPrompt
 
