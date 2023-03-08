@@ -55,14 +55,30 @@ export function getLocale(headers: Headers): SupportedLocale {
   return locale;
 }
 
-export async function getDictionary(
-  locale: SupportedLocale,
-  pathname: string = "/",
-): Promise<{ all: any; currentPage: any }> {
+export type AppData = {
+  i18n: {
+    all: Record<string, any>;
+    currentPage: Record<string, any>;
+  };
+  pathname: string;
+  locale: SupportedLocale;
+};
+export type AppDataI18n = AppData["i18n"];
+import { SITE_INTERNAL_HEADER_LOCALE, SITE_INTERNAL_HEADER_PATHNAME } from "@/configs/constants";
+export async function getAppData(): Promise<AppData> {
+  const { headers } = await import("next/headers");
+
+  const pathname = headers().get(SITE_INTERNAL_HEADER_PATHNAME) || "/";
+  const locale = (headers().get(SITE_INTERNAL_HEADER_LOCALE) || DefaultLocale) as SupportedLocale;
+
   const dictionary = dictionaries[locale] ?? dictionaries[DefaultLocale];
   return dictionary().then((module) => ({
-    all: module,
-    // @ts-ignore
-    currentPage: module[stripLocaleInPath(pathname)],
+    i18n: {
+      all: module,
+      // @ts-ignore
+      currentPage: module[stripLocaleInPath(pathname)],
+    },
+    pathname: stripLocaleInPath(pathname),
+    locale,
   }));
 }

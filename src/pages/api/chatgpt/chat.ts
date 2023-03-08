@@ -2,7 +2,7 @@ import { NextApiHandler } from "next";
 import { getUserByUserId } from "./user";
 
 import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from "openai";
-import {SITE_USER_COOKIE} from "@/configs/constants";
+import { SITE_USER_COOKIE } from "@/configs/constants";
 
 const handler: NextApiHandler = async (req, res) => {
   const userId = req.cookies[SITE_USER_COOKIE];

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from "react";
 import { LoginPage } from "@/app/[lang]/chatgpt/LoginPage";
 import { ChatRoom } from "@/app/[lang]/chatgpt/ChatRoom";
