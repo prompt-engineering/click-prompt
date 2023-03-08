@@ -2,16 +2,17 @@ import { NextApiHandler } from "next";
 import { getUserByUserId } from "./user";
 
 import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from "openai";
+import {SITE_USER_COOKIE} from "@/configs/constants";
 
 const handler: NextApiHandler = async (req, res) => {
-  const userId = req.cookies["PROMPT_GENERATOR_USER"];
+  const userId = req.cookies[SITE_USER_COOKIE];
   if (!userId) {
     res.status(400).json({ error: "You're not logged in yet!" });
     return;
   }
   const user = getUserByUserId(userId);
   if (!user) {
-    res.setHeader("Set-Cookie", "PROMPT_GENERATOR_USER=; Max-Age=0; HttpOnly; Path=/;");
+    res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=; Max-Age=0; HttpOnly; Path=/;`);
     res.status(400).json({ error: "Your login session has been expired!" });
     return;
   }
