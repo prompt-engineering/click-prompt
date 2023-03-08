@@ -90,7 +90,7 @@ export function ClickPromptButton(props: CPButtonProps) {
           <DrawerCloseButton className='text-white z-50' />
           {/* <DrawerHeader>ChatGPT</DrawerHeader> */}
           <DrawerBody padding={0}>
-            <div className='bg-[#343541] flex h-[100%] overflow-y-auto'>
+            <div className='bg-[#343541] flex h-[100%] overflow-y-auto items-center justify-center'>
               <ChatGPTApp message={props?.text ? props?.text.toString() : ""} />
             </div>
           </DrawerBody>
