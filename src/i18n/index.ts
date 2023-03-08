@@ -2,8 +2,8 @@ import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
 const dictionaries = {
-  "en-US": () => import("./en-US.json").then((module) => module.default),
-  "zh-CN": () => import("./zh-CN.json").then((module) => module.default),
+  "en-US": () => import("./en-US").then((module) => module.default),
+  "zh-CN": () => import("./zh-CN").then((module) => module.default),
 };
 
 export type SupportedLocale = keyof typeof dictionaries;
@@ -55,23 +55,27 @@ export function getLocale(headers: Headers): SupportedLocale {
   return locale;
 }
 
+import type { GlobalKey as GlobalKeyEnUS, PageKey as PageKeyEnUS } from "./en-US";
+import type { GlobalKey as GlobalKeyZhCN, PageKey as PageKeyZhCN } from "./zh-CN";
+
 export type AppData = {
   i18n: {
-    all: Record<string, any>;
-    currentPage: Record<string, any>;
+    g: (key: GlobalKeyEnUS | GlobalKeyZhCN) => string;
+    tFactory: <P extends PagePath>(path: P) => (key: PageKeyEnUS<P> | PageKeyZhCN<P>) => string;
   };
   pathname: string;
   locale: SupportedLocale;
 };
 export type AppDataI18n = AppData["i18n"];
 import { SITE_INTERNAL_HEADER_LOCALE, SITE_INTERNAL_HEADER_PATHNAME } from "@/configs/constants";
+import { PagePath } from "./pagePath";
 export async function getAppData(): Promise<AppData> {
-  let pathname = "/";
+  let pathname: PagePath = "/";
   let locale = DefaultLocale;
 
   try {
     const { headers } = await import("next/headers");
-    pathname = headers().get(SITE_INTERNAL_HEADER_PATHNAME) || "/";
+    pathname = (headers().get(SITE_INTERNAL_HEADER_PATHNAME) || "/") as PagePath;
     locale = headers().get(SITE_INTERNAL_HEADER_LOCALE) as SupportedLocale;
   } catch (error) {
     console.log(error);
@@ -80,9 +84,8 @@ export async function getAppData(): Promise<AppData> {
   const dictionary = dictionaries[locale] ?? dictionaries[DefaultLocale];
   return dictionary().then((module) => ({
     i18n: {
-      all: module,
-      // @ts-ignore
-      currentPage: module[stripLocaleInPath(pathname)],
+      g: (key) => module["*"][key],
+      tFactory: (key) => (module[pathname] as any)[key as any] as any,
     },
     pathname: stripLocaleInPath(pathname),
     locale,

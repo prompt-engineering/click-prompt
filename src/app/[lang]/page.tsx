@@ -7,7 +7,7 @@ import { getAppData } from "@/i18n";
 
 async function Page() {
   const { i18n } = await getAppData();
-  const currentPage = i18n.currentPage;
+  const t = i18n.tFactory("/");
 
   return (
     <Box mb={20}>
@@ -26,7 +26,7 @@ async function Page() {
               mb='16px'
               lineHeight='1.2'
             >
-              {currentPage.title}
+              {t("title")}
             </Heading>
 
             <Text
@@ -37,7 +37,7 @@ async function Page() {
               fontSize={{ base: "lg", lg: "xl" }}
               mt='6'
             >
-              {currentPage.description}
+              {t("description")}
             </Text>
 
             <Stack mt='10' spacing='4' justify='center' direction={{ base: "column", sm: "row" }}>

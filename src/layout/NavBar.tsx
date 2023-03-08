@@ -20,30 +20,30 @@ import { getAppData } from "@/i18n";
 
 export default async function NavBar({ locale }: { locale: string }) {
   const { i18n, pathname } = await getAppData();
-  const navbarDict = i18n.all.navbar;
+  const g = i18n.g;
 
   const NavList = [
     {
       title: "ChatGPT",
       children: [
-        { url: `/chatgpt-general/`, title: navbarDict["chatgpt-general"] },
-        { url: `/chatgpt-prompt-role-play/`, title: navbarDict["chatgpt-prompt-role-play"] },
-        { url: `/chatgpt-generator-cot/`, title: navbarDict["chatgpt-generator-cot"] },
-        { url: `/chatgpt-interactive-game/`, title: navbarDict["chatgpt-interactive-game"] },
-        { url: `/chatgpt-samples/`, title: navbarDict["chatgpt-samples"] },
-        { url: `/chatgpt/`, title: navbarDict["chatgpt"] },
+        { url: `/chatgpt-general/`, title: g("chatgpt-general") },
+        { url: `/chatgpt-prompt-role-play/`, title: g("chatgpt-prompt-role-play") },
+        { url: `/chatgpt-generator-cot/`, title: g("chatgpt-generator-cot") },
+        { url: `/chatgpt-interactive-game/`, title: g("chatgpt-interactive-game") },
+        { url: `/chatgpt-samples/`, title: g("chatgpt-samples") },
+        { url: `/chatgpt/`, title: g("chatgpt") },
       ],
     },
     {
       title: "StableDiffusion",
-      children: [{ url: `/stable-diffusion-examples/`, title: navbarDict["stable-diffusion-examples"] }],
+      children: [{ url: `/stable-diffusion-examples/`, title: g("stable-diffusion-examples") }],
     },
-    { url: `/stable-diffusion-generator/`, title: navbarDict["stable-diffusion-generator"] },
+    { url: `/stable-diffusion-generator/`, title: g("stable-diffusion-generator") },
     {
       title: "GitHub Copilot",
-      children: [{ url: `/github-copilot-samples/`, title: navbarDict["github-copilot-samples"] }],
+      children: [{ url: `/github-copilot-samples/`, title: g("github-copilot-samples") }],
     },
-    { url: `/resources/`, title: navbarDict["resources"] },
+    { url: `/resources/`, title: g("resources") },
   ];
 
   return (
