@@ -11,9 +11,9 @@
 //     ask: string
 //     response: string
 // ```
-const fs = require("fs");
+const fs = require("node:fs");
 const yaml = require("js-yaml");
-const path = require("path");
+const path = require("node:path");
 const walkdir = require("walkdir");
 
 const categoriesDir = path.join(__dirname, "../src/assets/chatgpt/category");

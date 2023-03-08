@@ -29,16 +29,17 @@ export const middleware: NextMiddleware = (request) => {
   // ref: https://github.com/vercel/next.js/issues/43704#issuecomment-1411186664
   // for server component to access url and pathname
   // Store current request url in a custom header, which you can read later
-  //   const requestHeaders = new Headers(request.headers);
-  //   requestHeaders.set('$$$x-url', request.url);
-  //   requestHeaders.set('$$$x-pathname', request.nextUrl.pathname);
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('$$$x-url', request.url);
+  requestHeaders.set('$$$x-pathname', request.nextUrl.pathname);
+  requestHeaders.set('$$$x-locale', locale);
 
-  //   return NextResponse.next({
-  //     request: {
-  //       // Apply new request headers
-  //       headers: requestHeaders,
-  //     },
-  //   });
+  return NextResponse.next({
+    request: {
+      // Apply new request headers
+      headers: requestHeaders,
+    },
+  });
 };
 
 export const config = {
