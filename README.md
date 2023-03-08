@@ -55,37 +55,14 @@ Phase 3: Improvement
 
 ### Tech Stacks:
 
-- Next.js with Typescript
-- Chakra UI
-- Styled Components: @emotion/styled
-- React Table
+- ServerVercel
+- React + Next.js + Typescript
+- UI
+    - Chakra UI
+    - Styled Components: @emotion/styled
+    - Tailwind CSS
+    - React Table
 - React Markdown for render markdown
-- Data processing
-  - papaparse: parse csv
-  - arrow: parse json
-
-### Todos:
-
-- setup projects
-  - init project
-  - setup CI
-  - config prettier, eslint, husky
-  - commit lint, style lint
-- [ ] setup docs
-- [ ] our cheatsheet
-- ChatGPT prompts
-  - [ ] awesome act prompts
-  - [ ] chinese version prompts
-  - [ ] normal generator by category
-  - [ ] random generator
-  - samples
-- Stable Diffusion
-  - [ ] awesome act prompts
-  - [ ] random generator
-  - normal generator
-  - samples
-- [ ] GitHub Copilot
-  - samples
 
 ### Run ClickPrompt
 
@@ -122,4 +99,4 @@ Check out the dedicated [i18n guide](./TRANSLATING.md) for more details.
 
 ## License
 
-This code is distributed under the MIT license. See `LICENSE` in this directory.
+This code is distributed under the MIT license. See [LICENSE](./LICENSE) in this directory.

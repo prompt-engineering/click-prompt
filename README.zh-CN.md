@@ -56,37 +56,14 @@
 
 ### 技术栈:
 
-- Next.js with Typescript
-- Chakra UI
-- Styled Components: @emotion/styled
-- React Table
+- ServerVercel
+- React + Next.js + Typescript
+- UI
+  - Chakra UI
+  - Styled Components: @emotion/styled
+  - Tailwind CSS
+  - React Table
 - React Markdown for render markdown
-- Data processing
-  - papaparse: parse csv
-  - arrow: parse json
-
-### 待办:
-
-- [x] setup projects
-  - [x] init project
-  - [x] setup CI
-  - [x] config prettier, eslint, husky
-  - [x] commit lint, style lint
-- [ ] setup docs
-- [ ] our cheatsheet
-- [x] ChatGPT prompts
-  - [ ] awesome act prompts
-  - [ ] chinese version prompts
-  - [ ] normal generator by category
-  - [ ] random generator
-  - [x] samples
-- [x] Stable Diffusion
-  - [ ] awesome act prompts
-  - [ ] random generator
-  - [x] normal generator
-  - [x] samples
-- [ ] GitHub Copilot
-  - [x] samples
 
 ### 在本地运行 ClickPrompt
 
