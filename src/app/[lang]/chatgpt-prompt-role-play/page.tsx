@@ -9,5 +9,5 @@ export async function generateStaticParams() {
 }
 
 export default function ChatGptPromptRolePlay({ params }: { params: { lang: SupportedLocale; prompts: any } }) {
-  return <ChatGptPromptList locale={params.lang} prompts={params.prompts} />;
+  return <ChatGptPromptList prompts={params.prompts} />;
 }
