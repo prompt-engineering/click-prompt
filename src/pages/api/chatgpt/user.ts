@@ -1,6 +1,8 @@
+import { createHash } from "node:crypto";
+const hasher = createHash("sha256");
+
 import {NextApiHandler} from "next";
 import {ChatCompletionRequestMessage, Configuration, OpenAIApi} from "openai";
-import {v4 as UUID} from "uuid";
 import {SITE_USER_COOKIE} from "@/configs/const";
 
 function createNewOpenAIApi(apiKey: string) {
@@ -22,10 +24,10 @@ export function getUserByUserId(userId: string) {
   return user ? user : null;
 }
 
-type Request = {
-  action: "login" | "logout";
-  key?: string;
-};
+// type Request = {
+//   action: "login" | "logout";
+//   key?: string;
+// };
 
 type Response = {
   message?: string;
@@ -49,7 +51,7 @@ const handler: NextApiHandler = async (req, res) => {
   switch (action) {
     case "login":
       if (key) {
-        userId = UUID();
+        userId = hasher.update(key).digest().toString("hex");
         users.push({
           id: userId,
           openai: createNewOpenAIApi(key),

@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("node:fs");
 const Papa = require("papaparse");
 
 // 1. loading the csv file from src/assets/data/ai-resources.csv
@@ -7,7 +7,7 @@ const Papa = require("papaparse");
 function convertCsvToJson(csvName) {
   const csvFilePath = `./public/data/${csvName}.csv`;
   const jsonFilePath = `./src/assets/resources/${csvName}.json`;
-  const csvFile = fs.readFileSync(csvFilePath, "utf8");
+  const csvFile = fs.readFileSync(csvFilePath, { encoding: "utf8" });
   const json = Papa.parse(csvFile, {
     header: true,
     dynamicTyping: true,
@@ -17,8 +17,8 @@ function convertCsvToJson(csvName) {
 }
 
 convertCsvToJson("ai-resources");
-convertCsvToJson("reading-list-en");
-convertCsvToJson("reading-list-cn");
-convertCsvToJson("prompts");
-convertCsvToJson("prompts_cn");
+convertCsvToJson("reading-list-en-US");
+convertCsvToJson("reading-list-zh-CN");
+convertCsvToJson("prompts_en-US");
+convertCsvToJson("prompts_zh-CN");
 convertCsvToJson("chatgpt-specific");
