@@ -17,9 +17,11 @@ import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/constants";
 import LocaleSwitcher from "@/components/LocaleSwtcher";
 import { getAppData } from "@/i18n";
+import * as console from "console";
 
 export default async function NavBar({ locale }: { locale: string }) {
   const { i18n, pathname } = await getAppData();
+  console.log("pathname: ", pathname);
   const g = i18n.g;
 
   const NavList = [

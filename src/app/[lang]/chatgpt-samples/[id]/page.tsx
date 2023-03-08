@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ChatGptIcon } from "@/components/CustomIcon";
@@ -10,11 +10,8 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   Heading,
-  Link,
   SimpleGrid,
-  Spacer,
   Flex,
-  Stack,
 } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
@@ -33,13 +30,17 @@ interface Sample {
   }[];
 }
 
-export const generateStaticParams = async () => {
+const getSampleNames = async () => {
   const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
-  // TODO(CGQAQ): figure out how to do this.
-  return index.map((item) => ({ id: item.path.split(".").slice(0, -1).join("."), lang: "zh-CN" }));
+  return index.map((item) => item.path.split(".").slice(0, -1).join("."));
 };
 
 async function Sample({ params }: { params: { id: string } }) {
+  const names = await getSampleNames();
+  if (!names.includes(params.id)) {
+    notFound();
+  }
+
   const content: Sample = await import(`@/assets/chatgpt/samples/${params.id}.yml`).then((mod) => mod.default);
 
   if (!content) {
@@ -66,10 +67,10 @@ async function Sample({ params }: { params: { id: string } }) {
 
             <SimpleGrid columns={1} spacing={4}>
               {content.steps.map((step, index) => (
-                <>
+                <Fragment key={index}>
                   <HumanBlock direction='row' justify='space-between'>
                     <Flex direction='row' gap='2'>
-                      <Avatar bg='teal.500' name='Phodal' size='sm' mr={2} />
+                      <Avatar bg='teaååål.500' name='Phodal' size='sm' mr={2} />
                       <Box>
                         <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
                       </Box>
@@ -89,7 +90,7 @@ async function Sample({ params }: { params: { id: string } }) {
                       </Box>
                     </Box>
                   </AiBlock>
-                </>
+                </Fragment>
               ))}
             </SimpleGrid>
           </Flex>
