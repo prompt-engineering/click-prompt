@@ -104,7 +104,7 @@ function ChatGptGeneral() {
                     >
                       <CardHeader>
                         <ClickPromptButton text={sample.ask} size={"sm"}>
-                          {sample.name}
+                          <StyledTitle>{sample.name}</StyledTitle>
                         </ClickPromptButton>
                       </CardHeader>
                       <StyledCardBody maxH='320px' overflow='auto'>
@@ -124,6 +124,10 @@ function ChatGptGeneral() {
     </div>
   );
 }
+
+const StyledTitle = styled.span`
+  font-size: 1.4rem;
+`;
 
 const StyledCard = styled(Card)`
   margin: 8px;
@@ -154,6 +158,9 @@ const StyleCardList = styled.div`
   overflow-y: auto;
   display: flex;
   flex-direction: row;
+
+  scrollbar-color: #708ad4 darkgrey;
+  scrollbar-width: thin;
 
   &::-webkit-scrollbar {
     width: 10px;
