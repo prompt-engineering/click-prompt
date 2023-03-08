@@ -7,8 +7,8 @@ import { DataTable } from "@/components/DataTable/DataTable";
 import { LinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import Highlight from "@/components/Highlight";
-import promptsEn from "@/assets/resources/prompts_en-US.json";
-import promptsCn from "@/assets/resources/prompts_zh-CN.json";
+import promptsEn from "@/assets/resources/role-play-prompts_en-US.json";
+import promptsCn from "@/assets/resources/role-play-prompts_zh-CN.json";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { SupportedLocale } from "@/i18n";
 

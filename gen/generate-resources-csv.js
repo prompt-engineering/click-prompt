@@ -19,6 +19,7 @@ function convertCsvToJson(csvName) {
 convertCsvToJson("ai-resources");
 convertCsvToJson("reading-list-en");
 convertCsvToJson("reading-list-cn");
-convertCsvToJson("prompts");
-convertCsvToJson("prompts_cn");
 convertCsvToJson("chatgpt-specific");
+
+convertCsvToJson("role-play-prompts_zh-CN");
+convertCsvToJson("role-play-prompts_en-US");
