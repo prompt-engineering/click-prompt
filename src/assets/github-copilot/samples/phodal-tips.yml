@@ -101,3 +101,71 @@ snippets:
         branchList.contains("master") shouldBe true
       }
       ```
+  - name: 批量操作
+    prompt: |
+      ```typescript
+      // convert navList with i18n keys to navList with i18n values
+      // {
+      //   "chatgpt-general": "ChatGPT 常用指令",
+      //   "chatgpt-prompt-role-play": "ChatGPT 角色扮演",
+      //   "chatgpt-generator-cot": "ChatGPT 思维链模式",
+      //   "chatgpt-interactive-game": "ChatGPT 交互式游戏",
+      //   "chatgpt-samples": "ChatGPT 示例",
+      //   "chatgpt": "ChatGPT 聊天室",
+      //   "stable-diffusion-examples": "StableDiffusion 示例",
+      //   "stable-diffusion-generator": "AI 绘画生成器",
+      //   "github-copilot-samples": "GitHub Copilot 示例",
+      //   "resources": "学习资料",
+      // }
+      const navList = [
+      {
+      title: "ChatGPT",
+      ```
+    result: |
+      ```typescript
+      const navList = [
+        {
+          title: "ChatGPT",
+          children: [
+            { url: `/chatgpt-general/`, title: dict.all["chatgpt-general"] },
+            { url: `/chatgpt-prompt-role-play/`, title: dict.all["chatgpt-prompt-role-play"] },
+            { url: `/chatgpt-generator-cot/`, title: dict.all["chatgpt-generator-cot"] },
+            { url: `/chatgpt-interactive-game/`, title: dict.all["chatgpt-interactive-game"] },
+            { url: `/chatgpt-samples/`, title: dict.all["chatgpt-samples"] },
+            { url: `/chatgpt/`, title: dict.all["chatgpt"] },
+          ],
+        }
+      ]
+      ```
+  - name: 翻译
+    prompt: |
+      ```typescript
+      // {
+      //   "chatgpt-general": "ChatGPT 常用指令",
+      //   "chatgpt-prompt-role-play": "ChatGPT 角色扮演",
+      //   "chatgpt-generator-cot": "ChatGPT 思维链模式",
+      //   "chatgpt-interactive-game": "ChatGPT 交互式游戏",
+      //   "chatgpt-samples": "ChatGPT 示例",
+      //   "chatgpt": "ChatGPT 聊天室",
+      //   "stable-diffusion-examples": "StableDiffusion 示例",
+      //   "stable-diffusion-generator": "AI 绘画生成器",
+      //   "github-copilot-samples": "GitHub Copilot 示例",
+      //   "resources": "学习资料",
+      // }
+      // translate to English
+      ```
+    result: |
+      ```typescript
+      // {
+      //   "chatgpt-general": "ChatGPT General",
+      //   "chatgpt-prompt-role-play": "ChatGPT Role Play",
+      //   "chatgpt-generator-cot": "ChatGPT Generator COT",
+      //   "chatgpt-interactive-game": "ChatGPT Interactive Game",
+      //   "chatgpt-samples": "ChatGPT Samples",
+      //   "chatgpt": "ChatGPT",
+      //   "stable-diffusion-examples": "StableDiffusion Examples",
+      //   "stable-diffusion-generator": "StableDiffusion Generator",
+      //   "github-copilot-samples": "GitHub Copilot Samples",
+      //   "resources": "Resources",
+      // }
+      ```

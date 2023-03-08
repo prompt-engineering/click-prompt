@@ -29,6 +29,16 @@
         "name": "测试用例生成",
         "prompt": "```kotlin\n@Test\nfun `test command manager git branch list`() {\n```\n",
         "result": "```kotlin\n@Test\n  fun `test command manager git branch list`() {\n  val output = gitCommandManager.branchList(false)\n  output.contains(\"master\") shouldBe true\n  val branchList = gitCommandManager.parseBranchList(listOf(\"refs/heads/master\"))\n  branchList.contains(\"refs/heads/master\") shouldBe false\n  branchList.contains(\"master\") shouldBe true\n}\n```\n"
+      },
+      {
+        "name": "批量操作",
+        "prompt": "```typescript\n// convert navList with i18n keys to navList with i18n values\n// {\n//   \"chatgpt-general\": \"ChatGPT 常用指令\",\n//   \"chatgpt-prompt-role-play\": \"ChatGPT 角色扮演\",\n//   \"chatgpt-generator-cot\": \"ChatGPT 思维链模式\",\n//   \"chatgpt-interactive-game\": \"ChatGPT 交互式游戏\",\n//   \"chatgpt-samples\": \"ChatGPT 示例\",\n//   \"chatgpt\": \"ChatGPT 聊天室\",\n//   \"stable-diffusion-examples\": \"StableDiffusion 示例\",\n//   \"stable-diffusion-generator\": \"AI 绘画生成器\",\n//   \"github-copilot-samples\": \"GitHub Copilot 示例\",\n//   \"resources\": \"学习资料\",\n// }\nconst navList = [\n{\ntitle: \"ChatGPT\",\n```\n",
+        "result": "```typescript\nconst navList = [\n  {\n    title: \"ChatGPT\",\n    children: [\n      { url: `/chatgpt-general/`, title: dict.all[\"chatgpt-general\"] },\n      { url: `/chatgpt-prompt-role-play/`, title: dict.all[\"chatgpt-prompt-role-play\"] },\n      { url: `/chatgpt-generator-cot/`, title: dict.all[\"chatgpt-generator-cot\"] },\n      { url: `/chatgpt-interactive-game/`, title: dict.all[\"chatgpt-interactive-game\"] },\n      { url: `/chatgpt-samples/`, title: dict.all[\"chatgpt-samples\"] },\n      { url: `/chatgpt/`, title: dict.all[\"chatgpt\"] },\n    ],\n  }\n]\n```\n"
+      },
+      {
+        "name": "翻译",
+        "prompt": "```typescript\n// {\n//   \"chatgpt-general\": \"ChatGPT 常用指令\",\n//   \"chatgpt-prompt-role-play\": \"ChatGPT 角色扮演\",\n//   \"chatgpt-generator-cot\": \"ChatGPT 思维链模式\",\n//   \"chatgpt-interactive-game\": \"ChatGPT 交互式游戏\",\n//   \"chatgpt-samples\": \"ChatGPT 示例\",\n//   \"chatgpt\": \"ChatGPT 聊天室\",\n//   \"stable-diffusion-examples\": \"StableDiffusion 示例\",\n//   \"stable-diffusion-generator\": \"AI 绘画生成器\",\n//   \"github-copilot-samples\": \"GitHub Copilot 示例\",\n//   \"resources\": \"学习资料\",\n// }\n// translate to English\n```\n",
+        "result": "```typescript\n// {\n//   \"chatgpt-general\": \"ChatGPT General\",\n//   \"chatgpt-prompt-role-play\": \"ChatGPT Role Play\",\n//   \"chatgpt-generator-cot\": \"ChatGPT Generator COT\",\n//   \"chatgpt-interactive-game\": \"ChatGPT Interactive Game\",\n//   \"chatgpt-samples\": \"ChatGPT Samples\",\n//   \"chatgpt\": \"ChatGPT\",\n//   \"stable-diffusion-examples\": \"StableDiffusion Examples\",\n//   \"stable-diffusion-generator\": \"StableDiffusion Generator\",\n//   \"github-copilot-samples\": \"GitHub Copilot Samples\",\n//   \"resources\": \"Resources\",\n// }\n```\n"
       }
     ],
     "path": "phodal-tips.yml"
