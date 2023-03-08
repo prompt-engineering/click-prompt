@@ -66,10 +66,16 @@ export type AppData = {
 export type AppDataI18n = AppData["i18n"];
 import { SITE_INTERNAL_HEADER_LOCALE, SITE_INTERNAL_HEADER_PATHNAME } from "@/configs/constants";
 export async function getAppData(): Promise<AppData> {
-  const { headers } = await import("next/headers");
+  let pathname = "/";
+  let locale = DefaultLocale;
 
-  const pathname = headers().get(SITE_INTERNAL_HEADER_PATHNAME) || "/";
-  const locale = (headers().get(SITE_INTERNAL_HEADER_LOCALE) || DefaultLocale) as SupportedLocale;
+  try {
+    const { headers } = await import("next/headers");
+    pathname = headers().get(SITE_INTERNAL_HEADER_PATHNAME) || "/";
+    locale = headers().get(SITE_INTERNAL_HEADER_LOCALE) as SupportedLocale;
+  } catch (error) {
+    console.log(error);
+  }
 
   const dictionary = dictionaries[locale] ?? dictionaries[DefaultLocale];
   return dictionary().then((module) => ({
