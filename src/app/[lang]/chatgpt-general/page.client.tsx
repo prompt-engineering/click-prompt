@@ -76,7 +76,7 @@ const columns = [
   }),
 ];
 
-function ChatGptGeneral({ locale }: GeneralRSCProps ) {
+function ChatGptGeneral({ locale }: GeneralRSCProps) {
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt/category`;
 
   return (

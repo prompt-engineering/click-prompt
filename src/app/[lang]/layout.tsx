@@ -37,7 +37,7 @@ export default function RootLayout({ params, children }: RootLayoutProps) {
       </head>
       <body>
         <Provider>
-          { /* @ts-ignore */ }
+          {/* @ts-ignore */}
           <NavBar locale={lang} />
           <Container maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
             {children}

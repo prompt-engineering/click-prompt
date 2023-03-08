@@ -95,7 +95,7 @@ function ChatgptInteractiveGame({}: GeneralRSCProps) {
       <CopyComponent className='flex justify-end p-4' value={`你好，我是${name}。`} />
       <Formik
         initialValues={{ name: "" }}
-        onSubmit={(values)  => {
+        onSubmit={(values) => {
           console.log(values);
         }}
       >
