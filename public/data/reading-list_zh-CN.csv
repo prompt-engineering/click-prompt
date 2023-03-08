@@ -1,3 +1,4 @@
 name,link,description
 基于编程、绘画、写作的 AI 探索与总结：理解 Prompt,https://github.com/phodal/ai-research/,如何更好地完善 prompt，实现 prompt 工程就是：如何更好地使用 AI 的基础。
 Prompt 编写模式：如何将思维框架赋予机器,https://github.com/phodal/prompt-patterns/,介绍一系列的 Prompt 编写模式，以更好地应用 Prompt 对 AI 进行编程。
+通向AGI之路：大型语言模型（LLM）技术精要,https://zhuanlan.zhihu.com/p/597586623,ChatGPT是否带来了NLP乃至AI领域的研究范式转换？如果是，那会带来怎样的影响？LLM从海量数据中学到了什么知识？LLM又是如何存取这些知识的？随着LLM规模逐步增大，会带来什么影响？什么是In Context Learning?为什么它是一项很神秘的技术？它和Instruct又是什么关系？LLM具备推理能力吗？思维链CoT又是怎么做的？
