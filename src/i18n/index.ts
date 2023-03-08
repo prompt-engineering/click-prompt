@@ -10,12 +10,21 @@ export type SupportedLocale = keyof typeof dictionaries;
 export const SupportedLocales = Object.keys(dictionaries) as SupportedLocale[];
 export const DefaultLocale: SupportedLocale = "zh-CN";
 
-export function stripLocaleInPath(pathname: string): string {
+export function stripLocaleInPath(pathname: string): PagePath {
   const locale = pathname.split("/")[1];
+
+  let striped: PagePath;
   if (SupportedLocales.includes(locale as SupportedLocale)) {
-    return pathname.replace(`/${locale}`, "");
+    striped = pathname.replace(`/${locale}`, "") as PagePath;
+  } else {
+    striped = pathname as PagePath;
   }
-  return pathname;
+
+  if (!pages.includes(striped)) {
+    throw new Error(`Invalid path: ${striped}`);
+  }
+
+  return striped;
 }
 
 export function getLocaleFromPath(pathname: string): SupportedLocale {
@@ -62,13 +71,15 @@ export type AppData = {
   i18n: {
     g: (key: GlobalKeyEnUS | GlobalKeyZhCN) => string;
     tFactory: <P extends PagePath>(path: P) => (key: PageKeyEnUS<P> | PageKeyZhCN<P>) => string;
+    dict: Record<string, string>;
   };
   pathname: string;
   locale: SupportedLocale;
 };
 export type AppDataI18n = AppData["i18n"];
 import { SITE_INTERNAL_HEADER_LOCALE, SITE_INTERNAL_HEADER_PATHNAME } from "@/configs/constants";
-import { PagePath } from "./pagePath";
+import { PagePath, pages } from "./pagePath";
+import * as console from "console";
 export async function getAppData(): Promise<AppData> {
   let pathname: PagePath = "/";
   let locale = DefaultLocale;
@@ -82,12 +93,14 @@ export async function getAppData(): Promise<AppData> {
   }
 
   const dictionary = dictionaries[locale] ?? dictionaries[DefaultLocale];
+  const stripedPathname = stripLocaleInPath(pathname);
   return dictionary().then((module) => ({
     i18n: {
       g: (key) => module["*"][key],
-      tFactory: (key) => (module[pathname] as any)[key as any] as any,
+      tFactory: (_) => (key) => (module[stripedPathname] as any)[key as any] as any,
+      dict: module[stripedPathname],
     },
-    pathname: stripLocaleInPath(pathname),
+    pathname: stripedPathname,
     locale,
   }));
 }

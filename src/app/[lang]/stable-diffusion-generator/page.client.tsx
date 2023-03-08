@@ -389,7 +389,7 @@ const copyToClipboard = (text: string) => {
   document.body.removeChild(textarea);
 };
 
-function StableDiffusionGenerator({}: GeneralRSCProps) {
+function StableDiffusionGenerator({}: GeneralI18nProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [huggingFace, setHuggingFace] = useState({
     image: "",

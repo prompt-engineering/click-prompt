@@ -35,7 +35,7 @@ const columns = [
   }),
 ];
 
-function ReadingList({}: GeneralRSCProps) {
+function ReadingList({}: GeneralI18nProps) {
   return (
     <SimpleGrid columns={1} spacing={10}>
       <Alert status='info'>

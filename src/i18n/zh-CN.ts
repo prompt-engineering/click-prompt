@@ -16,16 +16,16 @@ import _stableDiffusionGenerator from "@i18n/zh-CN/_stable-diffusion-generator.j
 export type GlobalKey = keyof typeof _global;
 const pages = {
   "/": _index,
-  "/chatgpt": _chatgpt,
-  "/chatgpt-general": _chatgptGeneral,
-  "/chatgpt-generator-cot": _chatgptGeneratorCot,
-  "/chatgpt-interactive-game": _chatgptInteractiveGame,
-  "/chatgpt-prompt-role-play": _chatgptPromptRolePlay,
-  "/chatgpt-samples": _chatgptSamples,
-  "/github-copilot-samples": _githubCopilotSamples,
-  "/resources": _resources,
-  "/stable-diffusion-examples": _stableDiffusionExamples,
-  "/stable-diffusion-generator": _stableDiffusionGenerator,
+  "/chatgpt/": _chatgpt,
+  "/chatgpt-general/": _chatgptGeneral,
+  "/chatgpt-generator-cot/": _chatgptGeneratorCot,
+  "/chatgpt-interactive-game/": _chatgptInteractiveGame,
+  "/chatgpt-prompt-role-play/": _chatgptPromptRolePlay,
+  "/chatgpt-samples/": _chatgptSamples,
+  "/github-copilot-samples/": _githubCopilotSamples,
+  "/resources/": _resources,
+  "/stable-diffusion-examples/": _stableDiffusionExamples,
+  "/stable-diffusion-generator/": _stableDiffusionGenerator,
 } satisfies Record<PagePath, any>;
 export type PageKey<P extends PagePath> = keyof (typeof pages)[P];
 

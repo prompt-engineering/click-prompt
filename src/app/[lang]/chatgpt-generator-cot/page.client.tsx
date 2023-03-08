@@ -11,7 +11,7 @@ import { numberToChineseOrdinal } from "chinese-numbering";
 import CopyComponent from "@/components/CopyComponent";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 
-function ChatGptCotGenerator({}: GeneralRSCProps) {
+function ChatGptCotGenerator({}: GeneralI18nProps) {
   const toast = useToast();
   const [markdown, setMarkdown] = useState("");
 

@@ -27,7 +27,7 @@ import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 
-function ChatGptSamples({}: GeneralRSCProps) {
+function ChatGptSamples({}: GeneralI18nProps) {
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt`;
 
   return (

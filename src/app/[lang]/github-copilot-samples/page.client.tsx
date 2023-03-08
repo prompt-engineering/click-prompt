@@ -23,7 +23,7 @@ type GitHubCopilotSample = {
   path: string;
 };
 
-function GitHubCopilotSamples({}: GeneralRSCProps) {
+function GitHubCopilotSamples({}: GeneralI18nProps) {
   function SnippetCode(index: number, sample: GitHubCopilotSample, snippet: Snippet) {
     return (
       <Card

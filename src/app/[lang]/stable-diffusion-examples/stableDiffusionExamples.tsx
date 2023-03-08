@@ -80,7 +80,7 @@ const StyledGreyBox = styled(Box)`
   height: 100px;
 `;
 
-function StableDiffusionExamples({}: GeneralRSCProps) {
+function StableDiffusionExamples({}: GeneralI18nProps) {
   function ArticleCard(index: number, sample: StableDiffusionSample, artist: { preview: string; prompt: string }) {
     const parsedPrompt = parseStableDiffusionData(artist.prompt);
     const { isOpen, onToggle, onClose } = useDisclosure();

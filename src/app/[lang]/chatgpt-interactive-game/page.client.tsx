@@ -47,7 +47,7 @@ const CHEATS = [
 
 const DETAIL = `在一个修仙门派蜀山剑派山脚下的小村庄里过着与世隔绝的生活，有一天大魔头狗蛋袭击了蜀山剑派，屠尽满门，只有掌门拼死逃出，然后在小村庄重伤不支，临终前遇到了在外面玩耍的主角，把门派绝学和掌门至包青霞剑传给了主角，只有一个要求，重振蜀山剑派，杀死大魔头狗蛋，此时正值天地大变，仙佛归来，主角如何达成愿望呢？`;
 
-function ChatgptInteractiveGame({}: GeneralRSCProps) {
+function ChatgptInteractiveGame({}: GeneralI18nProps) {
   // const toast = useToast();
   const [markdown, setMarkdown] = useState("");
 

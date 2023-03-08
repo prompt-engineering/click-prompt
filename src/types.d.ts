@@ -39,9 +39,10 @@ declare module "*.svg?url" {
   export default content;
 }
 
-type GeneralRSCProps = {
-  i18n: import("@/i18n").AppDataI18n;
+type GeneralI18nProps = {
+  i18n: {
+    dict: Record<string, string>;
+  };
   locale: import("@/i18n").SupportedLocale;
-  /** pathname without locale part */
   pathname: string;
 };
