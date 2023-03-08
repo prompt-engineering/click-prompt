@@ -4,7 +4,7 @@ import ChatGptPromptList from "./page.client";
 import { headers } from "next/headers";
 import { SupportedLocale, DefaultLocale } from "@/i18n";
 
-export async function prepareData(locale: SupportedLocale) {
+async function prepareData(locale: SupportedLocale) {
   return import(`@/assets/resources/prompts_${locale}.json`).then((mod) => mod.default);
 }
 
