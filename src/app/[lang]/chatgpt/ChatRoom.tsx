@@ -34,6 +34,8 @@ const ChatInputWrapper = styled("div")`
   bottom: 8px;
   width: 768px;
   height: 48px;
+  background-color: #fff;
+  border-radius: 8px;
 `;
 const ChatsWrapper = styled("div")`
   // good looking scrollbar
@@ -145,9 +147,9 @@ export const ChatRoom = ({
   }
 
   return (
-    <div className='grid grid-cols-[200px_1fr]'>
+    <div className='flex w-full h-full'>
       {/* left */}
-      <div className='bg-gray-900 text-white p-2 grid grid-rows-[45px_1fr_100px]'>
+      <div className='hidden bg-gray-900 text-white p-2 md:grid grid-rows-[45px_1fr_100px]'>
         <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
           <NewChat color='white' />
           New chat
@@ -169,11 +171,11 @@ export const ChatRoom = ({
       </div>
 
       {/* right */}
-      <div className='relative flex flex-col items-center justify-start gap-16 h-[85vh] py-4'>
+      <div className='relative flex flex-col items-center justify-start gap-16 h-full py-4 flex-1'>
         {chatHistory.length === 0 && <Image className='mt-8' src={content} alt='background image'></Image>}
 
         {/* chats */}
-        <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-[70vh] overflow-y-auto'>
+        <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-full overflow-y-auto'>
           {chatHistory.map((chat, index) => {
             return (
               <div key={index} className='flex flex-col gap-14 '>
@@ -192,14 +194,15 @@ export const ChatRoom = ({
           })}
         </ChatsWrapper>
 
-        <ChatInputWrapper>
+        <ChatInputWrapper className='w-full md:w-9/12 mb-5'>
           <ChatInput
             disabled={disable}
             placeholder='Type your message here...'
             value={message}
             onChange={(ev) => setMessage(ev.target.value)}
+            className='w-full pr-10 md:w-11/12 border-0 md:pr-0 focus:ring-0'
           />
-          <ChatSendButton disabled={disable} onClick={sendMessage} />
+          <ChatSendButton className='w-10 h-full' disabled={disable} onClick={sendMessage} />
         </ChatInputWrapper>
       </div>
     </div>
