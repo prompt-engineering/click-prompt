@@ -41,5 +41,7 @@ next-env.d.ts
 /dist
 public/sitemap-0.xml
 src/assets/resources/**/ai-resources.json
-src/assets/resources/**/reading-list-en.json
-src/assets/resources/**/reading-list-cn.json
+src/assets/resources/**/reading-list-en-US.json
+src/assets/resources/**/reading-list-zh-CN.json
+src/assets/resources/**/role-play-prompts_en-US.json
+src/assets/resources/**/role-play-prompts_zh-CN.json
