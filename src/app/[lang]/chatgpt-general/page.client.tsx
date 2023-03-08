@@ -28,7 +28,7 @@ type GeneralCommand = {
   type: string;
   description: string;
   example: string;
-  prompt?: string;
+  prompt: string;
   clickPrompt?: any;
 };
 
