@@ -1,9 +1,9 @@
 import { createHash } from "node:crypto";
 const hasher = createHash("sha256");
 
-import {NextApiHandler} from "next";
-import {ChatCompletionRequestMessage, Configuration, OpenAIApi} from "openai";
-import {SITE_USER_COOKIE} from "@/configs/const";
+import { NextApiHandler } from "next";
+import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
+import { SITE_USER_COOKIE } from "@/configs/const";
 
 function createNewOpenAIApi(apiKey: string) {
   const configuration = new Configuration({
@@ -59,9 +59,9 @@ const handler: NextApiHandler = async (req, res) => {
         });
         console.log(`User ${userId} logged in`);
         res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=${userId}; Max-Age=3600; HttpOnly; Path=/;`);
-        return res.status(200).json({message: "Logged in"} as Response);
+        return res.status(200).json({ message: "Logged in" } as Response);
       } else {
-        res.status(400).json({error: "No key provided"} as Response);
+        res.status(400).json({ error: "No key provided" } as Response);
         return;
       }
     case "logout":

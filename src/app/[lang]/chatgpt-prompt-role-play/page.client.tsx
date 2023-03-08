@@ -42,7 +42,7 @@ const genColumns = (highlight: string) => [
 
 type Prompts = { act: string; prompt: string }[];
 
-function ChatGptPromptList({prompts}: {prompts: Prompts}) {
+function ChatGptPromptList({ prompts }: { prompts: Prompts }) {
   const [search, setSearch] = useState<string>("");
 
   return (

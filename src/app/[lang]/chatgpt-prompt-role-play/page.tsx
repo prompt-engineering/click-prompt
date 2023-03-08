@@ -1,6 +1,5 @@
 import ChatGptPromptList from "./page.client";
-import {SupportedLocale, SupportedLocales} from "@/i18n";
-
+import { SupportedLocale, SupportedLocales } from "@/i18n";
 
 export async function generateStaticParams() {
   return SupportedLocales.map((lang) => ({
@@ -9,6 +8,6 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ChatGptPromptRolePlay({params}: { params: { lang: SupportedLocale, prompts: any }}) {
-  return <ChatGptPromptList locale={params.lang} prompts={params.prompts} />
+export default function ChatGptPromptRolePlay({ params }: { params: { lang: SupportedLocale; prompts: any } }) {
+  return <ChatGptPromptList locale={params.lang} prompts={params.prompts} />;
 }

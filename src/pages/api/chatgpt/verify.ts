@@ -1,6 +1,6 @@
 import { NextApiHandler } from "next";
 import { getUserByUserId } from "./user";
-import {SITE_USER_COOKIE} from "@/configs/const";
+import { SITE_USER_COOKIE } from "@/configs/const";
 
 // verify login state
 const handler: NextApiHandler = async (req, res) => {

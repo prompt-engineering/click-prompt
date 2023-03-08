@@ -1,18 +1,18 @@
 "use client";
 
-import {SITE_LOCALE_COOKIE} from "@/configs/const"
+import { SITE_LOCALE_COOKIE } from "@/configs/const";
 
-export default function LocaleSwitcher({locale}: { locale: string }) {
+export default function LocaleSwitcher({ locale }: { locale: string }) {
   const classZh = locale === "zh-CN" ? "text-blue-500" : "text-gray-500";
   const classEn = locale === "en-US" ? "text-blue-500" : "text-gray-500";
 
   function setEn() {
-    document.cookie = `${SITE_LOCALE_COOKIE}=en-US;path=/;max-age=31536000;`
+    document.cookie = `${SITE_LOCALE_COOKIE}=en-US;path=/;max-age=31536000;`;
     window.location.reload();
   }
 
   function setZh() {
-    document.cookie = `${SITE_LOCALE_COOKIE}=zh-CN;path=/;max-age=31536000;`
+    document.cookie = `${SITE_LOCALE_COOKIE}=zh-CN;path=/;max-age=31536000;`;
     window.location.reload();
   }
 
