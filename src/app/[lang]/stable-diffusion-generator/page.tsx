@@ -119,7 +119,11 @@ const sdDetailedPromptFields: SdPromptField[] = [
   {
     name: "feet",
     label: "脚部",
-    selectValues: [],
+    selectValues: [
+      { key: "赤脚", value: "barefoot" },
+      { key: "高跟鞋", value: "high heels" },
+      { key: "脚镯", value: "anklet" },
+    ],
   },
 ];
 
@@ -297,6 +301,12 @@ const sdPersonPromptFields: SdPromptField[] = [
       { key: "睡衣", value: "pajamas" },
       { key: "浴巾", value: "towel" },
       { key: "内衣", value: "underwear" },
+      { key: "婚纱", value: "wedding dress" },
+      { key: "礼服", value: "evening dress" },
+      { key: "校服", value: "school uniform" },
+      { key: "护士装", value: "nurse uniform" },
+      { key: "警服", value: "police uniform" },
+      { key: "女仆装", value: "maid uniform" },
     ],
   },
   {
@@ -313,6 +323,12 @@ const sdPersonPromptFields: SdPromptField[] = [
       { key: "裙子", value: "skirt" },
       { key: "长裙", value: "long skirt" },
       { key: "百褶裙", value: "pleated skirt" },
+      { key: "过膝袜", value: "thighhighs," },
+      { key: "连裤袜", value: "pantyhose" },
+      { key: "短袜", value: "socks" },
+      { key: "长袜", value: "kneehighs" },
+      { key: "裤袜", value: "legwear" },
+      { key: "网袜", value: "fishnets" },
     ],
   },
 ];
