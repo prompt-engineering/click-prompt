@@ -1,28 +1,19 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import {SITE_LOCALE_COOKIE} from "@/configs/const"
 
-export default function LocaleSwitcher({ locale }: { locale: string }) {
+export default function LocaleSwitcher({locale}: { locale: string }) {
   const classZh = locale === "zh-CN" ? "text-blue-500" : "text-gray-500";
   const classEn = locale === "en-US" ? "text-blue-500" : "text-gray-500";
-  const router = useRouter();
 
   function setEn() {
-    fetch("/api/set-cookie", {
-      method: "POST",
-      body: "en-US",
-    }).then(() => {
-      window.location.reload();
-    });
+    document.cookie = `${SITE_LOCALE_COOKIE}=en-US;path=/;max-age=31536000;`
+    window.location.reload();
   }
 
   function setZh() {
-    fetch("/api/set-cookie", {
-      method: "POST",
-      body: "zh-CN",
-    }).then(() => {
-      window.location.reload();
-    });
+    document.cookie = `${SITE_LOCALE_COOKIE}=zh-CN;path=/;max-age=31536000;`
+    window.location.reload();
   }
 
   return (
