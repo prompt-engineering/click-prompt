@@ -1,8 +1,8 @@
 // 1. walkdir of src/assets/chatgpt/templates to get all yaml files
 // 2. for each yaml file, read the file and parse the yaml
 // 3. save the {name, description, path, author} to a json file: index.json
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 const walkdir = require("walkdir");
 const yaml = require("js-yaml");
 
@@ -82,12 +82,3 @@ function genGitHubCopilotSamples() {
 genChatGptSamples();
 genStableDiffusionSamples();
 genGitHubCopilotSamples();
-
-function listAllFileUnderDist() {
-  const distDir = path.join(__dirname, "../dist");
-  const files = walkdir.sync(distDir, { no_recurse: true });
-  const index = files.map((f) => {
-    return path.relative(distDir, f);
-  });
-  fs.writeFileSync(path.join(distDir, "index.json"), JSON.stringify(index, null, 2));
-}

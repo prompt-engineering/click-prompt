@@ -9,6 +9,7 @@ const dictionaries = {
 export type SupportedLocale = keyof typeof dictionaries;
 export const SupportedLocales = Object.keys(dictionaries) as SupportedLocale[];
 export const DefaultLocale: SupportedLocale = "zh-CN";
+
 export function stripLocaleInPath(pathname: string): string {
   const locale = pathname.split("/")[1];
   if (SupportedLocales.includes(locale as SupportedLocale)) {
@@ -16,20 +17,25 @@ export function stripLocaleInPath(pathname: string): string {
   }
   return pathname;
 }
+
 export function getLocaleFromPath(pathname: string): SupportedLocale {
   const locale = pathname.split("/")[1];
   if (SupportedLocales.includes(locale as SupportedLocale)) {
     return locale as SupportedLocale;
   }
+
   return DefaultLocale;
 }
+
 export function replaceRouteLocale(pathname: string, locale: SupportedLocale): string {
   const currentLocale = pathname.split("/")[1];
   if (SupportedLocales.includes(currentLocale as SupportedLocale)) {
     return pathname.replace(`/${currentLocale}`, `/${locale}`);
   }
+
   return `/${locale}${pathname}`;
 }
+
 export function getLocale(headers: Headers): SupportedLocale {
   let languages = new Negotiator({
     headers: [...headers].reduce((pre, [key, value]) => {
