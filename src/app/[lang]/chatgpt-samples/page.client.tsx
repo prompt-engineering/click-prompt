@@ -6,7 +6,7 @@ import {
   AlertIcon,
   AlertTitle,
   Button,
-  ButtonGroup,
+  Flex,
   Card,
   CardBody,
   CardFooter,
@@ -15,6 +15,8 @@ import {
   Link as NavLink,
   SimpleGrid,
   Stack,
+  Box,
+  Text,
 } from "@chakra-ui/react";
 
 import Link from "next/link";
@@ -38,13 +40,12 @@ function ChatGptSamples({}: GeneralRSCProps) {
         </NavLink>
       </Alert>
       {samples.length > 0 && (
-        <SimpleGrid columns={{ md: 4, base: 1 }} spacing={4}>
+        <SimpleGrid columns={{ md: 4 }} spacing={4}>
           {samples.map((sample, index) => (
-            <Card key={`sample-${index}`} mt='2'>
+            <Card key={`sample-${index}`}>
               <CardHeader>
-                <Heading size='md'>
-                  {sample.name} - {sample.author}
-                </Heading>
+                <Heading size='md'>{sample.name}</Heading>
+                <Text>{sample.author}</Text>
               </CardHeader>
 
               <CardBody maxH='320px' overflow='auto'>
@@ -54,12 +55,16 @@ function ChatGptSamples({}: GeneralRSCProps) {
               </CardBody>
 
               <CardFooter>
-                <ButtonGroup spacing='4'>
-                  <Link href={"/chatgpt-samples/" + sample.path.split(".")[0]}>
-                    <Button>View here</Button>
-                  </Link>
-                  <ClickPromptButton text={sample.preview} />
-                </ButtonGroup>
+                <Flex w='90%' flexGrow={"column"} justifyContent='space-between'>
+                  <Box>
+                    <Link href={"/chatgpt-samples/" + sample.path.split(".")[0]}>
+                      <Button>View here</Button>
+                    </Link>
+                  </Box>
+                  <Box>
+                    <ClickPromptButton text={sample.preview} />
+                  </Box>
+                </Flex>
               </CardFooter>
             </Card>
           ))}
