@@ -19,8 +19,6 @@ type RootLayoutProps = {
 export default function RootLayout({ params, children }: RootLayoutProps) {
   const { lang } = params;
 
-  // @ts-ignore
-  // @ts-ignore
   return (
     <html lang={lang}>
       <head>
