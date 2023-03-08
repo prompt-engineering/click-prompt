@@ -1,11 +1,11 @@
 import "server-only";
 
 import ChatGptPromptList from "./page.client";
-import {headers} from "next/headers";
-import {SupportedLocale, DefaultLocale} from "@/i18n";
+import { headers } from "next/headers";
+import { SupportedLocale, DefaultLocale } from "@/i18n";
 
 export async function prepareData(locale: SupportedLocale) {
-  return import(`@/assets/resources/prompts_${locale}.json`).then((mod) => mod.default)
+  return import(`@/assets/resources/prompts_${locale}.json`).then((mod) => mod.default);
 }
 
 export default async function ChatGptPromptRolePlay() {

@@ -58,10 +58,10 @@ Phase 3: Improvement
 - ServerVercel
 - React + Next.js + Typescript
 - UI
-    - Chakra UI
-    - Styled Components: @emotion/styled
-    - Tailwind CSS
-    - React Table
+  - Chakra UI
+  - Styled Components: @emotion/styled
+  - Tailwind CSS
+  - React Table
 - React Markdown for render markdown
 
 ### Run ClickPrompt
