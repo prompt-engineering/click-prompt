@@ -37,7 +37,7 @@ export const LoginPage = ({
       <div className='text-white mt-5'>
         <div>
           1. Sign up for the &nbsp;
-          <a href='https://platform.openai.com/signup' target='_blank' class='underline'>
+          <a href='https://platform.openai.com/signup' target='_blank' className='underline'>
             OpenAI Platform.
           </a>
         </div>
