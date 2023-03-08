@@ -6,6 +6,7 @@ import samples from "@/assets/github-copilot/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
+import CopyComponent from "@/components/CopyComponent";
 
 type Snippet = {
   name: string;
@@ -25,7 +26,14 @@ type GitHubCopilotSample = {
 function GitHubCopilotSamples({}: GeneralRSCProps) {
   function SnippetCode(index: number, sample: GitHubCopilotSample, snippet: Snippet) {
     return (
-      <Card mt={4} boxShadow='md' key={`SnippetCode-${index}`} sx={{ breakInside: "avoid-column" }}>
+      <Card
+        mt={4}
+        boxShadow='md'
+        maxHeight='600px'
+        overflow='auto'
+        key={`SnippetCode-${index}`}
+        sx={{ breakInside: "avoid-column" }}
+      >
         <CardHeader>
           <Heading size='md'>
             {snippet.name} -{" "}
@@ -36,7 +44,10 @@ function GitHubCopilotSamples({}: GeneralRSCProps) {
         </CardHeader>
         <CardBody>
           <Stack>
-            <Heading size={"md"}>Prompt</Heading>
+            <Stack spacing={8} direction='row' justify='space-between'>
+              <Heading size={"md"}>Prompt</Heading>
+              <CopyComponent value={snippet.prompt} boxSize={6} />
+            </Stack>
             <SimpleMarkdown content={snippet.prompt} />
             <Heading size={"md"}>Result</Heading>
             <SimpleMarkdown content={snippet.result} />
