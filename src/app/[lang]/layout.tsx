@@ -19,6 +19,8 @@ type RootLayoutProps = {
 export default function RootLayout({ params, children }: RootLayoutProps) {
   const { lang } = params;
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <html lang={lang}>
       <head>
@@ -37,6 +39,7 @@ export default function RootLayout({ params, children }: RootLayoutProps) {
       </head>
       <body>
         <Provider>
+          { /* @ts-ignore */ }
           <NavBar locale={lang} />
           <Container maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
             {children}
