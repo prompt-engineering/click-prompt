@@ -200,7 +200,7 @@ export const ChatRoom = ({
             placeholder='Type your message here...'
             value={message}
             onChange={(ev) => setMessage(ev.target.value)}
-            className='w-full border-0 pl-2 pr-10'
+            className='w-full pr-10 md:w-11/12 border-0 md:pr-0 focus:ring-0'
           />
           <ChatSendButton className='w-10 h-full' disabled={disable} onClick={sendMessage} />
         </ChatInputWrapper>
