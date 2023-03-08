@@ -34,6 +34,8 @@ const ChatInputWrapper = styled("div")`
   bottom: 8px;
   width: 768px;
   height: 48px;
+  background-color: #fff;
+  border-radius: 8px;
 `;
 const ChatsWrapper = styled("div")`
   // good looking scrollbar
@@ -147,7 +149,7 @@ export const ChatRoom = ({
   return (
     <div className='flex w-full h-full'>
       {/* left */}
-      <div className='bg-gray-900 text-white p-2 grid grid-rows-[45px_1fr_100px]'>
+      <div className='hidden bg-gray-900 text-white p-2 md:grid grid-rows-[45px_1fr_100px]'>
         <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
           <NewChat color='white' />
           New chat
@@ -192,14 +194,15 @@ export const ChatRoom = ({
           })}
         </ChatsWrapper>
 
-        <ChatInputWrapper className='mb-5'>
+        <ChatInputWrapper className='w-full md:w-9/12 mb-5'>
           <ChatInput
             disabled={disable}
             placeholder='Type your message here...'
             value={message}
             onChange={(ev) => setMessage(ev.target.value)}
+            className='w-full border-0 pl-2 pr-10'
           />
-          <ChatSendButton disabled={disable} onClick={sendMessage} />
+          <ChatSendButton className='w-10 h-full' disabled={disable} onClick={sendMessage} />
         </ChatInputWrapper>
       </div>
     </div>
