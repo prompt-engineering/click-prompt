@@ -1,23 +1,12 @@
 "use client";
 
-import React, { MouseEventHandler, useState } from "react";
-import {
-  Box,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerOverlay,
-  Text,
-  Tooltip,
-  useDisclosure,
-} from "@chakra-ui/react";
+import React, { MouseEventHandler } from "react";
+import { Box, Text, Tooltip } from "@chakra-ui/react";
 import { Button } from "@/components/ChakraUI";
-import { BeatLoader } from "react-spinners";
 import clickPromptBird from "@/assets/images/click-button-bird.svg?url";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { ChatGPTApp } from "@/components/ChatGPTApp";
+import { useRouter } from "next/navigation";
 
 type ButtonSize = "sm" | "md" | "lg";
 
@@ -25,7 +14,7 @@ type CPButtonProps = {
   loading?: boolean;
   onClick?: MouseEventHandler;
   size?: ButtonSize;
-  text?: string;
+  text: string;
   children?: React.ReactNode;
   [key: string]: any;
 };
@@ -40,37 +29,29 @@ function ClickPromptBird(props: ClickPromptBirdParams) {
 }
 
 export function ClickPromptButton(props: CPButtonProps) {
-  const [isLoading, setIsLoading] = useState(props.loading);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
 
-  const handleClick = (event: any) => {
-    // todo: check token
-    setIsLoading(true);
-    onOpen();
-    props.onClick && props.onClick(event);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, message: string) => {
+    localStorage.setItem("prompt", message);
+    props.onClick?.(event);
+    router.push("/chatgpt");
   };
 
-  const handleClose = () => {
-    setIsLoading(false);
-    onClose();
-  };
-
-  function NormalSize() {
+  function NormalSize({ message }: { message: string }) {
     return (
       <StyledPromptButton>
-        <Button colorScheme='twitter' className='bg-blue' onClick={handleClick} {...props}>
+        <Button colorScheme='twitter' className='bg-blue' onClick={(event) => handleClick(event, message)} {...props}>
           {props.children}
-          {!isLoading && <Text>Prompt</Text>}
-          {isLoading && <BeatLoader size={8} color='black' />}
+          <Text>Prompt</Text>
         </Button>
         <ClickPromptBird />
       </StyledPromptButton>
     );
   }
 
-  function SmallSize() {
+  function SmallSize({ message }: { message: string }) {
     return (
-      <Button variant='unstyled' onClick={handleClick} {...props}>
+      <Button variant='unstyled' onClick={(event) => handleClick(event, message)} {...props}>
         {props.children}
         <Tooltip label='执行 ChatGPT Prompt' aria-label='A tooltip'>
           <InlinedBird src={clickPromptBird} alt='ClickPrompt Logo' width={24} height={24} />
@@ -79,25 +60,7 @@ export function ClickPromptButton(props: CPButtonProps) {
     );
   }
 
-  return (
-    <Box>
-      {props.size !== "sm" && <NormalSize />}
-      {props.size === "sm" && <SmallSize />}
-
-      <Drawer isOpen={isOpen} placement='right' onClose={handleClose} size={"2xl"}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton className='text-white z-50' />
-          {/* <DrawerHeader>ChatGPT</DrawerHeader> */}
-          <DrawerBody padding={0}>
-            <div className='bg-[#343541] flex flex-1 h-[100%] overflow-y-auto items-center justify-center'>
-              <ChatGPTApp message={props?.text ? props?.text.toString() : ""} />
-            </div>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-    </Box>
-  );
+  return <Box>{props.size === "sm" ? <SmallSize message={props.text} /> : <NormalSize message={props.text} />}</Box>;
 }
 
 const InlinedBird = styled(Image)`

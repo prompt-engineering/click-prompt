@@ -71,17 +71,11 @@ const ChatSendButton = styled("button")`
   outline: none;
 `;
 
-export const ChatRoom = ({
-  setIsLoggedIn,
-  initMessage,
-}: {
-  setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>;
-  initMessage?: string;
-}) => {
+export const ChatRoom = ({ setIsLoggedIn }: { setIsLoggedIn: Dispatch<SetStateAction<boolean | null>> }) => {
   const chatsWrapper = React.useRef<HTMLDivElement>(null);
   const [disable, setDisable] = React.useState(false);
   const [chatHistory, setChatHistory] = React.useState<ChatCompletionRequestMessage[]>([]);
-  const [message, setMessage] = React.useState(initMessage?.toString() ?? "");
+  const [message, setMessage] = React.useState("");
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
@@ -92,6 +86,8 @@ export const ChatRoom = ({
       }
     };
     document.addEventListener("keydown", listener);
+
+    setMessage(localStorage.getItem("prompt") || "");
     return () => {
       document.removeEventListener("keydown", listener);
     };
@@ -123,6 +119,7 @@ export const ChatRoom = ({
               chatsWrapper.current.scrollTop = chatsWrapper.current.scrollHeight;
             }
             setMessage("");
+            localStorage.getItem("prompt") && localStorage.removeItem("prompt");
           }, 100);
         }
       } else {

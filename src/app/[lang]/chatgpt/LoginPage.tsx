@@ -2,14 +2,12 @@ import { Button, Input } from "@/components/ChakraUI";
 import React, { Dispatch, SetStateAction } from "react";
 
 export const LoginPage = ({
-  openAiKey,
-  setOpenAiKey,
   setIsLoggedIn,
 }: {
-  openAiKey: string;
-  setOpenAiKey: Dispatch<SetStateAction<string>>;
   setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>;
 }) => {
+  const [openAiKey, setOpenAiKey] = React.useState("");
+
   async function login(key: string) {
     if (key.length === 0) {
       alert("Please enter your OpenAI API key first.");
