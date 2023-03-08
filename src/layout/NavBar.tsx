@@ -22,30 +22,30 @@ import { getDictionary, stripLocaleInPath, SupportedLocale } from "@/i18n";
 export default async function NavBar({ locale }: { locale: string }) {
   const pathname = stripLocaleInPath(headers().get(SITE_INTERNAL_HEADER_PATHNAME) || "");
   const dict = await getDictionary(locale as SupportedLocale);
-  const all = dict.all;
+  const navbarDict = dict.all["navbar"];
 
   const NavList = [
     {
       title: "ChatGPT",
       children: [
-        { url: `/chatgpt-general/`, title: all["navbar"]["chatgpt-general"] },
-        { url: `/chatgpt-prompt-role-play/`, title: all["navbar"]["chatgpt-prompt-role-play"] },
-        { url: `/chatgpt-generator-cot/`, title: all["navbar"]["chatgpt-generator-cot"] },
-        { url: `/chatgpt-interactive-game/`, title: all["navbar"]["chatgpt-interactive-game"] },
-        { url: `/chatgpt-samples/`, title: all["navbar"]["chatgpt-samples"] },
-        { url: `/chatgpt/`, title: all["navbar"]["chatgpt"] },
+        { url: `/chatgpt-general/`, title: navbarDict["chatgpt-general"] },
+        { url: `/chatgpt-prompt-role-play/`, title: navbarDict["chatgpt-prompt-role-play"] },
+        { url: `/chatgpt-generator-cot/`, title: navbarDict["chatgpt-generator-cot"] },
+        { url: `/chatgpt-interactive-game/`, title: navbarDict["chatgpt-interactive-game"] },
+        { url: `/chatgpt-samples/`, title: navbarDict["chatgpt-samples"] },
+        { url: `/chatgpt/`, title: navbarDict["chatgpt"] },
       ],
     },
     {
       title: "StableDiffusion",
-      children: [{ url: `/stable-diffusion-examples/`, title: all["navbar"]["stable-diffusion-examples"] }],
+      children: [{ url: `/stable-diffusion-examples/`, title: navbarDict["stable-diffusion-examples"] }],
     },
-    { url: `/stable-diffusion-generator/`, title: all["navbar"]["stable-diffusion-generator"] },
+    { url: `/stable-diffusion-generator/`, title: navbarDict["stable-diffusion-generator"] },
     {
       title: "GitHub Copilot",
-      children: [{ url: `/github-copilot-samples/`, title: all["navbar"]["github-copilot-samples"] }],
+      children: [{ url: `/github-copilot-samples/`, title: navbarDict["github-copilot-samples"] }],
     },
-    { title: "Resources", children: [{ url: `/resources/`, title: all["navbar"]["resources"] }] },
+    { title: "Resources", children: [{ url: `/resources/`, title: navbarDict["resources"] }] },
   ];
 
   return (

@@ -1,8 +1,8 @@
 [
   {
     "name": {
-      "zh-cn": "写作",
-      "en-us": "Writing"
+      "zh-CN": "写作",
+      "en-US": "Writing"
     },
     "category": "Writing",
     "samples": [
@@ -40,8 +40,8 @@
   },
   {
     "name": {
-      "zh-cn": "编程",
-      "en-us": "Programming"
+      "zh-CN": "编程",
+      "en-US": "Programming"
     },
     "category": "Programming",
     "samples": [
@@ -69,8 +69,8 @@
   },
   {
     "name": {
-      "zh-cn": "商业",
-      "en-us": "Business"
+      "zh-CN": "商业",
+      "en-US": "Business"
     },
     "category": "Business",
     "samples": [
@@ -88,8 +88,8 @@
   },
   {
     "name": {
-      "zh-cn": "社交",
-      "en-us": "Social"
+      "zh-CN": "社交",
+      "en-US": "Social"
     },
     "category": "Social",
     "samples": [

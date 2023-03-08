@@ -46,8 +46,8 @@ type GeneralCommand = {
 // ```
 type CategoryGpt = {
   name: {
-    "zh-cn": string;
-    "en-us": string;
+    "zh-CN": string;
+    "en-US": string;
   };
   category: string;
   samples: {
@@ -78,6 +78,7 @@ const columns = [
 
 function ChatGptGeneral() {
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt/category`;
+  // console.log(locale);
 
   return (
     <SimpleGrid columns={1} spacing={10}>
@@ -94,7 +95,7 @@ function ChatGptGeneral() {
         {gptCategorySamples.map((category: CategoryGpt, index: number) => {
           return (
             <Box key={`category-${index}`}>
-              <Heading as={"h3"}>{category.name["zh-cn"]}</Heading>
+              <Heading as={"h3"}>{category.name["zh-CN"]}</Heading>
               <StyleCardList>
                 {category.samples.map((sample, sIndex: number) => {
                   return (
