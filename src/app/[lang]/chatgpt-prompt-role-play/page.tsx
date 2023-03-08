@@ -7,9 +7,10 @@ import { DataTable } from "@/components/DataTable/DataTable";
 import { LinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import Highlight from "@/components/Highlight";
-import promptsEn from "@/assets/resources/prompts_en.json";
-import promptsCn from "@/assets/resources/prompts_cn.json";
+import promptsEn from "@/assets/resources/prompts_en-US.json";
+import promptsCn from "@/assets/resources/prompts_zh-CN.json";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { SupportedLocale } from "@/i18n";
 
 type ActPrompt = {
   act: string;
@@ -44,19 +45,20 @@ const genColumns = (highlight: string) => [
 
 type Prompts = { act: string; prompt: string }[];
 
-function ChatGptPromptList() {
+type Props = {
+  params: {
+    lang: SupportedLocale;
+  };
+};
+
+function ChatGptPromptList(props: Props) {
   const [data, setData] = useState<Prompts>([]);
   const [search, setSearch] = useState<string>("");
+
   useEffect(() => {
-    // read local json data
-    let promptsConcat = promptsCn.concat(promptsEn);
-    if (promptsConcat != undefined && promptsConcat.length > 0) {
-      setData(promptsConcat as Prompts);
-    } else {
-      setData([]);
-      throw new Error("parse csv error: " + promptsConcat.join(","));
-    }
-  }, []);
+    const prompts = props.params.lang === "zh-CN" ? promptsCn : promptsEn;
+    setData(prompts);
+  });
 
   return (
     <div>
