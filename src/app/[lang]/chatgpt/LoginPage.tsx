@@ -1,11 +1,9 @@
-import { Button, Input } from "@/components/ChakraUI";
-import React, { Dispatch, SetStateAction } from "react";
+"use client";
 
-export const LoginPage = ({
-  setIsLoggedIn,
-}: {
-  setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>;
-}) => {
+import { Button, Input } from "@/components/ChakraUI";
+import React from "react";
+
+export const LoginPage = () => {
   const [openAiKey, setOpenAiKey] = React.useState("");
 
   async function login(key: string) {
@@ -22,9 +20,7 @@ export const LoginPage = ({
     });
     const data = await response.json();
     if (!data.error) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
+      window.location.reload();
     }
   }
 
