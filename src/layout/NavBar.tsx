@@ -17,62 +17,35 @@ import { headers } from "next/headers";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL, SITE_INTERNAL_HEADER_PATHNAME } from "@/configs/constants";
 import LocaleSwitcher from "@/components/LocaleSwtcher";
-import { stripLocaleInPath } from "@/i18n";
+import { getDictionary, stripLocaleInPath, SupportedLocale } from "@/i18n";
 
-export default function NavBar({ locale }: { locale: string }) {
+export default async function NavBar({ locale }: { locale: string }) {
   const pathname = stripLocaleInPath(headers().get(SITE_INTERNAL_HEADER_PATHNAME) || "");
+  const dict = await getDictionary(locale as SupportedLocale);
+  const all = dict.all;
 
   const NavList = [
     {
       title: "ChatGPT",
       children: [
-        {
-          url: `/chatgpt-general/`,
-          title: "ChatGPT 常用指令",
-        },
-        {
-          url: `/chatgpt-prompt-role-play/`,
-          title: "ChatGPT 角色扮演",
-        },
-        {
-          url: `/chatgpt-generator-cot/`,
-          title: "ChatGPT 思维链模式",
-        },
-        {
-          url: `/chatgpt-interactive-game/`,
-          title: "ChatGPT 交互式游戏",
-        },
-        {
-          url: `/chatgpt-samples/`,
-          title: "ChatGPT 示例",
-        },
-        {
-          url: `/chatgpt/`,
-          title: "ChatGPT 聊天室",
-        },
+        { url: `/chatgpt-general/`, title: all["navbar"]["chatgpt-general"] },
+        { url: `/chatgpt-prompt-role-play/`, title: all["navbar"]["chatgpt-prompt-role-play"] },
+        { url: `/chatgpt-generator-cot/`, title: all["navbar"]["chatgpt-generator-cot"] },
+        { url: `/chatgpt-interactive-game/`, title: all["navbar"]["chatgpt-interactive-game"] },
+        { url: `/chatgpt-samples/`, title: all["navbar"]["chatgpt-samples"] },
+        { url: `/chatgpt/`, title: all["navbar"]["chatgpt"] },
       ],
     },
     {
       title: "StableDiffusion",
-      children: [
-        {
-          url: `/stable-diffusion-examples/`,
-          title: "StableDiffusion 示例",
-        },
-      ],
+      children: [{ url: `/stable-diffusion-examples/`, title: all["navbar"]["stable-diffusion-examples"] }],
     },
+    { url: `/stable-diffusion-generator/`, title: all["navbar"]["stable-diffusion-generator"] },
     {
-      url: `/stable-diffusion-generator/`,
-      title: "AI 绘画生成器",
+      title: "GitHub Copilot",
+      children: [{ url: `/github-copilot-samples/`, title: all["navbar"]["github-copilot-samples"] }],
     },
-    {
-      url: `/github-copilot-samples/`,
-      title: "GitHub Copilot 示例",
-    },
-    {
-      url: `/resources/`,
-      title: "学习资料",
-    },
+    { title: "Resources", children: [{ url: `/resources/`, title: all["navbar"]["resources"] }] },
   ];
 
   return (
