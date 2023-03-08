@@ -3,7 +3,7 @@ const hasher = createHash("sha256");
 
 import { NextApiHandler } from "next";
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
-import { SITE_USER_COOKIE } from "@/configs/const";
+import { SITE_USER_COOKIE } from "@/configs/constants";
 
 function createNewOpenAIApi(apiKey: string) {
   const configuration = new Configuration({

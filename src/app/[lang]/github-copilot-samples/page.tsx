@@ -5,7 +5,7 @@ import { Alert, AlertIcon, AlertTitle, Box, Card, CardBody, CardHeader, Heading,
 import samples from "@/assets/github-copilot/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
-import { CP_GITHUB_ASSETS } from "@/configs/const";
+import { CP_GITHUB_ASSETS } from "@/configs/constants";
 
 type Snippet = {
   name: string;

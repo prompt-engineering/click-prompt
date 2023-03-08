@@ -15,38 +15,39 @@ import { ChevronDownIcon, ExternalLinkIcon, HamburgerIcon } from "@/components/C
 import Link from "next/link";
 import { headers } from "next/headers";
 import { ClickPromptIcon } from "@/components/CustomIcon";
-import { GITHUB_URL } from "@/configs/const";
+import { GITHUB_URL, SITE_INTERNAL_HEADER_PATHNAME } from "@/configs/constants";
 import LocaleSwitcher from "@/components/LocaleSwtcher";
+import { stripLocaleInPath } from "@/i18n";
 
 export default function NavBar({ locale }: { locale: string }) {
-  const pathname = headers().get("$$$x-pathname") || "";
+  const pathname = stripLocaleInPath(headers().get(SITE_INTERNAL_HEADER_PATHNAME) || "");
 
   const NavList = [
     {
       title: "ChatGPT",
       children: [
         {
-          url: `/chatgpt-general`,
+          url: `/chatgpt-general/`,
           title: "ChatGPT 常用指令",
         },
         {
-          url: `/chatgpt-prompt-role-play`,
+          url: `/chatgpt-prompt-role-play/`,
           title: "ChatGPT 角色扮演",
         },
         {
-          url: `/chatgpt-generator-cot`,
+          url: `/chatgpt-generator-cot/`,
           title: "ChatGPT 思维链模式",
         },
         {
-          url: `/chatgpt-interactive-game`,
+          url: `/chatgpt-interactive-game/`,
           title: "ChatGPT 交互式游戏",
         },
         {
-          url: `/chatgpt-samples`,
+          url: `/chatgpt-samples/`,
           title: "ChatGPT 示例",
         },
         {
-          url: `/chatgpt`,
+          url: `/chatgpt/`,
           title: "ChatGPT 聊天室",
         },
       ],
@@ -55,21 +56,21 @@ export default function NavBar({ locale }: { locale: string }) {
       title: "StableDiffusion",
       children: [
         {
-          url: `/stable-diffusion-examples`,
+          url: `/stable-diffusion-examples/`,
           title: "StableDiffusion 示例",
         },
       ],
     },
     {
-      url: `/stable-diffusion-generator`,
+      url: `/stable-diffusion-generator/`,
       title: "AI 绘画生成器",
     },
     {
-      url: `/github-copilot-samples`,
+      url: `/github-copilot-samples/`,
       title: "GitHub Copilot 示例",
     },
     {
-      url: `/resources`,
+      url: `/resources/`,
       title: "学习资料",
     },
   ];

@@ -1,6 +1,11 @@
 import { NextMiddleware, NextResponse } from "next/server";
 import { SupportedLocales, getLocale, replaceRouteLocale, getLocaleFromPath, SupportedLocale } from "@/i18n";
-import { SITE_LOCALE_COOKIE } from "@/configs/const";
+import {
+  SITE_INTERNAL_HEADER_LOCALE,
+  SITE_INTERNAL_HEADER_PATHNAME,
+  SITE_INTERNAL_HEADER_URL,
+  SITE_LOCALE_COOKIE,
+} from "@/configs/constants";
 
 export const middleware: NextMiddleware = (request) => {
   // Check if there is any supported locale in the pathname
@@ -30,9 +35,9 @@ export const middleware: NextMiddleware = (request) => {
   // for server component to access url and pathname
   // Store current request url in a custom header, which you can read later
   const requestHeaders = new Headers(request.headers);
-  requestHeaders.set("$$$x-url", request.url);
-  requestHeaders.set("$$$x-pathname", request.nextUrl.pathname);
-  requestHeaders.set("$$$x-locale", locale);
+  requestHeaders.set(SITE_INTERNAL_HEADER_URL, request.url);
+  requestHeaders.set(SITE_INTERNAL_HEADER_PATHNAME, request.nextUrl.pathname);
+  requestHeaders.set(SITE_INTERNAL_HEADER_LOCALE, locale);
 
   return NextResponse.next({
     request: {

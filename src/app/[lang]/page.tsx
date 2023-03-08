@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Container, Heading, Stack, Text } from "@/components/ChakraUI";
 import { ClickPromptIcon } from "@/components/CustomIcon";
-import { GITHUB_URL } from "@/configs/const";
+import { GITHUB_URL } from "@/configs/constants";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { getDictionary, SupportedLocale } from "@/i18n";
 

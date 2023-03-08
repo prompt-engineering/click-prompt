@@ -25,7 +25,7 @@ import CopyComponent from "@/components/CopyComponent";
 import samples from "@/assets/stable-diffusion/samples/index.json";
 import { ExternalLinkIcon, InfoIcon } from "@chakra-ui/icons";
 import { parseStableDiffusionData } from "@/data-processor/SduiParser";
-import { CP_GITHUB_ASSETS } from "@/configs/const";
+import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
 import styled from "@emotion/styled";
 

@@ -11,7 +11,7 @@ import { DataTable } from "@/components/DataTable/DataTable";
 import aiResource from "@/assets/resources/ai-resources.json";
 import cnData from "@/assets/resources/reading-list_zh-CN.json";
 import enData from "@/assets/resources/reading-list_en-US.json";
-import { GITHUB_URL } from "@/configs/const";
+import { GITHUB_URL } from "@/configs/constants";
 
 type ReadingResource = {
   name: string;

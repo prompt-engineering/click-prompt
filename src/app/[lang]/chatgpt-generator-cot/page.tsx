@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Box, FormControl, FormLabel, Grid, Heading, IconButton, Input, SimpleGrid, useToast } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
@@ -94,7 +94,7 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
           <Grid gap={6} templateColumns={"auto 4rem"} alignItems='end'>
             {/* 第一步到第 N 步 */}
             {lines.map((line, index) => (
-              <>
+              <Fragment key={index}>
                 <FormControl key='step' id='step' mt={4}>
                   <RemovableLabel removeLine={removeLine} index={index} />
                   <Input
@@ -110,7 +110,7 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
                 ) : (
                   <div></div>
                 )}
-              </>
+              </Fragment>
             ))}
           </Grid>
         </Form>

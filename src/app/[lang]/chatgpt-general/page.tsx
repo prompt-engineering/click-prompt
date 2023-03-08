@@ -22,7 +22,7 @@ import {
 } from "@chakra-ui/react";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { CP_GITHUB_ASSETS } from "@/configs/const";
+import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import styled from "@emotion/styled";
 
 type GeneralCommand = {

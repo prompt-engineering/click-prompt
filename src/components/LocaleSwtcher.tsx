@@ -1,6 +1,6 @@
 "use client";
 
-import { SITE_LOCALE_COOKIE } from "@/configs/const";
+import { SITE_LOCALE_COOKIE } from "@/configs/constants";
 
 export default function LocaleSwitcher({ locale }: { locale: string }) {
   const classZh = locale === "zh-CN" ? "text-blue-500" : "text-gray-500";
