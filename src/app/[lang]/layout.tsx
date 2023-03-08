@@ -5,10 +5,6 @@ import Image from "next/image";
 import NavBar from "@/layout/NavBar";
 import { Container } from "@/components/ChakraUI";
 import { Provider } from "@/components/ChakraUI/Provider";
-import { Metadata } from "next";
-import { NEXT_SEO_DEFAULT } from "@/configs/next-seo-config";
-
-export const metadata: Metadata = NEXT_SEO_DEFAULT;
 
 type RootLayoutProps = {
   params: {
