@@ -1,13 +1,13 @@
-import { NextApiHandler } from "next";
-import { Configuration, OpenAIApi, ChatCompletionRequestMessage } from "openai";
-import { v4 as UUID } from "uuid";
+import {NextApiHandler} from "next";
+import {ChatCompletionRequestMessage, Configuration, OpenAIApi} from "openai";
+import {v4 as UUID} from "uuid";
+import {SITE_USER_COOKIE} from "@/configs/const";
 
 function createNewOpenAIApi(apiKey: string) {
   const configuration = new Configuration({
     apiKey,
   });
-  const openai = new OpenAIApi(configuration);
-  return openai;
+  return new OpenAIApi(configuration);
 }
 
 export type User = {
@@ -32,14 +32,13 @@ type Response = {
   error?: string;
 };
 
-const COOKIE_FOR_USER_ID = "PROMPT_GENERATOR_USER";
 const handler: NextApiHandler = async (req, res) => {
   if (!(req.method === "POST" && req.body)) {
     res.status(404).json({ error: "Not found" });
     return;
   }
 
-  let userId = req.cookies[COOKIE_FOR_USER_ID];
+  let userId = req.cookies[SITE_USER_COOKIE];
   const { key, action } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
   if (!action) {
@@ -49,20 +48,20 @@ const handler: NextApiHandler = async (req, res) => {
 
   switch (action) {
     case "login":
-      if (!key) {
-        res.status(400).json({ error: "No key provided" } as Response);
+      if (key) {
+        userId = UUID();
+        users.push({
+          id: userId,
+          openai: createNewOpenAIApi(key),
+          conversations: new Map(),
+        });
+        console.log(`User ${userId} logged in`);
+        res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=${userId}; Max-Age=3600; HttpOnly; Path=/;`);
+        return res.status(200).json({message: "Logged in"} as Response);
+      } else {
+        res.status(400).json({error: "No key provided"} as Response);
         return;
       }
-      userId = UUID();
-      users.push({
-        id: userId,
-        openai: createNewOpenAIApi(key),
-        conversations: new Map(),
-      });
-
-      console.log(`User ${userId} logged in`);
-      res.setHeader("Set-Cookie", `${COOKIE_FOR_USER_ID}=${userId}; Max-Age=3600;`);
-      return res.status(200).json({ message: "Logged in" } as Response);
     case "logout":
       if (!userId) {
         res.status(200).json({ error: "You're not logged in yet!" } as Response);

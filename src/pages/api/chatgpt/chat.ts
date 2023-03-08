@@ -11,7 +11,7 @@ const handler: NextApiHandler = async (req, res) => {
   }
   const user = getUserByUserId(userId);
   if (!user) {
-    res.setHeader("Set-Cookie", "PROMPT_GENERATOR_USER=; Max-Age=0");
+    res.setHeader("Set-Cookie", "PROMPT_GENERATOR_USER=; Max-Age=0; HttpOnly; Path=/;");
     res.status(400).json({ error: "Your login session has been expired!" });
     return;
   }
