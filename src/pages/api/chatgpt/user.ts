@@ -1,5 +1,4 @@
 import { createHash } from "node:crypto";
-const hasher = createHash("sha256");
 
 import { NextApiHandler } from "next";
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
@@ -51,6 +50,7 @@ const handler: NextApiHandler = async (req, res) => {
   switch (action) {
     case "login":
       if (key) {
+        const hasher = createHash("sha256");
         userId = hasher.update(key).digest().toString("hex");
         users.push({
           id: userId,
