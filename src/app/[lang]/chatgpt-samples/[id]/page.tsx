@@ -12,13 +12,13 @@ import {
   Flex,
   Heading,
   Link,
+  SimpleGrid,
   Spacer,
   Tooltip,
 } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
-import { SimpleGrid } from "@chakra-ui/react";
 
 interface Sample {
   name: string;
