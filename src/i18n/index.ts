@@ -20,10 +20,6 @@ export function stripLocaleInPath(pathname: string): PagePath {
     striped = pathname as PagePath;
   }
 
-  if (!pages.includes(striped)) {
-    throw new Error(`Invalid path: ${striped}`);
-  }
-
   return striped;
 }
 
@@ -78,7 +74,7 @@ export type AppData = {
 };
 export type AppDataI18n = AppData["i18n"];
 import { SITE_INTERNAL_HEADER_LOCALE, SITE_INTERNAL_HEADER_PATHNAME } from "@/configs/constants";
-import { PagePath, pages } from "./pagePath";
+import { PagePath } from "./pagePath";
 import * as console from "console";
 export async function getAppData(): Promise<AppData> {
   let pathname: PagePath = "/";
