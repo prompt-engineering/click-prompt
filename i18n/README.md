@@ -16,10 +16,10 @@ import { getAppData } from "@/i18n";
 
 async function RscFoo() {
   // ...
-	const { i18n } = await getAppData();
-	const t = i18n.tFactory("/"); 
+  const { i18n } = await getAppData();
+  const t = i18n.tFactory("/"); 
   // t is a function takes key and give you value in the json file
-	// ...
+  // ...
 }
 
 ```
