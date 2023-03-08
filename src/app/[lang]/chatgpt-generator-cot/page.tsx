@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Box, FormControl, FormLabel, Grid, Heading, IconButton, Input, useToast } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Grid, Heading, IconButton, Input, SimpleGrid, useToast } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
@@ -68,7 +68,8 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
   };
 
   return (
-    <div>
+    <SimpleGrid columns={1} spacing={4}>
+      <Heading as='h2'>ChatGPT 思维链模式</Heading>
       <Heading as='h3' size='md'>
         预期输出
       </Heading>
@@ -114,7 +115,7 @@ ${lines.map((line, index) => `- ${numberToChineseOrdinal(index + 1)}步. ${line}
           </Grid>
         </Form>
       </Formik>
-    </div>
+    </SimpleGrid>
   );
 }
 

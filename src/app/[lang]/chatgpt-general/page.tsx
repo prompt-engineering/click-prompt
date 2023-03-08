@@ -18,6 +18,7 @@ import {
   AlertTitle,
   Alert,
   Link as NavLink,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
@@ -79,7 +80,8 @@ function ChatGptGeneral() {
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt/category`;
 
   return (
-    <div>
+    <SimpleGrid columns={1} spacing={10}>
+      <Heading as={"h3"}>常用模式</Heading>
       {chatgptSpecific && <DataTable data={chatgptSpecific} columns={columns} />}
       <Alert status='info'>
         <AlertIcon />
@@ -92,7 +94,7 @@ function ChatGptGeneral() {
         {gptCategorySamples.map((category: CategoryGpt, index: number) => {
           return (
             <Box key={`category-${index}`}>
-              <Heading as={"h2"}>{category.name["zh-cn"]}</Heading>
+              <Heading as={"h3"}>{category.name["zh-cn"]}</Heading>
               <StyleCardList>
                 {category.samples.map((sample, sIndex: number) => {
                   return (
@@ -121,7 +123,7 @@ function ChatGptGeneral() {
           );
         })}
       </Flex>
-    </div>
+    </SimpleGrid>
   );
 }
 
