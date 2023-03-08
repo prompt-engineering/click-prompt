@@ -43,7 +43,7 @@ export const LoginPage = ({
         </div>
         <div>
           2. Create a new secret key in &nbsp;
-          <a href='https://platform.openai.com/account/api-keys' target='_blank' class='underline'>
+          <a href='https://platform.openai.com/account/api-keys' target='_blank' className='underline'>
             Settings → API keys.
           </a>
         </div>
