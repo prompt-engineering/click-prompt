@@ -18,6 +18,7 @@ import {
 import { notFound } from "next/navigation";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
+import { SimpleGrid } from "@chakra-ui/react";
 
 interface Sample {
   name: string;
@@ -61,12 +62,10 @@ async function Sample({ params }: { params: { id: string } }) {
           </Box>
           <Heading as='h4'>
             {content.name} by &nbsp;
-            <Link href={content.homepage} isExternal>
-              {/*{content.author} <ExternalLinkIcon />*/}
-            </Link>
+            <Link href={content.homepage} isExternal />
           </Heading>
           <Spacer />
-          <Box>
+          <SimpleGrid columns={1} spacing={4}>
             {content.steps.map((step, index) => (
               <>
                 <HumanBlock>
@@ -80,9 +79,7 @@ async function Sample({ params }: { params: { id: string } }) {
                       <CopyComponent value={step.ask} />
                     </Box>
                     <Tooltip label='Open In ChatGPT'>
-                      <Link href={"https://chat.openai.com/"} isExternal>
-                        {/*<ExternalLinkIcon boxSize={22} />*/}
-                      </Link>
+                      <Link href={"https://chat.openai.com/"} isExternal />
                     </Tooltip>
                   </Flex>
                 </HumanBlock>
@@ -96,7 +93,7 @@ async function Sample({ params }: { params: { id: string } }) {
                 </AiBlock>
               </>
             ))}
-          </Box>
+          </SimpleGrid>
         </>
       )}
     </>
