@@ -9,12 +9,12 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Flex,
   Heading,
   Link,
   SimpleGrid,
   Spacer,
-  Tooltip,
+  Flex,
+  Stack,
 } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
@@ -50,50 +50,45 @@ async function Sample({ params }: { params: { id: string } }) {
     <>
       {content && (
         <>
-          <Box>
-            <Breadcrumb>
-              <BreadcrumbItem>
-                <BreadcrumbLink href='/chatgpt-samples'>ChatGPT 示例</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbItem>
-                <BreadcrumbLink href={`/chatgpt-samples/${params.id}`}>{content.name}</BreadcrumbLink>
-              </BreadcrumbItem>
-            </Breadcrumb>
-          </Box>
-          <Heading as='h4'>
-            {content.name} by &nbsp;
-            <Link href={content.homepage} isExternal />
-          </Heading>
-          <Spacer />
-          <SimpleGrid columns={1} spacing={4}>
-            {content.steps.map((step, index) => (
-              <>
-                <HumanBlock>
-                  <Avatar bg='teal.500' name='Phodal' size='sm' mr={2} />
-                  <Flex flex='1'>
-                    <Flex flexDirection='column'>
+          <Flex direction='column' gap='4'>
+            <Box>
+              <Breadcrumb>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href='/chatgpt-samples'>ChatGPT 示例</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/chatgpt-samples/${params.id}`}>{content.name}</BreadcrumbLink>
+                </BreadcrumbItem>
+              </Breadcrumb>
+            </Box>
+
+            <Heading as='h4'>{content.name}</Heading>
+
+            <SimpleGrid columns={1} spacing={4}>
+              {content.steps.map((step, index) => (
+                <>
+                  <HumanBlock direction='row' justify='space-between'>
+                    <Flex direction='row' gap='2'>
+                      <Avatar bg='teal.500' name='Phodal' size='sm' mr={2} />
                       <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
                     </Flex>
-                    <ClickPromptButton size={"sm"} text={step.ask} />
-                    <Box ml={2} mt={1} mr={2}>
+                    <Flex direction='row' gap='2'>
                       <CopyComponent value={step.ask} />
+                      <ClickPromptButton size={"sm"} text={step.ask} />
+                    </Flex>
+                  </HumanBlock>
+                  <AiBlock direction='row' gap='2'>
+                    <Box>
+                      <ChatGptIcon />
                     </Box>
-                    <Tooltip label='Open In ChatGPT'>
-                      <Link href={"https://chat.openai.com/"} isExternal />
-                    </Tooltip>
-                  </Flex>
-                </HumanBlock>
-                <AiBlock>
-                  <Box>
-                    <ChatGptIcon />
-                  </Box>
-                  <Box ml='2' flex='1'>
-                    <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
-                  </Box>
-                </AiBlock>
-              </>
-            ))}
-          </SimpleGrid>
+                    <Box gap='2' ml='2' flex='1'>
+                      <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
+                    </Box>
+                  </AiBlock>
+                </>
+              ))}
+            </SimpleGrid>
+          </Flex>
         </>
       )}
     </>
