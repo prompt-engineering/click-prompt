@@ -70,7 +70,9 @@ async function Sample({ params }: { params: { id: string } }) {
                   <HumanBlock direction='row' justify='space-between'>
                     <Flex direction='row' gap='2'>
                       <Avatar bg='teal.500' name='Phodal' size='sm' mr={2} />
-                      <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                      <Box>
+                        <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                      </Box>
                     </Flex>
                     <Flex direction='row' gap='2'>
                       <CopyComponent value={step.ask} />
@@ -82,7 +84,9 @@ async function Sample({ params }: { params: { id: string } }) {
                       <ChatGptIcon />
                     </Box>
                     <Box gap='2' ml='2' flex='1'>
-                      <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
+                      <Box>
+                        <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
+                      </Box>
                     </Box>
                   </AiBlock>
                 </>
