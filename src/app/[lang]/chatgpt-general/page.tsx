@@ -24,6 +24,7 @@ import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import styled from "@emotion/styled";
+import { SupportedLocale } from "@/i18n";
 
 type GeneralCommand = {
   english: string;
@@ -76,9 +77,9 @@ const columns = [
   }),
 ];
 
-function ChatGptGeneral() {
+function ChatGptGeneral({ params }: { params: { lang: string } }) {
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt/category`;
-  // console.log(locale);
+  const lang = params.lang as any as SupportedLocale;
 
   return (
     <SimpleGrid columns={1} spacing={10}>
@@ -95,7 +96,7 @@ function ChatGptGeneral() {
         {gptCategorySamples.map((category: CategoryGpt, index: number) => {
           return (
             <Box key={`category-${index}`}>
-              <Heading as={"h3"}>{category.name["zh-CN"]}</Heading>
+              <Heading as={"h3"}>{category.name[lang]}</Heading>
               <StyleCardList>
                 {category.samples.map((sample, sIndex: number) => {
                   return (
