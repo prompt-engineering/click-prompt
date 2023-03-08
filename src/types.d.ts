@@ -1,3 +1,4 @@
+
 declare module "color-name-list" {
   interface ColorName {
     name: string;
@@ -37,4 +38,11 @@ declare module "nearest-color" {
 declare module "*.svg?url" {
   const content: string;
   export default content;
+}
+
+type GeneralRSCProps = {
+  i18n: import("@/i18n").AppDataI18n,
+  locale: import("@/i18n").SupportedLocale,
+  /** pathname without locale part */
+  pathname: string,
 }

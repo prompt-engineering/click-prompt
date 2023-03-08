@@ -3,16 +3,11 @@ import { Box, Button, Container, Heading, Stack, Text } from "@/components/Chakr
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/constants";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
-import { getDictionary, SupportedLocale } from "@/i18n";
+import { getAppData } from "@/i18n";
 
-type Props = {
-  params: {
-    lang: SupportedLocale;
-  };
-};
-async function Page({ params: { lang } }: Props) {
-  const dictionary = await getDictionary(lang);
-  const currentPage = dictionary.currentPage;
+async function Page() {
+  const { i18n } = await getAppData();
+  const currentPage = i18n.currentPage;
 
   return (
     <Box mb={20}>

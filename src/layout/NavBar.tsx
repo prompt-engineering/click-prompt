@@ -13,16 +13,14 @@ import {
 } from "@/components/ChakraUI";
 import { ChevronDownIcon, ExternalLinkIcon, HamburgerIcon } from "@/components/ChakraUI/icons";
 import Link from "next/link";
-import { headers } from "next/headers";
 import { ClickPromptIcon } from "@/components/CustomIcon";
-import { GITHUB_URL, SITE_INTERNAL_HEADER_PATHNAME } from "@/configs/constants";
+import { GITHUB_URL } from "@/configs/constants";
 import LocaleSwitcher from "@/components/LocaleSwtcher";
-import { getDictionary, stripLocaleInPath, SupportedLocale } from "@/i18n";
+import {getAppData} from "@/i18n";
 
 export default async function NavBar({ locale }: { locale: string }) {
-  const pathname = stripLocaleInPath(headers().get(SITE_INTERNAL_HEADER_PATHNAME) || "");
-  const dict = await getDictionary(locale as SupportedLocale);
-  const navbarDict = dict.all["navbar"];
+  const { i18n, pathname } = await getAppData();
+  const navbarDict = i18n.all.navbar;
 
   const NavList = [
     {
