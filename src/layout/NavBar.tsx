@@ -45,7 +45,7 @@ export default async function NavBar({ locale }: { locale: string }) {
       title: "GitHub Copilot",
       children: [{ url: `/github-copilot-samples/`, title: navbarDict["github-copilot-samples"] }],
     },
-    { title: "Resources", children: [{ url: `/resources/`, title: navbarDict["resources"] }] },
+    { url: `/resources/`, title: navbarDict["resources"] },
   ];
 
   return (
