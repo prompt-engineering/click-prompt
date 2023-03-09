@@ -14,7 +14,9 @@ export default async function ChatGPTPage() {
   const headersPropagated = { cookie: headers().get("cookie") as string };
   let data;
   try {
-    data = await fetch(new URL(`/api/chatgpt/verify`, url), { headers: headersPropagated }).then((res) => res.json());
+    data = await fetch(new URL(`/api/chatgpt/verify`, url), { headers: headersPropagated, cache: "no-cache" }).then(
+      (res) => res.json(),
+    );
   } catch (e) {
     console.error(e);
     data = { loggedIn: false };
