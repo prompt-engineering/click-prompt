@@ -1,1 +1,15 @@
-{}
+{
+  "lazy-mode": "懒人模式，输入你的场景",
+  "method-1-chatgpt-generate": "方法1：借助 ChatGPT 生成",
+  "method-2-manual-create": "方式 二：手动画人",
+  "character": "人物",
+  "other": "其他",
+  "body": "身体",
+  "bracket-style": "括号风格",
+  "round-bracket": "圆括号",
+  "curly-bracket": "大括号",
+  "copy-spell-and-save": "复制咒语并保存",
+  "clear-cache": "清除缓存",
+  "test-spell-online": "在线测试咒语",
+  "other-online-spell-tools": "其它在线咒语工具"
+}

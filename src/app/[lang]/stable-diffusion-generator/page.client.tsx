@@ -425,7 +425,9 @@ const tagToText = (tag: TagModel, bracketType: BracketType) => {
   return text;
 };
 
-function StableDiffusionGenerator({}: GeneralI18nProps) {
+function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
+  const dict = i18n.dict;
+
   const [isSubmitting] = useState(false);
   const promptResultRef = useRef<HTMLDivElement | null>(null);
   const [bracketType, setBracketType] = useState<BracketType>(BracketType.round);
@@ -483,9 +485,9 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
 
   return (
     <SimpleGrid spacing={10}>
-      <Heading as={"h3"}>方式 一：ChatGPT 生成 Tag</Heading>
+      <Heading as={"h3"}>{dict["method-1-chatgpt-generate"]}</Heading>
       <InputGroup size='lg'>
-        <Input placeholder={"懒人模式，输入你的场景"} value={lazyText} onChange={handleChange} />
+        <Input placeholder={dict["lazy-mode"]} value={lazyText} onChange={handleChange} />
         <InputRightElement width='6rem'>
           <Stack spacing={2} direction='row' align='center'>
             <CopyComponent value={toGptTemplate(lazyText)} />
@@ -493,7 +495,7 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
           </Stack>
         </InputRightElement>
       </InputGroup>
-      <Heading as={"h3"}>方式 二：手动画人</Heading>
+      <Heading as={"h3"}>{dict["method-2-manual-create"]}</Heading>
       <form onSubmit={formik.handleSubmit}>
         <SimpleGrid gap={3} p={3} columns={8}>
           {sdCommonPrompts.map((field) => PromptFieldForm({ field, formik }))}
@@ -501,12 +503,12 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
 
         <Flex alignItems='start' gap='2'>
           <Grid>
-            <Text>人物</Text>
+            <Text>{ dict["character"] }</Text>
             <SimpleGrid gap={3} p={3} columns={2}>
               {sdPersonPromptFields.map((field) => PromptFieldForm({ field, formik }))}
             </SimpleGrid>
 
-            <Text>其他</Text>
+            <Text>{dict["others"]}</Text>
             <SimpleGrid gap={3} p={3} columns={2}>
               {sdOtherPromptFields.map((field) => PromptFieldForm({ field, formik }))}
             </SimpleGrid>
@@ -515,7 +517,7 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
           <Image src={sdImage} alt='stable-diffusion-demo' />
 
           <Grid>
-            <Text>身体</Text>
+            <Text>{dict["body"]}</Text>
             <SimpleGrid gap={3} p={3} columns={2}>
               {sdDetailedPromptFields.map((field) => PromptFieldForm({ field, formik }))}
             </SimpleGrid>
@@ -524,9 +526,9 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
 
         <RadioGroup onChange={(val) => setBracketType(val as BracketType)} defaultValue={bracketType}>
           <Stack spacing={5} direction='row'>
-            <Text>括号风格</Text>
-            <Radio value={BracketType.round}>{BracketType.round}圆括号</Radio>
-            <Radio value={BracketType.brace}>{BracketType.brace}大括号</Radio>
+            <Text>{ dict["bracket-style"] }</Text>
+            <Radio value={BracketType.round}>{BracketType.round}{ dict["round-bracket"] }</Radio>
+            <Radio value={BracketType.brace}>{BracketType.brace}{ dict["curly-bracket"] }</Radio>
           </Stack>
         </RadioGroup>
 
@@ -578,20 +580,20 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
         <Text ref={promptResultRef}>{tagsText}</Text>
 
         <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
-          复制咒语并保存
+          {dict["copy-spell-and-save"]}
         </Button>
         <Button mt={4} marginLeft={1} isLoading={isSubmitting} onClick={onClear}>
-          清除缓存
+          {dict["clear-cache"]}
         </Button>
       </form>
-      <Heading as={"h3"}>在线测试咒语</Heading>
+      <Heading as={"h3"}>{ dict["test-spell-online"] }</Heading>
       <Flex alignItems='start' gap='2'>
         <HuggingFaceTxt2Img model='stabilityai/stable-diffusion-2-1-base' prompt={tagsText ?? ""} />
         <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={tagsText ?? ""} />
         <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={tagsText ?? ""} />
       </Flex>
       <SimpleGrid gap={3} p={3} columns={1}>
-        <Heading>其它在线咒语工具</Heading>
+        <Heading>{dict["other-online-spell-tools"]}</Heading>
         <Link href={"https://lexica.art/"} isExternal>
           Lexica
         </Link>

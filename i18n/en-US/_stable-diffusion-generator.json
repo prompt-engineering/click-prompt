@@ -1,1 +1,15 @@
-{}
+{
+  "lazy-mode": "Lazy mode, input your scene",
+  "method-1-chatgpt-generate": "Method 1: ChatGPT generate",
+  "method-2-manual-create": "Method 2: Manual create",
+  "character": "Character",
+  "other": "Other",
+  "body": "Body",
+  "bracket-style": "Bracket style",
+  "round-bracket": "Round bracket",
+  "curly-bracket": "Curly bracket",
+  "copy-spell-and-save": "Copy spell and save",
+  "clear-cache": "Clear cache",
+  "test-spell-online": "Test spell online",
+  "other-online-spell-tools": "Other online spell tools"
+}
