@@ -36,7 +36,11 @@ export default function LocaleSwitcher({ locale }: { locale: string }) {
         </MenuButton>
         <MenuList>
           {options.map((child) => (
-            <MenuItem key={child.value} onClick={() => (child.value === "zh-CN" ? setZh() : setEn())}>
+            <MenuItem
+              _focus={{ bg: "gray.100" }}
+              key={child.value}
+              onClick={() => (child.value === "zh-CN" ? setZh() : setEn())}
+            >
               <Box mr={4} className={`cursor-pointer ${classZh}`} color={child.value === locale ? "#108EE9" : "black"}>
                 {child.label}
               </Box>
