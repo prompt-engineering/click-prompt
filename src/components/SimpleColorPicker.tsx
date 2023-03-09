@@ -44,10 +44,10 @@ function SimpleColorPicker(props: SimpleColorProps) {
   };
 
   const handleChange = (color: ColorResult) => {
-    let newColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
+    const newColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
     setColor(newColor);
     if (props.updateColor) {
-      let colorName = nearest(color.hex).name;
+      const colorName = nearest(color.hex).name;
       // we should add color after the color name, so the StableDiffusion can parse it
       props.updateColor(colorName + " color");
     }

@@ -33,8 +33,8 @@ type CPButtonProps = {
 type ClickPromptBirdParams = { width?: number; height?: number };
 
 function ClickPromptBird(props: ClickPromptBirdParams) {
-  let width = props.width || 38;
-  let height = props.height || 32;
+  const width = props.width || 38;
+  const height = props.height || 32;
 
   return <StyledBird src={clickPromptBird} alt='ClickPrompt Logo' width={width} height={height} />;
 }

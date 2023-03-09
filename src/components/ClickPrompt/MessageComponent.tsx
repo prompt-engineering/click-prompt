@@ -10,7 +10,7 @@ function MessageComponent({ messages }: { messages: Message[] }) {
   const AlwaysScrollToBottom = () => {
     const elementRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-      let current = elementRef?.current;
+      const current = elementRef?.current;
       if (current!) {
         current.scrollIntoView();
       }

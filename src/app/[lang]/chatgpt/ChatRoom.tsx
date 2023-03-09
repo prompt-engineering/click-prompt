@@ -175,7 +175,7 @@ export const ChatRoom = ({
         {chatHistory.length === 0 && <Image className='mt-8' src={content} alt='background image'></Image>}
 
         {/* chats */}
-        <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-full overflow-y-auto'>
+        <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-full overflow-y-auto mt-11'>
           {chatHistory.map((chat, index) => {
             return (
               <div key={index} className='flex flex-col gap-14 '>

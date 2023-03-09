@@ -57,7 +57,7 @@ function GitHubCopilotSamples({}: GeneralI18nProps) {
     );
   }
 
-  let githubCopilotLink = `${CP_GITHUB_ASSETS}/github-copilot/samples`;
+  const githubCopilotLink = `${CP_GITHUB_ASSETS}/github-copilot/samples`;
   return (
     <div>
       <Alert status='info'>

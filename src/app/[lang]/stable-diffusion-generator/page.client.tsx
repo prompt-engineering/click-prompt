@@ -26,7 +26,6 @@ import CopyComponent from "@/components/CopyComponent";
 import PromptFieldForm, { SdPromptField } from "@/components/PromptFieldForm";
 import sdImage from "@/assets/images/stable-diffusion-demo.jpeg";
 import { WebStorage } from "@/utils/storage.util";
-import { flatten } from "lodash-es";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { HuggingFaceTxt2Img } from "./HuggingFaceTxt2Img";
 
@@ -377,7 +376,7 @@ const sdOtherPromptFields: SdPromptField[] = [
   },
 ];
 
-let fields = [...sdDetailedPromptFields, ...sdPersonPromptFields, ...sdCommonPrompts];
+const fields = [...sdDetailedPromptFields, ...sdPersonPromptFields, ...sdCommonPrompts];
 const generateEmptyForm = () =>
   fields.reduce((acc: any, field) => {
     acc[field.name] = { value: "", weight: 0, ratio: 1 };
@@ -445,7 +444,7 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
   });
 
   const tagsText = useMemo(() => {
-    let values = formik.values;
+    const values = formik.values;
     const filteredValues = Object.keys(values).reduce((acc: any, key) => {
       if (values[key].value !== "") acc[key] = values[key];
       return acc;

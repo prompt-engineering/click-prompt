@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     appDir: true,
+    typedRoutes: true,
   },
   trailingSlash: true,
   transpilePackages: ["react-syntax-highlighter"],

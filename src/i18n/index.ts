@@ -42,9 +42,8 @@ export function replaceRouteLocale(pathname: string, locale: SupportedLocale): s
 }
 
 export function getLocale(headers: Headers): SupportedLocale {
-  let languages = new Negotiator({
-    headers: [...headers].reduce((pre, [key, value]) => {
-      // @ts-ignore
+  const languages = new Negotiator({
+    headers: [...headers].reduce((pre: Record<string, string>, [key, value]) => {
       pre[key] = value;
       return pre;
     }, {}),
