@@ -1,1 +1,8 @@
-{}
+{
+  "common-pattern": "常用模式",
+  "type": "类型",
+  "example": "示例",
+  "common-scene": "常用模式",
+  "share-my-common-gpt-scene": "分享我的常用 ChatGPT 场景：",
+  "PR": "我要贡献"
+}

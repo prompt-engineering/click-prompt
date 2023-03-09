@@ -1,1 +1,8 @@
-{}
+{
+  "common-pattern": "Common Pattern",
+  "type": "Type",
+  "example": "example",
+  "common-scene": "common scene",
+  "share-my-common-gpt-scene": "Share my common ChatGPT scene: ",
+  "PR": "Pull Request"
+}

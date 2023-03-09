@@ -8,18 +8,18 @@ import { ClickPromptButton } from "@/components/ClickPromptButton";
 import gptCategorySamples from "@/assets/chatgpt/category/index.json";
 import chatgptSpecific from "@/assets/resources/chatgpt-specific.json";
 import {
-  Card,
-  CardBody,
-  CardHeader,
   Flex,
   Heading,
   Box,
+  Card,
+  CardBody,
+  CardHeader,
   AlertIcon,
   AlertTitle,
   Alert,
   Link as NavLink,
   SimpleGrid,
-} from "@chakra-ui/react";
+} from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
@@ -34,16 +34,6 @@ type GeneralCommand = {
   clickPrompt?: any;
 };
 
-// ```yml
-// name:
-//   zh-cn: 编程
-//   en-us: Programming
-// category: Programming
-// samples:
-//   - name: name
-//     ask: string
-//     response: string
-// ```
 type CategoryGpt = {
   name: {
     "zh-CN": string;
@@ -57,37 +47,38 @@ type CategoryGpt = {
   }[];
 };
 
-const columnHelper = createColumnHelper<GeneralCommand>();
+function ChatGptGeneral({ locale, i18n }: GeneralI18nProps) {
+  const dict = i18n.dict;
 
-const columns = [
-  columnHelper.accessor("chinese", {
-    cell: (info) => info.getValue(),
-    header: "中文",
-  }),
-  columnHelper.accessor("example", {
-    cell: (info) => info.getValue(),
-    header: "示例",
-  }),
-  columnHelper.accessor("clickPrompt", {
-    cell: (info) => {
-      return info.row.original.prompt !== "" ? <ClickPromptButton text={info.row.original.prompt} /> : null;
-    },
-    header: "",
-  }),
-];
-
-function ChatGptGeneral({ locale }: GeneralI18nProps) {
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt/category`;
+  const columnHelper = createColumnHelper<GeneralCommand>();
+
+  const columns = [
+    columnHelper.accessor("chinese", {
+      cell: (info) => info.getValue(),
+      header: dict["type"],
+    }),
+    columnHelper.accessor("example", {
+      cell: (info) => info.getValue(),
+      header: dict["example"],
+    }),
+    columnHelper.accessor("clickPrompt", {
+      cell: (info) => {
+        return info.row.original.prompt !== "" ? <ClickPromptButton text={info.row.original.prompt} /> : null;
+      },
+      header: "",
+    }),
+  ];
 
   return (
     <SimpleGrid columns={1} spacing={10}>
-      <Heading as={"h3"}>常用模式</Heading>
+      <Heading as={"h3"}>{dict["common-scene"]}</Heading>
       {chatgptSpecific && <DataTable data={chatgptSpecific} columns={columns} />}
       <Alert status='info'>
         <AlertIcon />
-        <AlertTitle>分享我的 ChatGPT 场景：</AlertTitle>
+        <AlertTitle>{dict["share-my-common-gpt-scene"]}</AlertTitle>
         <NavLink href={chatgptLink} isExternal>
-          Pull Request <ExternalLinkIcon />
+          {dict["PR"]} <ExternalLinkIcon />
         </NavLink>
       </Alert>
       <Flex flexDirection={"column"} gap={4}>

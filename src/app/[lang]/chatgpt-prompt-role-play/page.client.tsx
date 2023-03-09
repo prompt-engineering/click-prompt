@@ -42,15 +42,17 @@ const genColumns = (highlight: string) => [
 
 type Prompts = { act: string; prompt: string }[];
 
-function ChatGptPromptList({ prompts }: { prompts: Prompts }) {
+function ChatGptPromptList({ prompts, i18n }: { prompts: Prompts } & GeneralI18nProps) {
+  const dict = i18n.dict;
   const [search, setSearch] = useState<string>("");
+  console.log("xxx", dict)
 
   return (
     <div>
       <Heading></Heading>
-      <Input placeholder='Search' value={search} onChange={(ev) => setSearch(ev.target.value)} />
+      <Input placeholder={dict["Search"]} value={search} onChange={(ev) => setSearch(ev.target.value)} />
       <Text>
-        base on:
+        {dict["base-on"]}:
         <a href={"https://github.com/f/awesome-chatgpt-prompts"}>
           awesome-chatgpt-prompts <LinkIcon />
         </a>

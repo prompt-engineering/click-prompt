@@ -8,8 +8,15 @@ async function prepareData(locale: SupportedLocale) {
 }
 
 export default async function ChatGptPromptRolePlay() {
-  const { locale } = await getAppData();
+  const { locale, pathname, i18n } = await getAppData();
+  const i18nProps: GeneralI18nProps = {
+    locale,
+    pathname,
+    i18n: {
+      dict: i18n.dict,
+    },
+  };
   const prompts = await prepareData(locale);
 
-  return <ChatGptPromptList prompts={prompts} />;
+  return <ChatGptPromptList prompts={prompts} {...i18nProps} />;
 }

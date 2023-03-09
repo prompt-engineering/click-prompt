@@ -408,7 +408,8 @@ enum BracketType {
 
 const tagToText = (tag: TagModel, bracketType: BracketType) => {
   let text = "";
-  if (tag.value.split(",").length > 1) {
+  if (!tag.value) return text;
+  if (tag.value && tag.value.split(",").length > 1) {
     text = tag.value
       .split(",")
       .map((v) => {
@@ -449,8 +450,10 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
       if (values[key].value !== "") acc[key] = values[key];
       return acc;
     }, {});
+
     return Object.values<TagModel>(filteredValues)
       .map((it) => tagToText(it, bracketType))
+      .filter((it) => it !== "")
       .join(", ");
   }, [formik.values, bracketType]);
 
