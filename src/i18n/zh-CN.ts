@@ -1,6 +1,6 @@
 import type { PagePath } from "./pagePath";
 
-import _global from "@i18n/zh-CN/*.json";
+import _global from "@i18n/zh-CN/$.json";
 import _index from "@i18n/zh-CN/_.json";
 import _chatgpt from "@i18n/zh-CN/_chatgpt.json";
 import _chatgptGeneral from "@i18n/zh-CN/_chatgpt-general.json";
