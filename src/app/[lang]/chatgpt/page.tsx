@@ -2,9 +2,8 @@ import "server-only";
 
 import React from "react";
 import { headers } from "next/headers";
-import { ChatRoom } from "@/app/[lang]/chatgpt/ChatRoom";
-import { LoginPage } from "@/app/[lang]/chatgpt/LoginPage";
 import { SITE_INTERNAL_HEADER_URL } from "@/configs/constants";
+import { ChatGPTApp } from "@/components/ChatGPTApp";
 
 export default async function ChatGPTPage() {
   const urlStr = headers().get(SITE_INTERNAL_HEADER_URL) as any as string;
@@ -24,7 +23,7 @@ export default async function ChatGPTPage() {
 
   return (
     <div className='bg-[#343541] flex h-[85vh] overflow-y-auto rounded-md items-center justify-center'>
-      {data.loggedIn ? <ChatRoom /> : <LoginPage />}
+      <ChatGPTApp loggedIn={data.loggedIn} />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import LogoutIcon from "@/assets/icons/logout.svg";
 import Image from "next/image";
 import content from "@/assets/images/content.png";
 import send from "@/assets/icons/send.svg?url";
-import React, { useEffect } from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { ChatCompletionRequestMessage } from "openai";
 import styled from "@emotion/styled";
 
@@ -73,11 +73,17 @@ const ChatSendButton = styled("button")`
   outline: none;
 `;
 
-export const ChatRoom = () => {
+export const ChatRoom = ({
+  setIsLoggedIn,
+  initMessage,
+}: {
+  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
+  initMessage?: string;
+}) => {
   const chatsWrapper = React.useRef<HTMLDivElement>(null);
   const [disable, setDisable] = React.useState(false);
   const [chatHistory, setChatHistory] = React.useState<ChatCompletionRequestMessage[]>([]);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = React.useState(initMessage ?? "");
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
@@ -89,7 +95,6 @@ export const ChatRoom = () => {
     };
     document.addEventListener("keydown", listener);
 
-    setMessage(localStorage.getItem("prompt") || "");
     return () => {
       document.removeEventListener("keydown", listener);
     };
@@ -121,7 +126,6 @@ export const ChatRoom = () => {
               chatsWrapper.current.scrollTop = chatsWrapper.current.scrollHeight;
             }
             setMessage("");
-            localStorage.getItem("prompt") && localStorage.removeItem("prompt");
           }, 100);
         }
       } else {
@@ -142,7 +146,7 @@ export const ChatRoom = () => {
     });
     const data = await response.json();
     console.log("logout: ", data);
-    window.location.reload();
+    setIsLoggedIn(false);
   }
 
   return (
