@@ -8,8 +8,13 @@ export default async function ChatGPTPage() {
   const urlStr = headers().get(SITE_INTERNAL_HEADER_URL) as any as string;
   const url = new URL(urlStr);
 
-  const response = await fetch(new URL(`/api/chatgpt/verify`, url));
-  const data = await response.json();
+  let data;
+  try {
+    data = await fetch(new URL(`/api/chatgpt/verify`, url)).then((res) => res.json());
+  } catch (e) {
+    console.error(e);
+    data = { isLoggedIn: false };
+  }
 
   return (
     <div className='bg-[#343541] flex h-[85vh] overflow-y-auto rounded-md items-center justify-center'>
