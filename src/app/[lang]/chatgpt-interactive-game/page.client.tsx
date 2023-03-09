@@ -26,11 +26,11 @@ import { Form, Formik } from "formik";
 
 import CopyComponent from "@/components/CopyComponent";
 
-function ChatgptInteractiveGame({i18n}: GeneralI18nProps) {
+function ChatgptInteractiveGame({ i18n }: GeneralI18nProps) {
   const dict = i18n.dict;
-  const ROLES = dict["roles"] as any as string[] ?? [];
-  const WORLDS = dict["worlds"] as any as string[] ?? [];
-  const CHEATS = dict["cheats"] as any as string[] ?? [];
+  const ROLES = (dict["roles"] as any as string[]) ?? [];
+  const WORLDS = (dict["worlds"] as any as string[]) ?? [];
+  const CHEATS = (dict["cheats"] as any as string[]) ?? [];
   const DETAIL = dict["detail"] ?? "";
 
   // const toast = useToast();
@@ -48,9 +48,13 @@ function ChatgptInteractiveGame({i18n}: GeneralI18nProps) {
     setMarkdown(
       `${dict["heading1"]}
 
-${dict["heading2"]}${name}${dict["heading3"]}${world}${dict["heading4"]}${role}${dict["heading5"]}${cheat}，${detail || DETAIL}
+${dict["heading2"]}${name}${dict["heading3"]}${world}${dict["heading4"]}${role}${dict["heading5"]}${cheat}，${
+        detail || DETAIL
+      }
 
-${dict["heading6"]} ${step} ${dict["heading7"]}${choices === "free" ? "" : `${dict["heading8"]}${choices}${dict["heading9"]}`}。
+${dict["heading6"]} ${step} ${dict["heading7"]}${
+        choices === "free" ? "" : `${dict["heading8"]}${choices}${dict["heading9"]}`
+      }。
 `,
     );
   }, [name, world, role, cheat, step, choices, detail]);
@@ -76,7 +80,10 @@ ${dict["heading6"]} ${step} ${dict["heading7"]}${choices === "free" ? "" : `${di
       <Heading as='h3' size='md' mt='20px'>
         User {dict["input"]}
       </Heading>
-      <Text>{dict["hello-i-am"]}{name}。</Text>
+      <Text>
+        {dict["hello-i-am"]}
+        {name}。
+      </Text>
       <CopyComponent className='flex justify-end p-4' value={`${dict["hello-i-am"]}${name}。`} />
       <Formik
         initialValues={{ name: "" }}
@@ -103,7 +110,11 @@ ${dict["heading6"]} ${step} ${dict["heading7"]}${choices === "free" ? "" : `${di
           </FormControl>
           <FormControl key='choices' id='choices' mt={4}>
             <FormLabel>{dict["choices-every-step"]}</FormLabel>
-            <Select placeholder={dict["choices-every-step"]} value={choices} onChange={(ev) => setChoices(ev.target.value)}>
+            <Select
+              placeholder={dict["choices-every-step"]}
+              value={choices}
+              onChange={(ev) => setChoices(ev.target.value)}
+            >
               <option value={dict["input-freely"]}>{dict["input-freely"]}</option>
               <option value={dict["input-option-2"]}>{dict["input-option-2"]}</option>
               <option value={dict["input-option-3"]}>{dict["input-option-3"]}</option>
@@ -115,11 +126,19 @@ ${dict["heading6"]} ${step} ${dict["heading7"]}${choices === "free" ? "" : `${di
           </FormControl>
           <FormControl key='name' id='name' mt={4}>
             <FormLabel>{dict["label-main-char-name"]}</FormLabel>
-            <Input placeholder={dict["set"] + dict["label-main-char-name"]} value={name} onChange={(ev) => setName(ev.target.value)} />
+            <Input
+              placeholder={dict["set"] + dict["label-main-char-name"]}
+              value={name}
+              onChange={(ev) => setName(ev.target.value)}
+            />
           </FormControl>
           <FormControl key='world' id='world' mt={4}>
             <FormLabel>{dict["label-backstory"]}</FormLabel>
-            <Select placeholder={dict["set"] + dict["label-backstory"]} value={world} onChange={(ev) => setWorld(ev.target.value)}>
+            <Select
+              placeholder={dict["set"] + dict["label-backstory"]}
+              value={world}
+              onChange={(ev) => setWorld(ev.target.value)}
+            >
               {WORLDS.map((role) => (
                 <option key={role} value={role}>
                   {role}
@@ -129,7 +148,11 @@ ${dict["heading6"]} ${step} ${dict["heading7"]}${choices === "free" ? "" : `${di
           </FormControl>
           <FormControl key='role' id='role' mt={4}>
             <FormLabel>{dict["label-role"]}</FormLabel>
-            <Select placeholder={dict["set"] + dict["label-role"]} value={role} onChange={(ev) => setRole(ev.target.value)}>
+            <Select
+              placeholder={dict["set"] + dict["label-role"]}
+              value={role}
+              onChange={(ev) => setRole(ev.target.value)}
+            >
               {ROLES.map((role) => (
                 <option key={role} value={role}>
                   {role}
@@ -139,7 +162,11 @@ ${dict["heading6"]} ${step} ${dict["heading7"]}${choices === "free" ? "" : `${di
           </FormControl>
           <FormControl key='cheat' id='cheat' mt={4}>
             <FormLabel>{dict["label-cheats"]}</FormLabel>
-            <Select placeholder={dict["set"] + dict["label-cheats"]} value={cheat} onChange={(ev) => setCheat(ev.target.value)}>
+            <Select
+              placeholder={dict["set"] + dict["label-cheats"]}
+              value={cheat}
+              onChange={(ev) => setCheat(ev.target.value)}
+            >
               {CHEATS.map((cheat) => (
                 <option key={cheat} value={cheat}>
                   {cheat}
