@@ -45,7 +45,7 @@ ${dict["introduction-tail"]}`.replaceAll("<GameName>", name),
   const addLine = () => {
     if (lines.length === 20) {
       toast({
-        title: "You can't add more than 20 lines",
+        title: dict["toast-more-than-20-steps"],
         position: "top",
       });
       return;
@@ -56,7 +56,7 @@ ${dict["introduction-tail"]}`.replaceAll("<GameName>", name),
   const removeLine = (index: number) => {
     if (lines.length === 1) {
       toast({
-        title: "You can't remove the last line",
+        title: dict["toast-less-than-1-step"],
         position: "top",
       });
       return;
@@ -67,7 +67,7 @@ ${dict["introduction-tail"]}`.replaceAll("<GameName>", name),
   const changeLine = (index: number, value: string) => {
     if (value.length > 200) {
       toast({
-        title: "You can't add more than 200 characters",
+        title: dict["toast-more-than-200-characters"],
         position: "top",
       });
       return;
@@ -140,7 +140,7 @@ function RemovableLabel({
   return (
     <FormLabel
       onClick={() => removeLine(index)}
-      className='w-16 hover:cursor-pointer'
+      className='w-34 hover:cursor-pointer'
       onPointerEnter={() => setHover(true)}
       onPointerLeave={() => setHover(false)}
     >

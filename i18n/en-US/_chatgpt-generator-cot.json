@@ -13,5 +13,8 @@
   "introduction-step3": "Code execution: You need to execute the code written in step 2 as a JavaScript Console. If no test data is given, you need to generate your own random test data and input these data into the code for calculation.",
   "introduction-step4": "Error handling: If your code has errors or does not execute properly, you need to output the errors and go back to step 2 to restart the game until your code works properly.",
   "introduction-step5": "Summary: You need to summarize the problem and your solution in no less than 100 words so that others can briefly understand the problem and its solution.",
-  "introduction-tail": "See how to play this game? Then let's get started!"
+  "introduction-tail": "See how to play this game? Then let's get started!",
+  "toast-more-than-20-steps": "You can't add more than 20 steps",
+  "toast-less-than-1-step": "You can't remove the last step",
+  "toast-more-than-200-characters": "You can't write more than 200 characters"
 }
