@@ -1,3 +1,5 @@
+import "server-only";
+
 import React from "react";
 import {headers} from "next/headers";
 import { ChatRoom } from "@/app/[lang]/chatgpt/ChatRoom";
@@ -13,6 +15,7 @@ export default async function ChatGPTPage() {
     data = await fetch(new URL(`/api/chatgpt/verify`, url)).then((res) => res.json());
   } catch (e) {
     console.error(e);
+    console.log("nodejs version", process.version);
     data = { isLoggedIn: false };
   }
 
