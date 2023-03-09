@@ -1,6 +1,8 @@
 {
   "common-pattern": "Common Pattern",
-  "share-my-common-gpt-scene": "Share my common GPT scene",
   "type": "Type",
-  "example": "示例"
+  "example": "example",
+  "common-scene": "common scene",
+  "share-my-common-gpt-scene": "Share my common ChatGPT scene: ",
+  "PR": "Pull Request"
 }

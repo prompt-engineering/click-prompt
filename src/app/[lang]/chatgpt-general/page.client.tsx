@@ -24,7 +24,6 @@ import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import styled from "@emotion/styled";
-import { getAppData } from "@/i18n";
 
 type GeneralCommand = {
   english: string;
@@ -48,18 +47,20 @@ type CategoryGpt = {
   }[];
 };
 
-function ChatGptGeneral({ locale }: GeneralI18nProps) {
+function ChatGptGeneral({ locale, i18n }: GeneralI18nProps) {
+  const dict = i18n.dict;
+
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt/category`;
   const columnHelper = createColumnHelper<GeneralCommand>();
 
   const columns = [
     columnHelper.accessor("chinese", {
       cell: (info) => info.getValue(),
-      header: "类型",
+      header: dict["type"],
     }),
     columnHelper.accessor("example", {
       cell: (info) => info.getValue(),
-      header: "示例",
+      header: dict["example"],
     }),
     columnHelper.accessor("clickPrompt", {
       cell: (info) => {
@@ -71,13 +72,13 @@ function ChatGptGeneral({ locale }: GeneralI18nProps) {
 
   return (
     <SimpleGrid columns={1} spacing={10}>
-      <Heading as={"h3"}>常用模式</Heading>
+      <Heading as={"h3"}>{dict["common-scene"]}</Heading>
       {chatgptSpecific && <DataTable data={chatgptSpecific} columns={columns} />}
       <Alert status='info'>
         <AlertIcon />
-        <AlertTitle>分享我的 ChatGPT 场景：</AlertTitle>
+        <AlertTitle>{dict["share-my-common-gpt-scene"]}</AlertTitle>
         <NavLink href={chatgptLink} isExternal>
-          Pull Request <ExternalLinkIcon />
+          {dict["PR"]} <ExternalLinkIcon />
         </NavLink>
       </Alert>
       <Flex flexDirection={"column"} gap={4}>
