@@ -13,7 +13,7 @@
   "introduction-step3": "代码执行：你需要作为 JavaScript Console 执行第二步写的代码，如果没有给出测试数据，你需要自己随机生成测试数据，并将这些数据输入到代码中进行计算。",
   "introduction-step4": "错误处理：如果你的代码存在错误或无法正常执行，你需要输出错误，并回到第二步重新开始游戏，直到你的代码能够正常工作。",
   "introduction-step5": "总结：你需要用不少于 100 字左右总结一下这个问题，以及你的解决方案，让其他人可以简单了解这个问题及其解决方案。",
-  "introduction-tail": "这个游戏怎么玩儿了嘛？那我们开始吧！",
+  "introduction-tail": "知道这个游戏怎么玩儿了嘛？那我们开始吧！",
   "toast-more-than-20-steps": "你不能添加超过20个步骤",
   "toast-less-than-1-step": "你不能删除最后一个步骤",
   "toast-more-than-200-characters": "你不能写超过200个字符"
