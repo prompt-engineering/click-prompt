@@ -1,15 +1,11 @@
+"use client";
+
 import { Button, Input } from "@/components/ChakraUI";
 import React, { Dispatch, SetStateAction } from "react";
 
-export const LoginPage = ({
-  openAiKey,
-  setOpenAiKey,
-  setIsLoggedIn,
-}: {
-  openAiKey: string;
-  setOpenAiKey: Dispatch<SetStateAction<string>>;
-  setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>;
-}) => {
+export const LoginPage = ({ setIsLoggedIn }: { setIsLoggedIn: Dispatch<SetStateAction<boolean>> }) => {
+  const [openAiKey, setOpenAiKey] = React.useState("");
+
   async function login(key: string) {
     if (key.length === 0) {
       alert("Please enter your OpenAI API key first.");
@@ -25,8 +21,6 @@ export const LoginPage = ({
     const data = await response.json();
     if (!data.error) {
       setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
     }
   }
 

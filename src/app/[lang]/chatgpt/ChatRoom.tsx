@@ -1,3 +1,5 @@
+"use client";
+
 import NewChat from "@/assets/icons/new-chat.svg";
 import TrashcanIcon from "@/assets/icons/trashcan.svg";
 import LogoutIcon from "@/assets/icons/logout.svg";
@@ -75,13 +77,13 @@ export const ChatRoom = ({
   setIsLoggedIn,
   initMessage,
 }: {
-  setIsLoggedIn: Dispatch<SetStateAction<boolean | null>>;
+  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
   initMessage?: string;
 }) => {
   const chatsWrapper = React.useRef<HTMLDivElement>(null);
   const [disable, setDisable] = React.useState(false);
   const [chatHistory, setChatHistory] = React.useState<ChatCompletionRequestMessage[]>([]);
-  const [message, setMessage] = React.useState(initMessage?.toString() ?? "");
+  const [message, setMessage] = React.useState(initMessage ?? "");
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {
@@ -92,6 +94,7 @@ export const ChatRoom = ({
       }
     };
     document.addEventListener("keydown", listener);
+
     return () => {
       document.removeEventListener("keydown", listener);
     };

@@ -25,7 +25,7 @@ type CPButtonProps = {
   loading?: boolean;
   onClick?: MouseEventHandler;
   size?: ButtonSize;
-  text?: string;
+  text: string;
   children?: React.ReactNode;
   [key: string]: any;
 };
@@ -41,11 +41,14 @@ function ClickPromptBird(props: ClickPromptBirdParams) {
 
 export function ClickPromptButton(props: CPButtonProps) {
   const [isLoading, setIsLoading] = useState(props.loading);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleClick = (event: any) => {
-    // todo: check token
+  const handleClick = async (event: any) => {
     setIsLoading(true);
+    const response = await fetch("/api/chatgpt/verify");
+    const data = await response.json();
+    setIsLoggedIn(data.loggedIn);
     onOpen();
     props.onClick && props.onClick(event);
   };
@@ -91,7 +94,7 @@ export function ClickPromptButton(props: CPButtonProps) {
           {/* <DrawerHeader>ChatGPT</DrawerHeader> */}
           <DrawerBody padding={0}>
             <div className='bg-[#343541] flex flex-1 h-[100%] overflow-y-auto items-center justify-center'>
-              <ChatGPTApp message={props?.text ? props?.text.toString() : ""} />
+              <ChatGPTApp loggedIn={isLoggedIn} initMessage={props.text} />
             </div>
           </DrawerBody>
         </DrawerContent>
