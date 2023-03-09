@@ -11,13 +11,15 @@ export default async function ChatGPTPage() {
   const url = new URL(urlStr);
 
   let data;
+  console.log("nodejs version", process.version);
   try {
     data = await fetch(new URL(`/api/chatgpt/verify`, url)).then((res) => res.json());
   } catch (e) {
     console.error(e);
-    console.log("nodejs version", process.version);
-    throw e
+    throw e;
   }
+
+  console.log("data", data);
 
   return (
     <div className='bg-[#343541] flex h-[85vh] overflow-y-auto rounded-md items-center justify-center'>
