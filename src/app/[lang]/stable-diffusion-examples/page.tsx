@@ -1,6 +1,6 @@
 import "server-only";
 
-import StableDiffusionExamples from "./stableDiffusionExamples";
+import StableDiffusionExamples from "./page.client";
 import { getAppData } from "@/i18n";
 
 export default async function PageClient() {
