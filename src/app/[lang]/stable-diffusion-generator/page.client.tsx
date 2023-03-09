@@ -13,6 +13,12 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  Tag,
+  TagCloseButton,
+  FormControl,
+  TagLabel,
+  RadioGroup,
+  Radio,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import Image from "next/image";
@@ -374,7 +380,7 @@ const sdOtherPromptFields: SdPromptField[] = [
 let fields = [...sdDetailedPromptFields, ...sdPersonPromptFields, ...sdCommonPrompts];
 const generateEmptyForm = () =>
   fields.reduce((acc: any, field) => {
-    acc[field.name] = "";
+    acc[field.name] = { value: "", weight: 0, ratio: 1 };
     return acc;
   }, {});
 const sdGeneratorFormStorage = new WebStorage<Record<string, string>>("sdGeneratorForm");
@@ -389,6 +395,36 @@ const copyToClipboard = (text: string) => {
   document.body.removeChild(textarea);
 };
 
+export interface TagModel {
+  value: string;
+  weight: number;
+  ratio: number;
+  color?: string;
+}
+
+enum BracketType {
+  round = "()",
+  brace = "{}",
+}
+
+const tagToText = (tag: TagModel, bracketType: BracketType) => {
+  let text = "";
+  if (tag.value.split(",").length > 1) {
+    text = tag.value
+      .split(",")
+      .map((v) => {
+        return tagToText({ ...tag, value: v.trim() }, bracketType);
+      })
+      .join(", ");
+  } else {
+    text = `${tag.value}${tag.ratio !== 1 ? tag.ratio : ""}`;
+    Array(tag.weight)
+      .fill(undefined)
+      .forEach(() => (text = `${bracketType[0]}${text}${bracketType[1]}`));
+  }
+  return text;
+};
+
 function StableDiffusionGenerator({}: GeneralI18nProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [huggingFace, setHuggingFace] = useState({
@@ -398,6 +434,7 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
     prompt: "",
   });
   const promptResultRef = useRef<HTMLDivElement | null>(null);
+  const [bracketType, setBracketType] = useState<BracketType>(BracketType.round);
 
   const formik = useFormik({
     initialValues: generateEmptyForm(),
@@ -407,15 +444,16 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
     },
   });
 
-  const text = useMemo(() => {
+  const tagsText = useMemo(() => {
     let values = formik.values;
     const filteredValues = Object.keys(values).reduce((acc: any, key) => {
-      if (values[key] !== "") acc[key] = values[key];
+      if (values[key].value !== "") acc[key] = values[key];
       return acc;
     }, {});
-
-    return flatten(Object.values<string>(filteredValues).map((it) => it.split(",").map((it) => it.trim()))).join(", ");
-  }, [formik.values]);
+    return Object.values<TagModel>(filteredValues)
+      .map((it) => tagToText(it, bracketType))
+      .join(", ");
+  }, [formik.values, bracketType]);
 
   useEffect(() => {
     const formStorage = sdGeneratorFormStorage.get();
@@ -488,7 +526,60 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
           </Grid>
         </Flex>
 
-        <Text ref={promptResultRef}>{text}</Text>
+        <RadioGroup onChange={(val) => setBracketType(val as BracketType)} defaultValue={bracketType}>
+          <Stack spacing={5} direction='row'>
+            <Text>括号风格</Text>
+            <Radio value={BracketType.round}>{BracketType.round}圆括号</Radio>
+            <Radio value={BracketType.brace}>{BracketType.brace}大括号</Radio>
+          </Stack>
+        </RadioGroup>
+
+        <Flex wrap='wrap'>
+          {Object.entries<TagModel>(formik.values)
+            .filter(([key, value]) => Boolean(value.value))
+            .map(([key, value]) => (
+              <FormControl key={key} w='auto'>
+                <Tag size='lg' colorScheme='teal' variant='solid' m={1}>
+                  {" "}
+                  <Button
+                    size='xs'
+                    colorScheme='teal'
+                    onClick={() => formik.setFieldValue(key, { ...value, ratio: (value.ratio * 10 - 1) / 10 })}
+                  >
+                    -
+                  </Button>
+                  <Button
+                    size='xs'
+                    colorScheme='teal'
+                    onClick={() => formik.setFieldValue(key, { ...value, ratio: (value.ratio * 10 + 1) / 10 })}
+                  >
+                    +
+                  </Button>
+                  <Button
+                    size='xs'
+                    colorScheme='teal'
+                    onClick={() => {
+                      if (value.weight === 0) return;
+                      formik.setFieldValue(key, { ...value, weight: value.weight - 1 });
+                    }}
+                  >
+                    -{bracketType}
+                  </Button>
+                  <Button
+                    size='xs'
+                    colorScheme='teal'
+                    onClick={() => formik.setFieldValue(key, { ...value, weight: value.weight + 1 })}
+                  >
+                    +{bracketType}
+                  </Button>
+                  <TagLabel>{tagToText(value, bracketType)}</TagLabel>
+                  <TagCloseButton onClick={() => formik.setFieldValue(key, { value: "" })} />
+                </Tag>
+              </FormControl>
+            ))}
+        </Flex>
+
+        <Text ref={promptResultRef}>{tagsText}</Text>
 
         <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
           复制咒语并保存
@@ -499,12 +590,9 @@ function StableDiffusionGenerator({}: GeneralI18nProps) {
       </form>
       <Heading as={"h3"}>在线测试咒语</Heading>
       <Flex alignItems='start' gap='2'>
-        <HuggingFaceTxt2Img
-          model='stabilityai/stable-diffusion-2-1-base'
-          prompt={promptResultRef.current?.innerText ?? ""}
-        />
-        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={promptResultRef.current?.innerText ?? ""} />
-        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={promptResultRef.current?.innerText ?? ""} />
+        <HuggingFaceTxt2Img model='stabilityai/stable-diffusion-2-1-base' prompt={tagsText ?? ""} />
+        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={tagsText ?? ""} />
+        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={tagsText ?? ""} />
       </Flex>
       <SimpleGrid gap={3} p={3} columns={1}>
         <Heading>其它在线咒语工具</Heading>
