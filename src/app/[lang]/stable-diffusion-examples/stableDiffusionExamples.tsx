@@ -106,7 +106,7 @@ function StableDiffusionExamples({}: GeneralI18nProps) {
     );
   }
 
-  let stableDiffusionLink = `${CP_GITHUB_ASSETS}/stable-diffusion/samples`;
+  const stableDiffusionLink = `${CP_GITHUB_ASSETS}/stable-diffusion/samples`;
   return (
     <>
       <Alert>

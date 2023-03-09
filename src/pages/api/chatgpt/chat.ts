@@ -51,7 +51,13 @@ const handler: NextApiHandler = async (req, res) => {
         conversations.set(conversation_name, conversation);
         return res.status(200).json({ messages: conversation });
       } catch (e: any) {
-        res.status(500).json({ error: e.response.data.error });
+        let msg = "Some error happened";
+        if (e.code === "ETIMEDOUT") {
+          msg = "Request api was timeout, pls confirm your network worked";
+        } else if (e.response && e.response.data) {
+          msg = e.response.data.error;
+        }
+        res.status(500).json({ error: msg });
       }
     } else {
       res.status(400).json({ error: "Missing prompt or conversation_name" });

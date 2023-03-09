@@ -1,8 +1,17 @@
 {
   "root": true,
-  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "rules": {
-    "prettier/prettier": "warn",
-    "react-hooks/exhaustive-deps": "off"
+    "react-hooks/exhaustive-deps": "off",
+    "no-console": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "warn"
   }
 }
