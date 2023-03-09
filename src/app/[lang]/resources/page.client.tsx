@@ -19,37 +19,34 @@ type ReadingResource = {
   description: string;
 };
 
-const columnHelper = createColumnHelper<ReadingResource>();
-const columns = [
-  columnHelper.accessor("name", {
-    cell: (info) => (
-      <Link href={info.row.original.link} isExternal>
-        {info.getValue()} <ExternalLinkIcon />
-      </Link>
-    ),
-    header: "name",
-  }),
-  columnHelper.accessor("description", {
-    cell: (info) => info.getValue(),
-    header: "description",
-  }),
-];
+function ReadingList({ locale, i18n }: GeneralI18nProps) {
+  const dict = i18n.dict;
 
-function ReadingList({}: GeneralI18nProps) {
+  const columnHelper = createColumnHelper<ReadingResource>();
+  const columns = [
+    columnHelper.accessor("name", {
+      cell: (info) => (
+        <Link href={info.row.original.link} isExternal>
+          {info.getValue()} <ExternalLinkIcon />
+        </Link>
+      ),
+      header: dict["name"],
+    }),
+    columnHelper.accessor("description", {
+      cell: (info) => info.getValue(),
+      header: dict["description"],
+    }),
+  ];
   return (
     <SimpleGrid columns={1} spacing={10}>
       <Alert status='info'>
         <AlertIcon />
-        <AlertTitle>
-          创建 &nbsp;
-          <Link href={`${GITHUB_URL}/tree/master/public/data`} isExternal>
-            Pull Request <ExternalLinkIcon />
-          </Link>{" "}
-          &nbsp; ，添加更多的阅读材料
-        </AlertTitle>
+        <AlertTitle>{dict["share-my-common-gpt-scene"]}</AlertTitle>
+        <Link href={`${GITHUB_URL}/tree/master/public/data`} isExternal>
+          {dict["PR"]} <ExternalLinkIcon />
+        </Link>
       </Alert>
-
-      <Heading as='h3'>AI Resources</Heading>
+      <Heading as='h3'>{dict["AI-Resources"]}</Heading>
       {aiResource && <DataTable data={aiResource} columns={columns} />}
       <Heading as='h3'>中文</Heading>
       {cnData && <DataTable data={cnData} columns={columns} />}
