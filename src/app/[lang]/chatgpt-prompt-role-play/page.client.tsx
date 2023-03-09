@@ -18,19 +18,19 @@ type ActPrompt = {
 
 const columnHelper = createColumnHelper<ActPrompt>();
 
-const genColumns = (highlight: string) => [
+const genColumns = (dict: Record<string, string>, highlight: string) => [
   columnHelper.accessor("act", {
     cell: (info) => <Highlight value={info.getValue()} keyword={highlight} />,
-    header: "act",
+    header: dict["act"],
   }),
   columnHelper.accessor("prompt", {
     cell: (info) => <Highlight value={info.getValue()} keyword={highlight} />,
-    header: "prompt",
+    header: dict["prompt"],
   }),
   columnHelper.accessor("prompt", {
     id: "icon",
     cell: (info) => CopyComponent({ value: info.getValue() }),
-    header: "copy",
+    header: dict["copy"],
   }),
   columnHelper.accessor("clickPrompt", {
     cell: (info) => {
@@ -67,7 +67,7 @@ function ChatGptPromptList({ prompts, i18n }: { prompts: Prompts } & GeneralI18n
               (it.act != undefined && it.act.includes(search)) ||
               (it.prompt != undefined && it.prompt.includes(search)),
           )}
-          columns={genColumns(search) as any}
+          columns={genColumns(dict, search) as any}
         />
       )}
     </div>
