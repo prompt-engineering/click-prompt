@@ -58,7 +58,7 @@ export function ClickPromptButton(props: CPButtonProps) {
   function NormalSize() {
     return (
       <StyledPromptButton>
-        <Button colorScheme='twitter' onClick={handleClick} {...props}>
+        <Button colorScheme='twitter' className='bg-blue' onClick={handleClick} {...props}>
           {props.children}
           {!isLoading && <Text>Prompt</Text>}
           {isLoading && <BeatLoader size={8} color='black' />}
