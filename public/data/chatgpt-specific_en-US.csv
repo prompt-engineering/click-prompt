@@ -1,0 +1,8 @@
+type,description,example,prompt
+Completion-based,"User provides partial text, AI generates suggestions based on context","The user inputs 'I want to buy a dress...', ChatGPT generates 'Sure, do you have any specific requirements or preferences?'",I want to buy a dress...
+Classification-based,"User provides question or task description, AI generates answer(s)",The user inputs 'How to make a chocolate cake?' ChatGPT generates 'Put the chocolate cake into a preheated oven and bake for 25-30 minutes.',How to make a chocolate cake?
+Generation-based,"User provides initial information, AI generates new text","The user inputs 'Technological innovation', ChatGPT generates 'Artificial intelligence is one of the important directions in the field of technological innovation.'",Technological innovation
+Translation-based,"User provides text, AI performs translation","The user inputs 'Hello', ChatGPT generates 'Hello to you too'.",Hello
+Question-answering,"User provides a question, AI generates an answer","The user inputs 'What is machine learning?', ChatGPT generates 'Machine learning is a branch of artificial intelligence.'",What is machine learning?
+Conversation-based,"User has a conversation with AI, AI generates responses","The user inputs 'What's the weather like today?', ChatGPT generates 'Today's weather is sunny and the temperature is moderate.'",What's the weather like today?
+Summarization-based,"User provides text, AI generates text summary","The user inputs an article, ChatGPT generates a summary of the article.",Generate a summary of the following article:

@@ -6,7 +6,6 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 import gptCategorySamples from "@/assets/chatgpt/category/index.json";
-import chatgptSpecific from "@/assets/resources/chatgpt-specific.json";
 import {
   Flex,
   Heading,
@@ -47,14 +46,16 @@ type CategoryGpt = {
   }[];
 };
 
-function ChatGptGeneral({ locale, i18n }: GeneralI18nProps) {
+type ChatgptSpecific = { type: string; description: string; example: string; prompt: string }[];
+
+function ChatGptGeneral({ locale, i18n, chatgptSpecific }: { chatgptSpecific: ChatgptSpecific } & GeneralI18nProps) {
   const dict = i18n.dict;
 
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt/category`;
   const columnHelper = createColumnHelper<GeneralCommand>();
 
   const columns = [
-    columnHelper.accessor("chinese", {
+    columnHelper.accessor("type", {
       cell: (info) => info.getValue(),
       header: dict["type"],
     }),
