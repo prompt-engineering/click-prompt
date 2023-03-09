@@ -1,27 +1,15 @@
-import { createHash } from "node:crypto";
+import { createCipheriv, createDecipheriv, randomBytes, createHash } from "node:crypto";
 
 import { NextApiHandler } from "next";
-import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
+import { ChatCompletionRequestMessage, OpenAIApi } from "openai";
 import { SITE_USER_COOKIE } from "@/configs/constants";
-
-function createNewOpenAIApi(apiKey: string) {
-  const configuration = new Configuration({
-    apiKey,
-  });
-  return new OpenAIApi(configuration);
-}
+import { logoutUser, saveAndLoginUser } from "@/utils/planetscale";
 
 export type User = {
   id: string;
   openai: OpenAIApi;
   conversations: Map<string, ChatCompletionRequestMessage[]>;
 };
-let users: User[] = [];
-
-export function getUserByUserId(userId: string) {
-  const user = users.find((user) => user.id === userId);
-  return user ? user : null;
-}
 
 // type Request = {
 //   action: "login" | "logout";
@@ -32,6 +20,25 @@ type Response = {
   message?: string;
   error?: string;
 };
+
+function encrypt(data: string, secret: string) {
+  const iv = Buffer.from('hgudlo8fbj$ng.fq');
+  const cipher = createCipheriv("aes-256-cbc", secret, iv);
+  let encrypted = cipher.update(data, "utf8", "hex");
+  encrypted += cipher.final("hex");
+  return iv.toString("hex") + ":" + encrypted;
+}
+
+export function decrypt(encrypted: string, secret: string) {
+  const [ivHex, encryptedHex] = encrypted.split(":");
+  const iv = Buffer.from(ivHex, "hex");
+  const decipher = createDecipheriv("aes-256-cbc", secret, iv);
+  let decrypted = decipher.update(encryptedHex, "hex", "utf8");
+  decrypted += decipher.final("utf8");
+  return decrypted;
+}
+
+export const secret = "BKc4rL.qwB8rzz7K@tXB9!uht3iKQWGV";
 
 const handler: NextApiHandler = async (req, res) => {
   if (!(req.method === "POST" && req.body)) {
@@ -50,27 +57,26 @@ const handler: NextApiHandler = async (req, res) => {
   switch (action) {
     case "login":
       if (key) {
-        const hasher = createHash("sha256");
-        userId = hasher.update(key).digest().toString("hex");
-        users.push({
-          id: userId,
-          openai: createNewOpenAIApi(key),
-          conversations: new Map(),
-        });
+        userId = encrypt(key, secret);
+        await saveAndLoginUser(userId);
         console.log(`User ${userId} logged in`);
+
         res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=${userId}; Max-Age=3600; HttpOnly; Path=/;`);
+
         return res.status(200).json({ message: "Logged in" } as Response);
       } else {
         res.status(400).json({ error: "No key provided" } as Response);
+
         return;
       }
     case "logout":
       if (!userId) {
         res.status(200).json({ error: "You're not logged in yet!" } as Response);
+
         return;
       }
 
-      users = users.filter((user) => user.id !== userId);
+      await logoutUser(userId);
       return res.status(200).json({ message: "Logged out" } as Response);
     default:
       res.status(400).json({ error: "Unknown action" } as Response);
