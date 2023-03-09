@@ -67,7 +67,7 @@ export type AppData = {
   i18n: {
     g: (key: GlobalKeyEnUS | GlobalKeyZhCN) => string;
     tFactory: <P extends PagePath>(path: P) => (key: PageKeyEnUS<P> | PageKeyZhCN<P>) => string;
-    dict: Record<string, string>;
+    dict: Record<string, string | string[]>;
   };
   pathname: string;
   locale: SupportedLocale;
