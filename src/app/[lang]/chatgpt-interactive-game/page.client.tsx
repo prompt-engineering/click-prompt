@@ -28,9 +28,13 @@ import CopyComponent from "@/components/CopyComponent";
 
 function ChatgptInteractiveGame({ i18n }: GeneralI18nProps) {
   const dict = i18n.dict;
-  const ROLES = (dict["roles"] as any as string[]) ?? [];
-  const WORLDS = (dict["worlds"] as any as string[]) ?? [];
-  const CHEATS = (dict["cheats"] as any as string[]) ?? [];
+  const ROLES =
+    new Array(10).fill(undefined).map((_, i) => dict["roles_" + (i + 1)])
+  const WORLDS =
+    new Array(9).fill(undefined).map((_, i) => dict["worlds_" + (i + 1)])
+  const CHEATS =
+    new Array(14).fill(undefined).map((_, i) => dict["cheats_" + (i + 1)])
+
   const DETAIL = dict["detail"] ?? "";
 
   // const toast = useToast();
