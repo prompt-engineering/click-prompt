@@ -21,4 +21,5 @@ convertCsvToJson("reading-list_en-US");
 convertCsvToJson("reading-list_zh-CN");
 convertCsvToJson("prompts_en-US");
 convertCsvToJson("prompts_zh-CN");
-convertCsvToJson("chatgpt-specific");
+convertCsvToJson("chatgpt-specific_en-US");
+convertCsvToJson("chatgpt-specific_zh-CN");
