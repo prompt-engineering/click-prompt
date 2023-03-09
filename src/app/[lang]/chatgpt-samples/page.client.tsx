@@ -27,14 +27,15 @@ import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 
-function ChatGptSamples({}: GeneralI18nProps) {
+function ChatGptSamples({ i18n }: GeneralI18nProps) {
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt`;
+  const dict = i18n.dict;
 
   return (
     <>
       <Alert status='info'>
         <AlertIcon />
-        <AlertTitle>分享我的 ChatGPT 心得：</AlertTitle>
+        <AlertTitle>{dict["share-my-chatgpt-prompt"]}: </AlertTitle>
         <NavLink href={chatgptLink} isExternal>
           Pull Request <ExternalLinkIcon />
         </NavLink>
@@ -58,7 +59,7 @@ function ChatGptSamples({}: GeneralI18nProps) {
                 <Flex w='90%' flexGrow={"column"} justifyContent='space-between'>
                   <Box>
                     <Link href={"/chatgpt-samples/" + sample.path.split(".")[0]}>
-                      <Button>View here</Button>
+                      <Button>{dict["view-here"]}</Button>
                     </Link>
                   </Box>
                   <Box>
