@@ -16,7 +16,7 @@ export default async function ChatGPTPage() {
   } catch (e) {
     console.error(e);
     console.log("nodejs version", process.version);
-    data = { isLoggedIn: false };
+    throw e
   }
 
   return (
