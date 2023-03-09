@@ -19,6 +19,7 @@ async function RscFoo() {
   const { i18n } = await getAppData();
   const t = i18n.tFactory("/");
   // t is a function takes key and give you value in the json file
+  t("title") // will be "Streamline your prompt design"
 
   // you can also access global data by
   const g = i18n.g;

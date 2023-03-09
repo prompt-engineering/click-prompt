@@ -22,4 +22,10 @@ export {
   Input,
   Container,
   SimpleGrid,
+  Card,
+  CardBody,
+  CardHeader,
+  AlertIcon,
+  AlertTitle,
+  Alert,
 } from "@chakra-ui/react";
