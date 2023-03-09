@@ -35,12 +35,12 @@ const handler: NextApiHandler = async (req, res) => {
   chatClients.set(userId, chatClient);
 
   if (req.method === "POST" && req.body) {
-    const { prompt, conversation_id } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const currentChat = chats?.find((chat) => chat.id === conversation_id) ?? { chat_content: "[]" };
+    const { prompt, chat_id } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const currentChat = chats?.find((chat) => chat.id === chat_id) ?? { chat_content: "[]" };
     const currentChatContent = JSON.parse(currentChat.chat_content);
 
-    if (prompt && conversation_id) {
-      const conversation = [
+    if (prompt && chat_id) {
+      const chat = [
         ...currentChatContent,
         {
           role: "user",
@@ -50,7 +50,7 @@ const handler: NextApiHandler = async (req, res) => {
       try {
         const response = await chatClient.createChatCompletion({
           model: "gpt-3.5-turbo",
-          messages: [...conversation],
+          messages: [...chat],
           temperature: 0.5,
           max_tokens: 1024,
         });
@@ -65,11 +65,11 @@ const handler: NextApiHandler = async (req, res) => {
           return;
         }
 
-        conversation.push(choices[0].message);
-        const newChatContent = JSON.stringify(conversation);
-        await updateChatById(conversation_id, newChatContent);
+        chat.push(choices[0].message);
+        const newChatContent = JSON.stringify(chat);
+        await updateChatById(chat_id, newChatContent);
 
-        return res.status(200).json({ messages: conversation });
+        return res.status(200).json({ messages: chat });
       } catch (e: any) {
         let msg = "Some error happened";
         if (e.code === "ETIMEDOUT") {
@@ -80,7 +80,7 @@ const handler: NextApiHandler = async (req, res) => {
         res.status(500).json({ error: msg });
       }
     } else {
-      res.status(400).json({ error: "Missing prompt or conversation_id" });
+      res.status(400).json({ error: "Missing prompt or chat_id" });
     }
   } else {
     res.status(404).json({ error: "Not found" });

@@ -111,7 +111,7 @@ export const ChatRoom = ({
       const response = await fetch("/api/chatgpt/chat", {
         method: "POST",
         body: JSON.stringify({
-          conversation_id: "chatgpt",
+          chat_id: "chatgpt",
           prompt: message,
         }),
       });
