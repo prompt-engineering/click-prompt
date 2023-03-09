@@ -17,7 +17,7 @@ export default async function ChatGPTPage() {
     data = await fetch(new URL(`/api/chatgpt/verify`, url), { headers: headersPropagated }).then((res) => res.json());
   } catch (e) {
     console.error(e);
-    data = { isLoggedIn: false };
+    data = { loggedIn: false };
   }
 
   return (
