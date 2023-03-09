@@ -41,7 +41,7 @@ declare module "*.svg?url" {
 
 type GeneralI18nProps = {
   i18n: {
-    dict: Record<string, string>;
+    dict: import("@/i18n/index").AppData["i18n"]["dict"];
   };
   locale: import("@/i18n").SupportedLocale;
   pathname: string;
