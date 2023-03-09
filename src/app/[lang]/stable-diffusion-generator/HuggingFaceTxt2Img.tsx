@@ -4,13 +4,15 @@ import React, { useRef, useState } from "react";
 import { Button, Grid, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import styled from "@emotion/styled";
+import { AppData } from '@/i18n'
 
 const ImageNote = styled("div")`
   font-size: 0.8rem;
   color: #888;
 `;
 
-export const HuggingFaceTxt2Img = ({ model, prompt }: { model: string; prompt: string }) => {
+type HuggingFaceComponentProps = { model: string; prompt: string, dict: Record<string, string> }
+export const HuggingFaceTxt2Img = ({ model, prompt, dict }: HuggingFaceComponentProps) => {
   const [huggingFace, setHuggingFace] = useState({
     image: "",
     loading: false,
@@ -74,7 +76,7 @@ export const HuggingFaceTxt2Img = ({ model, prompt }: { model: string; prompt: s
             isLoading={huggingFace && huggingFace.loading}
             onClick={() => callHuggingFace(false)}
           >
-            使用方式二的咒语生成
+            {dict["use-method-2-spell"]}
           </Button>
           <Button
             mt={4}
@@ -82,12 +84,12 @@ export const HuggingFaceTxt2Img = ({ model, prompt }: { model: string; prompt: s
             isLoading={huggingFace && huggingFace.loading}
             onClick={() => callHuggingFace(true)}
           >
-            从剪贴板读取咒语生成
+            {dict["read-spell-from-clipboard"]}
           </Button>
         </SimpleGrid>
       </Grid>
       <Grid>
-        <ImageNote>注：黑色图片代表结果被屏蔽了，请更换咒语重试</ImageNote>
+        <ImageNote>{dict["notes-black-image"]}</ImageNote>
         {huggingFace && huggingFace.image && (
           <Image alt={huggingFace.prompt} src={huggingFace.image} width={512} height={512} />
         )}

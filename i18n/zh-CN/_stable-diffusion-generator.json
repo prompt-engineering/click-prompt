@@ -11,5 +11,8 @@
   "copy-spell-and-save": "复制咒语并保存",
   "clear-cache": "清除缓存",
   "test-spell-online": "在线测试咒语",
-  "other-online-spell-tools": "其它在线咒语工具"
+  "other-online-spell-tools": "其它在线咒语工具",
+  "use-method-2-spell": "使用方式二的咒语生成",
+  "read-spell-from-clipboard": "从剪贴板读取咒语生成",
+  "notes-black-image": "注：黑色图片代表结果被屏蔽了，请更换咒语重试"
 }

@@ -588,9 +588,9 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
       </form>
       <Heading as={"h3"}>{ dict["test-spell-online"] }</Heading>
       <Flex alignItems='start' gap='2'>
-        <HuggingFaceTxt2Img model='stabilityai/stable-diffusion-2-1-base' prompt={tagsText ?? ""} />
-        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={tagsText ?? ""} />
-        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={tagsText ?? ""} />
+        <HuggingFaceTxt2Img model='stabilityai/stable-diffusion-2-1-base' prompt={tagsText ?? ""} dict={dict}/>
+        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={tagsText ?? ""} dict={dict}/>
+        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={tagsText ?? ""} dict={dict}/>
       </Flex>
       <SimpleGrid gap={3} p={3} columns={1}>
         <Heading>{dict["other-online-spell-tools"]}</Heading>

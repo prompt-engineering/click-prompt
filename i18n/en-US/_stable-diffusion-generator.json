@@ -11,5 +11,8 @@
   "copy-spell-and-save": "Copy spell and save",
   "clear-cache": "Clear cache",
   "test-spell-online": "Test spell online",
-  "other-online-spell-tools": "Other online spell tools"
+  "other-online-spell-tools": "Other online spell tools",
+  "use-method-2-spell": "Use method 2 spell",
+  "read-spell-from-clipboard": "Read spell from clipboard",
+  "notes-black-image": "Note: Black image means the result is blocked, please try another spell"
 }
