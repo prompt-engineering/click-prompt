@@ -1,9 +1,14 @@
 import React from "react";
+import {headers} from "next/headers";
 import { ChatRoom } from "@/app/[lang]/chatgpt/ChatRoom";
 import { LoginPage } from "@/app/[lang]/chatgpt/LoginPage";
+import {SITE_INTERNAL_HEADER_URL} from "@/configs/constants";
 
 export default async function ChatGPTPage() {
-  const response = await fetch(`http://localhost:3000/api/chatgpt/verify`);
+  const urlStr = headers().get(SITE_INTERNAL_HEADER_URL) as any as string;
+  const url = new URL(urlStr);
+
+  const response = await fetch(new URL(`/api/chatgpt/verify`, url));
   const data = await response.json();
 
   return (
