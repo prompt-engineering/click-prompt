@@ -25,8 +25,7 @@ import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import styled from "@emotion/styled";
 
 type GeneralCommand = {
-  english: string;
-  chinese: string;
+  type: string;
   description: string;
   example: string;
   prompt?: string;
