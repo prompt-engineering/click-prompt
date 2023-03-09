@@ -23,7 +23,9 @@ type GitHubCopilotSample = {
   path: string;
 };
 
-function GitHubCopilotSamples({}: GeneralI18nProps) {
+function GitHubCopilotSamples({i18n}: GeneralI18nProps) {
+  const dict = i18n.dict;
+
   function SnippetCode(index: number, sample: GitHubCopilotSample, snippet: Snippet) {
     return (
       <Card
@@ -62,7 +64,7 @@ function GitHubCopilotSamples({}: GeneralI18nProps) {
     <div>
       <Alert status='info'>
         <AlertIcon />
-        <AlertTitle>分享我的 GitHub Copilot 心得：</AlertTitle>
+        <AlertTitle>{ dict["share-my-github-copilot-experience"] }：</AlertTitle>
         <Link href={githubCopilotLink} isExternal>
           Pull Request <ExternalLinkIcon />
         </Link>
