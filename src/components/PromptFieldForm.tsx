@@ -31,7 +31,7 @@ function PromptFieldForm(props: FieldFormProp) {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    const fieldValue = formik.values[field.name]?.split(" color ") ?? [];
+    const fieldValue = formik.values[field.name]?.value?.split(" color ") ?? [];
     let initValue,
       initColor = "";
     if (fieldValue.length > 1) [initColor, initValue] = fieldValue;
@@ -43,7 +43,7 @@ function PromptFieldForm(props: FieldFormProp) {
   if (!field) return null;
   const onColorChange = debounce((color: string) => {
     setColor(color);
-    if (value) formik.setFieldValue(field.name, `${color} ${value}`);
+    if (value) formik.setFieldValue(field.name, { value: `${color} ${value}`, weight: 0, ratio: 1 });
   }, 100);
 
   return (
@@ -64,10 +64,10 @@ function PromptFieldForm(props: FieldFormProp) {
           setValue(inputValue);
           if (inputValue) {
             const value = color ? `${color} ${inputValue}` : inputValue;
-            formik.setFieldValue(field.name, value);
+            formik.setFieldValue(field.name, { value, weight: 0, ratio: 1 });
           } else {
             setColor("");
-            formik.setFieldValue(field.name, "");
+            formik.setFieldValue(field.name, { value: "", weight: 0, ratio: 1 });
           }
         }}
       >
