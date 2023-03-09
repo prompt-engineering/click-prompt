@@ -426,13 +426,7 @@ const tagToText = (tag: TagModel, bracketType: BracketType) => {
 };
 
 function StableDiffusionGenerator({}: GeneralI18nProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [huggingFace, setHuggingFace] = useState({
-    image: "",
-    loading: false,
-    error: "",
-    prompt: "",
-  });
+  const [isSubmitting] = useState(false);
   const promptResultRef = useRef<HTMLDivElement | null>(null);
   const [bracketType, setBracketType] = useState<BracketType>(BracketType.round);
 
