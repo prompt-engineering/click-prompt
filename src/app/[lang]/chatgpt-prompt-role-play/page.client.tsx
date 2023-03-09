@@ -45,7 +45,7 @@ type Prompts = { act: string; prompt: string }[];
 function ChatGptPromptList({ prompts, i18n }: { prompts: Prompts } & GeneralI18nProps) {
   const dict = i18n.dict;
   const [search, setSearch] = useState<string>("");
-  console.log("xxx", dict)
+  console.log("xxx", dict);
 
   return (
     <div>
