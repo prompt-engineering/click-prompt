@@ -39,6 +39,11 @@
         "name": "翻译",
         "prompt": "```typescript\n// {\n//   \"chatgpt-general\": \"ChatGPT 常用指令\",\n//   \"chatgpt-prompt-role-play\": \"ChatGPT 角色扮演\",\n//   \"chatgpt-generator-cot\": \"ChatGPT 思维链模式\",\n//   \"chatgpt-interactive-game\": \"ChatGPT 交互式游戏\",\n//   \"chatgpt-samples\": \"ChatGPT 示例\",\n//   \"chatgpt\": \"ChatGPT 聊天室\",\n//   \"stable-diffusion-examples\": \"StableDiffusion 示例\",\n//   \"stable-diffusion-generator\": \"AI 绘画生成器\",\n//   \"github-copilot-samples\": \"GitHub Copilot 示例\",\n//   \"resources\": \"学习资料\",\n// }\n// translate to English\n```\n",
         "result": "```typescript\n// {\n//   \"chatgpt-general\": \"ChatGPT General\",\n//   \"chatgpt-prompt-role-play\": \"ChatGPT Role Play\",\n//   \"chatgpt-generator-cot\": \"ChatGPT Generator COT\",\n//   \"chatgpt-interactive-game\": \"ChatGPT Interactive Game\",\n//   \"chatgpt-samples\": \"ChatGPT Samples\",\n//   \"chatgpt\": \"ChatGPT\",\n//   \"stable-diffusion-examples\": \"StableDiffusion Examples\",\n//   \"stable-diffusion-generator\": \"StableDiffusion Generator\",\n//   \"github-copilot-samples\": \"GitHub Copilot Samples\",\n//   \"resources\": \"Resources\",\n// }\n```\n"
+      },
+      {
+        "name": "国际化",
+        "prompt": "```typescript\n// const ROLES = [\"天才\", \"豪门弃子\", \"修炼废物\", \"冒险家\", \"孤儿\", \"情圣\", \"幸运儿\", \"强者\", \"屌丝\", \"学者\"];\n// translate to i18n ,like: \"天才\" -> t(\"genius\"), and use Output variable to save key-value: {\"genius\": \"天才\"}\nconst ROLES = [t(\"genius\")\n```\n",
+        "result": "```typescript\n// const ROLES = [\"天才\", \"豪门弃子\", \"修炼废物\", \"冒险家\", \"孤儿\", \"情圣\", \"幸运儿\", \"强者\", \"屌丝\", \"学者\"];\n// translate to i18n ,like: \"天才\" -> t(\"genius\"), and use Output variable to save key-value: {\"genius\": \"天才\"}\nconst ROLES = [t(\"genius\"), t(\"rich\"), t(\"waste\"), t(\"adventurer\"), t(\"orphan\"), t(\"playboy\"), t(\"lucky\"), t(\"strong\"), t(\"loser\"), t(\"scholar\")];\nconst Output = { \"genius\": \"天才\", \"rich\": \"豪门弃子\", \"waste\": \"修炼废物\", \"adventurer\": \"冒险家\", \"orphan\": \"孤儿\", \"playboy\": \"情圣\", \"lucky\": \"幸运儿\", \"strong\": \"强者\", \"loser\": \"屌丝\", \"scholar\": \"学者\" };\n```\n                                                                                                                    ```\n"
       }
     ],
     "path": "phodal-tips.yml"
