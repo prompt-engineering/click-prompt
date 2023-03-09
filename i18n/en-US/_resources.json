@@ -1,1 +1,7 @@
-{}
+{
+  "name": "NAME",
+  "description": "DESCRIPTION",
+  "share-my-common-gpt-scene": "Add more reading material: ",
+  "PR": "Pull Request",
+  "AI-Resources": "AI Resources"
+}
