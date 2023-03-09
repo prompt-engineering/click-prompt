@@ -3,7 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     appDir: true,
-    typedRoutes: true,
+    // TODO https://beta.nextjs.org/docs/configuring/typescript#statically-typed-links
+    // typedRoutes: true,
   },
   trailingSlash: true,
   transpilePackages: ["react-syntax-highlighter"],
