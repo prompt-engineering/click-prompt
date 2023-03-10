@@ -90,11 +90,7 @@ function StartlingStepDetail({ index, step, content, onCache, cachedValue }: Ste
     const assistantResponse = assistantMessage[0].content;
     setResponse(assistantResponse);
 
-    console.log("step.cachedResponseRegex:" + step.cachedResponseRegex);
     if (onCache && step.cachedResponseRegex) {
-      console.log(`[${step.cachedResponseRegex}]`);
-      console.log(step.cachedResponseRegex === ".*");
-      console.log(assistantResponse);
       if (step.cachedResponseRegex === ".*" || step.cachedResponseRegex === "(.*?)") {
         onCache(index, assistantResponse);
       } else {
