@@ -1,5 +1,6 @@
 name: 用户故事
 category: Development
+author: Phodal Huang
 description: 这个 "逐步惊人" 交互示例将会展示，如何结合 ChatGPT 分析需求，编写用户故事？分析用户故事，编写测试用例？分析用户故事，编写代码？
 steps:
   - name: 创建需求游戏

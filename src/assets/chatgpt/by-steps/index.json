@@ -28,6 +28,8 @@
         "continue-marker": false,
         "next-ask-value": "//"
       }
-    ]
+    ],
+    "author": "Phodal Huang",
+    "path": "user-story.yml"
   }
 ]
