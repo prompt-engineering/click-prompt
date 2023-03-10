@@ -28,9 +28,7 @@ steps:
 
       当我说 """story: {}""" ，咱们开始游戏。知道这个游戏怎么玩吗？知道的话，请只回复：OK
     # if response with OK means continue
-    continue-marker: /OK(.*)/
-    #    // means no cache values
-    cached-value-regex: //
+    cachedResponseRegex: //
   - name: 分析需求，编写用户故事
     ask: |
       story:
@@ -41,7 +39,6 @@ steps:
       若用户未填写必填字段，则点击“确认”时给出错误提醒“请完成所有必填字段的填写！”
       点击“确认”按钮后弹出二次确认窗口，二次确认信息为“确认创建该账号？账号一旦创建成功即会邮件通知对应用户”。用户再次选择“确认”则系统创建账号，若用户选择“取消”则返回填写账号窗口。
       <</placeholder>>
-    continue-marker: /.*/
     cached-value-regex: /.*/
   - name: 分析用户故事，编写测试用例
     ask: |
@@ -56,8 +53,7 @@ steps:
       """
       <<<response-value:1>>>
       """
-    continue-marker: false
-    next-ask-value: //
+    cachedResponseRegex: //
   - name: 分析用户故事，编写测试代码
     ask: |
       我给你一个需求，你需要分析需求，使用 Java + Spring 编写 API，要求如下：
@@ -81,5 +77,4 @@ steps:
       # use regex to match with array ?
       <<<response-value:1>>>
       """
-    continue-marker: false
-    next-ask-value: //
+    cachedResponseRegex: //

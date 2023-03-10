@@ -25,8 +25,8 @@ interface StartlingStep {
   steps: {
     name: string;
     ask: string;
-    continueMarker: string;
-    cachedValueRegex: string;
+    response?: string;
+    cachedResponseRegex: string;
   }[];
 }
 
