@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import React from 'react'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from '@/components/ChakraUI'
-import StartlingStepDetail from '@/app/[lang]/chatgpt-startling-by-each-step/[id]/StartlingStepDetail'
-import { StartlingStep } from '@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type'
+import React from "react";
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
+import StartlingStepDetail from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StartlingStepDetail";
+import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
 
-function StartlingStepPage({  content, id } : { content: StartlingStep, id: string }) {
+function StartlingStepPage({ content, id }: { content: StartlingStep; id: string }) {
   const [cachedValue, setCachedValue] = React.useState<Record<number, any>>({});
 
   const updateCached = (index: number, value: any) => {
     setCachedValue((prev) => ({ ...prev, [index]: value }));
-  }
+  };
 
   return (
     <>
@@ -32,7 +32,13 @@ function StartlingStepPage({  content, id } : { content: StartlingStep, id: stri
 
             <SimpleGrid columns={1} spacing={4}>
               {content.steps.map((step, index) => (
-                <StartlingStepDetail step={step} key={index} content={content} onCache={updateCached} cachedValue={cachedValue}/>
+                <StartlingStepDetail
+                  step={step}
+                  key={index}
+                  content={content}
+                  onCache={updateCached}
+                  cachedValue={cachedValue}
+                />
               ))}
             </SimpleGrid>
           </Flex>
@@ -42,4 +48,4 @@ function StartlingStepPage({  content, id } : { content: StartlingStep, id: stri
   );
 }
 
-export default StartlingStepPage
+export default StartlingStepPage;

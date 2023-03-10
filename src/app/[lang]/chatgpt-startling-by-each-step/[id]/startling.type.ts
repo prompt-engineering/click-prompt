@@ -4,7 +4,7 @@ export type StepDetail = {
   response?: string;
   cachedResponseRegex: string;
   values: Record<string, string>;
-}
+};
 
 export type StartlingStep = {
   name: string;
@@ -12,4 +12,4 @@ export type StartlingStep = {
   author: string;
   description: string;
   steps: StepDetail[];
-}
+};
