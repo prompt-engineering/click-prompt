@@ -17,6 +17,13 @@ function createNewOpenAIApi(apiKey: string) {
 const chatClients = new Map<string, OpenAIApi>();
 
 const handler: NextApiHandler = async (req, res) => {
+  if (!secret) {
+    res.status(500).json({
+      error: "No secret key env in the server.",
+    });
+    return;
+  }
+
   const userId = req.cookies[SITE_USER_COOKIE];
   if (!userId) {
     res.status(400).json({ error: "You're not logged in yet!" });
