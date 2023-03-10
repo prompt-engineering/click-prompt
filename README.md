@@ -100,3 +100,7 @@ Check out the dedicated [i18n guide](./TRANSLATING.md) for more details.
 ## License
 
 This code is distributed under the MIT license. See [LICENSE](./LICENSE) in this directory.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=prompt-engineering/click-prompt&type=Date)](https://star-history.com/#prompt-engineering/click-prompt&Date)
