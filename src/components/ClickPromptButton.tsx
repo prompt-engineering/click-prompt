@@ -18,6 +18,8 @@ import clickPromptBird from "@/assets/images/click-button-bird.svg?url";
 import Image from "next/image";
 import styled from "@emotion/styled";
 import { ChatGPTApp } from "@/components/ChatGPTApp";
+import { LoginPage } from '@/app/[lang]/chatgpt/LoginPage'
+import { ChatMessage, sentMessageReq } from '@/api/chat-api'
 
 type ButtonSize = "sm" | "md" | "lg";
 
@@ -45,6 +47,7 @@ export type ExecButtonProps = {
   text: string;
   size?: ButtonSize;
   children?: React.ReactNode;
+  onResponse?: (response: ChatMessage) => void;
 };
 
 export function ExecutePromptButton(props: ExecButtonProps) {
@@ -52,6 +55,7 @@ export function ExecutePromptButton(props: ExecButtonProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // todo: add login check
   const handleClick = async (event: any) => {
     const response = await fetch("/api/chatgpt/verify");
     const data = await response.json();
@@ -60,6 +64,19 @@ export function ExecutePromptButton(props: ExecButtonProps) {
       onOpen();
       setIsLoggedIn(false);
     }
+
+    // send response to server
+    setIsLoading(true);
+    const messageData = await sentMessageReq(props.text)
+    if (!messageData.error) {
+      if (!!messageData.messages) {
+        props.onResponse ? props.onResponse(messageData) : null;
+      }
+    } else {
+      console.error(messageData.error)
+    }
+
+    setIsLoading(false)
   };
 
   const handleClose = () => {

@@ -1,14 +1,15 @@
 "use client";
 
-import NewChat from "@/assets/icons/new-chat.svg";
-import TrashcanIcon from "@/assets/icons/trashcan.svg";
-import LogoutIcon from "@/assets/icons/logout.svg";
-import Image from "next/image";
-import content from "@/assets/images/content.png";
-import send from "@/assets/icons/send.svg?url";
-import React, { Dispatch, SetStateAction, useEffect } from "react";
-import { ChatCompletionRequestMessage } from "openai";
-import styled from "@emotion/styled";
+import NewChat from '@/assets/icons/new-chat.svg'
+import TrashcanIcon from '@/assets/icons/trashcan.svg'
+import LogoutIcon from '@/assets/icons/logout.svg'
+import Image from 'next/image'
+import content from '@/assets/images/content.png'
+import send from '@/assets/icons/send.svg?url'
+import React, { Dispatch, SetStateAction, useEffect } from 'react'
+import { ChatCompletionRequestMessage } from 'openai'
+import styled from '@emotion/styled'
+import { sentMessageReq } from '@/api/chat-api'
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -108,14 +109,7 @@ export const ChatRoom = ({
 
     try {
       setDisable(true);
-      const response = await fetch("/api/chatgpt/chat", {
-        method: "POST",
-        body: JSON.stringify({
-          chat_id: "chatgpt",
-          prompt: message,
-        }),
-      });
-      const data = await response.json();
+      const data = await sentMessageReq(message)
 
       if (!data.error) {
         if (data.messages) {

@@ -1,10 +1,5 @@
-import React, { Fragment } from "react";
-import CopyComponent from "@/components/CopyComponent";
-import SimpleMarkdown from "@/components/SimpleMarkdown";
-import { ChatGptIcon } from "@/components/CustomIcon";
-import { ExecutePromptButton } from "@/components/ClickPromptButton";
+import React from "react";
 import {
-  Avatar,
   Box,
   Breadcrumb,
   BreadcrumbItem,
@@ -14,8 +9,7 @@ import {
   Flex,
 } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
-import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
-import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
+import StartlingStepDetail from "./StartlingStepDetail";
 
 interface StartlingStep {
   name: string;
@@ -68,26 +62,7 @@ async function StartlingByEachStepDetail({ params }: { params: { id: string } })
 
             <SimpleGrid columns={1} spacing={4}>
               {content.steps.map((step, index) => (
-                <Fragment key={index}>
-                  <HumanBlock direction='row' justify='space-between'>
-                    <Flex direction='row' gap='2'>
-                      <Avatar bg='teal.500' name={content.author} size='sm' mr={2} />
-                      <Box>
-                        <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
-                      </Box>
-                    </Flex>
-                    <Flex direction='row' gap='2'>
-                      <CopyComponent value={step.ask} />
-                    </Flex>
-                  </HumanBlock>
-                  <ExecutePromptButton text={step.ask} />
-                  <AiBlock direction='row' gap='2'>
-                    <Box>
-                      <ChatGptIcon />
-                    </Box>
-                    <Box gap='2' ml='2' flex='1'></Box>
-                  </AiBlock>
-                </Fragment>
+                <StartlingStepDetail step={step} key={index} content={content} />
               ))}
             </SimpleGrid>
           </Flex>
