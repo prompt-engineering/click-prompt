@@ -53,7 +53,7 @@ export const updateChatById = async (chatId: string, chatContent: string) => {
   await queryBuilder
     .updateTable("chats")
     .where("id", "=", chatId)
-    .set({ chat_content: chatContent, created_at: datetime })
+    .set({ chat_content: chatContent, created_at: "" })
     .execute();
 };
 
@@ -62,7 +62,7 @@ export const saveAndLoginUser = async (userId: string) => {
 
   await queryBuilder
     .insertInto("users")
-    .values({ id: userId, created_at: datetime, is_login: true })
+    .values({ id: userId, created_at: "", is_login: true })
     .onDuplicateKeyUpdate({ is_login: true })
     .execute();
 };
