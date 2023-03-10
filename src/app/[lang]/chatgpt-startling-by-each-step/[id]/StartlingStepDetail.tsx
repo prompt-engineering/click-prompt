@@ -2,15 +2,15 @@
 
 import React, { useEffect } from "react";
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
-import { Avatar, Box, Flex } from "@/components/ChakraUI";
+import { Avatar, Box } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
-import CopyComponent from "@/components/CopyComponent";
 import { ExecutePromptButton } from "@/components/ClickPromptButton";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
 import { ChatMessage } from "@/api/chat-api";
-import { StartlingStep, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
+import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
 import { Textarea } from "@chakra-ui/react";
+import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StepDetail";
 
 type StepProps = {
   index: number;
@@ -19,46 +19,6 @@ type StepProps = {
   cachedValue: Record<number, any>;
   onCache?: (step: number, response: string) => void;
 };
-
-// - name: 分析需求，编写用户故事
-//   ask:  story: $$placeholder$$
-//   cached-value-regex: /.*/
-//   values:
-//     placeholder: 用户通过主菜单进入“权限管理”模块，选择“账号管理”Tab页，可以看到“新增账号”按钮。
-function fillStepWithValued(step: StepDetail, cachedValue: Record<number, any>): { replaced: boolean; ask: string } {
-  const regex = new RegExp(/\$\$([a-zA-Z0-9_]+)\$\$/);
-  let newValue = step.ask;
-  let isChanged = false;
-  // 2. find $$placeholder$$ in step.ask
-  if (step.ask && step.values) {
-    const matched = step.ask.match(regex);
-    if (matched) {
-      // 1. replace $$placeholder$$ with step.values.placeholder
-      const placeholder = matched[1];
-      const value = step.values[placeholder];
-      if (value) {
-        isChanged = true;
-        newValue = step.ask.replace(regex, value);
-      }
-    }
-  }
-
-  // 3. find value in cachedValue, format: $$response:1$$
-  if (step.ask && cachedValue) {
-    const regex = new RegExp(/\$\$response:([0-9]+)\$\$/);
-    const matched = step.ask.match(regex);
-    if (matched) {
-      const index = parseInt(matched[1]);
-      const value = cachedValue[index];
-      if (value) {
-        isChanged = true;
-        newValue = step.ask.replace(regex, value);
-      }
-    }
-  }
-
-  return { replaced: isChanged, ask: newValue };
-}
 
 type AskRendererProps = { step: StepDetail; onAskUpdate: (ask: string) => void; cachedValue: Record<number, any> };
 
