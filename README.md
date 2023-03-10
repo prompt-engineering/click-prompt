@@ -11,12 +11,9 @@ English | [简体中文](./README.zh-CN.md)
 > ClickPrompt is a tool designed for Prompt writers, it supports a variety of Prompt-based AI applications, such as Stable Diffusion, ChatGPT, and GitHub Copilot, etc.
 > With ClickPrompt, you can easily view, share, and run these models with one click, and an online prompt generator is provided to enable users to easily create prompts that meet their requirements and share them with others.
 
-Try it：https://www.clickprompt.org/
+Stable Env：https://www.clickprompt.org/
 
-Mirrors：
-
-- https://prompt.phodal.com
-- https://clickprompt.vercel.app
+Dev Env(latest): https://dev.clickprompt.org/
 
 Join us:
 

@@ -12,10 +12,7 @@
 
 立即尝试：https://www.clickprompt.org/
 
-备用地址：
-
-- https://prompt.phodal.com
-- https://clickprompt.vercel.app
+开发环境: https://dev.clickprompt.org/
 
 扫一扫加入 ClickPrompt 微信群:
 
