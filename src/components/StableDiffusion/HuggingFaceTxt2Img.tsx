@@ -4,6 +4,8 @@ import React, { useRef, useState } from "react";
 import { Button, Grid, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import styled from "@emotion/styled";
+import { StableDiffusionDataToString } from "@/data-processor/SduiParser";
+import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
 import { AppData } from "@/i18n";
 
 const ImageNote = styled("div")`
@@ -11,22 +13,24 @@ const ImageNote = styled("div")`
   color: #888;
 `;
 
-type HuggingFaceComponentProps = { model: string; prompt: string; dict: Record<string, string> };
+
+type HuggingFaceComponentProps = { model: string; prompt: StableDiffusionGenData; dict: Record<string, string> };
 export const HuggingFaceTxt2Img = ({ model, prompt, dict }: HuggingFaceComponentProps) => {
   const [huggingFace, setHuggingFace] = useState({
     image: "",
     loading: false,
     error: "",
-    prompt: prompt,
+    prompt: StableDiffusionDataToString(prompt),
   });
 
-  const callHuggingFace = async (useClipboard = true) => {
-    const generatedPrompt = useClipboard ? await navigator.clipboard.readText() : prompt ?? "";
+  const callHuggingFace = async () => {
+    if (!prompt) return;
+    if (!prompt.prompt) return;
     setHuggingFace({
       image: "",
       loading: true,
       error: "",
-      prompt: generatedPrompt,
+      prompt: StableDiffusionDataToString(prompt),
     });
     const response = await fetch("https://api-inference.huggingface.co/models/" + model, {
       method: "POST",
@@ -36,7 +40,8 @@ export const HuggingFaceTxt2Img = ({ model, prompt, dict }: HuggingFaceComponent
         Authorization: "Bearer " + process.env.NEXT_PUBLIC_HUGGING_FACE_ACCESS_TOKEN,
       },
       body: JSON.stringify({
-        inputs: generatedPrompt,
+        inputs: prompt.prompt,
+        negative_prompt: prompt.negativePrompt
       }),
     });
     if (response.status == 200) {
@@ -56,7 +61,7 @@ export const HuggingFaceTxt2Img = ({ model, prompt, dict }: HuggingFaceComponent
         loading: false,
         error:
           response.status == 503
-            ? "模型正在启动，请等待至少" + errJson.estimated_time + "秒后使用相同咒语重试"
+            ? dict["model_503_error_prefix"] + errJson.estimated_time + dict["model_503_error_suffix"]
             : errJson.error,
         prompt: huggingFace.prompt,
       });
@@ -69,24 +74,14 @@ export const HuggingFaceTxt2Img = ({ model, prompt, dict }: HuggingFaceComponent
         <Link href={"https://huggingface.co/" + model} isExternal>
           {model}
         </Link>
-        <SimpleGrid gap={1} p={0} columns={2}>
-          <Button
-            mt={4}
-            colorScheme='teal'
-            isLoading={huggingFace && huggingFace.loading}
-            onClick={() => callHuggingFace(false)}
-          >
-            {dict["use-method-2-spell"]}
-          </Button>
-          <Button
-            mt={4}
-            colorScheme='teal'
-            isLoading={huggingFace && huggingFace.loading}
-            onClick={() => callHuggingFace(true)}
-          >
-            {dict["read-spell-from-clipboard"]}
-          </Button>
-        </SimpleGrid>
+        <Button
+          mt={4}
+          colorScheme='teal'
+          isLoading={huggingFace && huggingFace.loading}
+          onClick={() => callHuggingFace()}
+        >
+          {dict["generate"]}
+        </Button>
       </Grid>
       <Grid>
         <ImageNote>{dict["notes-black-image"]}</ImageNote>

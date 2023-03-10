@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
   Flex,
@@ -27,7 +27,10 @@ import PromptFieldForm, { SdPromptField } from "@/components/PromptFieldForm";
 import sdImage from "@/assets/images/stable-diffusion-demo.jpeg";
 import { WebStorage } from "@/utils/storage.util";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
-import { HuggingFaceTxt2Img } from "./HuggingFaceTxt2Img";
+import { HuggingFaceTxt2Img } from "@/components/StableDiffusion/HuggingFaceTxt2Img";
+import { SdPrompt } from "@/components/StableDiffusion/SdPrompt";
+import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
+import { StableDiffusionDataToString } from "@/data-processor/SduiParser";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
@@ -429,19 +432,21 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
   const dict = i18n.dict;
 
   const [isSubmitting] = useState(false);
-  const promptResultRef = useRef<HTMLDivElement | null>(null);
   const [bracketType, setBracketType] = useState<BracketType>(BracketType.round);
+  const [currentPrompt, setCurrentPrompt] = useState<StableDiffusionGenData>({
+    prompt: "",
+    negativePrompt: "worst quality, low quality, jpeg artifacts, signature, watermark, username, blurry, error, nude, censored"
+  });
 
   const formik = useFormik({
     initialValues: generateEmptyForm(),
     onSubmit: (values) => {
       sdGeneratorFormStorage.set(values);
-      copyToClipboard(promptResultRef.current?.innerText ?? "");
+      copyToClipboard(StableDiffusionDataToString(currentPrompt));
     },
   });
 
-  const tagsText = useMemo(() => {
-    const values = formik.values;
+  const generatePrompt = (values: any, bracketType: BracketType) => {
     const filteredValues = Object.keys(values).reduce((acc: any, key) => {
       if (values[key].value !== "") acc[key] = values[key];
       return acc;
@@ -451,7 +456,19 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
       .map((it) => tagToText(it, bracketType))
       .filter((it) => it !== "")
       .join(", ");
-  }, [formik.values, bracketType]);
+  }
+
+  const handlePromptGeneratorChange = (values: any, bracketType: BracketType) : string => {
+    const text = generatePrompt(values, bracketType);
+    const newPrompt: StableDiffusionGenData = {
+      prompt: text,
+      negativePrompt: currentPrompt.negativePrompt
+    };
+    setCurrentPrompt(newPrompt);
+    return text;
+  }
+
+  const tagsText = useMemo(() => handlePromptGeneratorChange(formik.values, bracketType), [formik.values, bracketType]);
 
   useEffect(() => {
     const formStorage = sdGeneratorFormStorage.get();
@@ -482,6 +499,10 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
 """
 
 `;
+
+  const handlePromptChange = (event: ChangeEvent<HTMLTextAreaElement>, newPrompt: StableDiffusionGenData) => {
+    setCurrentPrompt(newPrompt);
+  }
 
   return (
     <SimpleGrid spacing={10}>
@@ -583,20 +604,21 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
             ))}
         </Flex>
 
-        <Text ref={promptResultRef}>{tagsText}</Text>
-
-        <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
-          {dict["copy-spell-and-save"]}
-        </Button>
-        <Button mt={4} marginLeft={1} isLoading={isSubmitting} onClick={onClear}>
-          {dict["clear-cache"]}
-        </Button>
+        <SimpleGrid gap={3} columns={2}>
+          <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
+            {dict["copy-spell-and-save"]}
+          </Button>
+          <Button mt={4} marginLeft={1} isLoading={isSubmitting} onClick={onClear}>
+            {dict["clear-cache"]}
+          </Button>
+        </SimpleGrid>
       </form>
       <Heading as={"h3"}>{dict["test-spell-online"]}</Heading>
+      <SdPrompt prompt={currentPrompt} onChange={handlePromptChange} dict={dict} />
       <Flex alignItems='start' gap='2'>
-        <HuggingFaceTxt2Img model='stabilityai/stable-diffusion-2-1-base' prompt={tagsText ?? ""} dict={dict} />
-        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={tagsText ?? ""} dict={dict} />
-        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={tagsText ?? ""} dict={dict} />
+        <HuggingFaceTxt2Img model='stabilityai/stable-diffusion-2-1-base' prompt={currentPrompt} dict={dict} />
+        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={currentPrompt} dict={dict} />
+        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={currentPrompt} dict={dict} />
       </Flex>
       <SimpleGrid gap={3} p={3} columns={1}>
         <Heading>{dict["other-online-spell-tools"]}</Heading>
