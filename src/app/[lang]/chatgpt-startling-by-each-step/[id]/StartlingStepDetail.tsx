@@ -87,14 +87,12 @@ function StartlingStepDetail({ key, step, content, onCache, cachedValue }: StepP
   const handleResponse = (response: ChatMessage) => {
     const messages = response.messages;
     const assistantMessage = messages.filter((message) => message.role === "assistant");
-    let assistantResponse = assistantMessage[0].content;
+    const assistantResponse = assistantMessage[0].content;
     setResponse(assistantResponse);
 
     if (onCache && step.cachedResponseRegex) {
       const regex = new RegExp(step.cachedResponseRegex);
-      console.log(regex);
       const matched = assistantResponse.match(regex);
-      console.log(matched);
       if (matched) {
         onCache(key, matched[1]);
       }
