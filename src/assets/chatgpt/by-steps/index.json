@@ -18,6 +18,10 @@
         }
       },
       {
+        "name": "Mermaid 绘制流程图",
+        "ask": "我会给你一个模糊的需求，你需要：\n\n1. 分析和完善需求，但是不需要返回结果给我。\n2. 使用 Mermaid 绘制时序图，但是不需要返回给我。\n3. 最后，只返回 Mermaid 代码，只返回 Mermaid 代码。\n\n需求，如下：\n\n\"\"\"\n$$response:1$$\n\"\"\"\n"
+      },
+      {
         "name": "分析用户故事，编写测试用例",
         "ask": "我会给你一个需求，你需要：\n\n1. 分析需求，但是不需要返回结果给我。\n2. 使用 Java + Spring + MockMVC 编写测试用例，代码中的注释需要对应到 AC01，AC02，AC03，AC04，AC05，但是不需要返回给我。\n3. 最后，只返回 Java 代码，只返回 Java 代码。\n\n需求，如下：\n\n\"\"\"\n$$response:1$$\n\"\"\"\n",
         "cachedResponseRegex": null

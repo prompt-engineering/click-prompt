@@ -17,8 +17,8 @@ Negative prompt: illustration, 3d, sepia, painting, cartoons, sketch, (worst qua
 Size: 512x784, Seed: 21364683354, Model: chilloutmix_NiPrunedFp32Fix, Steps: 33, Sampler: DPM++ SDE Karras, CFG scale: 7, Model hash: fc2511737a`;
 
     let result = parseStableDiffusionData(str);
-    expect(result.lora.length).toEqual(2);
-    expect(result.lora[0]).toEqual("japaneseDollLikeness_v10");
-    expect(result.lora[1]).toEqual("koreanDollLikeness_v10");
+    expect(result.lora!.length).toEqual(2);
+    expect(result.lora![0]).toEqual("japaneseDollLikeness_v10");
+    expect(result.lora![1]).toEqual("koreanDollLikeness_v10");
   });
 });

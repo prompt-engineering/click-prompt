@@ -1,10 +1,4 @@
-export type StepDetail = {
-  name: string;
-  ask: string;
-  response?: string;
-  cachedResponseRegex: string;
-  values: Record<string, string>;
-};
+import { StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StepDetail";
 
 export type StartlingStep = {
   name: string;
