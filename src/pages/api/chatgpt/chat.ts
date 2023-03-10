@@ -79,7 +79,7 @@ const handler: NextApiHandler = async (req, res) => {
         return res.status(200).json({ messages: chat });
       } catch (e: any) {
         console.error(e);
-        let msg = "Some error happened";
+        let msg = e.message;
         if (e.code === "ETIMEDOUT") {
           msg = "Request api was timeout, pls confirm your network worked";
         } else if (e.response && e.response.data) {
