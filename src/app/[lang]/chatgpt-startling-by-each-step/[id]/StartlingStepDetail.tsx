@@ -67,8 +67,8 @@ function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
   if (askTask.replaced) {
     return (
       <Textarea
-        w='100%'
-        size={"md"}
+        className='bg-white'
+        h='calc(100%)'
         value={askTask.ask}
         onChange={(event) => {
           onAskUpdate(event.target.value);
