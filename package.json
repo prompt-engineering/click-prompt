@@ -53,7 +53,8 @@
     "react-syntax-highlighter": "^15.5.0",
     "server-only": "^0.0.1",
     "sharp": "^0.31.3",
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
@@ -68,6 +69,7 @@
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@types/react-dom": "18.0.11",
     "@types/react-syntax-highlighter": "^15.5.6",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "autoprefixer": "^10.4.13",
     "eslint": "8.35.0",

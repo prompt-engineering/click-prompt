@@ -42,9 +42,9 @@ const handler: NextApiHandler = async (req, res) => {
   chatClients.set(userId, chatClient);
 
   if (req.method === "POST" && req.body) {
-    const { prompt, chat_id: chatId } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const { prompt, chat_id: chatId, chat_name: chatName } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     const currentChat = chats?.find((chat) => chat.id === chatId) ?? { chat_content: "[]" };
-    const currentChatContent = JSON.parse(currentChat.chat_content);
+    const currentChatContent: ChatCompletionRequestMessage[] = JSON.parse(currentChat.chat_content);
 
     if (prompt && chatId) {
       const chat = [
@@ -74,7 +74,7 @@ const handler: NextApiHandler = async (req, res) => {
 
         chat.push(choices[0].message);
         const newChatContent = JSON.stringify(chat);
-        await updateChatById(chatId, userId, newChatContent);
+        await updateChatById(chatId, userId, newChatContent, chatName);
 
         return res.status(200).json({ messages: chat });
       } catch (e: any) {

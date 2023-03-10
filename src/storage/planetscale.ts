@@ -9,11 +9,10 @@ interface UsersTable {
 }
 
 interface ChatsTable {
-  // 每个 chat 表里的 id 应该是唯一的，或者自增的，这里的 chatId 应该是 chat 表里的 id
-  id?: string;
+  id: string;
   user_id: string;
-  chat_name: string; // line 14
-  // will be a JSON string: '[{ role: "user", content: "Hello" }, { role: "bot", content: "Hi" }]'
+  chat_name: string;
+  // will be a JSON string: '[{ role: "user", content: "Hello" }, { role: "assistant", content: "Hi" }]'
   chat_content: string;
   created_at: string;
 }
@@ -42,18 +41,18 @@ export const getAllChats = cache(async (userId: string) => {
 function generateDateTime() {
   const date = new Date();
   const padZero = (num: number) => num.toString().padStart(2, "0");
-  const datetime = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(
+
+  return `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(
     date.getHours(),
   )}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
-  return datetime;
 }
 
-export const updateChatById = async (chatId: string, userId: string, chatContent: string) => {
+export const updateChatById = async (chatId: string, userId: string, chatContent: string, chatName: string) => {
   const datetime = generateDateTime();
 
   await queryBuilder
     .insertInto("chats")
-    .values({ chat_name: "", user_id: userId, chat_content: chatContent, created_at: datetime })
+    .values({ id: chatId, chat_name: chatName, user_id: userId, chat_content: chatContent, created_at: datetime })
     .onDuplicateKeyUpdate({ chat_content: chatContent })
     .execute();
 };
