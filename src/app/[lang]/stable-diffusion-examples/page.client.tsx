@@ -6,7 +6,6 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
-  Button,
   Card,
   CardBody,
   CardHeader,
@@ -21,7 +20,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import CopyComponent from "@/components/CopyComponent";
+import { SdPrompt } from "@/components/StableDiffusion/SdPrompt";
 import samples from "@/assets/stable-diffusion/samples/index.json";
 import { ExternalLinkIcon, InfoIcon } from "@chakra-ui/icons";
 import { parseStableDiffusionData } from "@/data-processor/SduiParser";
@@ -45,7 +44,6 @@ function SdPromptPopover(
   isOpen: boolean,
   onClose: () => void,
   parsedPrompt: StableDiffusionGenData,
-  originPrompt: string,
 ) {
   return (
     <Popover returnFocusOnClose={false} isOpen={isOpen} onClose={onClose} placement='right' closeOnBlur={true}>
@@ -53,30 +51,12 @@ function SdPromptPopover(
         <PopoverArrow />
         <PopoverCloseButton />
         <PopoverBody>
-          Prompt:
-          <StyledGreyBox overflow={"auto"}>
-            <Text>{parsedPrompt.prompt} </Text>
-          </StyledGreyBox>
-          NegativePrompt:
-          <StyledGreyBox overflow={"auto"}>
-            <Text>{parsedPrompt.negativePrompt} </Text>
-          </StyledGreyBox>
-          <Text>Model: {parsedPrompt.model}</Text>
-          {parsedPrompt.lora.length > 0 && <Text>Lora: {parsedPrompt.lora.join(", ")} </Text>}
-          <Text>CFG Scale: {parsedPrompt.cfgScale}</Text>
-          <Text>Seed: {parsedPrompt.seed}</Text>
-          <Text>Size: {parsedPrompt.size}</Text>
-          <CopyComponent value={originPrompt}></CopyComponent>
+          <SdPrompt readonly prompt={parsedPrompt} />
         </PopoverBody>
       </PopoverContent>
     </Popover>
   );
 }
-
-const StyledGreyBox = styled(Box)`
-  background-color: #f7fafc;
-  height: 100px;
-`;
 
 function StableDiffusionExamples({ i18n }: GeneralI18nProps) {
   const dict = i18n.dict;
@@ -98,7 +78,7 @@ function StableDiffusionExamples({ i18n }: GeneralI18nProps) {
         <CardBody>
           <StyledStack>
             <Image src={artist.preview} alt='' width={512} height={512} />
-            {SdPromptPopover(isOpen, onClose, parsedPrompt, artist.prompt)}
+            {SdPromptPopover(isOpen, onClose, parsedPrompt)}
             <StyledInfoIcon color={"white"} onClick={onToggle} onFocus={onToggle} />
           </StyledStack>
         </CardBody>
