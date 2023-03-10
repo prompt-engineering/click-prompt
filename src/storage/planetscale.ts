@@ -1,25 +1,11 @@
 import { Kysely } from "kysely";
 import { PlanetScaleDialect } from "kysely-planetscale";
 import { cache } from "react";
-
-interface UsersTable {
-  id: string;
-  is_login: boolean;
-  created_at: string;
-}
-
-interface ChatsTable {
-  id: string;
-  user_id: string;
-  chat_name: string;
-  // will be a JSON string: '[{ role: "user", content: "Hello" }, { role: "assistant", content: "Hi" }]'
-  chat_content: string;
-  created_at: string;
-}
+import { chats as Chats, users as Users } from "@prisma/client";
 
 interface Database {
-  users: UsersTable;
-  chats: ChatsTable;
+  users: Users;
+  chats: Chats;
 }
 
 export const queryBuilder = new Kysely<Database>({
@@ -38,31 +24,18 @@ export const getAllChats = cache(async (userId: string) => {
   return data;
 });
 
-function generateDateTime() {
-  const date = new Date();
-  const padZero = (num: number) => num.toString().padStart(2, "0");
-
-  return `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(
-    date.getHours(),
-  )}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
-}
-
 export const updateChatById = async (chatId: string, userId: string, chatContent: string, chatName: string) => {
-  const datetime = generateDateTime();
-
   await queryBuilder
     .insertInto("chats")
-    .values({ id: chatId, chat_name: chatName, user_id: userId, chat_content: chatContent, created_at: datetime })
+    .values({ id: chatId, chat_name: chatName, user_id: userId, chat_content: chatContent, created_at: new Date() })
     .onDuplicateKeyUpdate({ chat_content: chatContent })
     .execute();
 };
 
 export const saveAndLoginUser = async (userId: string) => {
-  const datetime = generateDateTime();
-
   await queryBuilder
     .insertInto("users")
-    .values({ id: userId, created_at: datetime, is_login: true })
+    .values({ id: userId, created_at: new Date(), is_login: true })
     .onDuplicateKeyUpdate({ is_login: true })
     .execute();
 };

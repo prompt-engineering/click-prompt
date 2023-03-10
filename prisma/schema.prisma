@@ -1,0 +1,26 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model chats {
+  id           String   @id @db.VarChar(255)
+  user_id      String   @db.VarChar(255)
+  chat_name    String   @db.VarChar(50)
+  chat_content String   @db.Text
+  created_at   DateTime @db.DateTime(0)
+
+  @@index([user_id], map: "user_id_idx")
+}
+
+model users {
+  id         String   @id @db.VarChar(255)
+  created_at DateTime @db.DateTime(0)
+  is_login   Boolean? @default(false)
+}
