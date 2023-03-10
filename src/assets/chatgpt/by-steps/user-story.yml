@@ -27,7 +27,6 @@ steps:
       """
 
       当我说 """story: {}""" ，咱们开始游戏。知道这个游戏怎么玩吗？知道的话，请只回复：OK
-    # if response with OK means continue
     cachedResponseRegex: //
 
   - name: 分析需求，编写用户故事
@@ -53,7 +52,7 @@ steps:
       需求，如下：
 
       """
-      $$response-value:1$$
+      $$response:1$$
       """
     cachedResponseRegex: //
   - name: 分析用户故事，编写测试代码
@@ -77,6 +76,6 @@ steps:
 
       """
       # use regex to match with array ?
-      $$response-value:1$$
+      $$response:1$$
       """
     cachedResponseRegex: //

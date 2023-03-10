@@ -2,9 +2,8 @@
 
 Simple DSL with components:
 
-- <<placeholder>>: placeholder
-- <<<response-value:1>>>: means the second response, because array index start from 0
-
+- $$placeholder$$: placeholder
+- $$response:1$$: means the second response, because array index start from 0
 
 DataStructure:
 
