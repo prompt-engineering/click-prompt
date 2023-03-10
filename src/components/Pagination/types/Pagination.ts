@@ -1,4 +1,4 @@
-import { SortingState } from '@tanstack/react-table';
+import { SortingState } from "@tanstack/react-table";
 
 export type Options<I> = {
   total: number;

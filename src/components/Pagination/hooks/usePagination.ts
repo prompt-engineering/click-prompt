@@ -1,9 +1,7 @@
-import { Options, Pagination } from '../types/Pagination';
+import { Options, Pagination } from "../types/Pagination";
 
 function generatePagesArray(from: number, to: number): number[] {
-  return [...new Array(to - from)]
-    .map((_, index) => from + index + 1)
-    .filter(page => page > 0);
+  return [...new Array(to - from)].map((_, index) => from + index + 1).filter((page) => page > 0);
 }
 
 export function usePagination<I>({
@@ -18,17 +16,9 @@ export function usePagination<I>({
   const lastPage = Math.ceil(total / itemsPerPage);
   const totalPages = lastPage === 0 ? 1 : lastPage;
 
-  const previousPages =
-    currentPage > 1
-      ? generatePagesArray(currentPage - 1 - siblingsCount, currentPage - 1)
-      : [];
+  const previousPages = currentPage > 1 ? generatePagesArray(currentPage - 1 - siblingsCount, currentPage - 1) : [];
   const nextPages =
-    currentPage < lastPage
-      ? generatePagesArray(
-        currentPage,
-        Math.min(currentPage + siblingsCount, lastPage),
-      )
-      : [];
+    currentPage < lastPage ? generatePagesArray(currentPage, Math.min(currentPage + siblingsCount, lastPage)) : [];
 
   const pageStart = (page - 1) * itemsPerPage;
   const pageEnd = pageStart + itemsPerPage;
@@ -38,15 +28,15 @@ export function usePagination<I>({
     .sort((a: any, b) => {
       const { desc, id } = sorting[0] ?? {};
 
-      if (typeof a[id] !== 'string') {
+      if (typeof a[id] !== "string") {
         return undefined;
       }
 
       const order: any = desc ? b : a;
       const compare = desc ? a : b;
 
-      return order[id].localeCompare(compare[id], 'pt-BR', {
-        sensitivity: 'base',
+      return order[id].localeCompare(compare[id], "pt-BR", {
+        sensitivity: "base",
       });
     })
     // Get the items for the current page size

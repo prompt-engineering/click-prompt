@@ -46,20 +46,20 @@ type Prompts = Prompt[];
 function ChatGptPromptList({ prompts, i18n }: { prompts: Prompts } & GeneralI18nProps) {
   const dict = i18n.dict;
   const [search, setSearch] = useState<string>("");
-  const searchRef = useRef<HTMLInputElement>(null)
+  const searchRef = useRef<HTMLInputElement>(null);
   const defaultPage = {
     pageIndex: 1,
     pageSize: 20,
-  }
+  };
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>(defaultPage);
-  const [data, setData] = useState<Prompts>(prompts)
-  const total = data.length
+  const [data, setData] = useState<Prompts>(prompts);
+  const total = data.length;
   const paginationState = usePagination<Prompt>({
     total,
     page: pageIndex,
     items: data,
     itemsPerPage: pageSize,
-    siblingsCount: 2
+    siblingsCount: 2,
   });
   const handleScroll = (ref: HTMLInputElement) => {
     window.scrollTo({
@@ -70,26 +70,31 @@ function ChatGptPromptList({ prompts, i18n }: { prompts: Prompts } & GeneralI18n
   };
 
   function doSearch(val: string) {
-    setSearch(val)
+    setSearch(val);
 
-    setPagination(defaultPage)
+    setPagination(defaultPage);
     if (!!val) {
-      setData(prompts.filter(
-        (it) =>
-          (it.act != undefined && it.act.includes(val)) ||
-          (it.prompt != undefined && it.prompt.includes(val)),
-      ))
+      setData(
+        prompts.filter(
+          (it) => (it.act != undefined && it.act.includes(val)) || (it.prompt != undefined && it.prompt.includes(val)),
+        ),
+      );
     } else {
-      setData(prompts)
+      setData(prompts);
     }
   }
 
   return (
     <div>
       <Heading></Heading>
-      <Input ref={searchRef} placeholder={dict["Search"]} value={search} onChange={(ev) => {
-        doSearch(ev.target.value)
-      }} />
+      <Input
+        ref={searchRef}
+        placeholder={dict["Search"]}
+        value={search}
+        onChange={(ev) => {
+          doSearch(ev.target.value);
+        }}
+      />
       <Text>
         {dict["base-on"]}:
         <a href={"https://github.com/f/awesome-chatgpt-prompts"}>
@@ -99,25 +104,24 @@ function ChatGptPromptList({ prompts, i18n }: { prompts: Prompts } & GeneralI18n
           awesome-chatgpt-prompts-zh <LinkIcon />
         </a>
       </Text>
-      {paginationState.pageItems && <>
-        <DataTable
-          data={paginationState.pageItems}
-          columns={genColumns(dict, search) as any}
-        />
-        <Pagination
-          {...paginationState}
-          colorScheme="twitter"
-          onPageChange={page => {
-            setPagination({
-              pageIndex: page,
-              pageSize
-            })
-            if (searchRef.current) {
-              handleScroll(searchRef.current)
-            }
-          }}
-        />
-      </>}
+      {paginationState.pageItems && (
+        <>
+          <DataTable data={paginationState.pageItems} columns={genColumns(dict, search) as any} />
+          <Pagination
+            {...paginationState}
+            colorScheme='twitter'
+            onPageChange={(page) => {
+              setPagination({
+                pageIndex: page,
+                pageSize,
+              });
+              if (searchRef.current) {
+                handleScroll(searchRef.current);
+              }
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }
