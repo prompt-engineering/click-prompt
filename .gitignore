@@ -41,3 +41,5 @@ next-env.d.ts
 /dist
 public/sitemap-0.xml
 src/assets/resources/**/*.json
+
+.vercel

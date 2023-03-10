@@ -13,6 +13,7 @@
     "format": "prettier --check . -u",
     "format:fix": "prettier --write . -u",
     "postinstall": "npm run prepare:data",
+    "prepare:env": "npx vercel env pull .env.local",
     "prepare:data": "node gen/generate-samples-index.js && node gen/generate-resources-csv.js && node gen/generate-chatgpt-by-category.js",
     "test": "jest",
     "test:watch": "jest --watch"
