@@ -10,6 +10,7 @@ function StartlingStepPage({ content, id }: { content: StartlingStep; id: string
 
   const updateCached = (index: number, value: any) => {
     setCachedValue((prev) => ({ ...prev, [index]: value }));
+    console.log(cachedValue);
   };
 
   return (

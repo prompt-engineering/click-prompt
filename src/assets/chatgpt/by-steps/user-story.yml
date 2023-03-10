@@ -27,12 +27,12 @@ steps:
       """
 
       当我说 """story: {}""" ，咱们开始游戏。知道这个游戏怎么玩吗？知道的话，请只回复：OK
-    cachedResponseRegex: //
+    cachedResponseRegex:
 
   - name: 分析需求，编写用户故事
     ask: |
       story: $$placeholder$$
-    cached-value-regex: /.*/
+    cached-value-regex: .*
     values:
       placeholder: |
         用户通过主菜单进入“权限管理”模块，选择“账号管理”Tab页，可以看到“新增账号”按钮。
@@ -54,7 +54,7 @@ steps:
       """
       $$response:1$$
       """
-    cachedResponseRegex: //
+    cachedResponseRegex:
   - name: 分析用户故事，编写测试代码
     ask: |
       我给你一个需求，你需要分析需求，使用 Java + Spring 编写 API，要求如下：
@@ -78,4 +78,4 @@ steps:
       # use regex to match with array ?
       $$response:1$$
       """
-    cachedResponseRegex: //
+    cachedResponseRegex:

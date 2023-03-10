@@ -1,7 +1,5 @@
 import React from "react";
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
-import StartlingStepDetail from "./StartlingStepDetail";
 import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
 import StartlingStepPage from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StartlingStepPage";
 

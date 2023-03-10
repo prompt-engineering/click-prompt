@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
 import { Avatar, Box, Flex } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
@@ -25,29 +25,49 @@ type StepProps = {
 //   cached-value-regex: /.*/
 //   values:
 //     placeholder: 用户通过主菜单进入“权限管理”模块，选择“账号管理”Tab页，可以看到“新增账号”按钮。
-function buildNewAsk(step: StepDetail): { replaced: boolean; ask: string } {
-  // 1. find $$placeholder$$ in step.ask
+function fillStepWithValued(step: StepDetail, cachedValue: Record<number, any>): { replaced: boolean; ask: string } {
+  const regex = new RegExp(/\$\$([a-zA-Z0-9_]+)\$\$/);
+  let newValue = step.ask;
+  let isChanged = false;
+  // 2. find $$placeholder$$ in step.ask
   if (step.ask && step.values) {
-    const regex = new RegExp(/\$\$([a-zA-Z0-9_]+)\$\$/);
     const matched = step.ask.match(regex);
     if (matched) {
-      // 2. replace $$placeholder$$ with step.values.placeholder
+      // 1. replace $$placeholder$$ with step.values.placeholder
       const placeholder = matched[1];
       const value = step.values[placeholder];
       if (value) {
-        return { replaced: true, ask: step.ask.replace(regex, value) };
+        isChanged = true;
+        newValue = step.ask.replace(regex, value);
       }
     }
   }
 
-  return { replaced: false, ask: step.ask };
+  // 3. find value in cachedValue, format: $$response:1$$
+  if (step.ask && cachedValue) {
+    const regex = new RegExp(/\$\$response:([0-9]+)\$\$/);
+    const matched = step.ask.match(regex);
+    if (matched) {
+      const index = parseInt(matched[1]);
+      const value = cachedValue[index];
+      if (value) {
+        isChanged = true;
+        newValue = step.ask.replace(regex, value);
+      }
+    }
+  }
+
+  return { replaced: isChanged, ask: newValue };
 }
 
-function RenderTemplateQuestion({ step, onAskUpdate }: { step: StepDetail; onAskUpdate: (ask: string) => void }) {
-  const askTask = buildNewAsk(step);
+type AskRendererProps = { step: StepDetail; onAskUpdate: (ask: string) => void; cachedValue: Record<number, any> };
+
+function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
+  const askTask = fillStepWithValued(step, cachedValue);
   if (askTask.replaced) {
     return (
       <Textarea
+        w='100%'
         size={"md"}
         value={askTask.ask}
         onChange={(event) => {
@@ -57,20 +77,24 @@ function RenderTemplateQuestion({ step, onAskUpdate }: { step: StepDetail; onAsk
     );
   }
 
+  onAskUpdate(askTask.ask);
   return <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />;
 }
 
-function StartlingStepDetail({ key, step, content, onCache }: StepProps) {
+function StartlingStepDetail({ key, step, content, onCache, cachedValue }: StepProps) {
   const [response, setResponse] = React.useState<string | undefined>(undefined);
 
   const handleResponse = (response: ChatMessage) => {
     const messages = response.messages;
     const assistantMessage = messages.filter((message) => message.role === "assistant");
-    setResponse(assistantMessage[0].content);
+    let assistantResponse = assistantMessage[0].content;
+    setResponse(assistantResponse);
 
     if (onCache && step.cachedResponseRegex) {
       const regex = new RegExp(step.cachedResponseRegex);
-      const matched = assistantMessage[0].content.match(regex);
+      console.log(regex);
+      const matched = assistantResponse.match(regex);
+      console.log(matched);
       if (matched) {
         onCache(key, matched[1]);
       }
@@ -79,15 +103,22 @@ function StartlingStepDetail({ key, step, content, onCache }: StepProps) {
 
   const [ask, setAsk] = React.useState<string>(step.ask);
 
+  useEffect(() => {
+    const askTask = fillStepWithValued(step, cachedValue);
+    if (askTask.replaced) {
+      setAsk(askTask.ask);
+    }
+  }, [cachedValue]);
+
   return (
     <>
       <HumanBlock direction='row' justify='space-between'>
-        <Flex direction='row' gap='2'>
-          <Avatar bg='teal.500' name={content.author} size='sm' mr={2} />
-          <RenderTemplateQuestion step={step} onAskUpdate={setAsk} />
-        </Flex>
+        <Avatar bg='teal.500' name={content.author} size='sm' mr={2} />
+        <Box w='100%' p={4}>
+          <AskRenderer step={step} onAskUpdate={setAsk} cachedValue={cachedValue} />
+        </Box>
       </HumanBlock>
-      <ExecutePromptButton text={step.ask} onResponse={handleResponse} />
+      <ExecutePromptButton text={ask} onResponse={handleResponse} />
       <AiBlock direction='row' gap='2'>
         <Box>
           <ChatGptIcon />

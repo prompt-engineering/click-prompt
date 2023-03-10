@@ -76,6 +76,7 @@ export function ExecutePromptButton(props: ExecButtonProps) {
       console.error(messageData.error);
     }
 
+    onClose();
     setIsLoading(false);
   };
 
