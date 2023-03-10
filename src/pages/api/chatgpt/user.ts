@@ -14,9 +14,7 @@ type LocalUser = {
 
 let localUser: LocalUser | null = null;
 
-export const getLocalUser = () => {
-  return localUser;
-}
+export const getLocalUser = () => localUser;
 
 type Response = {
   message?: string;
@@ -63,7 +61,7 @@ const mockHandler: NextApiHandler = async (req, res) => {
           id: key,
           openai: createNewOpenAIApi(key),
           conversations: new Map(),
-        }
+        };
         res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=${key}; Max-Age=3600; HttpOnly; Path=/;`);
 
         console.log(localUser, "login");
@@ -87,7 +85,7 @@ const mockHandler: NextApiHandler = async (req, res) => {
       res.status(400).json({ error: "Unknown action" } as Response);
       break;
   }
-}
+};
 
 const handler: NextApiHandler = async (req, res) => {
   if (process.env.IS_LOCAL === "true") {
