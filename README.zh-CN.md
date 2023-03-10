@@ -96,3 +96,7 @@ npm run build
 ## License
 
 ClickPrompt 使用 MIT 协议发布。在 [LICENSE](./LICENSE) 文件查看详情。
+
+## Star 历史
+
+[![Star History Chart](https://api.star-history.com/svg?repos=prompt-engineering/click-prompt&type=Date)](https://star-history.com/#prompt-engineering/click-prompt&Date)
