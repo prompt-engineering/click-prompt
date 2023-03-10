@@ -70,7 +70,7 @@ async function Sample({ params }: { params: { id: string } }) {
                 <Fragment key={index}>
                   <HumanBlock direction='row' justify='space-between'>
                     <Flex direction='row' gap='2'>
-                      <Avatar bg='teal.500' name='Phodal' size='sm' mr={2} />
+                      <Avatar bg='teal.500' name='Phodal' size='sm' mr={ 2 } />
                       <Box>
                         <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
                       </Box>
