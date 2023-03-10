@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ChatGptIcon } from "@/components/CustomIcon";
-import { ClickPromptButton, ExecutePromptButton } from "@/components/ClickPromptButton";
+import { ExecutePromptButton } from "@/components/ClickPromptButton";
 import {
   Avatar,
   Box,
@@ -27,6 +27,7 @@ interface StartlingStep {
     ask: string;
     response?: string;
     cachedResponseRegex: string;
+    values: Record<string, string>;
   }[];
 }
 
