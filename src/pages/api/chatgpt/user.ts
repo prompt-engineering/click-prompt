@@ -84,6 +84,7 @@ const handler: NextApiHandler = async (req, res) => {
       }
 
       await logoutUser(userId);
+      res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=; Max-Age=0; HttpOnly; Path=/;`);
       return res.status(200).json({ message: "Logged out" } as Response);
     default:
       res.status(400).json({ error: "Unknown action" } as Response);
