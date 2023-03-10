@@ -57,6 +57,7 @@ export function ExecutePromptButton(props: ExecButtonProps) {
     const data = await response.json();
 
     if (!data.loggedIn) {
+      onOpen();
       setIsLoggedIn(false);
     }
   };
