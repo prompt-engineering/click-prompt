@@ -47,10 +47,11 @@ function ChatGptPromptList({ prompts, i18n }: { prompts: Prompts } & GeneralI18n
   const dict = i18n.dict;
   const [search, setSearch] = useState<string>("");
   const searchRef = useRef<HTMLInputElement>(null)
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
+  const defaultPage = {
     pageIndex: 1,
-    pageSize: 5,
-  });
+    pageSize: 20,
+  }
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>(defaultPage);
   const [data, setData] = useState<Prompts>(prompts)
   const total = data.length
   const paginationState = usePagination<Prompt>({
@@ -71,10 +72,7 @@ function ChatGptPromptList({ prompts, i18n }: { prompts: Prompts } & GeneralI18n
   function doSearch(val: string) {
     setSearch(val)
 
-    setPagination({
-      pageIndex: 1,
-      pageSize: 5
-    })
+    setPagination(defaultPage)
     if (!!val) {
       setData(prompts.filter(
         (it) =>
