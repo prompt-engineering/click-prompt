@@ -11,7 +11,7 @@ interface UsersTable {
 interface ChatsTable {
   id: string;
   user_id: string;
-  chat_name: string;
+  chat_name?: string; // line 14
   // will be a JSON string: '[{ role: "user", content: "Hello" }, { role: "bot", content: "Hi" }]'
   chat_content: string;
   created_at: string;
@@ -47,13 +47,13 @@ function generateDateTime() {
   return datetime;
 }
 
-export const updateChatById = async (chatId: string, chatContent: string) => {
+export const updateChatById = async (chatId: string, userId: string, chatContent: string) => {
   const datetime = generateDateTime();
 
   await queryBuilder
-    .updateTable("chats")
-    .where("id", "=", chatId)
-    .set({ chat_content: chatContent, created_at: "" })
+    .insertInto("chats")
+    .values({ id: chatId, user_id: userId, chat_content: chatContent, created_at: datetime })
+    .onDuplicateKeyUpdate({ chat_content: chatContent })
     .execute();
 };
 
@@ -62,7 +62,7 @@ export const saveAndLoginUser = async (userId: string) => {
 
   await queryBuilder
     .insertInto("users")
-    .values({ id: userId, created_at: "", is_login: true })
+    .values({ id: userId, created_at: datetime, is_login: true })
     .onDuplicateKeyUpdate({ is_login: true })
     .execute();
 };

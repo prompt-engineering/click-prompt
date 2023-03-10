@@ -42,11 +42,11 @@ const handler: NextApiHandler = async (req, res) => {
   chatClients.set(userId, chatClient);
 
   if (req.method === "POST" && req.body) {
-    const { prompt, chat_id } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const currentChat = chats?.find((chat) => chat.id === chat_id) ?? { chat_content: "[]" };
+    const { prompt, chat_id: chatId } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const currentChat = chats?.find((chat) => chat.id === chatId) ?? { chat_content: "[]" };
     const currentChatContent = JSON.parse(currentChat.chat_content);
 
-    if (prompt && chat_id) {
+    if (prompt && chatId) {
       const chat = [
         ...currentChatContent,
         {
@@ -74,11 +74,11 @@ const handler: NextApiHandler = async (req, res) => {
 
         chat.push(choices[0].message);
         const newChatContent = JSON.stringify(chat);
-        await updateChatById(chat_id, newChatContent);
+        await updateChatById(chatId, userId, newChatContent);
 
         return res.status(200).json({ messages: chat });
       } catch (e: any) {
-        console.error(e)
+        console.error(e);
         let msg = "Some error happened";
         if (e.code === "ETIMEDOUT") {
           msg = "Request api was timeout, pls confirm your network worked";
