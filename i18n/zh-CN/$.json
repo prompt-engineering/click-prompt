@@ -1,12 +1,13 @@
 {
-    "chatgpt-general": "ChatGPT 常用指令",
-    "chatgpt-prompt-role-play": "ChatGPT 角色扮演",
-    "chatgpt-generator-cot": "ChatGPT 思维链模式",
-    "chatgpt-interactive-game": "ChatGPT 交互式游戏",
-    "chatgpt-samples": "ChatGPT 示例",
-    "chatgpt": "ChatGPT 聊天室",
-    "stable-diffusion-examples": "StableDiffusion 示例",
-    "stable-diffusion-generator": "AI 绘画生成器",
-    "github-copilot-samples": "GitHub Copilot 示例",
-    "resources": "学习资料"
+  "chatgpt-general": "ChatGPT 常用指令",
+  "chatgpt-prompt-role-play": "ChatGPT 角色扮演",
+  "chatgpt-generator-cot": "ChatGPT 思维链模式",
+  "chatgpt-interactive-game": "ChatGPT 交互式游戏",
+  "chatgpt-samples": "ChatGPT 示例",
+  "chatgpt-startling-by-each-step": "ChatGPT 逐步惊人",
+  "chatgpt": "ChatGPT 聊天室",
+  "stable-diffusion-examples": "StableDiffusion 示例",
+  "stable-diffusion-generator": "AI 绘画生成器",
+  "github-copilot-samples": "GitHub Copilot 示例",
+  "resources": "学习资料"
 }

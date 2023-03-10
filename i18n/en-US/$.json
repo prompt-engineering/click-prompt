@@ -1,12 +1,13 @@
 {
-    "chatgpt-general": "ChatGPT Common Commands",
-    "chatgpt-prompt-role-play": "ChatGPT Role Play",
-    "chatgpt-generator-cot": "ChatGPT COT Mode",
-    "chatgpt-interactive-game": "ChatGPT Interactive Game",
-    "chatgpt-samples": "ChatGPT Samples",
-    "chatgpt": "ChatGPT Chat Room",
-    "stable-diffusion-examples": "StableDiffusion Examples",
-    "stable-diffusion-generator": "AI Painting Generator",
-    "github-copilot-samples": "GitHub Copilot Samples",
-    "resources": "Learning Resources"
+  "chatgpt-general": "ChatGPT Common Commands",
+  "chatgpt-prompt-role-play": "ChatGPT Role Play",
+  "chatgpt-generator-cot": "ChatGPT COT Mode",
+  "chatgpt-interactive-game": "ChatGPT Interactive Game",
+  "chatgpt-samples": "ChatGPT Samples",
+  "chatgpt-startling-by-each-step": "ChatGPT Startling by Each Step",
+  "chatgpt": "ChatGPT Chat Room",
+  "stable-diffusion-examples": "StableDiffusion Examples",
+  "stable-diffusion-generator": "AI Painting Generator",
+  "github-copilot-samples": "GitHub Copilot Samples",
+  "resources": "Learning Resources"
 }
