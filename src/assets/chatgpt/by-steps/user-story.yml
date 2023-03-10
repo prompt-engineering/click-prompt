@@ -52,7 +52,6 @@ steps:
       需求，如下：
 
       """
-# use regex to match with array ?
       <<<response-value:1>>>
       """
     continue-marker: false
@@ -74,11 +73,11 @@ steps:
       }
       ```
 
-     需求，如下：
+      需求，如下：
 
-     """
-    # use regex to match with array ?
-     <<<response-value:1>>>
-     """
+      """
+      # use regex to match with array ?
+      <<<response-value:1>>>
+      """
     continue-marker: false
     next-ask-value: //
