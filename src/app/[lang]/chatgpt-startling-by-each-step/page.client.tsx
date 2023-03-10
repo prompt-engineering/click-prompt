@@ -1,12 +1,11 @@
-"use client"
+'use client'
 
 import React, { ChangeEvent } from 'react'
 import { Textarea } from '@chakra-ui/react'
 import { ClickPromptButton } from '@/components/ClickPromptButton'
 
-function StartlingByEachStep({ i18n }: GeneralI18nProps) {
-  const dict = i18n.dict
-
+function StartlingByEachStep({}: GeneralI18nProps) {
+  // const dict = i18n.dict
   const [value, setValue] = React.useState('')
 
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -22,7 +21,7 @@ function StartlingByEachStep({ i18n }: GeneralI18nProps) {
         placeholder='Here is a sample placeholder'
         size='sm'
       />
-      <ClickPromptButton text={"sample"} />
+      <ClickPromptButton text={ 'sample' } />
 
     </div>
   )
