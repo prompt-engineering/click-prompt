@@ -61,7 +61,9 @@ export function ExecutePromptButton(props: ExecButtonProps) {
     }
   };
 
-  const handleClose = () => {};
+  const handleClose = () => {
+    onClose();
+  };
 
   return (
     <>
@@ -84,7 +86,6 @@ function LoggingDrawer(isOpen: boolean, handleClose: () => void, isLoggedIn: boo
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton className='text-white z-50' />
-        {/* <DrawerHeader>ChatGPT</DrawerHeader> */}
         <DrawerBody padding={0}>
           <div className='bg-[#343541] flex flex-1 h-[100%] overflow-y-auto items-center justify-center'>
             <ChatGPTApp loggedIn={isLoggedIn} initMessage={props.text} />

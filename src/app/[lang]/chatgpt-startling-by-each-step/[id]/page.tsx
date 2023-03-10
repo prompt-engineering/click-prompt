@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ChatGptIcon } from "@/components/CustomIcon";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { ClickPromptButton, ExecutePromptButton } from "@/components/ClickPromptButton";
 import {
   Avatar,
   Box,
@@ -79,7 +79,7 @@ async function StartlingByEachStepDetail({ params }: { params: { id: string } })
                       <CopyComponent value={step.ask} />
                     </Flex>
                   </HumanBlock>
-                  <ClickPromptButton text={step.ask} />
+                  <ExecutePromptButton text={step.ask} />
                   <AiBlock direction='row' gap='2'>
                     <Box>
                       <ChatGptIcon />
