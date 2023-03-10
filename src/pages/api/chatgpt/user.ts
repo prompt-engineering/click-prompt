@@ -38,13 +38,13 @@ export function decrypt(encrypted: string, secret: string) {
   return decrypted;
 }
 
-export const secret = process.env["ENC_KEY"] ;
+export const secret = process.env["ENC_KEY"];
 
 const handler: NextApiHandler = async (req, res) => {
   if (!secret) {
     res.status(500).json({
-      error: "No secret key env in the server."
-    })
+      error: "No secret key env in the server.",
+    });
     return;
   }
 
