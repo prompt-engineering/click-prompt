@@ -12,8 +12,6 @@ interface ChatsTable {
   // 每个 chat 表里的 id 应该是唯一的，或者自增的，这里的 chatId 应该是 chat 表里的 id
   id?: string;
   user_id: string;
-
-  chat_id: string;
   chat_name: string; // line 14
   // will be a JSON string: '[{ role: "user", content: "Hello" }, { role: "bot", content: "Hi" }]'
   chat_content: string;
@@ -55,7 +53,7 @@ export const updateChatById = async (chatId: string, userId: string, chatContent
 
   await queryBuilder
     .insertInto("chats")
-    .values({ chat_id: chatId, chat_name: "", user_id: userId, chat_content: chatContent, created_at: datetime })
+    .values({ chat_name: "", user_id: userId, chat_content: chatContent, created_at: datetime })
     .onDuplicateKeyUpdate({ chat_content: chatContent })
     .execute();
 };
