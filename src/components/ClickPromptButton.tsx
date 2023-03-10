@@ -63,6 +63,7 @@ export function ExecutePromptButton(props: ExecButtonProps) {
     if (!data.loggedIn) {
       onOpen();
       setIsLoggedIn(false);
+      return;
     }
 
     // send response to server
@@ -76,6 +77,7 @@ export function ExecutePromptButton(props: ExecButtonProps) {
       console.error(messageData.error);
     }
 
+    onClose();
     setIsLoading(false);
   };
 

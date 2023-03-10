@@ -13,7 +13,7 @@ import { StartlingStep, StepDetail } from "@/app/[lang]/chatgpt-startling-by-eac
 import { Textarea } from "@chakra-ui/react";
 
 type StepProps = {
-  key: number;
+  index: number;
   step: StepDetail;
   content: StartlingStep;
   cachedValue: Record<number, any>;
@@ -81,7 +81,7 @@ function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
   return <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />;
 }
 
-function StartlingStepDetail({ key, step, content, onCache, cachedValue }: StepProps) {
+function StartlingStepDetail({ index, step, content, onCache, cachedValue }: StepProps) {
   const [response, setResponse] = React.useState<string | undefined>(undefined);
 
   const handleResponse = (response: ChatMessage) => {
@@ -90,11 +90,19 @@ function StartlingStepDetail({ key, step, content, onCache, cachedValue }: StepP
     const assistantResponse = assistantMessage[0].content;
     setResponse(assistantResponse);
 
+    console.log("step.cachedResponseRegex:" + step.cachedResponseRegex);
     if (onCache && step.cachedResponseRegex) {
-      const regex = new RegExp(step.cachedResponseRegex);
-      const matched = assistantResponse.match(regex);
-      if (matched) {
-        onCache(key, matched[1]);
+      console.log(`[${step.cachedResponseRegex}]`);
+      console.log(step.cachedResponseRegex === ".*");
+      console.log(assistantResponse);
+      if (step.cachedResponseRegex === ".*" || step.cachedResponseRegex === "(.*?)") {
+        onCache(index, assistantResponse);
+      } else {
+        const regex = new RegExp(step.cachedResponseRegex);
+        const matched = assistantResponse.match(regex);
+        if (matched) {
+          onCache(index, matched[1]);
+        }
       }
     }
   };
@@ -112,7 +120,7 @@ function StartlingStepDetail({ key, step, content, onCache, cachedValue }: StepP
     <>
       <HumanBlock direction='row' justify='space-between'>
         <Avatar bg='teal.500' name={content.author} size='sm' mr={2} />
-        <Box w='100%' p={4}>
+        <Box w='100%' p={4} h='100%'>
           <AskRenderer step={step} onAskUpdate={setAsk} cachedValue={cachedValue} />
         </Box>
       </HumanBlock>
