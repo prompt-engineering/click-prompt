@@ -64,6 +64,75 @@ Phase 3: Improvement
   - React Table
 - React Markdown for render markdown
 
+
+## Check Node Version
+
+We recommend that the minimum version of Node.js is 16.9.1 and above.
+
+Check current the version of Node.js using the following command:
+
+```shell
+node -v 
+```
+
+## Manage Node Version with NVM
+
+### Installing NVM
+
+1. Open up your terminal.
+2. Install NVM using the following command:
+```shell
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+```
+
+This command will download the install script for the latest version of NVM (as of the time of this writing) and run it with bash.
+
+3. Follow the instructions provided in the terminal. The installer will prompt you to add a line to your `~/.bashrc` or `~/.zshrc` file to ensure that NVM is properly sourced every time you open a new terminal window. You can also run the command manually if you don't want to modify your shell config file:
+
+```shell
+source ~/.nvm/nvm.sh
+```
+
+4. Once NVM is installed, you can use it to install and manage different versions of Node.js. To see a list of available versions, run the following command:
+
+```shell
+nvm ls-remote
+```
+
+5. To install a specific version of Node.js, run the following command:
+
+```shell
+nvm install <version>
+```
+
+Replace `<version>` with the version number you want to install. For example, to install Node.js version 16.9.1, run:
+
+```shell
+nvm install 16.9.1
+```
+
+6. You can check the currently active version of Node.js by running:
+
+```shell
+node -v
+```
+
+This will print out the version number of the currently active version of Node.js.
+
+7. To switch to a different version of Node.js, simply run:
+
+```shell
+nvm use <version>
+```
+
+Replace `<version>` with the version number you want to switch to. For example, to switch to Node.js version 16.9.1, run:
+
+```shell
+nvm use 16.9.1
+```
+
+Congratulations, you have now installed and configured NVM on your system!, and try to run the ClickPrompt.
+
 ### Run ClickPrompt
 
 ```shell
