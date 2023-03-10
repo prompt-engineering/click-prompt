@@ -38,9 +38,15 @@ export function decrypt(encrypted: string, secret: string) {
   return decrypted;
 }
 
-export const secret = "BKc4rL.qwB8rzz7K@tXB9!uht3iKQWGV";
+export const secret = process.env["ENC_KEY"] ;
 
 const handler: NextApiHandler = async (req, res) => {
+  if (!secret) {
+    res.status(500).json({
+      error: "No secret key env in the server."
+    })
+  }
+
   if (!(req.method === "POST" && req.body)) {
     res.status(404).json({ error: "Not found" });
     return;
