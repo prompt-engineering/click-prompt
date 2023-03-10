@@ -12,6 +12,7 @@ import _githubCopilotSamples from "@i18n/zh-CN/_github-copilot-samples.json";
 import _resources from "@i18n/zh-CN/_resources.json";
 import _stableDiffusionExamples from "@i18n/zh-CN/_stable-diffusion-examples.json";
 import _stableDiffusionGenerator from "@i18n/zh-CN/_stable-diffusion-generator.json";
+import _chatgptStartlingByEachStep from "@i18n/zh-CN/_chatgpt-startling-by-each-step.json";
 
 export type GlobalKey = keyof typeof _global;
 const pages = {
@@ -21,6 +22,7 @@ const pages = {
   "/chatgpt-generator-cot/": _chatgptGeneratorCot,
   "/chatgpt-interactive-game/": _chatgptInteractiveGame,
   "/chatgpt-prompt-role-play/": _chatgptPromptRolePlay,
+  "/chatgpt-startling-by-each-step/": _chatgptStartlingByEachStep,
   "/chatgpt-samples/": _chatgptSamples,
   "/github-copilot-samples/": _githubCopilotSamples,
   "/resources/": _resources,

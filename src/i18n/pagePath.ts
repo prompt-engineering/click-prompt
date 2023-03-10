@@ -4,6 +4,7 @@ export const pages = [
   "/chatgpt-general/",
   "/chatgpt-generator-cot/",
   "/chatgpt-interactive-game/",
+  "/chatgpt-startling-by-each-step/",
   "/chatgpt-prompt-role-play/",
   "/chatgpt-samples/",
   "/github-copilot-samples/",
