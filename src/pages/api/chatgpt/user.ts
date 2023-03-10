@@ -45,6 +45,7 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(500).json({
       error: "No secret key env in the server."
     })
+    return;
   }
 
   if (!(req.method === "POST" && req.body)) {
