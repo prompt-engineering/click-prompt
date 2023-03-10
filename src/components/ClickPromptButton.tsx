@@ -18,8 +18,8 @@ import clickPromptBird from "@/assets/images/click-button-bird.svg?url";
 import Image from "next/image";
 import styled from "@emotion/styled";
 import { ChatGPTApp } from "@/components/ChatGPTApp";
-import { LoginPage } from '@/app/[lang]/chatgpt/LoginPage'
-import { ChatMessage, sentMessageReq } from '@/api/chat-api'
+import { LoginPage } from "@/app/[lang]/chatgpt/LoginPage";
+import { ChatMessage, sentMessageReq } from "@/api/chat-api";
 
 type ButtonSize = "sm" | "md" | "lg";
 
@@ -67,16 +67,16 @@ export function ExecutePromptButton(props: ExecButtonProps) {
 
     // send response to server
     setIsLoading(true);
-    const messageData = await sentMessageReq(props.text)
+    const messageData = await sentMessageReq(props.text);
     if (!messageData.error) {
       if (!!messageData.messages) {
         props.onResponse ? props.onResponse(messageData) : null;
       }
     } else {
-      console.error(messageData.error)
+      console.error(messageData.error);
     }
 
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const handleClose = () => {

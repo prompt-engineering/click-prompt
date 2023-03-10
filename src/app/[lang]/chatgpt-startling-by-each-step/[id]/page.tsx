@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  Heading,
-  SimpleGrid,
-  Flex,
-} from "@/components/ChakraUI";
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Heading, SimpleGrid, Flex } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
 import StartlingStepDetail from "./StartlingStepDetail";
 
