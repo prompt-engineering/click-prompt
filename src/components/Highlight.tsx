@@ -22,5 +22,5 @@ export default function Highlight({ value, keyword }: { value: string; keyword: 
         part,
       );
     }, [])
-    .map((part: any, i: number) => <React.Fragment key={i}>{part}</React.Fragment>);
+    .map((part: React.ReactNode, i: number) => <React.Fragment key={i}>{part}</React.Fragment>);
 }

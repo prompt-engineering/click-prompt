@@ -18,8 +18,8 @@ export const middleware: NextMiddleware = (request) => {
 
   const cookie = request.cookies.get(SITE_LOCALE_COOKIE)?.value;
   // If there is a cookie, and it is a supported locale, use it
-  if (SupportedLocales.includes(cookie as any as SupportedLocale)) {
-    locale = cookie as any as SupportedLocale;
+  if (SupportedLocales.includes(cookie as unknown as SupportedLocale)) {
+    locale = cookie as unknown as SupportedLocale;
   }
 
   // Redirect if there is no locale

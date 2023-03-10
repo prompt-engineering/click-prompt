@@ -1,4 +1,4 @@
-import { createCipheriv, createDecipheriv, randomBytes, createHash } from "node:crypto";
+import { createCipheriv, createDecipheriv } from "node:crypto";
 
 import { NextApiHandler } from "next";
 import { ChatCompletionRequestMessage, OpenAIApi } from "openai";
@@ -66,7 +66,7 @@ const handler: NextApiHandler = async (req, res) => {
       if (key) {
         userId = encrypt(key, secret);
         await saveAndLoginUser(userId);
-        console.log(`User ${userId} logged in`);
+        // console.log(`User ${userId} logged in`);
 
         res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=${userId}; Max-Age=3600; HttpOnly; Path=/;`);
 

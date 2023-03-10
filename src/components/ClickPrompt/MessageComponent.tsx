@@ -11,7 +11,7 @@ function MessageComponent({ messages }: { messages: Message[] }) {
     const elementRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
       const current = elementRef?.current;
-      if (current!) {
+      if (current) {
         current.scrollIntoView();
       }
     });
