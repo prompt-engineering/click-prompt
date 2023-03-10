@@ -3,7 +3,7 @@ import { createCipheriv, createDecipheriv } from "node:crypto";
 import { NextApiHandler } from "next";
 import { ChatCompletionRequestMessage, OpenAIApi } from "openai";
 import { SITE_USER_COOKIE } from "@/configs/constants";
-import { logoutUser, saveAndLoginUser } from "@/utils/planetscale";
+import { logoutUser, saveAndLoginUser } from "@/storage/planetscale";
 
 export type User = {
   id: string;

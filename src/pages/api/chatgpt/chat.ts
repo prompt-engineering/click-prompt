@@ -4,7 +4,7 @@ import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from 
 import { Configuration, OpenAIApi } from "openai";
 import { SITE_USER_COOKIE } from "@/configs/constants";
 import { decrypt, secret } from "@/pages/api/chatgpt/user";
-import { getAllChats, getUserById, updateChatById } from "@/utils/planetscale";
+import { getAllChats, getUserById, updateChatById } from "@/storage/planetscale";
 
 function createNewOpenAIApi(apiKey: string) {
   const configuration = new Configuration({
