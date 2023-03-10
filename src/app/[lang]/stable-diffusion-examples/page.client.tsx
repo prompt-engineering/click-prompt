@@ -40,11 +40,7 @@ type StableDiffusionSample = {
   path: string;
 };
 
-function SdPromptPopover(
-  isOpen: boolean,
-  onClose: () => void,
-  parsedPrompt: StableDiffusionGenData,
-) {
+function SdPromptPopover(isOpen: boolean, onClose: () => void, parsedPrompt: StableDiffusionGenData) {
   return (
     <Popover returnFocusOnClose={false} isOpen={isOpen} onClose={onClose} placement='right' closeOnBlur={true}>
       <PopoverContent w={"360px"}>

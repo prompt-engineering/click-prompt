@@ -435,7 +435,8 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
   const [bracketType, setBracketType] = useState<BracketType>(BracketType.round);
   const [currentPrompt, setCurrentPrompt] = useState<StableDiffusionGenData>({
     prompt: "",
-    negativePrompt: "worst quality, low quality, jpeg artifacts, signature, watermark, username, blurry, error, nude, censored"
+    negativePrompt:
+      "worst quality, low quality, jpeg artifacts, signature, watermark, username, blurry, error, nude, censored",
   });
 
   const formik = useFormik({
@@ -456,17 +457,17 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
       .map((it) => tagToText(it, bracketType))
       .filter((it) => it !== "")
       .join(", ");
-  }
+  };
 
-  const handlePromptGeneratorChange = (values: any, bracketType: BracketType) : string => {
+  const handlePromptGeneratorChange = (values: any, bracketType: BracketType): string => {
     const text = generatePrompt(values, bracketType);
     const newPrompt: StableDiffusionGenData = {
       prompt: text,
-      negativePrompt: currentPrompt.negativePrompt
+      negativePrompt: currentPrompt.negativePrompt,
     };
     setCurrentPrompt(newPrompt);
     return text;
-  }
+  };
 
   useMemo(() => handlePromptGeneratorChange(formik.values, bracketType), [formik.values, bracketType]);
 
@@ -502,7 +503,7 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
 
   const handlePromptChange = (event?: ChangeEvent<HTMLTextAreaElement>, newPrompt?: StableDiffusionGenData) => {
     if (newPrompt) setCurrentPrompt(newPrompt);
-  }
+  };
 
   return (
     <SimpleGrid spacing={10}>

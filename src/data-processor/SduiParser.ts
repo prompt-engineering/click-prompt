@@ -32,13 +32,15 @@ export function parseStableDiffusionData(prompt: string): StableDiffusionGenData
   const negativePromptMatch = negativePromptLine ? negativePromptLine.match(negativePromptRegex) ?? ["", ""] : ["", ""];
 
   // parse other infos by split comma
-  const otherInfosMatch = otherInfosLine ? otherInfosLine.split(",").map((item) => {
-    const match = item.match(/(.+): (.*)/);
-    if (!match) {
-      return;
-    }
-    return match[2];
-  }) : [];
+  const otherInfosMatch = otherInfosLine
+    ? otherInfosLine.split(",").map((item) => {
+        const match = item.match(/(.+): (.*)/);
+        if (!match) {
+          return;
+        }
+        return match[2];
+      })
+    : [];
 
   // return result
   return {
@@ -64,5 +66,5 @@ export function StableDiffusionDataToString(prompt: StableDiffusionGenData): str
   if (prompt.size) otherInfo.push("Size: " + prompt.size);
   if (prompt.modelHash) otherInfo.push("Model hash: " + prompt.modelHash);
   if (prompt.model) otherInfo.push("Model: " + prompt.model);
-  return `${prompt.prompt}\nNegative prompt: ${prompt.negativePrompt}\n${otherInfo.join(", ")}`
+  return `${prompt.prompt}\nNegative prompt: ${prompt.negativePrompt}\n${otherInfo.join(", ")}`;
 }

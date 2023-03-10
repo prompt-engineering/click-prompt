@@ -12,7 +12,6 @@ const ImageNote = styled("div")`
   color: #888;
 `;
 
-
 type HuggingFaceComponentProps = { model: string; prompt: StableDiffusionGenData; dict: Record<string, string> };
 export const HuggingFaceTxt2Img = ({ model, prompt, dict }: HuggingFaceComponentProps) => {
   const [huggingFace, setHuggingFace] = useState({
@@ -40,7 +39,7 @@ export const HuggingFaceTxt2Img = ({ model, prompt, dict }: HuggingFaceComponent
       },
       body: JSON.stringify({
         inputs: prompt.prompt,
-        negative_prompt: prompt.negativePrompt
+        negative_prompt: prompt.negativePrompt,
       }),
     });
     if (response.status == 200) {
