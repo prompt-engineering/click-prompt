@@ -22,7 +22,7 @@ type Response = {
 };
 
 function encrypt(data: string, secret: string) {
-  const iv = Buffer.from('hgudlo8fbj$ng.fq');
+  const iv = Buffer.from("hgudlo8fbj$ng.fq");
   const cipher = createCipheriv("aes-256-cbc", secret, iv);
   let encrypted = cipher.update(data, "utf8", "hex");
   encrypted += cipher.final("hex");

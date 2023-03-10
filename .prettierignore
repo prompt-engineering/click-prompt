@@ -11,6 +11,5 @@ public
 .vscode
 .idea
 
-.*
 *.json
 CNAME

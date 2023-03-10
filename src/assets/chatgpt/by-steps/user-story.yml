@@ -28,7 +28,7 @@ steps:
       当我说 """story: {}""" ，咱们开始游戏。知道这个游戏怎么玩吗？知道的话，请只回复：OK
     # if response with OK means continue
     continue-marker: /OK(.*)/
-#    // means no cache values
+    #    // means no cache values
     cached-value-regex: //
   - name: 分析需求，编写用户故事
     ask: |

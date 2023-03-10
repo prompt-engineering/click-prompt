@@ -11,44 +11,44 @@
 //     ask: string
 //     response: string
 // ```
-const fs = require('node:fs')
-const yaml = require('js-yaml')
-const path = require('node:path')
-const walkdir = require('walkdir')
+const fs = require("node:fs");
+const yaml = require("js-yaml");
+const path = require("node:path");
+const walkdir = require("walkdir");
 
 function generateByCategory() {
-  const categoriesDir = path.join(__dirname, '../src/assets/chatgpt/category')
-  const categoriesFile = path.join(categoriesDir, 'index.json')
+  const categoriesDir = path.join(__dirname, "../src/assets/chatgpt/category");
+  const categoriesFile = path.join(categoriesDir, "index.json");
 
-  const files = walkdir.sync(categoriesDir, { no_recurse: true })
+  const files = walkdir.sync(categoriesDir, { no_recurse: true });
   const index = files
-    .filter((f) => f.endsWith('.yml'))
+    .filter((f) => f.endsWith(".yml"))
     .map((f) => {
-      const content = fs.readFileSync(f, 'utf8')
-      const doc = yaml.load(content)
-      const { name, category, samples } = doc
-      return { name, category, samples }
-    })
+      const content = fs.readFileSync(f, "utf8");
+      const doc = yaml.load(content);
+      const { name, category, samples } = doc;
+      return { name, category, samples };
+    });
 
-  fs.writeFileSync(categoriesFile, JSON.stringify(index, null, 2))
+  fs.writeFileSync(categoriesFile, JSON.stringify(index, null, 2));
 }
 
 function generateBySteps() {
-  const stepsPath = path.join(__dirname, '../src/assets/chatgpt/by-steps')
-  const stepsFile = path.join(stepsPath, 'index.json')
+  const stepsPath = path.join(__dirname, "../src/assets/chatgpt/by-steps");
+  const stepsFile = path.join(stepsPath, "index.json");
 
-  const files = walkdir.sync(stepsPath, { no_recurse: true })
+  const files = walkdir.sync(stepsPath, { no_recurse: true });
   const index = files
-    .filter((f) => f.endsWith('.yml'))
+    .filter((f) => f.endsWith(".yml"))
     .map((f) => {
-      const content = fs.readFileSync(f, 'utf8')
-      const doc = yaml.load(content)
-      const { name, category, description, steps } = doc
-      return { name, category, description, steps }
-    })
+      const content = fs.readFileSync(f, "utf8");
+      const doc = yaml.load(content);
+      const { name, category, description, steps } = doc;
+      return { name, category, description, steps };
+    });
 
-  fs.writeFileSync(stepsFile, JSON.stringify(index, null, 2))
+  fs.writeFileSync(stepsFile, JSON.stringify(index, null, 2));
 }
 
-generateByCategory()
-generateBySteps()
+generateByCategory();
+generateBySteps();

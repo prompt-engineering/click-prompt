@@ -4,14 +4,14 @@ import React, { useRef, useState } from "react";
 import { Button, Grid, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { AppData } from '@/i18n'
+import { AppData } from "@/i18n";
 
 const ImageNote = styled("div")`
   font-size: 0.8rem;
   color: #888;
 `;
 
-type HuggingFaceComponentProps = { model: string; prompt: string, dict: Record<string, string> }
+type HuggingFaceComponentProps = { model: string; prompt: string; dict: Record<string, string> };
 export const HuggingFaceTxt2Img = ({ model, prompt, dict }: HuggingFaceComponentProps) => {
   const [huggingFace, setHuggingFace] = useState({
     image: "",

@@ -23,7 +23,7 @@ type GitHubCopilotSample = {
   path: string;
 };
 
-function GitHubCopilotSamples({i18n}: GeneralI18nProps) {
+function GitHubCopilotSamples({ i18n }: GeneralI18nProps) {
   const dict = i18n.dict;
 
   function SnippetCode(index: number, sample: GitHubCopilotSample, snippet: Snippet) {
@@ -64,7 +64,7 @@ function GitHubCopilotSamples({i18n}: GeneralI18nProps) {
     <div>
       <Alert status='info'>
         <AlertIcon />
-        <AlertTitle>{ dict["share-my-github-copilot-experience"] }：</AlertTitle>
+        <AlertTitle>{dict["share-my-github-copilot-experience"]}：</AlertTitle>
         <Link href={githubCopilotLink} isExternal>
           Pull Request <ExternalLinkIcon />
         </Link>

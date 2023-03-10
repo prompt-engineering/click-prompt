@@ -7,5 +7,9 @@ import React, { useState } from "react";
 export const ChatGPTApp = ({ loggedIn, initMessage }: { loggedIn?: boolean; initMessage?: string }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(loggedIn ?? false);
 
-  return isLoggedIn ? <ChatRoom setIsLoggedIn={setIsLoggedIn} initMessage={initMessage} /> : <LoginPage setIsLoggedIn={setIsLoggedIn} />;
+  return isLoggedIn ? (
+    <ChatRoom setIsLoggedIn={setIsLoggedIn} initMessage={initMessage} />
+  ) : (
+    <LoginPage setIsLoggedIn={setIsLoggedIn} />
+  );
 };

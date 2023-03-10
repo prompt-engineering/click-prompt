@@ -1,3 +1,1 @@
 # ChatGPT StartlingByEachStep
-
-

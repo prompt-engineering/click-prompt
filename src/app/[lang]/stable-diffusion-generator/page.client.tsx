@@ -503,7 +503,7 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
 
         <Flex alignItems='start' gap='2'>
           <Grid>
-            <Text>{ dict["character"] }</Text>
+            <Text>{dict["character"]}</Text>
             <SimpleGrid gap={3} p={3} columns={2}>
               {sdPersonPromptFields.map((field) => PromptFieldForm({ field, formik }))}
             </SimpleGrid>
@@ -526,9 +526,15 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
 
         <RadioGroup onChange={(val) => setBracketType(val as BracketType)} defaultValue={bracketType}>
           <Stack spacing={5} direction='row'>
-            <Text>{ dict["bracket-style"] }</Text>
-            <Radio value={BracketType.round}>{BracketType.round}{ dict["round-bracket"] }</Radio>
-            <Radio value={BracketType.brace}>{BracketType.brace}{ dict["curly-bracket"] }</Radio>
+            <Text>{dict["bracket-style"]}</Text>
+            <Radio value={BracketType.round}>
+              {BracketType.round}
+              {dict["round-bracket"]}
+            </Radio>
+            <Radio value={BracketType.brace}>
+              {BracketType.brace}
+              {dict["curly-bracket"]}
+            </Radio>
           </Stack>
         </RadioGroup>
 
@@ -586,11 +592,11 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
           {dict["clear-cache"]}
         </Button>
       </form>
-      <Heading as={"h3"}>{ dict["test-spell-online"] }</Heading>
+      <Heading as={"h3"}>{dict["test-spell-online"]}</Heading>
       <Flex alignItems='start' gap='2'>
-        <HuggingFaceTxt2Img model='stabilityai/stable-diffusion-2-1-base' prompt={tagsText ?? ""} dict={dict}/>
-        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={tagsText ?? ""} dict={dict}/>
-        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={tagsText ?? ""} dict={dict}/>
+        <HuggingFaceTxt2Img model='stabilityai/stable-diffusion-2-1-base' prompt={tagsText ?? ""} dict={dict} />
+        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={tagsText ?? ""} dict={dict} />
+        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={tagsText ?? ""} dict={dict} />
       </Flex>
       <SimpleGrid gap={3} p={3} columns={1}>
         <Heading>{dict["other-online-spell-tools"]}</Heading>
