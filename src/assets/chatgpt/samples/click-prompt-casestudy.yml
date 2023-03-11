@@ -1,0 +1,125 @@
+name: ClickPrompt
+description: ClickPrompt 如何使用 ChatGPT 协助编程
+category: writing
+author: ClickPrompt Team
+homepage: https://github.com/prompt-engineering/click-prompt
+preview: |
+  示例 1：模板示例 1：使用 ChatGPT 创建 issue。我们想在 ClickPrompt 上添加一个新的需求： 在 ClickPrompt 上使用 ChatGPT 自动创建 GitHub issue，以便于社区贡献者能更好的理解这个需求。
+  示例 2：模板示例 2：使用 ChatGPT 分析 issue 编写代码。我们是 ClickPrompt 开源项目的贡献者，我们想让你为 ClickPrompt 添加一些新的功能。开始之前请阅读一下这些资料。
+
+steps:
+  - ask: |
+      我们想在 ClickPrompt 上添加一个新的需求： 在 ClickPrompt 上使用 ChatGPT 自动创建 GitHub issue，以便于社区贡献者能更好的理解这个需求。输出需求：
+
+      ```
+      """
+      Is your feature request related to a problem? Please describe.
+      No
+
+      Describe the solution you'd like
+      A clear and concise description of what you want to happen.
+
+      Describe alternatives you've considered
+      A clear and concise description of any alternative solutions or features you've considered.
+
+      Additional context
+      Add any other context or screenshots about the feature request here.
+      """
+      ```
+    response: |
+      """
+      Is your feature request related to a problem? Please describe.
+      No
+
+      Describe the solution you'd like
+      I would like to be able to use ChatGPT to automatically create GitHub issues from within ClickPrompt. This would help community contributors better understand the requirements and goals of a given feature request.
+
+      Describe alternatives you've considered
+      Manually creating GitHub issues is a time-consuming process, and it can be difficult to ensure that all relevant information is included. By automating this process with ChatGPT, we can save time and improve the overall quality of the issues we create.
+
+      Additional context
+      Add any other context or screenshots about the feature request here.
+      """
+  - ask: |
+      我们是 ClickPrompt 开源项目的贡献者，我们想让你为 ClickPrompt 添加一些新的功能。开始之前请阅读一下这些资料：
+
+       - ClickPrompt 是一款专为 Prompt 编写者设计的工具，它支持多种基于 Prompt 的 AI 应用，例如 Stable Diffusion、ChatGPT 和 GitHub Copilot 等。 使用 ClickPrompt，您可以轻松地查看、分享和一键运行这些模型，同时提供在线的 Prompt 生成器，使用户能够根据自己的需求轻松创建符合要求的 Prompt，并与其他人分享。
+       - ClickPrompt 包含了些页面组件：chatgpt、chatgpt-general、chatgpt-generator-cot、chatgpt-interactive-game、chatgpt-prompt-role-play、chatgpt-samples、chatgpt-startling-by-each-step、github-copilot-samples、resources、stable-diffusion-examples、stable-diffusion-generator
+       - ClickPrompt 使用 Next.js、React、Chakra UI、Tailwind 等作为主要的开发框架，使用 Planetscale 作为数据库。
+
+      现在，我们想让你添加一个新的功能，即：feature: add tour guide for ClickPrompt。描述如下：
+
+      """
+      """
+
+      应该如何修改？直接给个示例？
+    response: |
+      要在 ClickPrompt 的首页中添加 Tour guide 的功能，可以使用 reactour 库。首先，需要安装 reactour:
+
+      ```bash
+      npm install reactour
+      ```
+
+      然后，在 ClickPrompt 的首页代码中，需要引入 reactour 的组件：
+
+      ```jsx
+      import Tour from 'reactour/dist/components/Tour/Tour';
+      import { useTour } from 'reactour/dist/hooks/useTour';
+      ```
+
+      接着，在组件的 JSX 中添加 Tour 的代码：
+
+      ```jsx
+      <Provider>
+        {/* https://github.com/vercel/next.js/issues/42292 */}
+        {/* @ts-expect-error Async Server Component */}
+        <NavBar locale={lang} />
+        <Container maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
+          {children}
+        </Container>
+        </Provider>
+        <div className='flex justify-center py-4'>
+        <a
+        className='flex gap-4 items-center'
+        href='https://vercel.com?utm_source=prompt-engineering&utm_campaign=oss'
+        target={"_blank"}
+        >
+        <span>Powered by</span>
+        <Image
+        height={24}
+        width={116}
+        src='https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg'
+        alt='Vercel Logo'
+        />
+        </a>
+        </div>
+        <AnalyticsWrapper />
+        <Tour
+          steps={[
+            {
+              selector: '.navbar-nav > li:nth-child(1) > a',
+              content: 'This is the ChatGPT section',
+            },
+            {
+              selector: '.navbar-nav > li:nth-child(2) > a',
+              content: 'This is the StableDiffusion section',
+            },
+            {
+              selector: '.navbar-nav > li:nth-child(3) > a',
+              content: 'This is the StableDiffusion Generator section',
+            },
+            {
+              selector: '.navbar-nav > li:nth-child(4) > a',
+              content: 'This is the GitHub Copilot section',
+            },
+            {
+              selector: '.navbar-nav > li:nth-child(5) > a',
+              content: 'This is the Resources section',
+            },
+          ]}
+          isOpen={isTourOpen}
+          onRequestClose={() => setIsTourOpen(false)}
+        />
+      ```
+
+      在以上代码中，steps 属性定义了 Tour 的每个步骤，其中 selector 指定了需要引导用户的组件的选择器，content 则是对该步骤的解释。isOpen 属性控制 Tour 的开关状态，onRequestClose 属性定义了关闭 Tour 的回调函数。

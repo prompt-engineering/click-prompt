@@ -38,7 +38,7 @@ function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
   }
 
   onAskUpdate(askTask.ask);
-  return <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />;
+  return <SimpleMarkdown content={step.ask} />;
 }
 
 function StartlingStepDetail({ index, step, content, onCache, cachedValue }: StepProps) {

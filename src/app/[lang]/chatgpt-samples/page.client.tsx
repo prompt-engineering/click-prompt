@@ -51,7 +51,7 @@ function ChatGptSamples({ i18n }: GeneralI18nProps) {
 
               <CardBody maxH='320px' overflow='auto'>
                 <Stack>
-                  <SimpleMarkdown content={sample?.preview ? sample.preview.replaceAll("\n", "\n\n") : "no preview"} />
+                  <SimpleMarkdown content={sample?.preview ? sample.preview : "no preview"} />
                 </Stack>
               </CardBody>
 

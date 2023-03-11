@@ -48,9 +48,7 @@ function StartlingByEachStepList({ i18n }: GeneralI18nProps) {
 
               <CardBody maxH='320px' overflow='auto'>
                 <Stack>
-                  <SimpleMarkdown
-                    content={sample?.description ? sample.description.replaceAll("\n", "\n\n") : "no preview"}
-                  />
+                  <SimpleMarkdown content={sample?.description ? sample.description : "no preview"} />
                 </Stack>
               </CardBody>
 
