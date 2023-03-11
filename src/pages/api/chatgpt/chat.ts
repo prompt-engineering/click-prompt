@@ -127,7 +127,7 @@ async function sendMsgs({
       model: "gpt-3.5-turbo",
       messages: [...msgs, ...newMsgs],
       temperature: 0.5,
-      max_tokens: 4096,
+      max_tokens: 200,
     });
     if (response.status !== 200) {
       res.status(response.status).json({ error: response.statusText });
