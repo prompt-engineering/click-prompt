@@ -65,15 +65,6 @@ export const defaults: Defaults = {
       </Code>
     );
   },
-  code: (props) => {
-    const { inline, children, className } = props;
-
-    if (inline) {
-      return <Code p={2} children={children} />;
-    }
-
-    return <Code className={className} whiteSpace='break-spaces' display='block' w='full' p={2} children={children} />;
-  },
   del: (props) => {
     const { children } = props;
     return <Text as='del'>{children}</Text>;
