@@ -87,18 +87,20 @@ export const ChatRoom = ({
   const [chatHistory, setChatHistory] = React.useState<ChatCompletionRequestMessage[]>([]);
   const [message, setMessage] = React.useState(initMessage ?? "");
 
-  const [conversations, setConversations] = useState(
-    use<ResponseGetConversation>(
-      fetch("/api/chatgpt/chat", {
-        method: "POST",
-        body: JSON.stringify({
-          action: "get_conversations",
-        } as RequestGetConversations),
-      }).then((it) => it.json()),
-    ),
-  );
+  const [conversations, setConversations] = useState([] as ResponseGetConversation[]);
 
   useEffect(() => {
+    fetch("/api/chatgpt/chat", {
+      method: "POST",
+      body: JSON.stringify({
+        action: "get_conversations",
+      } as RequestGetConversations),
+    })
+      .then((it) => it.json())
+      .then((it) => {
+        setConversations(it.conversations);
+      });
+
     const listener = (event: KeyboardEvent) => {
       if (event.code === "Enter" || event.code === "NumpadEnter") {
         event.preventDefault();
