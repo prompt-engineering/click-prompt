@@ -83,6 +83,7 @@ export const createConversation = cache(async (data: Pick<ConversationTable, "us
 });
 
 export const createChat = cache(async (data: Pick<ChatTable, "conversation_id" | "role" | "content" | "name">) => {
+  console.log("createChat data: ", data);
   return queryBuilder.insertInto("chats").values(data).execute();
 });
 
