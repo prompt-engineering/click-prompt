@@ -14,12 +14,11 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@/components/ChakraUI";
 import { BeatLoader } from "react-spinners";
-import clickPromptBird from "@/assets/images/click-button-bird.svg?url";
-import Image from "next/image";
 import styled from "@emotion/styled";
 import { ChatGPTApp } from "@/components/ChatGPTApp";
-import { LoginPage } from "@/app/[lang]/chatgpt/LoginPage";
 import { ChatMessage, sentMessageReq } from "@/api/chat-api";
+import { ClickPromptSmall } from "@/components/CustomIcon";
+import Image from "next/image";
 
 type ButtonSize = "sm" | "md" | "lg";
 
@@ -32,15 +31,6 @@ type CPButtonProps = {
   [key: string]: any;
 };
 
-type ClickPromptBirdParams = { width?: number; height?: number };
-
-function ClickPromptBird(props: ClickPromptBirdParams) {
-  const width = props.width || 38;
-  const height = props.height || 32;
-
-  return <StyledBird src={clickPromptBird} alt='ClickPrompt Logo' width={width} height={height} />;
-}
-
 export type ExecButtonProps = {
   loading?: boolean;
   onClick?: MouseEventHandler;
@@ -49,6 +39,22 @@ export type ExecButtonProps = {
   children?: React.ReactNode;
   onResponse?: (response: ChatMessage) => void;
 };
+
+import clickPromptLogo from "@/assets/clickprompt-light.svg?url";
+
+export type ClickPromptBirdParams = { width?: number; height?: number };
+export function ClickPromptBird(props: ClickPromptBirdParams) {
+  const width = props.width || 38;
+  const height = props.height || 32;
+
+  return <StyledBird src={clickPromptLogo} alt='ClickPrompt Logo' width={width} height={height} />;
+}
+
+const StyledBird = styled(Image)`
+  position: absolute;
+  top: -20px;
+  right: -20px;
+`;
 
 export function ExecutePromptButton(props: ExecButtonProps) {
   const [isLoading, setIsLoading] = useState(props.loading);
@@ -152,8 +158,8 @@ export function ClickPromptButton(props: CPButtonProps) {
     return (
       <Button variant='unstyled' onClick={handleClick} {...props}>
         {props.children}
-        <Tooltip label='执行 ChatGPT Prompt' aria-label='A tooltip'>
-          <InlinedBird src={clickPromptBird} alt='ClickPrompt Logo' width={24} height={24} />
+        <Tooltip label='Execute ChatGPT Prompt' aria-label='A tooltip'>
+          <ClickPromptSmall width={32} height={32} />
         </Tooltip>
       </Button>
     );
@@ -169,18 +175,7 @@ export function ClickPromptButton(props: CPButtonProps) {
   );
 }
 
-const InlinedBird = styled(Image)`
-  display: inline-block;
-  padding-left: 4px;
-`;
-
 const StyledPromptButton = styled.div`
   position: relative;
   width: min-content;
-`;
-
-const StyledBird = styled(Image)`
-  position: absolute;
-  top: -20px;
-  right: -20px;
 `;

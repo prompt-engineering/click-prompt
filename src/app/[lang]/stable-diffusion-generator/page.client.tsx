@@ -384,6 +384,7 @@ const generateEmptyForm = () =>
     acc[field.name] = { value: "", weight: 0, ratio: 1 };
     return acc;
   }, {});
+
 const sdGeneratorFormStorage = new WebStorage<Record<string, string>>("sdGeneratorForm");
 const copyToClipboard = (text: string) => {
   const textarea = document.createElement("textarea");

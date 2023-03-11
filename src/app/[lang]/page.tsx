@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, Container, Heading, Stack, Text } from "@/components/ChakraUI";
-import { ClickPromptIcon } from "@/components/CustomIcon";
+import { ClickPromptHome } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/constants";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { getAppData } from "@/i18n";
@@ -14,7 +14,7 @@ async function Page() {
       <Box as='section' pt='6rem' pb={{ base: "0", md: "5rem" }}>
         <Container>
           <Box textAlign='center'>
-            <ClickPromptIcon width={128} height={128} />
+            <ClickPromptHome width={128} height={128} />
             <Heading
               as='h1'
               maxW='16ch'
