@@ -1,17 +1,11 @@
 import { createCipheriv, createDecipheriv, randomBytes, createHash } from "node:crypto";
 const hasher = createHash("sha256");
 
-import { NextApiHandler } from "next";
+import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { ChatCompletionRequestMessage, OpenAIApi } from "openai";
 import { SITE_USER_COOKIE } from "@/configs/constants";
-import { createUser, isValidUser } from "@/storage/planetscale";
+import { createUser, getUserByKeyHashed, isValidUser } from "@/storage/planetscale";
 import * as console from "console";
-
-export type User = {
-  id: string;
-  openai: OpenAIApi;
-  conversations: Map<string, ChatCompletionRequestMessage[]>;
-};
 
 // type Request = {
 //   action: "login" | "logout";
@@ -99,3 +93,20 @@ const handler: NextApiHandler = async (req, res) => {
   }
 };
 export default handler;
+
+
+export type User = Awaited<ReturnType<typeof getUserByKeyHashed>>;
+export async function getUser(req: NextApiRequest, res: NextApiResponse): Promise<User | null> {
+  const keyHashed = req.cookies[SITE_USER_COOKIE];
+  if (!keyHashed) {
+    res.status(400).json({ error: "You're not logged in yet!" });
+    return null;
+  }
+
+  const user = await getUserByKeyHashed(keyHashed);
+  if (!user) {
+    res.status(400).json({ error: "Your login session has been expired!" });
+    return null;
+  }
+  return user;
+}

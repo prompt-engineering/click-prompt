@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "dev": "npm run prepare:data && next dev",
+    "dev": "npm run prepare:data && cross-env NODE_ENV='development' next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
     "start": "npm run dev",
@@ -71,6 +71,7 @@
     "@types/tunnel": "^0.0.3",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "autoprefixer": "^10.4.13",
+    "cross-env": "^7.0.3",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "eslint-config-prettier": "^8.6.0",

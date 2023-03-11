@@ -36,6 +36,7 @@ async function getConfig(apiKey: string) {
 
 async function createNewOpenAIApi(apiKey: string) {
   const conf = await getConfig(apiKey);
+  console.log("conf", conf)
   const configuration = new Configuration(conf);
 
   return new OpenAIApi(configuration);
@@ -56,12 +57,9 @@ export type RequestGetChats = {
 };
 export type ResponseGetChats = Awaited<ReturnType<typeof getAllChatsInsideConversation>>;
 
-export type RequestGetConversations = {
-  action: "get_conversations";
-};
 export type ResponseGetConversation = Awaited<ReturnType<typeof getAllConversionsByUserId>>;
 
-type RequestBody = RequestSend | RequestGetChats | RequestGetConversations;
+type RequestBody = RequestSend | RequestGetChats;
 
 const handler: NextApiHandler = async (req, res) => {
   if (!secret) {
@@ -94,7 +92,7 @@ const handler: NextApiHandler = async (req, res) => {
     switch (body.action) {
       case "send": {
         let conversation_id = body.conversation_id;
-        // if no conversation exists, create new one as default, elsewise `create Chat` will throw error
+        // if no conversation.ts exists, create new one as default, elsewise `create Chat` will throw error
         if (!conversation_id) {
           const defaultConvesation = await createConversation({
             user_id: user.id as number,
@@ -112,13 +110,6 @@ const handler: NextApiHandler = async (req, res) => {
           ),
           newMsgs: body.messages,
         });
-        break;
-      }
-
-      case "get_conversations": {
-        const conversations = await getAllConversionsByUserId(user.id as number);
-
-        res.status(200).json(conversations);
         break;
       }
 
