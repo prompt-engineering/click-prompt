@@ -10,6 +10,7 @@ import {
   getAllConversionsByUserId,
   getUserByKeyHashed,
 } from "@/storage/planetscale";
+import * as console from "console";
 
 function createNewOpenAIApi(apiKey: string) {
   const configuration = new Configuration({
@@ -119,6 +120,8 @@ async function sendMsgs({
   msgs: ChatCompletionRequestMessage[];
   newMsgs: ChatCompletionRequestMessage[];
 }) {
+  console.log("msgs", msgs)
+  console.log("newMsgs", newMsgs)
   try {
     const response = await client.createChatCompletion({
       model: "gpt-3.5-turbo",
