@@ -30,7 +30,6 @@ import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { HuggingFaceTxt2Img } from "@/components/StableDiffusion/HuggingFaceTxt2Img";
 import { SdPrompt } from "@/components/StableDiffusion/SdPrompt";
 import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
-import { StableDiffusionDataToString } from "@/data-processor/SduiParser";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
@@ -420,7 +419,7 @@ const tagToText = (tag: TagModel, bracketType: BracketType) => {
       })
       .join(", ");
   } else {
-    text = `${tag.value}${tag.ratio !== 1 ? tag.ratio : ""}`;
+    text = `${tag.value}${tag.ratio !== 1 ? ":" + tag.ratio : ""}`;
     Array(tag.weight)
       .fill(undefined)
       .forEach(() => (text = `${bracketType[0]}${text}${bracketType[1]}`));
@@ -433,17 +432,18 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
 
   const [isSubmitting] = useState(false);
   const [bracketType, setBracketType] = useState<BracketType>(BracketType.round);
+
+  const DEFAULT_NEGATIVE_PROMPT =  "nsfw, not_safe_for_work, nude, sexual, worst quality, low quality, normal quality, watermark, blurry";
   const [currentPrompt, setCurrentPrompt] = useState<StableDiffusionGenData>({
     prompt: "",
-    negativePrompt:
-      "worst quality, low quality, jpeg artifacts, signature, watermark, username, blurry, error, nude, censored",
+    negativePrompt: DEFAULT_NEGATIVE_PROMPT,
   });
 
   const formik = useFormik({
     initialValues: generateEmptyForm(),
     onSubmit: (values) => {
       sdGeneratorFormStorage.set(values);
-      copyToClipboard(StableDiffusionDataToString(currentPrompt));
+      copyToClipboard(generatePrompt(values, bracketType));
     },
   });
 
@@ -505,6 +505,11 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
     if (newPrompt) setCurrentPrompt(newPrompt);
   };
 
+  const handlePromptReset = (event?: ChangeEvent<HTMLTextAreaElement>) => {
+    currentPrompt.negativePrompt = DEFAULT_NEGATIVE_PROMPT;
+    handlePromptGeneratorChange(formik.values, bracketType)
+  };
+
   return (
     <SimpleGrid spacing={10}>
       <Heading as={"h3"}>{dict["method-1-chatgpt-generate"]}</Heading>
@@ -523,7 +528,7 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
           {sdCommonPrompts.map((field) => PromptFieldForm({ field, formik }))}
         </SimpleGrid>
 
-        <Flex alignItems='start' gap='2'>
+        <Flex alignItems='start' wrap='wrap' gap='2'>
           <Grid>
             <Text>{dict["character"]}</Text>
             <SimpleGrid gap={3} p={3} columns={2}>
@@ -550,11 +555,11 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
           <Stack spacing={5} direction='row'>
             <Text>{dict["bracket-style"]}</Text>
             <Radio value={BracketType.round}>
-              {BracketType.round}
+              {BracketType.round}&nbsp;
               {dict["round-bracket"]}
             </Radio>
             <Radio value={BracketType.brace}>
-              {BracketType.brace}
+              {BracketType.brace}&nbsp;
               {dict["curly-bracket"]}
             </Radio>
           </Stack>
@@ -569,21 +574,24 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
                   {" "}
                   <Button
                     size='xs'
-                    colorScheme='teal'
+                    colorScheme='whiteAlpha'
+                    m={1}
                     onClick={() => formik.setFieldValue(key, { ...value, ratio: (value.ratio * 10 - 1) / 10 })}
                   >
                     -
                   </Button>
                   <Button
                     size='xs'
-                    colorScheme='teal'
+                    colorScheme='whiteAlpha'
+                    m={1}
                     onClick={() => formik.setFieldValue(key, { ...value, ratio: (value.ratio * 10 + 1) / 10 })}
                   >
                     +
                   </Button>
                   <Button
                     size='xs'
-                    colorScheme='teal'
+                    colorScheme='whiteAlpha'
+                    m={1}
                     onClick={() => {
                       if (value.weight === 0) return;
                       formik.setFieldValue(key, { ...value, weight: value.weight - 1 });
@@ -593,33 +601,34 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
                   </Button>
                   <Button
                     size='xs'
-                    colorScheme='teal'
+                    colorScheme='whiteAlpha'
+                    m={1}
                     onClick={() => formik.setFieldValue(key, { ...value, weight: value.weight + 1 })}
                   >
                     +{bracketType}
                   </Button>
-                  <TagLabel>{tagToText(value, bracketType)}</TagLabel>
+                  <TagLabel p={2}>{tagToText(value, bracketType)}</TagLabel>
                   <TagCloseButton onClick={() => formik.setFieldValue(key, { value: "" })} />
                 </Tag>
               </FormControl>
             ))}
         </Flex>
 
-        <SimpleGrid gap={3} columns={2}>
-          <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
+        <Flex pt={5}>
+          <Button marginLeft='auto' marginTop='4' colorScheme='teal' isLoading={isSubmitting} type='submit'>
             {dict["copy-spell-and-save"]}
           </Button>
           <Button mt={4} marginLeft={1} isLoading={isSubmitting} onClick={onClear}>
             {dict["clear-cache"]}
           </Button>
-        </SimpleGrid>
+        </Flex>
       </form>
       <Heading as={"h3"}>{dict["test-spell-online"]}</Heading>
-      <SdPrompt prompt={currentPrompt} onChange={handlePromptChange} dict={dict} />
-      <Flex alignItems='start' gap='2'>
-        <HuggingFaceTxt2Img model='stabilityai/stable-diffusion-2-1-base' prompt={currentPrompt} dict={dict} />
-        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={currentPrompt} dict={dict} />
+      <SdPrompt prompt={currentPrompt} onChange={handlePromptChange} onReset={handlePromptReset} dict={dict} />
+      <Flex alignItems='flex-start' wrap='wrap' gap='2'>
+        <HuggingFaceTxt2Img model='runwayml/stable-diffusion-v1-5' prompt={currentPrompt} dict={dict} />
         <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={currentPrompt} dict={dict} />
+        <HuggingFaceTxt2Img model='gsdf/Counterfeit-V2.5' prompt={currentPrompt} dict={dict} />
       </Flex>
       <SimpleGrid gap={3} p={3} columns={1}>
         <Heading>{dict["other-online-spell-tools"]}</Heading>

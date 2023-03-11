@@ -13,6 +13,7 @@
   "test-spell-online": "在线测试咒语",
   "other-online-spell-tools": "其它在线咒语工具",
   "generate": "生成",
+  "reset": "重置",
   "import_from_clipboard": "从剪贴板导入",
   "model_503_error_prefix": "模型限流中，请等待至少 ",
   "model_503_error_suffix": " 秒后使用相同咒语重试",

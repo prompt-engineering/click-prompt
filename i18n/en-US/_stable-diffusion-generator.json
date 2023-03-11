@@ -1,6 +1,6 @@
 {
   "lazy-mode": "Lazy mode, input your scene",
-  "method-1-chatgpt-generate": "Method 1: ChatGPT generate",
+  "method-1-chatgpt-generate": "Method 1: Ask ChatGPT",
   "method-2-manual-create": "Method 2: Prompt generator",
   "character": "Character",
   "other": "Other",
@@ -8,13 +8,14 @@
   "bracket-style": "Bracket style",
   "round-bracket": "Parentheses",
   "curly-bracket": "Curly brackets",
-  "copy-spell-and-save": "Copy spell and save",
+  "copy-spell-and-save": "Copy prompt and save",
   "clear-cache": "Clear cache",
-  "test-spell-online": "Test spell online",
-  "other-online-spell-tools": "Other online spell tools",
+  "test-spell-online": "Test prompt online",
+  "other-online-spell-tools": "Other online tools",
   "generate": "Generate",
+  "reset": "Reset",
   "import_from_clipboard": "Import from clipboard",
-  "model_503_error_prefix": "Model is rate limited, please retry with same spell after at least ",
+  "model_503_error_prefix": "Model is rate limited, please retry with same prompt after at least ",
   "model_503_error_suffix": " seconds.",
-  "notes-black-image": "Note: Black image means the result is blocked, please try another spell"
+  "notes-black-image": "Note: Black image means the result is blocked, please try another prompt"
 }
