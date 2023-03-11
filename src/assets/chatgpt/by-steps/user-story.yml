@@ -88,7 +88,6 @@ steps:
       需求，如下：
 
       """
-      # use regex to match with array ?
       $$response:1$$
       """
     cachedResponseRegex:
