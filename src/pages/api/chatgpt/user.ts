@@ -94,7 +94,6 @@ const handler: NextApiHandler = async (req, res) => {
 };
 export default handler;
 
-
 export type User = Awaited<ReturnType<typeof getUserByKeyHashed>>;
 export async function getUser(req: NextApiRequest, res: NextApiResponse): Promise<User | null> {
   const keyHashed = req.cookies[SITE_USER_COOKIE];

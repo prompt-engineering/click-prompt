@@ -5,19 +5,19 @@ import { createConversation, deleteConversation, getAllConversionsByUserId } fro
 export type RequestCreateConversation = {
   action: "create_conversation";
   name: string;
-}
+};
 export type ResponseCreateConversation = Awaited<ReturnType<typeof createConversation>>;
 
 export type RequestDeleteConversation = {
   action: "delete_conversation";
   conversation_id: number;
-}
+};
 export type ResponseDeleteConversation = Awaited<ReturnType<typeof deleteConversation>>;
 
 export type RequestGetConversations = {
   action: "get_conversations";
   user_id: number;
-}
+};
 export type ResponseGetConversations = Awaited<ReturnType<typeof getAllConversionsByUserId>>;
 
 type RequestType = RequestCreateConversation | RequestDeleteConversation | RequestGetConversations;
@@ -70,4 +70,4 @@ const hander: NextApiHandler = async (req, res) => {
       return res.status(400).json({ message: "Invalid action" });
     }
   }
-}
+};

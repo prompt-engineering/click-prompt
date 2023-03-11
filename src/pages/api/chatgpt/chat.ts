@@ -36,7 +36,7 @@ async function getConfig(apiKey: string) {
 
 async function createNewOpenAIApi(apiKey: string) {
   const conf = await getConfig(apiKey);
-  console.log("conf", conf)
+  console.log("conf", conf);
   const configuration = new Configuration(conf);
 
   return new OpenAIApi(configuration);
