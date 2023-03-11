@@ -120,8 +120,8 @@ async function sendMsgs({
   msgs: ChatCompletionRequestMessage[];
   newMsgs: ChatCompletionRequestMessage[];
 }) {
-  console.log("msgs", msgs)
-  console.log("newMsgs", newMsgs)
+  console.log("msgs", msgs.length)
+  console.log("newMsgs", newMsgs.length)
   try {
     const response = await client.createChatCompletion({
       model: "gpt-3.5-turbo",
