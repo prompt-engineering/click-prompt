@@ -433,7 +433,8 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
   const [isSubmitting] = useState(false);
   const [bracketType, setBracketType] = useState<BracketType>(BracketType.round);
 
-  const DEFAULT_NEGATIVE_PROMPT =  "nsfw, not_safe_for_work, nude, sexual, worst quality, low quality, normal quality, watermark, blurry";
+  const DEFAULT_NEGATIVE_PROMPT =
+    "nsfw, not_safe_for_work, nude, sexual, worst quality, low quality, normal quality, watermark, blurry";
   const [currentPrompt, setCurrentPrompt] = useState<StableDiffusionGenData>({
     prompt: "",
     negativePrompt: DEFAULT_NEGATIVE_PROMPT,
@@ -507,7 +508,7 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
 
   const handlePromptReset = (event?: ChangeEvent<HTMLTextAreaElement>) => {
     currentPrompt.negativePrompt = DEFAULT_NEGATIVE_PROMPT;
-    handlePromptGeneratorChange(formik.values, bracketType)
+    handlePromptGeneratorChange(formik.values, bracketType);
   };
 
   return (
