@@ -31,7 +31,7 @@ function encrypt(data: string, secret: string, iv: Buffer) {
   const cipher = createCipheriv("aes-256-cbc", secret, iv);
   let encrypted = cipher.update(data, "utf8", "hex");
   encrypted += cipher.final("hex");
-  return iv.toString("hex") + ":" + encrypted;
+  return encrypted;
 }
 
 export function decrypt(encrypted: string, secret: string, iv: string) {
