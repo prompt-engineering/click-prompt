@@ -1,5 +1,14 @@
 [
   {
+    "name": "ClickPrompt",
+    "description": "ClickPrompt 如何使用 ChatGPT 协助编程",
+    "author": "ClickPrompt Team",
+    "category": "writing",
+    "homepage": "https://github.com/prompt-engineering/click-prompt",
+    "preview": "示例 1：模板示例 1：使用 ChatGPT 创建 issue。我们想在 ClickPrompt 上添加一个新的需求： 在 ClickPrompt 上使用 ChatGPT 自动创建 GitHub issue，以便于社区贡献者能更好的理解这个需求。\n示例 2：模板示例 2：使用 ChatGPT 分析 issue 编写代码。我们是 ClickPrompt 开源项目的贡献者，我们想让你为 ClickPrompt 添加一些新的功能。开始之前请阅读一下这些资料。\n",
+    "path": "click-prompt-casestudy.yml"
+  },
+  {
     "name": "让 ChatGPT 类比迁移",
     "description": "如何让 ChatGPT 进行类比迁移，以帮助我们更好的完成工作。",
     "author": "Phodal Huang",
