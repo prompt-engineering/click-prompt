@@ -80,11 +80,11 @@ npm run dev
 npm run build
 ```
 
-You can find more in [Contributors Guide](./CONTRIBUTING.md).
+You can find more in [Contributors Guide](docs/CONTRIBUTING.md).
 
 ## Contributing Guide
 
-New contributors welcome! Check out our [Contributors Guide](./CONTRIBUTING.md) for help getting started.
+New contributors welcome! Check out our [Contributors Guide](docs/CONTRIBUTING.md) for help getting started.
 
 ![Powered by Vercel](https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg)
 
@@ -92,7 +92,7 @@ New contributors welcome! Check out our [Contributors Guide](./CONTRIBUTING.md) 
 
 Speak another language natively?
 
-Check out the dedicated [i18n guide](./TRANSLATING.md) for more details.
+Check out the dedicated [i18n guide](docs/TRANSLATING.md) for more details.
 
 ## License
 

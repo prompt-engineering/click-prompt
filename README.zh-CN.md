@@ -78,17 +78,17 @@ npm run dev
 npm run build
 ```
 
-更多请查阅[贡献指南](./CONTRIBUTING.md)。
+更多请查阅[贡献指南](docs/CONTRIBUTING.md)。
 
 ## 贡献指南
 
-欢迎新的贡献者。查看我们的[贡献指南](./CONTRIBUTING.md)帮助你开始你的贡献。
+欢迎新的贡献者。查看我们的[贡献指南](docs/CONTRIBUTING.md)帮助你开始你的贡献。
 
 ![Powered by Vercel](https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg)
 
 ## 翻译指南
 
-查看专用的 [i18n 指南](./TRANSLATING.md)以获取更多详细信息。
+查看专用的 [i18n 指南](docs/TRANSLATING.md)以获取更多详细信息。
 
 ## License
 
