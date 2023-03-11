@@ -529,7 +529,7 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
           {sdCommonPrompts.map((field) => PromptFieldForm({ field, formik }))}
         </SimpleGrid>
 
-        <Flex alignItems='start' wrap='wrap' gap='2'>
+        <Flex alignItems='start' gap='2'>
           <Grid>
             <Text>{dict["character"]}</Text>
             <SimpleGrid gap={3} p={3} columns={2}>
