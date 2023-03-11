@@ -1,7 +1,7 @@
 import { NextApiHandler, NextApiResponse } from "next";
 
 import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from "openai";
-import { Configuration, OpenAIApi } from "openai";
+import { Configuration, OpenAIApi, type ConfigurationParameters } from "openai";
 import { SITE_USER_COOKIE } from "@/configs/constants";
 import { decrypt, secret } from "@/pages/api/chatgpt/user";
 import {
@@ -9,13 +9,34 @@ import {
   getAllChatsInsideConversation,
   getAllConversionsByUserId,
   getUserByKeyHashed,
+  createConversation,
 } from "@/storage/planetscale";
 import * as console from "console";
 
-function createNewOpenAIApi(apiKey: string) {
-  const configuration = new Configuration({
+async function getConfig(apiKey: string) {
+  const baseConf: ConfigurationParameters = {
     apiKey,
-  });
+  };
+  // FIXME now just for development
+  if (process.env.NODE_ENV === "development" && process.env.PROXY_HOST && process.env.PROXY_PORT) {
+    const { httpsOverHttp } = await import("tunnel");
+    const tunnel = httpsOverHttp({
+      proxy: {
+        host: process.env.PROXY_HOST,
+        port: process.env.PROXY_PORT as unknown as number,
+      },
+    });
+    baseConf.baseOptions = {
+      httpsAgent: tunnel,
+      proxy: false,
+    };
+  }
+  return baseConf;
+}
+
+async function createNewOpenAIApi(apiKey: string) {
+  const conf = await getConfig(apiKey);
+  const configuration = new Configuration(conf);
 
   return new OpenAIApi(configuration);
 }
@@ -63,7 +84,8 @@ const handler: NextApiHandler = async (req, res) => {
     return;
   }
 
-  const chatClient = chatClients.get(keyHashed) || createNewOpenAIApi(decrypt(user.key_encrypted, secret, user.iv));
+  const chatClient =
+    chatClients.get(keyHashed) || (await createNewOpenAIApi(decrypt(user.key_encrypted, secret, user.iv)));
   chatClients.set(keyHashed, chatClient);
 
   if (req.method === "POST" && req.body) {
@@ -71,11 +93,20 @@ const handler: NextApiHandler = async (req, res) => {
 
     switch (body.action) {
       case "send": {
-        const chats = await getAllChatsInsideConversation(body.conversation_id);
+        let conversation_id = body.conversation_id;
+        // if no conversation exists, create new one as default, elsewise `create Chat` will throw error
+        if (!conversation_id) {
+          const defaultConvesation = await createConversation({
+            user_id: user.id as number,
+            name: "Default Conversation name",
+          });
+          conversation_id = Number(defaultConvesation.insertId);
+        }
+        const chats = await getAllChatsInsideConversation(conversation_id);
         await sendMsgs({
           res,
           client: chatClient,
-          conversation_id: body.conversation_id,
+          conversation_id: conversation_id,
           msgs: chats.map(
             (it) => ({ role: it.role, content: it.content, name: it.name } as ChatCompletionRequestMessage),
           ),
@@ -121,9 +152,10 @@ async function sendMsgs({
   newMsgs: ChatCompletionRequestMessage[];
 }) {
   try {
+    const messages = [...msgs, ...newMsgs];
     const response = await client.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: [...msgs, ...newMsgs],
+      messages,
       temperature: 0.5,
       max_tokens: 200,
     });
@@ -137,11 +169,14 @@ async function sendMsgs({
       res.status(500).json({ error: "No response from OpenAI" });
       return;
     }
+    // add responce to newMsgs
+    messages.push(choices[0].message);
 
     // save to database
-    await Promise.all(newMsgs.map((it) => createChat({ conversation_id, ...it })));
+    // TODO should provide chat service to manage it.
+    await Promise.all(newMsgs.concat(choices[0].message).map((it) => createChat({ conversation_id, ...it })));
 
-    return res.status(200).json({ messages: newMsgs });
+    return res.status(200).json({ messages });
   } catch (e: any) {
     console.error(e);
     let msg = e.message;

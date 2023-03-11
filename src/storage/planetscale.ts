@@ -79,7 +79,7 @@ export const createUser = cache(async (data: Pick<UserTable, "key_hashed" | "iv"
 });
 
 export const createConversation = cache(async (data: Pick<ConversationTable, "user_id" | "name">) => {
-  return queryBuilder.insertInto("conversations").values(data).execute();
+  return queryBuilder.insertInto("conversations").values(data).executeTakeFirst();
 });
 
 export const createChat = cache(async (data: Pick<ChatTable, "conversation_id" | "role" | "content" | "name">) => {

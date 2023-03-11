@@ -8,11 +8,12 @@ export type ChatMessage = {
   }[];
 };
 
-export async function sentMessageReq(message: string): Promise<any | ChatMessage> {
+export async function sentMessageReq(message: string, conversation_id?: number): Promise<any | ChatMessage> {
   const response = await fetch("/api/chatgpt/chat", {
     method: "POST",
     body: JSON.stringify({
       action: "send",
+      conversation_id,
       messages: [
         {
           role: "user",

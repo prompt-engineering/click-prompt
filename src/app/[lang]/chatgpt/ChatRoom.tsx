@@ -123,9 +123,11 @@ export const ChatRoom = ({
 
     try {
       setDisable(true);
+      // TODO if conversations not empty, choose one and pass conversation_id to api
       const data = await sentMessageReq(message);
 
       if (!data.error) {
+        // TODO query conversations
         if (data.messages) {
           setChatHistory([...data.messages]);
           setTimeout(() => {
@@ -165,7 +167,7 @@ export const ChatRoom = ({
           <NewChat color='white' />
           New chat
         </div>
-        <div className='overflow-y-auto overflow-container'></div>
+        <div className='overflow-y-auto overflow-container'>{/* TODO list conversation */}</div>
         <div>
           <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
             <TrashcanIcon color='white' />
