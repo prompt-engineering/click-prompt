@@ -105,7 +105,7 @@ export const getUserByKeyHashed = cache(async (keyHashed: string) => {
     .execute();
 
   if (result.length !== 1) {
-    throw Error(`User "${keyHashed}" not found.`);
+    return null;
   }
 
   return result[0];
