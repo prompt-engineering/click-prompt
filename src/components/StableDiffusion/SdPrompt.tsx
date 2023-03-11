@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, ChangeEvent, MouseEvent } from "react";
-import { Button, Grid, Text, Textarea } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Text, Textarea } from "@chakra-ui/react";
 import CopyComponent from "@/components/CopyComponent";
 import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
 import { parseStableDiffusionData, StableDiffusionDataToString } from "@/data-processor/SduiParser";
@@ -13,13 +13,15 @@ const StyledGreyTextarea = styled(Textarea)`
 `;
 
 type PromptChangeHandler = (event?: any, prompt?: StableDiffusionGenData) => void;
+type PromptResetHandler = (event?: any) => void;
 type SdPromptComponentProps = {
   prompt: StableDiffusionGenData;
   readonly?: boolean;
   dict?: Record<string, string>;
   onChange?: PromptChangeHandler;
+  onReset?: PromptResetHandler;
 };
-export function SdPrompt({ prompt, readonly = false, dict = {}, onChange }: SdPromptComponentProps) {
+export function SdPrompt({ prompt, readonly = false, dict = {}, onChange, onReset }: SdPromptComponentProps) {
   const promptRef = useRef<HTMLTextAreaElement | null>(null);
   const negativePromptRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -59,7 +61,7 @@ export function SdPrompt({ prompt, readonly = false, dict = {}, onChange }: SdPr
         resize='none'
         onChange={handleOnChange}
       ></StyledGreyTextarea>
-      {readonly ? (
+      {readonly && (
         <Grid pt={2}>
           <Text>Model: {prompt.model}</Text>
           {prompt.lora && prompt.lora.length > 0 && <Text>LoRA: {prompt.lora.join(", ")} </Text>}
@@ -67,17 +69,29 @@ export function SdPrompt({ prompt, readonly = false, dict = {}, onChange }: SdPr
           <Text>CFG Scale: {prompt.cfgScale}</Text>
           <Text>Steps: {prompt.steps}</Text>
           <Text>Seed: {prompt.seed}</Text>
-          <Button variant='solid' colorScheme='teal' marginLeft='auto'>
-            <CopyComponent value={StableDiffusionDataToString(prompt)} />
-          </Button>
-        </Grid>
-      ) : (
-        <Grid pt={5}>
-          <Button variant='solid' colorScheme='teal' onClick={(event) => handleOnLoadFromClipboard(event)}>
-            {dict["import_from_clipboard"]}
-          </Button>
         </Grid>
       )}
+      <Flex pt={5} marginLeft='auto'>
+        {!readonly && (
+          <Box>
+            <Button variant='solid' marginRight={2} onClick={(event) => handleOnLoadFromClipboard(event)}>
+              {dict["import_from_clipboard"]}
+            </Button>
+            <Button
+              variant='solid'
+              marginRight={2}
+              onClick={(event) => {
+                if (onReset) onReset(event);
+              }}
+            >
+              {dict["reset"]}
+            </Button>
+          </Box>
+        )}
+        <Button variant='solid' colorScheme='teal'>
+          <CopyComponent value={StableDiffusionDataToString(prompt)} />
+        </Button>
+      </Flex>
     </Grid>
   );
 }
