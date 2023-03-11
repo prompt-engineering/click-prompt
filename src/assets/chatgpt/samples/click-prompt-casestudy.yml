@@ -11,6 +11,7 @@ steps:
   - ask: |
       我们想在 ClickPrompt 上添加一个新的需求： 在 ClickPrompt 上使用 ChatGPT 自动创建 GitHub issue，以便于社区贡献者能更好的理解这个需求。输出需求：
 
+      ```
       """
       Is your feature request related to a problem? Please describe.
       No
@@ -24,6 +25,7 @@ steps:
       Additional context
       Add any other context or screenshots about the feature request here.
       """
+      ```
     response: |
       """
       Is your feature request related to a problem? Please describe.
@@ -41,9 +43,9 @@ steps:
   - ask:  |
       我们是 ClickPrompt 开源项目的贡献者，我们想让你为 ClickPrompt 添加一些新的功能。开始之前请阅读一下这些资料：
 
-      - ClickPrompt 是一款专为 Prompt 编写者设计的工具，它支持多种基于 Prompt 的 AI 应用，例如 Stable Diffusion、ChatGPT 和 GitHub Copilot 等。 使用 ClickPrompt，您可以轻松地查看、分享和一键运行这些模型，同时提供在线的 Prompt 生成器，使用户能够根据自己的需求轻松创建符合要求的 Prompt，并与其他人分享。
-      - ClickPrompt 包含了些页面组件：chatgpt、chatgpt-general、chatgpt-generator-cot、chatgpt-interactive-game、chatgpt-prompt-role-play、chatgpt-samples、chatgpt-startling-by-each-step、github-copilot-samples、resources、stable-diffusion-examples、stable-diffusion-generator
-      - ClickPrompt 使用 Next.js、React、Chakra UI、Tailwind 等作为主要的开发框架，使用 Planetscale 作为数据库。
+       - ClickPrompt 是一款专为 Prompt 编写者设计的工具，它支持多种基于 Prompt 的 AI 应用，例如 Stable Diffusion、ChatGPT 和 GitHub Copilot 等。 使用 ClickPrompt，您可以轻松地查看、分享和一键运行这些模型，同时提供在线的 Prompt 生成器，使用户能够根据自己的需求轻松创建符合要求的 Prompt，并与其他人分享。
+       - ClickPrompt 包含了些页面组件：chatgpt、chatgpt-general、chatgpt-generator-cot、chatgpt-interactive-game、chatgpt-prompt-role-play、chatgpt-samples、chatgpt-startling-by-each-step、github-copilot-samples、resources、stable-diffusion-examples、stable-diffusion-generator
+       - ClickPrompt 使用 Next.js、React、Chakra UI、Tailwind 等作为主要的开发框架，使用 Planetscale 作为数据库。
 
       现在，我们想让你添加一个新的功能，即：feature: add tour guide for ClickPrompt。描述如下：
 

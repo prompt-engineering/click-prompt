@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 function SimpleMarkdown({ content }: any) {
+  const text = content.replaceAll("\n", "\n\n");
   function getHighlighter(match: RegExpExecArray, props: any, children: any) {
     return (
       <SyntaxHighlighter language={match[1]} PreTag='div' wrapLines={true} wrapLongLines={true} {...props}>
@@ -32,7 +33,7 @@ function SimpleMarkdown({ content }: any) {
         },
       }}
     >
-      {content}
+      {text}
     </ReactMarkdown>
   );
 }
