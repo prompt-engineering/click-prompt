@@ -3,7 +3,7 @@
 [![ci](https://github.com/prompt-engineering/click-prompt/actions/workflows/ci.yaml/badge.svg)](https://github.com/prompt-engineering/click-prompt/actions/workflows/ci.yaml)
 ![GitHub](https://img.shields.io/github/license/prompt-engineering/click-prompt)
 
-<img src="src/assets/clickprompt-light.svg" width='128' height='128' alt='ClickPrompt Logo' />
+<img src="src/assets/clickprompt-home.svg" width='128' height='128' alt='ClickPrompt Logo' />
 
 [English](./README.md) | 简体中文
 
