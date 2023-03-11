@@ -13,10 +13,12 @@ export async function sentMessageReq(message: string): Promise<any | ChatMessage
     method: "POST",
     body: JSON.stringify({
       action: "send",
-      messages: [{
-        role: "user",
-        content: message,
-      }]
+      messages: [
+        {
+          role: "user",
+          content: message,
+        },
+      ],
     } as RequestSend),
   });
 

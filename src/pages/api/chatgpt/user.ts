@@ -45,7 +45,7 @@ export function decrypt(encrypted: string, secret: string, iv: string) {
 export const secret = process.env["ENC_KEY"];
 
 const handler: NextApiHandler = async (req, res) => {
-  console.log("process.version", process.version)
+  console.log("process.version", process.version);
   if (!secret) {
     res.status(500).json({
       error: "No secret key env in the server.",
@@ -71,7 +71,7 @@ const handler: NextApiHandler = async (req, res) => {
       if (key) {
         const key_hashed = hasher.copy().update(key).digest().toString("hex");
 
-        if (!await isValidUser(key_hashed)) {
+        if (!(await isValidUser(key_hashed))) {
           const iv = genIV();
           const key_encrypted = encrypt(key, secret, iv);
 

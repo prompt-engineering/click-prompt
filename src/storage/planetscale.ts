@@ -4,7 +4,7 @@ import { cache } from "react";
 
 enum NumBool {
   True = 1,
-  False = 0
+  False = 0,
 }
 
 interface UserTable {
@@ -24,7 +24,7 @@ interface ConversationTable {
   created_at?: string;
 }
 
-interface ChatTable{
+interface ChatTable {
   id?: number;
   conversation_id: number;
   role: string; // line 14
@@ -33,10 +33,9 @@ interface ChatTable{
   created_at?: string;
 }
 
-
 interface Database {
   users: UserTable;
-  conversations: ConversationTable
+  conversations: ConversationTable;
   chats: ChatTable;
 }
 
@@ -46,34 +45,25 @@ export const queryBuilder = new Kysely<Database>({
   }),
 });
 
-
 export const getAllConversionsByUserId = cache(async (userId: number) => {
   return queryBuilder
     .selectFrom("conversations")
-    .select([
-      "conversations.id",
-      "conversations.user_id",
-      "conversations.name",
-      "conversations.created_at"
-    ])
-    .where((qb) =>
-      qb.where("conversations.user_id", "=", userId)
-        .where("conversations.deleted", "=", 0)
-    )
+    .select(["conversations.id", "conversations.user_id", "conversations.name", "conversations.created_at"])
+    .where((qb) => qb.where("conversations.user_id", "=", userId).where("conversations.deleted", "=", 0))
     .limit(100)
     .execute();
 });
 
 export const getAllChatsInsideConversation = cache(async (conversationId: number) => {
-   return queryBuilder
-     .selectFrom("chats")
-     .selectAll()
-     .where("chats.conversation_id", "=", conversationId)
-     .limit(100)
-     .execute();
+  return queryBuilder
+    .selectFrom("chats")
+    .selectAll()
+    .where("chats.conversation_id", "=", conversationId)
+    .limit(100)
+    .execute();
 });
 
-export const isValidUser = cache((async (keyHashed: string) => {
+export const isValidUser = cache(async (keyHashed: string) => {
   return queryBuilder
     .selectFrom("users")
     .select("users.key_hashed")
@@ -82,37 +72,28 @@ export const isValidUser = cache((async (keyHashed: string) => {
     .limit(1)
     .execute()
     .then((users) => users.length === 1);
-}));
-
-export const createUser = cache(async (data: Pick<UserTable, "key_hashed"|"iv"|"key_encrypted">) => {
-  return queryBuilder
-    .insertInto("users")
-    .values(data)
-    .execute();
 });
 
-export const createConversation = cache(async (data: Pick<ConversationTable, "user_id"|"name">) => {
-  return queryBuilder
-    .insertInto("conversations")
-    .values(data)
-    .execute();
-})
+export const createUser = cache(async (data: Pick<UserTable, "key_hashed" | "iv" | "key_encrypted">) => {
+  return queryBuilder.insertInto("users").values(data).execute();
+});
+
+export const createConversation = cache(async (data: Pick<ConversationTable, "user_id" | "name">) => {
+  return queryBuilder.insertInto("conversations").values(data).execute();
+});
 
 export const createChat = cache(async (data: Pick<ChatTable, "conversation_id" | "role" | "content" | "name">) => {
-  return queryBuilder
-    .insertInto("chats")
-    .values(data)
-    .execute();
+  return queryBuilder.insertInto("chats").values(data).execute();
 });
 
 export const deleteConversation = cache(async (conversationId: number) => {
   return queryBuilder
     .updateTable("conversations")
     .set({
-      deleted: 1
+      deleted: 1,
     })
     .where("conversations.id", "=", conversationId)
-    .execute()
+    .execute();
 });
 
 export const getUserByKeyHashed = cache(async (keyHashed: string) => {
@@ -128,7 +109,7 @@ export const getUserByKeyHashed = cache(async (keyHashed: string) => {
   }
 
   return result[0];
-})
+});
 
 // function generateDateTime() {
 //   const date = new Date();
