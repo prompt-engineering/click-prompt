@@ -27,22 +27,22 @@ export const HuggingFaceTxt2Img = ({ model, prompt, dict }: HuggingFaceComponent
       inputs: prompt.prompt,
       parameters: {
         negative_prompt: [prompt.negativePrompt],
-        num_images_per_prompt: 1
+        num_images_per_prompt: 1,
       },
-      options: {}
+      options: {},
     };
     if (wait_for_model)
       payload.options = {
-        wait_for_model: true
-      }
+        wait_for_model: true,
+      };
     return fetch("https://api-inference.huggingface.co/models/" + model, {
       method: "POST",
       cache: "no-cache",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + process.env.NEXT_PUBLIC_HUGGING_FACE_ACCESS_TOKEN,
+        Authorization: "Bearer " + process.env.NEXT_PUBLIC_HUGGING_FACE_ACCESS_TOKEN,
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
   };
 
@@ -86,7 +86,13 @@ export const HuggingFaceTxt2Img = ({ model, prompt, dict }: HuggingFaceComponent
     <SimpleGrid gap={3} p={3} columns={1} border='1px solid lightgrey'>
       <Grid>
         <Flex alignItems='center'>
-          <Image alt="Hugging Face" src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" width={20} height={20} /> &nbsp;Hugging Face
+          <Image
+            alt='Hugging Face'
+            src='https://huggingface.co/front/assets/huggingface_logo-noborder.svg'
+            width={20}
+            height={20}
+          />{" "}
+          &nbsp;Hugging Face
         </Flex>
         <Link mt={1} href={"https://huggingface.co/" + model} isExternal>
           {model}

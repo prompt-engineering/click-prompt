@@ -61,23 +61,33 @@ export function SdPrompt({ prompt, readonly = false, dict = {}, onChange, onRese
         resize='none'
         onChange={handleOnChange}
       ></StyledGreyTextarea>
-      {readonly && <Grid pt={2}>
-        <Text>Model: {prompt.model}</Text>
-        {prompt.lora && prompt.lora.length > 0 && <Text>LoRA: {prompt.lora.join(", ")} </Text>}
-        <Text>Sampler: {prompt.sampler}</Text>
-        <Text>CFG Scale: {prompt.cfgScale}</Text>
-        <Text>Steps: {prompt.steps}</Text>
-        <Text>Seed: {prompt.seed}</Text>
-      </Grid>}
+      {readonly && (
+        <Grid pt={2}>
+          <Text>Model: {prompt.model}</Text>
+          {prompt.lora && prompt.lora.length > 0 && <Text>LoRA: {prompt.lora.join(", ")} </Text>}
+          <Text>Sampler: {prompt.sampler}</Text>
+          <Text>CFG Scale: {prompt.cfgScale}</Text>
+          <Text>Steps: {prompt.steps}</Text>
+          <Text>Seed: {prompt.seed}</Text>
+        </Grid>
+      )}
       <Flex pt={5} marginLeft='auto'>
-        {!readonly && <Box>
-          <Button variant='solid' marginRight={2} onClick={(event) => handleOnLoadFromClipboard(event)}>
-            {dict["import_from_clipboard"]}
-          </Button>
-          <Button variant='solid' marginRight={2} onClick={(event) => { if (onReset) onReset(event); }}>
-            {dict["reset"]}
-          </Button>
-        </Box>}
+        {!readonly && (
+          <Box>
+            <Button variant='solid' marginRight={2} onClick={(event) => handleOnLoadFromClipboard(event)}>
+              {dict["import_from_clipboard"]}
+            </Button>
+            <Button
+              variant='solid'
+              marginRight={2}
+              onClick={(event) => {
+                if (onReset) onReset(event);
+              }}
+            >
+              {dict["reset"]}
+            </Button>
+          </Box>
+        )}
         <Button variant='solid' colorScheme='teal'>
           <CopyComponent value={StableDiffusionDataToString(prompt)} />
         </Button>
