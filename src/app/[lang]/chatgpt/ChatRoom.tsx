@@ -6,10 +6,11 @@ import LogoutIcon from "@/assets/icons/logout.svg";
 import Image from "next/image";
 import content from "@/assets/images/content.png";
 import send from "@/assets/icons/send.svg?url";
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import React, { Dispatch, SetStateAction, useEffect, use, useState } from "react";
 import { ChatCompletionRequestMessage } from "openai";
 import styled from "@emotion/styled";
 import { sentMessageReq } from "@/api/chat-api";
+import type { RequestGetConversations, ResponseGetConversation } from "@/pages/api/chatgpt/chat";
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -85,6 +86,13 @@ export const ChatRoom = ({
   const [disable, setDisable] = React.useState(false);
   const [chatHistory, setChatHistory] = React.useState<ChatCompletionRequestMessage[]>([]);
   const [message, setMessage] = React.useState(initMessage ?? "");
+
+  const [conversations, setConversations] = useState(use<ResponseGetConversation>(fetch("/api/chatgpt/chat", {
+    method: "POST",
+    body: JSON.stringify({
+      action: "get_conversations"
+    } as RequestGetConversations)
+  }).then(it => it.json())));
 
   useEffect(() => {
     const listener = (event: KeyboardEvent) => {

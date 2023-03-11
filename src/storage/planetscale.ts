@@ -2,25 +2,42 @@ import { Kysely } from "kysely";
 import { PlanetScaleDialect } from "kysely-planetscale";
 import { cache } from "react";
 
-interface UsersTable {
-  id: string;
-  is_login: boolean;
-  created_at: string;
+enum NumBool {
+  True = 1,
+  False = 0
 }
 
-interface ChatsTable {
-  // 每个 chat 表里的 id 应该是唯一的，或者自增的，这里的 chatId 应该是 chat 表里的 id
-  id?: string;
-  user_id: string;
-  chat_name: string; // line 14
-  // will be a JSON string: '[{ role: "user", content: "Hello" }, { role: "bot", content: "Hi" }]'
-  chat_content: string;
-  created_at: string;
+interface UserTable {
+  id?: number;
+  key_hashed: string;
+  iv: string;
+  key_encrypted: string;
+  deleted?: NumBool;
+  created_at?: string;
 }
+
+interface ConversationTable {
+  id?: number;
+  user_id: number;
+  name: string;
+  deleted?: NumBool;
+  created_at?: string;
+}
+
+interface ChatTable{
+  id?: number;
+  conversation_id: number;
+  role: string; // line 14
+  content: string;
+  name?: string;
+  created_at?: string;
+}
+
 
 interface Database {
-  users: UsersTable;
-  chats: ChatsTable;
+  users: UserTable;
+  conversations: ConversationTable
+  chats: ChatTable;
 }
 
 export const queryBuilder = new Kysely<Database>({
@@ -29,55 +46,95 @@ export const queryBuilder = new Kysely<Database>({
   }),
 });
 
-export const getAllChats = cache(async (userId: string) => {
-  const data = await queryBuilder.selectFrom("chats").where("user_id", "=", userId).selectAll().execute();
 
-  if (!data.length) {
-    return null;
-  }
-
-  return data;
+export const getAllConversionsByUserId = cache(async (userId: number) => {
+  return queryBuilder
+    .selectFrom("conversations")
+    .select([
+      "conversations.id",
+      "conversations.user_id",
+      "conversations.name",
+      "conversations.created_at"
+    ])
+    .where((qb) =>
+      qb.where("conversations.user_id", "=", userId)
+        .where("conversations.deleted", "=", 0)
+    )
+    .limit(100)
+    .execute();
 });
 
-function generateDateTime() {
-  const date = new Date();
-  const padZero = (num: number) => num.toString().padStart(2, "0");
-  const datetime = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(
-    date.getHours(),
-  )}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
-  return datetime;
-}
+export const getAllChatsInsideConversation = cache(async (conversationId: number) => {
+   return queryBuilder
+     .selectFrom("chats")
+     .selectAll()
+     .where("chats.conversation_id", "=", conversationId)
+     .limit(100)
+     .execute();
+});
 
-export const updateChatById = async (chatId: string, userId: string, chatContent: string) => {
-  const datetime = generateDateTime();
+export const isValidUser = cache((async (keyHashed: string) => {
+  return queryBuilder
+    .selectFrom("users")
+    .select("users.key_hashed")
+    .where("users.deleted", "=", 0)
+    .where("users.key_hashed", "=", keyHashed)
+    .limit(1)
+    .execute()
+    .then((users) => users.length === 1);
+}));
 
-  await queryBuilder
-    .insertInto("chats")
-    .values({ chat_name: "", user_id: userId, chat_content: chatContent, created_at: datetime })
-    .onDuplicateKeyUpdate({ chat_content: chatContent })
-    .execute();
-};
-
-export const saveAndLoginUser = async (userId: string) => {
-  const datetime = generateDateTime();
-
-  await queryBuilder
+export const createUser = cache(async (data: Pick<UserTable, "key_hashed"|"iv"|"key_encrypted">) => {
+  return queryBuilder
     .insertInto("users")
-    .values({ id: userId, created_at: datetime, is_login: true })
-    .onDuplicateKeyUpdate({ is_login: true })
+    .values(data)
     .execute();
-};
-
-export const getUserById = cache(async (userId: string) => {
-  const data = await queryBuilder.selectFrom("users").where("id", "=", userId).selectAll().execute();
-
-  if (!data.length) {
-    return null;
-  }
-
-  return data[0];
 });
 
-export const logoutUser = async (userId: string) => {
-  await queryBuilder.updateTable("users").where("id", "=", userId).set({ is_login: false }).execute();
-};
+export const createConversation = cache(async (data: Pick<ConversationTable, "user_id"|"name">) => {
+  return queryBuilder
+    .insertInto("conversations")
+    .values(data)
+    .execute();
+})
+
+export const createChat = cache(async (data: Pick<ChatTable, "conversation_id" | "role" | "content" | "name">) => {
+  return queryBuilder
+    .insertInto("chats")
+    .values(data)
+    .execute();
+});
+
+export const deleteConversation = cache(async (conversationId: number) => {
+  return queryBuilder
+    .updateTable("conversations")
+    .set({
+      deleted: 1
+    })
+    .where("conversations.id", "=", conversationId)
+    .execute()
+});
+
+export const getUserByKeyHashed = cache(async (keyHashed: string) => {
+  const result = await queryBuilder
+    .selectFrom("users")
+    .selectAll()
+    .where("users.key_hashed", "=", keyHashed)
+    .limit(1)
+    .execute();
+
+  if (result.length !== 1) {
+    throw Error(`User "${keyHashed}" not found.`);
+  }
+
+  return result[0];
+})
+
+// function generateDateTime() {
+//   const date = new Date();
+//   const padZero = (num: number) => num.toString().padStart(2, "0");
+//   const datetime = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(
+//     date.getHours(),
+//   )}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
+//   return datetime;
+// }
