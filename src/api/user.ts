@@ -1,3 +1,5 @@
+import { SITE_INTERNAL_HEADER_URL } from "@/configs/constants";
+
 export async function logout() {
   const response = await fetch("/api/chatgpt/user", {
     method: "POST",
@@ -26,14 +28,24 @@ export async function login(key: string) {
 }
 
 export async function isLoggedIn(hashedKey?: string) {
-  if (hashedKey == null) {
-    return false;
+  if (typeof window !== "undefined" && typeof document !== "undefined") {
+    // Client-side
+    const response = await fetch("/api/chatgpt/verify", {
+      method: "POST",
+      body: hashedKey ?? undefined,
+    }).then((it) => it.json());
+
+    return response.loggedIn;
   }
 
-  const response = await fetch("/api/chatgpt/verify", {
+  const { headers } = await import("next/headers");
+  const urlStr = headers().get(SITE_INTERNAL_HEADER_URL) as string;
+  // Propagate cookies to the API route
+  const headersPropagated = { cookie: headers().get("cookie") as string };
+  const response = await fetch(new URL("/api/chatgpt/verify", new URL(urlStr)), {
     method: "POST",
-    body: hashedKey ?? "",
+    body: hashedKey ?? undefined,
+    headers: headersPropagated,
   }).then((it) => it.json());
-
   return response.loggedIn;
 }
