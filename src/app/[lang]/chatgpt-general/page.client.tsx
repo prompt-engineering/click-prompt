@@ -3,7 +3,7 @@
 import React from "react";
 import { DataTable } from "@/components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 
 import gptCategorySamples from "@/assets/chatgpt/category/index.json";
 import {

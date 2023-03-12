@@ -26,7 +26,7 @@ import CopyComponent from "@/components/CopyComponent";
 import PromptFieldForm, { SdPromptField } from "@/components/PromptFieldForm";
 import sdImage from "@/assets/images/stable-diffusion-demo.jpeg";
 import { WebStorage } from "@/storage/webstorage";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 import { HuggingFaceTxt2Img } from "@/components/StableDiffusion/HuggingFaceTxt2Img";
 import { SdPrompt } from "@/components/StableDiffusion/SdPrompt";
 import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";

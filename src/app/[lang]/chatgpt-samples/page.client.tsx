@@ -24,7 +24,7 @@ import Link from "next/link";
 import samples from "@/assets/chatgpt/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 
 function ChatGptSamples({ i18n }: GeneralI18nProps) {
