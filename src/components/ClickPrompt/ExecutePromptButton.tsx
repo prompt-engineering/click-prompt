@@ -1,6 +1,6 @@
 "use client";
 
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import { Text, useDisclosure } from "@chakra-ui/react";
 import * as UserAPI from "@/api/user";
 import { ResponseCreateConversation } from "@/pages/api/chatgpt/conversation";
@@ -31,17 +31,24 @@ function ExecutePromptButton(props: ExecButtonProps) {
   const [hasLogin, setHasLogin] = useState(false);
 
   const handleClick = async () => {
+    setIsLoading(true);
+
     try {
-      await UserAPI.isLoggedIn();
+      const response = await UserAPI.isLoggedIn();
+      if (!response.loggedIn) {
+        onOpen();
+        setIsLoading(false);
+        return;
+      }
+
       setHasLogin(true);
     } catch (e) {
-      onOpen();
+      console.log(e);
       setHasLogin(false);
     }
 
     let conversationId = props.conversationId;
     if (!props.conversationId) {
-      setIsLoading(true);
       const conversation: ResponseCreateConversation = await createConversation();
       if (!conversation) {
         return;
@@ -58,12 +65,25 @@ function ExecutePromptButton(props: ExecButtonProps) {
       }
     }
 
-    onClose();
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    console.log(`hasLogin: ${hasLogin}`);
+    if (hasLogin) {
+      onClose();
+    }
+  }, [hasLogin]);
+
   const handleClose = () => {
     onClose();
+  };
+
+  const updateLoginStatus = (status: boolean) => {
+    if (status) {
+      setHasLogin(true);
+      onClose();
+    }
   };
 
   return (
@@ -76,7 +96,7 @@ function ExecutePromptButton(props: ExecButtonProps) {
         </Button>
         <ClickPromptBird />
       </StyledPromptButton>
-      {!hasLogin && LoggingDrawer(isOpen, handleClose, hasLogin, props)}
+      {!hasLogin && LoggingDrawer(isOpen, handleClose, hasLogin, props, updateLoginStatus)}
     </>
   );
 }
