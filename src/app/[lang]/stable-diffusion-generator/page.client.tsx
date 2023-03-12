@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
   Button,
   Flex,
@@ -23,11 +23,13 @@ import {
 import { useFormik } from "formik";
 import Image from "next/image";
 import CopyComponent from "@/components/CopyComponent";
-import PromptFieldForm, { SdPromptField } from "@/components/PromptFieldForm";
+import PromptFieldForm, { SdPromptField } from "@/app/[lang]/stable-diffusion-generator/PromptFieldForm";
 import sdImage from "@/assets/images/stable-diffusion-demo.jpeg";
-import { WebStorage } from "@/utils/storage.util";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
-import { HuggingFaceTxt2Img } from "./HuggingFaceTxt2Img";
+import { WebStorage } from "@/storage/webstorage";
+import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
+import { HuggingFaceTxt2Img } from "@/components/StableDiffusion/HuggingFaceTxt2Img";
+import { SdPrompt } from "@/components/StableDiffusion/SdPrompt";
+import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
@@ -382,6 +384,7 @@ const generateEmptyForm = () =>
     acc[field.name] = { value: "", weight: 0, ratio: 1 };
     return acc;
   }, {});
+
 const sdGeneratorFormStorage = new WebStorage<Record<string, string>>("sdGeneratorForm");
 const copyToClipboard = (text: string) => {
   const textarea = document.createElement("textarea");
@@ -417,7 +420,7 @@ const tagToText = (tag: TagModel, bracketType: BracketType) => {
       })
       .join(", ");
   } else {
-    text = `${tag.value}${tag.ratio !== 1 ? tag.ratio : ""}`;
+    text = `${tag.value}${tag.ratio !== 1 ? ":" + tag.ratio : ""}`;
     Array(tag.weight)
       .fill(undefined)
       .forEach(() => (text = `${bracketType[0]}${text}${bracketType[1]}`));
@@ -429,19 +432,24 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
   const dict = i18n.dict;
 
   const [isSubmitting] = useState(false);
-  const promptResultRef = useRef<HTMLDivElement | null>(null);
   const [bracketType, setBracketType] = useState<BracketType>(BracketType.round);
+
+  const DEFAULT_NEGATIVE_PROMPT =
+    "nsfw, not_safe_for_work, nude, sexual, worst quality, low quality, normal quality, watermark, blurry";
+  const [currentPrompt, setCurrentPrompt] = useState<StableDiffusionGenData>({
+    prompt: "",
+    negativePrompt: DEFAULT_NEGATIVE_PROMPT,
+  });
 
   const formik = useFormik({
     initialValues: generateEmptyForm(),
     onSubmit: (values) => {
       sdGeneratorFormStorage.set(values);
-      copyToClipboard(promptResultRef.current?.innerText ?? "");
+      copyToClipboard(generatePrompt(values, bracketType));
     },
   });
 
-  const tagsText = useMemo(() => {
-    const values = formik.values;
+  const generatePrompt = (values: any, bracketType: BracketType) => {
     const filteredValues = Object.keys(values).reduce((acc: any, key) => {
       if (values[key].value !== "") acc[key] = values[key];
       return acc;
@@ -451,7 +459,19 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
       .map((it) => tagToText(it, bracketType))
       .filter((it) => it !== "")
       .join(", ");
-  }, [formik.values, bracketType]);
+  };
+
+  const handlePromptGeneratorChange = (values: any, bracketType: BracketType): string => {
+    const text = generatePrompt(values, bracketType);
+    const newPrompt: StableDiffusionGenData = {
+      prompt: text,
+      negativePrompt: currentPrompt.negativePrompt,
+    };
+    setCurrentPrompt(newPrompt);
+    return text;
+  };
+
+  useMemo(() => handlePromptGeneratorChange(formik.values, bracketType), [formik.values, bracketType]);
 
   useEffect(() => {
     const formStorage = sdGeneratorFormStorage.get();
@@ -482,6 +502,15 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
 """
 
 `;
+
+  const handlePromptChange = (event?: ChangeEvent<HTMLTextAreaElement>, newPrompt?: StableDiffusionGenData) => {
+    if (newPrompt) setCurrentPrompt(newPrompt);
+  };
+
+  const handlePromptReset = (event?: ChangeEvent<HTMLTextAreaElement>) => {
+    currentPrompt.negativePrompt = DEFAULT_NEGATIVE_PROMPT;
+    handlePromptGeneratorChange(formik.values, bracketType);
+  };
 
   return (
     <SimpleGrid spacing={10}>
@@ -528,11 +557,11 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
           <Stack spacing={5} direction='row'>
             <Text>{dict["bracket-style"]}</Text>
             <Radio value={BracketType.round}>
-              {BracketType.round}
+              {BracketType.round}&nbsp;
               {dict["round-bracket"]}
             </Radio>
             <Radio value={BracketType.brace}>
-              {BracketType.brace}
+              {BracketType.brace}&nbsp;
               {dict["curly-bracket"]}
             </Radio>
           </Stack>
@@ -547,21 +576,24 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
                   {" "}
                   <Button
                     size='xs'
-                    colorScheme='teal'
+                    colorScheme='whiteAlpha'
+                    m={1}
                     onClick={() => formik.setFieldValue(key, { ...value, ratio: (value.ratio * 10 - 1) / 10 })}
                   >
                     -
                   </Button>
                   <Button
                     size='xs'
-                    colorScheme='teal'
+                    colorScheme='whiteAlpha'
+                    m={1}
                     onClick={() => formik.setFieldValue(key, { ...value, ratio: (value.ratio * 10 + 1) / 10 })}
                   >
                     +
                   </Button>
                   <Button
                     size='xs'
-                    colorScheme='teal'
+                    colorScheme='whiteAlpha'
+                    m={1}
                     onClick={() => {
                       if (value.weight === 0) return;
                       formik.setFieldValue(key, { ...value, weight: value.weight - 1 });
@@ -571,32 +603,34 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
                   </Button>
                   <Button
                     size='xs'
-                    colorScheme='teal'
+                    colorScheme='whiteAlpha'
+                    m={1}
                     onClick={() => formik.setFieldValue(key, { ...value, weight: value.weight + 1 })}
                   >
                     +{bracketType}
                   </Button>
-                  <TagLabel>{tagToText(value, bracketType)}</TagLabel>
+                  <TagLabel p={2}>{tagToText(value, bracketType)}</TagLabel>
                   <TagCloseButton onClick={() => formik.setFieldValue(key, { value: "" })} />
                 </Tag>
               </FormControl>
             ))}
         </Flex>
 
-        <Text ref={promptResultRef}>{tagsText}</Text>
-
-        <Button mt={4} colorScheme='teal' isLoading={isSubmitting} type='submit'>
-          {dict["copy-spell-and-save"]}
-        </Button>
-        <Button mt={4} marginLeft={1} isLoading={isSubmitting} onClick={onClear}>
-          {dict["clear-cache"]}
-        </Button>
+        <Flex pt={5}>
+          <Button marginLeft='auto' marginTop='4' colorScheme='teal' isLoading={isSubmitting} type='submit'>
+            {dict["copy-spell-and-save"]}
+          </Button>
+          <Button mt={4} marginLeft={1} isLoading={isSubmitting} onClick={onClear}>
+            {dict["clear-cache"]}
+          </Button>
+        </Flex>
       </form>
       <Heading as={"h3"}>{dict["test-spell-online"]}</Heading>
-      <Flex alignItems='start' gap='2'>
-        <HuggingFaceTxt2Img model='stabilityai/stable-diffusion-2-1-base' prompt={tagsText ?? ""} dict={dict} />
-        <HuggingFaceTxt2Img model='andite/anything-v4.0' prompt={tagsText ?? ""} dict={dict} />
-        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={tagsText ?? ""} dict={dict} />
+      <SdPrompt prompt={currentPrompt} onChange={handlePromptChange} onReset={handlePromptReset} dict={dict} />
+      <Flex alignItems='flex-start' wrap='wrap' gap='2'>
+        <HuggingFaceTxt2Img model='runwayml/stable-diffusion-v1-5' prompt={currentPrompt} dict={dict} />
+        <HuggingFaceTxt2Img model='prompthero/openjourney' prompt={currentPrompt} dict={dict} />
+        <HuggingFaceTxt2Img model='gsdf/Counterfeit-V2.5' prompt={currentPrompt} dict={dict} />
       </Flex>
       <SimpleGrid gap={3} p={3} columns={1}>
         <Heading>{dict["other-online-spell-tools"]}</Heading>

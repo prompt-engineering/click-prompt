@@ -4,19 +4,16 @@
 ![GitHub](https://img.shields.io/github/license/prompt-engineering/click-prompt)
 [![Discord](https://img.shields.io/discord/1082563233593966612)](https://discord.gg/FSWXq4DmEj)
 
-<img src="src/assets/clickprompt-logo.svg" width='128' height='128' alt='ClickPrompt Logo' />
+<img src="src/assets/clickprompt-home.svg" width='128' height='128' alt='ClickPrompt Logo' />
 
 English | [简体中文](./README.zh-CN.md)
 
 > ClickPrompt is a tool designed for Prompt writers, it supports a variety of Prompt-based AI applications, such as Stable Diffusion, ChatGPT, and GitHub Copilot, etc.
 > With ClickPrompt, you can easily view, share, and run these models with one click, and an online prompt generator is provided to enable users to easily create prompts that meet their requirements and share them with others.
 
-Try it：https://www.clickprompt.org/
+Stable Env：https://www.clickprompt.org/
 
-Mirrors：
-
-- https://prompt.phodal.com
-- https://clickprompt.vercel.app
+Dev Env(latest): https://dev.clickprompt.org/
 
 Join us:
 
@@ -83,11 +80,11 @@ npm run dev
 npm run build
 ```
 
-You can find more in [Contributors Guide](./CONTRIBUTING.md).
+You can find more in [Contributors Guide](docs/CONTRIBUTING.md).
 
 ## Contributing Guide
 
-New contributors welcome! Check out our [Contributors Guide](./CONTRIBUTING.md) for help getting started.
+New contributors welcome! Check out our [Contributors Guide](docs/CONTRIBUTING.md) for help getting started.
 
 ![Powered by Vercel](https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg)
 
@@ -95,8 +92,12 @@ New contributors welcome! Check out our [Contributors Guide](./CONTRIBUTING.md) 
 
 Speak another language natively?
 
-Check out the dedicated [i18n guide](./TRANSLATING.md) for more details.
+Check out the dedicated [i18n guide](docs/TRANSLATING.md) for more details.
 
 ## License
 
 This code is distributed under the MIT license. See [LICENSE](./LICENSE) in this directory.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=prompt-engineering/click-prompt&type=Date)](https://star-history.com/#prompt-engineering/click-prompt&Date)

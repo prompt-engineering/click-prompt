@@ -12,7 +12,10 @@
   "clear-cache": "清除缓存",
   "test-spell-online": "在线测试咒语",
   "other-online-spell-tools": "其它在线咒语工具",
-  "use-method-2-spell": "使用方式二的咒语生成",
-  "read-spell-from-clipboard": "从剪贴板读取咒语生成",
+  "generate": "生成",
+  "reset": "重置",
+  "import_from_clipboard": "从剪贴板导入",
+  "model_503_error_prefix": "模型限流中，请等待至少 ",
+  "model_503_error_suffix": " 秒后使用相同咒语重试",
   "notes-black-image": "注：黑色图片代表结果被屏蔽了，请更换咒语重试"
 }

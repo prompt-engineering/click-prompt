@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ChatGptIcon } from "@/components/CustomIcon";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 import {
   Avatar,
   Box,
@@ -72,7 +72,7 @@ async function Sample({ params }: { params: { id: string } }) {
                     <Flex direction='row' gap='2'>
                       <Avatar bg='teal.500' name='Phodal' size='sm' mr={2} />
                       <Box>
-                        <SimpleMarkdown content={step.ask?.replaceAll("\n", "\n\n")} />
+                        <SimpleMarkdown content={step.ask} />
                       </Box>
                     </Flex>
                     <Flex direction='row' gap='2'>
@@ -86,7 +86,7 @@ async function Sample({ params }: { params: { id: string } }) {
                     </Box>
                     <Box gap='2' ml='2' flex='1'>
                       <Box>
-                        <SimpleMarkdown content={step.response?.replaceAll("\n", "\n\n")} />
+                        <SimpleMarkdown content={step.response} />
                       </Box>
                     </Box>
                   </AiBlock>

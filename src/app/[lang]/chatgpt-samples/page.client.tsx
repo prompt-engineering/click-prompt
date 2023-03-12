@@ -24,7 +24,7 @@ import Link from "next/link";
 import samples from "@/assets/chatgpt/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 
 function ChatGptSamples({ i18n }: GeneralI18nProps) {
@@ -51,7 +51,7 @@ function ChatGptSamples({ i18n }: GeneralI18nProps) {
 
               <CardBody maxH='320px' overflow='auto'>
                 <Stack>
-                  <SimpleMarkdown content={sample?.preview ? sample.preview.replaceAll("\n", "\n\n") : "no preview"} />
+                  <SimpleMarkdown content={sample?.preview ? sample.preview : "no preview"} />
                 </Stack>
               </CardBody>
 

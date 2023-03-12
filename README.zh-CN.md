@@ -3,7 +3,7 @@
 [![ci](https://github.com/prompt-engineering/click-prompt/actions/workflows/ci.yaml/badge.svg)](https://github.com/prompt-engineering/click-prompt/actions/workflows/ci.yaml)
 ![GitHub](https://img.shields.io/github/license/prompt-engineering/click-prompt)
 
-<img src="src/assets/clickprompt-logo.svg" width='128' height='128' alt='ClickPrompt Logo' />
+<img src="src/assets/clickprompt-home.svg" width='128' height='128' alt='ClickPrompt Logo' />
 
 [English](./README.md) | 简体中文
 
@@ -12,10 +12,7 @@
 
 立即尝试：https://www.clickprompt.org/
 
-备用地址：
-
-- https://prompt.phodal.com
-- https://clickprompt.vercel.app
+开发环境: https://dev.clickprompt.org/
 
 扫一扫加入 ClickPrompt 微信群:
 
@@ -81,18 +78,22 @@ npm run dev
 npm run build
 ```
 
-更多请查阅[贡献指南](./CONTRIBUTING.md)。
+更多请查阅[贡献指南](docs/CONTRIBUTING.md)。
 
 ## 贡献指南
 
-欢迎新的贡献者。查看我们的[贡献指南](./CONTRIBUTING.md)帮助你开始你的贡献。
+欢迎新的贡献者。查看我们的[贡献指南](docs/CONTRIBUTING.md)帮助你开始你的贡献。
 
 ![Powered by Vercel](https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg)
 
 ## 翻译指南
 
-查看专用的 [i18n 指南](./TRANSLATING.md)以获取更多详细信息。
+查看专用的 [i18n 指南](docs/TRANSLATING.md)以获取更多详细信息。
 
 ## License
 
 ClickPrompt 使用 MIT 协议发布。在 [LICENSE](./LICENSE) 文件查看详情。
+
+## Star 历史
+
+[![Star History Chart](https://api.star-history.com/svg?repos=prompt-engineering/click-prompt&type=Date)](https://star-history.com/#prompt-engineering/click-prompt&Date)

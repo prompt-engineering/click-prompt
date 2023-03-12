@@ -34,9 +34,11 @@ export default function RootLayout({ params, children }: RootLayoutProps) {
       <body>
         <Provider>
           {/* https://github.com/vercel/next.js/issues/42292 */}
-          {/* @ts-expect-error Async Server Component */}
-          <NavBar locale={lang} />
-          <Container maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
+          <div className='fixed bg-white left-0 right-0 top-0 z-50'>
+            {/* @ts-expect-error Async Server Component */}
+            <NavBar locale={lang} />
+          </div>
+          <Container marginTop='60px' maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
             {children}
           </Container>
         </Provider>

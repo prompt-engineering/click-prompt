@@ -1,15 +1,9 @@
 import { createCipheriv, createDecipheriv, randomBytes, createHash } from "node:crypto";
+const hasher = createHash("sha256");
 
-import { NextApiHandler } from "next";
-import { ChatCompletionRequestMessage, OpenAIApi } from "openai";
+import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import { SITE_USER_COOKIE } from "@/configs/constants";
-import { logoutUser, saveAndLoginUser } from "@/utils/planetscale";
-
-export type User = {
-  id: string;
-  openai: OpenAIApi;
-  conversations: Map<string, ChatCompletionRequestMessage[]>;
-};
+import { createUser, getUserByKeyHashed, isValidUser } from "@/storage/planetscale";
 
 // type Request = {
 //   action: "login" | "logout";
@@ -21,19 +15,21 @@ type Response = {
   error?: string;
 };
 
-function encrypt(data: string, secret: string) {
-  const iv = Buffer.from("hgudlo8fbj$ng.fq");
+function genIV() {
+  return new Buffer(randomBytes(16));
+}
+
+function encrypt(data: string, secret: string, iv: Buffer) {
   const cipher = createCipheriv("aes-256-cbc", secret, iv);
   let encrypted = cipher.update(data, "utf8", "hex");
   encrypted += cipher.final("hex");
-  return iv.toString("hex") + ":" + encrypted;
+  return encrypted;
 }
 
-export function decrypt(encrypted: string, secret: string) {
-  const [ivHex, encryptedHex] = encrypted.split(":");
-  const iv = Buffer.from(ivHex, "hex");
-  const decipher = createDecipheriv("aes-256-cbc", secret, iv);
-  let decrypted = decipher.update(encryptedHex, "hex", "utf8");
+export function decrypt(encrypted: string, secret: string, iv: string) {
+  const ivBuffer = new Buffer(iv, "hex");
+  const decipher = createDecipheriv("aes-256-cbc", secret, ivBuffer);
+  let decrypted = decipher.update(encrypted, "hex", "utf8");
   decrypted += decipher.final("utf8");
   return decrypted;
 }
@@ -53,7 +49,7 @@ const handler: NextApiHandler = async (req, res) => {
     return;
   }
 
-  let userId = req.cookies[SITE_USER_COOKIE];
+  const userIdInCookie = req.cookies[SITE_USER_COOKIE];
   const { key, action } = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
   if (!action) {
@@ -64,30 +60,54 @@ const handler: NextApiHandler = async (req, res) => {
   switch (action) {
     case "login":
       if (key) {
-        userId = encrypt(key, secret);
-        await saveAndLoginUser(userId);
-        console.log(`User ${userId} logged in`);
+        const key_hashed = hasher.copy().update(key).digest().toString("hex");
 
-        res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=${userId}; Max-Age=3600; HttpOnly; Path=/;`);
+        if (!(await isValidUser(key_hashed))) {
+          const iv = genIV();
+          const key_encrypted = encrypt(key, secret, iv);
 
+          await createUser({
+            iv: iv.toString("hex"),
+            key_hashed,
+            key_encrypted,
+          });
+        }
+
+        res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=${key_hashed}; Max-Age=3600; HttpOnly; Path=/;`);
         return res.status(200).json({ message: "Logged in" } as Response);
       } else {
-        res.status(400).json({ error: "No key provided" } as Response);
-
-        return;
+        return res.status(400).json({ error: "No key provided" } as Response);
       }
     case "logout":
-      if (!userId) {
-        res.status(200).json({ error: "You're not logged in yet!" } as Response);
-
-        return;
+      if (!userIdInCookie) {
+        return res.status(200).json({ error: "You're not logged in yet!" } as Response);
       }
 
-      await logoutUser(userId);
+      res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=; Max-Age=0; HttpOnly; Path=/;`);
       return res.status(200).json({ message: "Logged out" } as Response);
     default:
-      res.status(400).json({ error: "Unknown action" } as Response);
-      break;
+      return res.status(400).json({ error: "Unknown action" } as Response);
   }
 };
 export default handler;
+
+export type User = Awaited<ReturnType<typeof getUserByKeyHashed>>;
+export async function getUser(req: NextApiRequest, res: NextApiResponse): Promise<User | null> {
+  const keyHashed = req.cookies[SITE_USER_COOKIE];
+  if (!keyHashed) {
+    res.status(400).json({ error: "You're not logged in yet!" });
+    return null;
+  }
+
+  const user = await getUserByKeyHashed(keyHashed);
+  if (!user) {
+    kickOutUser(res);
+    res.status(400).json({ error: "Your login session has been expired!" });
+    return null;
+  }
+  return user;
+}
+
+export function kickOutUser(res: NextApiResponse) {
+  res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=; Max-Age=0; HttpOnly; Path=/;`);
+}

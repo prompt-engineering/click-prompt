@@ -56,4 +56,4 @@ TODO
 
 ## Translation
 
-See [i18n guide](./TRANSLATING.md)
+See [i18n guide](TRANSLATING.md)

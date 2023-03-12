@@ -14,10 +14,7 @@ export function parseStableDiffusionData(prompt: string): StableDiffusionGenData
 
   // parse prompt
   const promptRegex = /Prompt: (.*)/;
-  const promptMatch = promptLine.match(promptRegex);
-  if (!promptMatch) {
-    throw new Error("Invalid prompt");
-  }
+  const promptMatch = promptLine.match(promptRegex) ?? ["", promptLine];
 
   // 1. split promptMatch by comma
   // 2. match lora name by regex, lora full name: <lora:japaneseDollLikeness_v10:0.1>,
@@ -32,31 +29,42 @@ export function parseStableDiffusionData(prompt: string): StableDiffusionGenData
 
   // parse negative prompt
   const negativePromptRegex = /Negative prompt: (.*)/;
-  const negativePromptMatch = negativePromptLine.match(negativePromptRegex);
-  if (!negativePromptMatch) {
-    throw new Error("Invalid negative prompt");
-  }
+  const negativePromptMatch = negativePromptLine ? negativePromptLine.match(negativePromptRegex) ?? ["", ""] : ["", ""];
 
   // parse other infos by split comma
-  const otherInfosMatch = otherInfosLine.split(",").map((item) => {
-    const match = item.match(/(.+): (.*)/);
-    if (!match) {
-      throw new Error("Invalid other infos");
-    }
-    return match[2];
-  });
+  const otherInfosMatch = otherInfosLine
+    ? otherInfosLine.split(",").map((item) => {
+        const match = item.match(/(.+): (.*)/);
+        if (!match) {
+          return;
+        }
+        return match[2];
+      })
+    : [];
 
   // return result
   return {
     prompt: promptMatch[1],
     negativePrompt: negativePromptMatch[1],
-    steps: parseInt(otherInfosMatch[0]),
+    steps: otherInfosMatch[0] ? parseInt(otherInfosMatch[0]) : undefined,
     sampler: otherInfosMatch[1],
-    cfgScale: parseInt(otherInfosMatch[2]),
-    seed: parseInt(otherInfosMatch[3]),
+    cfgScale: otherInfosMatch[2] ? parseInt(otherInfosMatch[2]) : undefined,
+    seed: otherInfosMatch[3] ? parseInt(otherInfosMatch[3]) : undefined,
     size: otherInfosMatch[4],
     modelHash: otherInfosMatch[5],
     model: otherInfosMatch[6],
     lora: loras,
   };
+}
+
+export function StableDiffusionDataToString(prompt: StableDiffusionGenData): string {
+  const otherInfo = [];
+  if (prompt.steps) otherInfo.push("Steps: " + prompt.steps);
+  if (prompt.sampler) otherInfo.push("Sampler: " + prompt.sampler);
+  if (prompt.cfgScale) otherInfo.push("CFG Scale: " + prompt.cfgScale);
+  if (prompt.seed) otherInfo.push("Seed: " + prompt.seed);
+  if (prompt.size) otherInfo.push("Size: " + prompt.size);
+  if (prompt.modelHash) otherInfo.push("Model hash: " + prompt.modelHash);
+  if (prompt.model) otherInfo.push("Model: " + prompt.model);
+  return `${prompt.prompt}\nNegative prompt: ${prompt.negativePrompt}\n${otherInfo.join(", ")}`;
 }

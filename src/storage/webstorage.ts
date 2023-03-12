@@ -15,7 +15,7 @@ export class WebStorage<T> {
 
   get<T>() {
     try {
-      return JSON.parse(this.storage.getItem(this.name) ?? "");
+      return JSON.parse(this.storage.getItem(this.name) ?? "") as T;
     } catch (e) {
       return null;
     }

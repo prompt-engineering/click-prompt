@@ -6,9 +6,23 @@ import LogoutIcon from "@/assets/icons/logout.svg";
 import Image from "next/image";
 import content from "@/assets/images/content.png";
 import send from "@/assets/icons/send.svg?url";
-import React, { Dispatch, SetStateAction, useEffect } from "react";
-import { ChatCompletionRequestMessage } from "openai";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "@emotion/styled";
+import type {
+  RequestGetConversations,
+  RequestCreateConversation,
+  ResponseCreateConversation,
+  ResponseGetConversations,
+  RequestDeleteConversation,
+  RequestChangeConversationName,
+} from "@/pages/api/chatgpt/conversation";
+import { RequestGetChats, RequestSend, ResponseGetChats, ResponseSend } from "@/pages/api/chatgpt/chat";
+import { BeatLoader } from "react-spinners";
+import { useDebouncedCallback } from "use-debounce";
+import { Input } from "@chakra-ui/react";
+import * as ChatAPI from "@/api/chat";
+import * as ConversationAPI from "@/api/conversation";
+import * as UserAPI from "@/api/user";
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -61,7 +75,7 @@ const ChatSendButton = styled("button")`
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 4px;
+  right: 8px;
   width: 48px;
   height: 48px;
   background-image: url(${send});
@@ -82,23 +96,123 @@ export const ChatRoom = ({
 }) => {
   const chatsWrapper = React.useRef<HTMLDivElement>(null);
   const [disable, setDisable] = React.useState(false);
-  const [chatHistory, setChatHistory] = React.useState<ChatCompletionRequestMessage[]>([]);
+  const [chatHistory, setChatHistory] = React.useState<ResponseGetChats>([]);
   const [message, setMessage] = React.useState(initMessage ?? "");
 
+  const [conversations, setConversations] = useState<ResponseGetConversations>([]);
+  const [currentConversation, setCurrentConversation] = useState<number | null>(null);
+  // editing conversation name
+  const [editing, setEditing] = useState<number | null>(null);
+  const [editingName, setEditingName] = useState<string>("");
+
+  // get conversations
   useEffect(() => {
-    const listener = (event: KeyboardEvent) => {
-      if (event.code === "Enter" || event.code === "NumpadEnter") {
-        event.preventDefault();
-
-        sendMessage();
+    (async () => {
+      try {
+        const response = await fetch("/api/chatgpt/conversation", {
+          method: "POST",
+          body: JSON.stringify({
+            action: "get_conversations",
+          } as RequestGetConversations),
+        });
+        const data = (await response.json()) as ResponseGetConversations;
+        if (!response.ok) {
+          alert("Error: " + JSON.stringify((data as any).error));
+          return;
+        }
+        setConversations(data);
+      } catch (error) {
+        setConversations([]);
+        alert("Error: " + JSON.stringify(error));
       }
-    };
-    document.addEventListener("keydown", listener);
-
-    return () => {
-      document.removeEventListener("keydown", listener);
-    };
+    })();
   }, []);
+
+  // scroll to bottom
+  useEffect(() => {
+    setTimeout(() => {
+      if (chatsWrapper.current) {
+        chatsWrapper.current.scrollTop = chatsWrapper.current.scrollHeight;
+      }
+    });
+  }, [chatHistory?.length]);
+
+  const onEnterForSendMessage: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
+    if (event.code === "Enter" || event.code === "NumpadEnter") {
+      event.preventDefault();
+
+      sendMessage();
+    }
+  };
+
+  async function createConversation() {
+    const data = await ConversationAPI.createConversation();
+    if (!data) {
+      return;
+    }
+
+    setConversations([data, ...conversations]);
+    return data;
+  }
+
+  async function changeConversationName(conversationId: number, name: string) {
+    await ConversationAPI.changeConversationName(conversationId, name);
+
+    setConversations((c) =>
+      c.map((conversation) => {
+        if (conversation.id === conversationId) {
+          return {
+            ...conversation,
+            name,
+          };
+        }
+        return conversation;
+      }),
+    );
+  }
+
+  const handleConversation = useDebouncedCallback(
+    async (conversationId: number | null, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      if (event.detail > 1) {
+        // double click
+        if (conversationId == null) {
+          return;
+        }
+        setEditingName(conversations.find((c) => c.id === conversationId)?.name ?? "");
+        setEditing(conversationId);
+        return;
+      }
+
+      if (conversationId == null) {
+        setCurrentConversation(null);
+        setChatHistory([]);
+        return;
+      }
+      setDisable(true);
+
+      try {
+        setCurrentConversation(conversationId);
+        const data = await ChatAPI.getChatsByConversationId(conversationId);
+        if (!data) {
+          return;
+        }
+        setChatHistory(data);
+      } catch (e) {
+        console.log("changeConversation: ", e);
+      } finally {
+        setDisable(false);
+      }
+    },
+    200,
+  );
+
+  async function deleteConversation(conversationId: number) {
+    const data = await ConversationAPI.deleteConversation(conversationId);
+    if (!data) {
+      return;
+    }
+    setConversations(conversations.filter((conversation) => conversation.id !== conversationId));
+  }
 
   async function sendMessage() {
     if (message.length === 0) {
@@ -108,29 +222,28 @@ export const ChatRoom = ({
 
     try {
       setDisable(true);
-      const response = await fetch("/api/chatgpt/chat", {
-        method: "POST",
-        body: JSON.stringify({
-          chat_id: "chatgpt",
-          prompt: message,
-        }),
-      });
-      const data = await response.json();
-
-      if (!data.error) {
-        if (data.messages) {
-          setChatHistory([...data.messages]);
-          setTimeout(() => {
-            if (typeof chatsWrapper.current?.scrollTop !== "undefined") {
-              // scroll to bottom
-              chatsWrapper.current.scrollTop = chatsWrapper.current.scrollHeight;
-            }
-            setMessage("");
-          }, 100);
-        }
-      } else {
-        alert("Error: " + JSON.stringify(data.error));
+      if (currentConversation == null) {
+        const created = await createConversation();
+        setCurrentConversation(created?.id ?? null);
       }
+
+      setMessage("");
+      setChatHistory([
+        ...chatHistory,
+        {
+          role: "user",
+          content: message,
+          // TODO(CGQAQ): custom name of user
+          // name: "User",
+        },
+      ] as ResponseSend);
+
+      const data = await ChatAPI.sendMessage(currentConversation as number, message);
+      if (!data) {
+        setChatHistory((c) => c.slice(0, c.length - 1));
+        return;
+      }
+      setChatHistory((c) => [...c, ...data]);
     } catch (err) {
       console.log(err);
     } finally {
@@ -138,26 +251,77 @@ export const ChatRoom = ({
     }
   }
   async function logout() {
-    const response = await fetch("/api/chatgpt/user", {
-      method: "POST",
-      body: JSON.stringify({
-        action: "logout",
-      }),
-    });
-    const data = await response.json();
-    console.log("logout: ", data);
+    await UserAPI.logout();
     setIsLoggedIn(false);
   }
 
   return (
     <div className='flex w-full h-full'>
       {/* left */}
-      <div className='hidden bg-gray-900 text-white p-2 md:grid grid-rows-[45px_1fr_100px]'>
-        <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
+      <div className='hidden max-w-[300px] bg-gray-900 text-white p-2 md:grid grid-rows-[45px_1fr_100px] select-none'>
+        <div
+          className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'
+          onClick={createConversation}
+        >
           <NewChat color='white' />
           New chat
         </div>
-        <div className='overflow-y-auto overflow-container'></div>
+        <div className='overflow-y-auto overflow-container'>
+          {conversations.map((conversation) => (
+            <div
+              key={conversation.id}
+              className={`${
+                currentConversation === conversation.id ? "bg-emerald-700 hover:bg-emerald-900" : "hover:bg-gray-500/10"
+              } flex py-3 px-3 items-center justify-between gap-3 rounded-md transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20`}
+              onClick={(event) => {
+                handleConversation(conversation.id!, event);
+              }}
+            >
+              {editing === conversation.id ? (
+                <Input
+                  autoFocus={true}
+                  value={editingName}
+                  onChange={(ev) => {
+                    setEditingName(ev.currentTarget.value);
+                  }}
+                  onKeyDown={(ev) => {
+                    if (ev.key === "Enter" || ev.key === "NumpadEnter") {
+                      ev.preventDefault();
+                      changeConversationName(conversation.id!, ev.currentTarget.value).finally(() => {
+                        setEditing(null);
+                      });
+                    } else if (ev.key === "Escape") {
+                      ev.preventDefault();
+                      setEditing(null);
+                    }
+                  }}
+                  onBlur={async (ev) => {
+                    await changeConversationName(conversation.id!, ev.currentTarget.value);
+                    setEditing(null);
+                  }}
+                />
+              ) : (
+                <>
+                  <div className='text-sm font-medium overflow-ellipsis truncate max-w-[215px]'>
+                    {conversation.name}
+                  </div>
+                  {/* delete button */}
+                  <div
+                    className='flex items-center justify-center w-6 h-6 rounded-full bg-red-500 hover:bg-red-600 transition-colors duration-200 cursor-pointer'
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (confirm("Are you sure to delete this conversation?")) {
+                        deleteConversation(conversation.id!);
+                      }
+                    }}
+                  >
+                    <TrashcanIcon color='white' />
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
         <div>
           <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
             <TrashcanIcon color='white' />
@@ -178,7 +342,10 @@ export const ChatRoom = ({
         {chatHistory.length === 0 && <Image className='mt-8' src={content} alt='background image'></Image>}
 
         {/* chats */}
-        <ChatsWrapper ref={chatsWrapper} className='flex flex-col gap-4 w-full px-4 max-h-full overflow-y-auto mt-11'>
+        <ChatsWrapper
+          ref={chatsWrapper}
+          className='flex flex-col gap-4 w-full px-4 max-h-[80%] overflow-y-auto mt-11 scroll-smooth'
+        >
           {chatHistory.map((chat, index) => {
             return (
               <div key={index} className='flex flex-col gap-14 '>
@@ -203,9 +370,14 @@ export const ChatRoom = ({
             placeholder='Type your message here...'
             value={message}
             onChange={(ev) => setMessage(ev.target.value)}
+            onKeyDown={onEnterForSendMessage}
             className='w-full pr-10 md:w-11/12 border-0 md:pr-0 focus:ring-0'
           />
-          <ChatSendButton className='w-10 h-full' disabled={disable} onClick={sendMessage} />
+          {disable ? (
+            <BeatLoader className={"absolute top-1/2 -translate-y-[50%] right-[8px]"} size={8} color='black' />
+          ) : (
+            <ChatSendButton className='w-10 h-full' disabled={disable} onClick={sendMessage} />
+          )}
         </ChatInputWrapper>
       </div>
     </div>

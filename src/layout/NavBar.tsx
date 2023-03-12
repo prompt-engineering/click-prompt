@@ -31,7 +31,7 @@ export default async function NavBar({ locale }: { locale: string }) {
         { url: `/chatgpt-generator-cot/`, title: g("chatgpt-generator-cot") },
         { url: `/chatgpt-interactive-game/`, title: g("chatgpt-interactive-game") },
         { url: `/chatgpt-samples/`, title: g("chatgpt-samples") },
-        // { url: `/chatgpt-startling-by-each-step/`, title: g("chatgpt-startling-by-each-step") },
+        { url: `/chatgpt-startling-by-each-step/`, title: g("chatgpt-startling-by-each-step") },
         { url: `/chatgpt/`, title: g("chatgpt") },
       ],
     },
