@@ -41,19 +41,21 @@ function ExecutePromptButton(props: ExecButtonProps) {
 
     if (!localId) {
       setIsLoading(true);
-      let conversation: ResponseCreateConversation = await createConversation();
+      const conversation: ResponseCreateConversation = await createConversation();
       if (!conversation) {
         return;
       }
 
-      let conversationId = conversation.id || 0;
+      const conversationId = conversation.id || 0;
       setLocalId(conversationId);
       props.updateConversationId ? props.updateConversationId(conversationId) : null;
     }
 
-    let response: any = await sendMessage(localId!!, props.text);
-    if (response) {
-      props.handleResponse ? props.handleResponse(response as ResponseSend) : null;
+    if (localId) {
+      const response: any = await sendMessage(localId, props.text);
+      if (response && props.handleResponse) {
+        props.handleResponse(response as ResponseSend);
+      }
     }
 
     onClose();
