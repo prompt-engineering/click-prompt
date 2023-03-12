@@ -2,6 +2,7 @@
 
 import { Button, Input } from "@/components/ChakraUI";
 import React, { Dispatch, SetStateAction } from "react";
+import * as UserApi from "@/api/user";
 
 export const LoginPage = ({ setIsLoggedIn }: { setIsLoggedIn: Dispatch<SetStateAction<boolean>> }) => {
   const [openAiKey, setOpenAiKey] = React.useState("");
@@ -11,15 +12,9 @@ export const LoginPage = ({ setIsLoggedIn }: { setIsLoggedIn: Dispatch<SetStateA
       alert("Please enter your OpenAI API key first.");
       return;
     }
-    const response = await fetch("/api/chatgpt/user", {
-      method: "POST",
-      body: JSON.stringify({
-        action: "login",
-        key: openAiKey,
-      }),
-    });
-    const data = await response.json();
-    if (!data.error) {
+
+    const data = UserApi.login(key);
+    if (!data) {
       setIsLoggedIn(true);
     }
   }

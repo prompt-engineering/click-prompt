@@ -4,7 +4,13 @@ import { isValidUser } from "@/storage/planetscale";
 
 // verify login state
 const handler: NextApiHandler = async (req, res) => {
-  const keyHashed = req.cookies[SITE_USER_COOKIE];
+  if (req.method !== "POST") {
+    res.status(404).json({ error: "Not found" });
+    return;
+  }
+
+  const keyHashed = req.body;
+
   if (!keyHashed) {
     res.status(200).json({ message: "You're not logged in yet!", loggedIn: false });
     return;

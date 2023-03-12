@@ -20,6 +20,9 @@ import { RequestGetChats, RequestSend, ResponseGetChats, ResponseSend } from "@/
 import { BeatLoader } from "react-spinners";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@chakra-ui/react";
+import * as ChatAPI from "@/api/chat";
+import * as ConversationAPI from "@/api/conversation";
+import * as UserAPI from "@/api/user";
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -143,21 +146,8 @@ export const ChatRoom = ({
   };
 
   async function createConversation() {
-    const response = await fetch("/api/chatgpt/conversation", {
-      method: "POST",
-      body: JSON.stringify({
-        action: "create_conversation",
-        name: "Default name",
-      } as RequestCreateConversation),
-    });
-    const data = (await response.json()) as ResponseCreateConversation;
-    if (!response.ok) {
-      alert("Error: " + JSON.stringify((data as any).error));
-      return;
-    }
-
-    if (data == null) {
-      alert("Error: sOmeTHiNg wEnT wRoNg");
+    const data = await ConversationAPI.createConversation();
+    if (!data) {
       return;
     }
 
@@ -166,19 +156,7 @@ export const ChatRoom = ({
   }
 
   async function changeConversationName(conversationId: number, name: string) {
-    const response = await fetch("/api/chatgpt/conversation", {
-      method: "POST",
-      body: JSON.stringify({
-        action: "change_conversation_name",
-        conversation_id: conversationId,
-        name: name ?? "Default name",
-      } as RequestChangeConversationName),
-    });
-    const data = (await response.json()) as ResponseCreateConversation;
-    if (!response.ok) {
-      alert("Error: " + JSON.stringify((data as any).error));
-      return;
-    }
+    await ConversationAPI.changeConversationName(conversationId, name);
 
     setConversations((c) =>
       c.map((conversation) => {
@@ -214,16 +192,8 @@ export const ChatRoom = ({
 
       try {
         setCurrentConversation(conversationId);
-        const response = await fetch("/api/chatgpt/chat", {
-          method: "POST",
-          body: JSON.stringify({
-            action: "get_chats",
-            conversation_id: conversationId,
-          } as RequestGetChats),
-        });
-        const data = (await response.json()) as ResponseGetChats;
-        if (!response.ok) {
-          alert("Error: " + JSON.stringify((data as any).error));
+        const data = await ChatAPI.getChatsByConversationId(conversationId);
+        if (!data) {
           return;
         }
         setChatHistory(data);
@@ -237,16 +207,8 @@ export const ChatRoom = ({
   );
 
   async function deleteConversation(conversationId: number) {
-    const response = await fetch("/api/chatgpt/conversation", {
-      method: "POST",
-      body: JSON.stringify({
-        action: "delete_conversation",
-        conversation_id: conversationId,
-      } as RequestDeleteConversation),
-    });
-    const data = (await response.json()) as ResponseCreateConversation;
-    if (!response.ok) {
-      alert("Error: " + JSON.stringify((data as any).error));
+    const data = await ConversationAPI.deleteConversation(conversationId);
+    if (!data) {
       return;
     }
     setConversations(conversations.filter((conversation) => conversation.id !== conversationId));
@@ -276,29 +238,9 @@ export const ChatRoom = ({
         },
       ] as ResponseSend);
 
-      const response = await fetch("/api/chatgpt/chat", {
-        method: "POST",
-        body: JSON.stringify({
-          action: "send",
-          conversation_id: currentConversation,
-          messages: [
-            {
-              role: "user",
-              content: message,
-              // TODO(CGQAQ): custom name of user
-              // name: "User",
-            },
-          ],
-        } as RequestSend),
-      });
-      const data = (await response.json()) as ResponseSend;
-      if (!response.ok) {
+      const data = await ChatAPI.sendMessage(currentConversation as number, message);
+      if (!data) {
         setChatHistory((c) => c.slice(0, c.length - 1));
-        alert("Error: " + JSON.stringify((data as any).error));
-        return;
-      }
-      if (data == null) {
-        alert("Error: sOmeTHiNg wEnT wRoNg");
         return;
       }
       setChatHistory((c) => [...c, ...data]);
@@ -309,13 +251,7 @@ export const ChatRoom = ({
     }
   }
   async function logout() {
-    const response = await fetch("/api/chatgpt/user", {
-      method: "POST",
-      body: JSON.stringify({
-        action: "logout",
-      }),
-    });
-    await response.json();
+    await UserAPI.logout();
     setIsLoggedIn(false);
   }
 
