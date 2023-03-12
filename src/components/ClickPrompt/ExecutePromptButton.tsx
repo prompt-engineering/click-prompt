@@ -29,30 +29,30 @@ function ExecutePromptButton(props: ExecButtonProps) {
   const [isLoading, setIsLoading] = useState(props.loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasLogin, setHasLogin] = useState(false);
-  const [localId, setLocalId] = useState(props.conversationId);
 
   const handleClick = async () => {
     try {
       await UserAPI.isLoggedIn();
+      setHasLogin(true);
     } catch (e) {
       onOpen();
       setHasLogin(false);
     }
 
-    if (!localId) {
+    let conversationId = props.conversationId;
+    if (!props.conversationId) {
       setIsLoading(true);
       const conversation: ResponseCreateConversation = await createConversation();
       if (!conversation) {
         return;
       }
 
-      const conversationId = conversation.id || 0;
-      setLocalId(conversationId);
+      conversationId = conversation.id as number;
       props.updateConversationId ? props.updateConversationId(conversationId) : null;
     }
 
-    if (localId) {
-      const response: any = await sendMessage(localId, props.text);
+    if (conversationId) {
+      const response: any = await sendMessage(conversationId, props.text);
       if (response && props.handleResponse) {
         props.handleResponse(response as ResponseSend);
       }

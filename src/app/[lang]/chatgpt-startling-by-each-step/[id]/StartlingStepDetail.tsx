@@ -57,7 +57,6 @@ function StartlingStepDetail({
 
   const handleResponse = (response: ResponseSend) => {
     const assistantMessage = response.filter((message) => message.role === "assistant");
-    console.log(assistantMessage);
     const assistantResponse = assistantMessage[0].content;
     setResponse(assistantResponse);
 
