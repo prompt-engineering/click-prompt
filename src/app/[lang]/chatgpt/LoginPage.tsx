@@ -13,9 +13,12 @@ export const LoginPage = ({ setIsLoggedIn }: { setIsLoggedIn: Dispatch<SetStateA
       return;
     }
 
-    const data = UserApi.login(key);
-    if (!data) {
+    const data = await UserApi.login(key);
+    if (data) {
       setIsLoggedIn(true);
+    } else {
+      alert("Login failed. Please check your API key.");
+      setIsLoggedIn(false);
     }
   }
 
