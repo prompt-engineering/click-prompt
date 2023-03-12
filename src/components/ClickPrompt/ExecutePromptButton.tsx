@@ -89,7 +89,7 @@ function ExecutePromptButton(props: ExecButtonProps) {
   return (
     <>
       <StyledPromptButton>
-        <Button colorScheme='twitter' className='bg-blue' onClick={handleClick} {...props}>
+        <Button colorScheme='twitter' className='bg-blue' onClick={handleClick}>
           {props.children}
           {!isLoading && <Text>Prompt</Text>}
           {isLoading && <BeatLoader size={8} color='black' />}
