@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { getUser, kickOutUser, secret } from "@/pages/api/chatgpt/user";
+import { getUser } from "@/uitls/user.util";
 import {
   changeConversationName,
   createConversation,
@@ -39,11 +39,6 @@ type RequestType =
   | RequestChangeConversationName;
 
 const hander: NextApiHandler = async (req, res) => {
-  if (!secret) {
-    res.status(500).json({ error: "Secret is not set" });
-    return;
-  }
-
   const user = await getUser(req, res);
   if (!user) {
     return;
@@ -63,15 +58,6 @@ const hander: NextApiHandler = async (req, res) => {
         return;
       }
 
-      const user = await getUser(req, res);
-      if (!user) {
-        return;
-      }
-      if (!user.id) {
-        kickOutUser(res);
-        res.status(400).json({ error: "You are not logged in" });
-        return;
-      }
       const conversation = await createConversation({
         name,
         user_id: user.id as number,
@@ -89,10 +75,6 @@ const hander: NextApiHandler = async (req, res) => {
       return res.status(200).json(conversation);
     }
     case "get_conversations": {
-      const user = await getUser(req, res);
-      if (!user) {
-        return;
-      }
       const conversations = await getAllConversionsByUserId(user.id as number);
       return res.status(200).json(conversations);
     }
