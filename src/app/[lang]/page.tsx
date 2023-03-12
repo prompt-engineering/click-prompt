@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Container, Heading, Stack, Text } from "@/components/ChakraUI";
 import { ClickPromptHome } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/constants";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 import { getAppData } from "@/i18n";
 
 async function Page() {

@@ -6,12 +6,15 @@ import StartlingStepDetail from "@/app/[lang]/chatgpt-startling-by-each-step/[id
 import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
 
 function StartlingStepPage({ content, id }: { content: StartlingStep; id: string }) {
+  const [conversationId, setConversationId] = React.useState<number | undefined>(undefined);
   const [cachedValue, setCachedValue] = React.useState<Record<number, any>>({});
 
   const updateCached = (index: number, value: any) => {
-    console.log("updateCached", index, value);
     setCachedValue((prev) => ({ ...prev, [index]: value }));
-    console.log(cachedValue);
+  };
+
+  const updateConversationId = (conversationId: number) => {
+    setConversationId(conversationId);
   };
 
   return (
@@ -41,6 +44,8 @@ function StartlingStepPage({ content, id }: { content: StartlingStep; id: string
                   content={content}
                   onCache={updateCached}
                   cachedValue={cachedValue}
+                  conversationId={conversationId}
+                  updateConversationId={updateConversationId}
                 />
               ))}
             </SimpleGrid>

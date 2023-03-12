@@ -7,7 +7,7 @@ import { DataTable } from "@/components/DataTable/DataTable";
 import { LinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import Highlight from "@/components/Highlight";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 import { Pagination, usePagination, type PaginationState } from "@/components/Pagination";
 
 type ActPrompt = {

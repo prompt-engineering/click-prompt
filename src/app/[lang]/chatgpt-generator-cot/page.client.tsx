@@ -9,7 +9,7 @@ import { Form, Formik } from "formik";
 import { numberToChineseOrdinal } from "chinese-numbering";
 
 import CopyComponent from "@/components/CopyComponent";
-import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 
 function ChatGptCotGenerator({ i18n, locale }: GeneralI18nProps) {
   const dict = i18n.dict;

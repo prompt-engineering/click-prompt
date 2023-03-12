@@ -4,13 +4,13 @@ import React, { useEffect } from "react";
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
 import { Avatar, Box } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
-import { ExecutePromptButton } from "@/components/ClickPromptButton";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
 import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
 import { Textarea } from "@chakra-ui/react";
 import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StepDetail";
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
+import { ExecutePromptButton } from "@/components/ClickPrompt/ExecutePromptButton";
 
 type StepProps = {
   index: number;
@@ -18,6 +18,8 @@ type StepProps = {
   content: StartlingStep;
   cachedValue: Record<number, any>;
   onCache?: (step: number, response: string) => void;
+  conversationId?: number;
+  updateConversationId?: (conversationId: number) => void;
 };
 
 type AskRendererProps = { step: StepDetail; onAskUpdate: (ask: string) => void; cachedValue: Record<number, any> };
@@ -41,7 +43,15 @@ function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
   return <SimpleMarkdown content={step.ask} />;
 }
 
-function StartlingStepDetail({ index, step, content, onCache, cachedValue }: StepProps) {
+function StartlingStepDetail({
+  index,
+  step,
+  content,
+  onCache,
+  cachedValue,
+  conversationId,
+  updateConversationId,
+}: StepProps) {
   const [response, setResponse] = React.useState<string | undefined>(undefined);
 
   const handleResponse = (response: ResponseSend) => {
@@ -79,7 +89,13 @@ function StartlingStepDetail({ index, step, content, onCache, cachedValue }: Ste
           <AskRenderer step={step} onAskUpdate={setAsk} cachedValue={cachedValue} />
         </Box>
       </HumanBlock>
-      <ExecutePromptButton text={ask} handleResponse={handleResponse} name={content.name} />
+      <ExecutePromptButton
+        conversationId={conversationId}
+        updateConversationId={updateConversationId}
+        text={ask}
+        handleResponse={handleResponse}
+        name={content.name}
+      />
       <AiBlock direction='row' gap='2'>
         <Box>
           <ChatGptIcon />
