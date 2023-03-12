@@ -40,7 +40,7 @@ export async function isLoggedIn(hashedKey?: string) {
   }
 
   console.log(process.version);
-  console.log("patched: ", (fetch as any).__XX_PATCHED__)
+  console.log("patched: ", (fetch as any).__XX_PATCHED__);
   console.log("key", hashedKey);
   const { headers } = await import("next/headers");
   console.log("headers", headers);
