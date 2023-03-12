@@ -20,7 +20,6 @@ const nextConfig = {
         if (entries["pages/_app"]) {
           entries["pages/_app"].unshift("./src/fuck-the-fetch.ts");
         }
-
         return entries;
       };
     }
