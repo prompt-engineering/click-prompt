@@ -23,7 +23,7 @@ import {
 import { useFormik } from "formik";
 import Image from "next/image";
 import CopyComponent from "@/components/CopyComponent";
-import PromptFieldForm, { SdPromptField } from "@/components/PromptFieldForm";
+import PromptFieldForm, { SdPromptField } from "@/app/[lang]/stable-diffusion-generator/PromptFieldForm";
 import sdImage from "@/assets/images/stable-diffusion-demo.jpeg";
 import { WebStorage } from "@/storage/webstorage";
 import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
