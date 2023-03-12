@@ -287,7 +287,9 @@ export const ChatRoom = ({
                   onKeyDown={(ev) => {
                     if (ev.key === "Enter" || ev.key === "NumpadEnter") {
                       ev.preventDefault();
-                      changeConversationName(conversation.id!, ev.currentTarget.value);
+                      changeConversationName(conversation.id!, ev.currentTarget.value).finally(() => {
+                        setEditing(null);
+                      });
                     } else if (ev.key === "Escape") {
                       ev.preventDefault();
                       setEditing(null);
