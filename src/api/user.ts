@@ -1,4 +1,5 @@
 import { SITE_INTERNAL_HEADER_URL } from "@/configs/constants";
+import fetch from "node-fetch";
 
 export async function logout() {
   const response = await fetch("/api/chatgpt/user", {
@@ -19,8 +20,8 @@ export async function login(key: string) {
     }),
   }).then((it) => it.json());
 
-  if (response.error) {
-    alert("Error(login): " + JSON.stringify(response.error));
+  if ((response as any).error) {
+    alert("Error(login): " + JSON.stringify((response as any).error));
     return;
   }
 
@@ -35,10 +36,11 @@ export async function isLoggedIn(hashedKey?: string) {
       body: hashedKey ?? "NOPE",
     }).then((it) => it.json());
 
-    return response.loggedIn;
+    return (response as any).loggedIn;
   }
 
   console.log(process.version);
+  console.log("patched: ", (fetch as any).__XX_PATCHED__)
   console.log("key", hashedKey);
   const { headers } = await import("next/headers");
   console.log("headers", headers);
@@ -53,5 +55,5 @@ export async function isLoggedIn(hashedKey?: string) {
     redirect: "follow",
   }).then((it) => it.json());
   console.log("response", response);
-  return response.loggedIn;
+  return (response as any).loggedIn;
 }
