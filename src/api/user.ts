@@ -49,6 +49,7 @@ export async function isLoggedIn(hashedKey?: string) {
     method: "POST",
     body: hashedKey ?? "NOPE",
     headers: headersPropagated,
+    redirect: "follow",
   }).then((it) => it.json());
   console.log("response", response);
   return response.loggedIn;
