@@ -20,12 +20,12 @@ export type ExecButtonProps = {
   text: string;
   size?: ButtonSize;
   children?: React.ReactNode;
-  handleResponse?: any;
+  handleResponse?: (response: ResponseSend) => void;
   conversationId?: number;
   updateConversationId?: (conversationId: number) => void;
 };
 
-export function ExecutePromptButton(props: ExecButtonProps) {
+function ExecutePromptButton(props: ExecButtonProps) {
   const [isLoading, setIsLoading] = useState(props.loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasLogin, setHasLogin] = useState(false);
@@ -52,8 +52,7 @@ export function ExecutePromptButton(props: ExecButtonProps) {
     }
 
     let response: any = await sendMessage(localId!!, props.text);
-    console.log(response);
-    if (!response) {
+    if (response) {
       props.handleResponse ? props.handleResponse(response as ResponseSend) : null;
     }
 
@@ -79,3 +78,5 @@ export function ExecutePromptButton(props: ExecButtonProps) {
     </>
   );
 }
+
+export default ExecutePromptButton;
