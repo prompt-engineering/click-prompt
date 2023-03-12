@@ -12,17 +12,17 @@ export default async function ChatGPTPage() {
 
   // Propagate cookies to the API route
   // const headersPropagated = { cookie: headers().get("cookie") as string };
-  let data;
+  let isLoggedin = false;
   try {
-    data = await UserAPI.isLoggedIn(hashedKey);
+    isLoggedin = await UserAPI.isLoggedIn(hashedKey);
   } catch (e) {
     console.error(e);
-    data = { loggedIn: false };
+    isLoggedin = false;
   }
 
   return (
     <div className='bg-[#343541] flex h-[85vh] overflow-y-auto rounded-md items-center justify-center'>
-      <ChatGPTApp loggedIn={data.loggedIn} />
+      <ChatGPTApp loggedIn={isLoggedin} />
     </div>
   );
 }
