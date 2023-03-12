@@ -27,6 +27,11 @@ type AskRendererProps = { step: StepDetail; onAskUpdate: (ask: string) => void; 
 
 function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
   const askTask = fillStepWithValued(step, cachedValue);
+
+  useEffect(() => {
+    onAskUpdate(askTask.ask);
+  });
+
   if (askTask.replaced) {
     return (
       <Textarea
@@ -40,7 +45,6 @@ function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
     );
   }
 
-  onAskUpdate(askTask.ask);
   return <SimpleMarkdown content={step.ask} />;
 }
 
