@@ -69,7 +69,7 @@ function StartlingStepDetail({
     }
 
     // todo: check why regex not working well?
-    let isMatchAll = step.cachedResponseRegex === ".*" || step.cachedResponseRegex === "(.*?)";
+    const isMatchAll = step.cachedResponseRegex === ".*" || step.cachedResponseRegex === "(.*?)";
     if (isMatchAll) {
       onCache(index, assistantResponse);
     } else {
