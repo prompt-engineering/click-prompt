@@ -38,8 +38,11 @@ export async function isLoggedIn(hashedKey?: string) {
     return response.loggedIn;
   }
 
+  console.log("key", hashedKey);
   const { headers } = await import("next/headers");
+  console.log("headers", headers);
   const urlStr = headers().get(SITE_INTERNAL_HEADER_URL) as string;
+  console.log("urlStr", urlStr);
   // Propagate cookies to the API route
   const headersPropagated = { cookie: headers().get("cookie") as string };
   const response = await fetch(new URL("/api/chatgpt/verify", new URL(urlStr)), {
@@ -47,5 +50,6 @@ export async function isLoggedIn(hashedKey?: string) {
     body: hashedKey ?? undefined,
     headers: headersPropagated,
   }).then((it) => it.json());
+  console.log("response", response);
   return response.loggedIn;
 }
