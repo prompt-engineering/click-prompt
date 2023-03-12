@@ -75,12 +75,12 @@ export function ExecutePromptButton(props: ExecButtonProps) {
     }
 
     setIsLoading(true);
-    let conversation: ResponseCreateConversation = await createConversation();
+    const conversation: ResponseCreateConversation = await createConversation();
     if (!conversation) {
       return;
     }
 
-    let response: any = await sendMessage(conversation.id || 0, props.text);
+    const response: any = await sendMessage(conversation.id || 0, props.text);
     if (!response) {
       props.handleResponse ? props.handleResponse(response as ResponseSend) : null;
     }
