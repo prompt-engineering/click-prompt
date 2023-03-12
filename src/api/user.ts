@@ -38,6 +38,7 @@ export async function isLoggedIn(hashedKey?: string) {
     return response.loggedIn;
   }
 
+  console.log(process.version);
   console.log("key", hashedKey);
   const { headers } = await import("next/headers");
   console.log("headers", headers);
