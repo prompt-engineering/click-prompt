@@ -1,9 +1,9 @@
 import {
   RequestChangeConversationName,
-  RequestCreateConversation, RequestDeleteConversation,
-  ResponseCreateConversation
+  RequestCreateConversation,
+  RequestDeleteConversation,
+  ResponseCreateConversation,
 } from "@/pages/api/chatgpt/conversation";
-
 
 export async function createConversation(name?: string) {
   const response = await fetch("/api/chatgpt/conversation", {
@@ -42,7 +42,7 @@ export async function changeConversationName(conversationId: number, name: strin
     return;
   }
 
-  if(!data) {
+  if (!data) {
     alert("Error(changeConversationName): sOmeTHiNg wEnT wRoNg");
     return;
   }
@@ -64,7 +64,7 @@ export async function deleteConversation(conversationId: number) {
     return;
   }
 
-  if(!data) {
+  if (!data) {
     alert("Error(deleteConversation): sOmeTHiNg wEnT wRoNg");
     return;
   }

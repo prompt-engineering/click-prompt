@@ -14,7 +14,7 @@ export default async function ChatGPTPage() {
   // const headersPropagated = { cookie: headers().get("cookie") as string };
   let data;
   try {
-    data = await UserAPI.isLoggedIn(hashedKey)
+    data = await UserAPI.isLoggedIn(hashedKey);
   } catch (e) {
     console.error(e);
     data = { loggedIn: false };

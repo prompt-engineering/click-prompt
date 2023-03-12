@@ -15,7 +15,7 @@ export async function login(key: string) {
       action: "login",
       key,
     }),
-  }).then(it => it.json());
+  }).then((it) => it.json());
 
   if (response.error) {
     alert("Error(login): " + JSON.stringify(response.error));
@@ -33,7 +33,7 @@ export async function isLoggedIn(hashedKey?: string) {
   const response = await fetch("/api/chatgpt/verify", {
     method: "POST",
     body: hashedKey ?? "",
-  }).then(it => it.json());
+  }).then((it) => it.json());
 
   return response.loggedIn;
 }

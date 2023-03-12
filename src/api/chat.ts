@@ -32,7 +32,7 @@ export async function sendMessage(conversageId: number, message: string, name?: 
         {
           role: "user",
           content: message,
-          name:  name ?? undefined,
+          name: name ?? undefined,
         },
       ],
     } as RequestSend),
