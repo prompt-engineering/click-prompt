@@ -1,21 +1,40 @@
 import { NextApiHandler, NextApiResponse } from "next";
 
 import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from "openai";
-import { Configuration, OpenAIApi } from "openai";
+import { Configuration, OpenAIApi, type ConfigurationParameters } from "openai";
 import { SITE_USER_COOKIE } from "@/configs/constants";
 import { decrypt, secret } from "@/pages/api/chatgpt/user";
 import {
   createChat,
   getAllChatsInsideConversation,
-  getAllConversionsByUserId,
   getUserByKeyHashed,
+  createConversation,
 } from "@/storage/planetscale";
-import * as console from "console";
 
-function createNewOpenAIApi(apiKey: string) {
-  const configuration = new Configuration({
+async function getConfig(apiKey: string) {
+  const baseConf: ConfigurationParameters = {
     apiKey,
-  });
+  };
+  // FIXME now just for development
+  if (process.env.NODE_ENV === "development" && process.env.PROXY_HOST && process.env.PROXY_PORT) {
+    const { httpsOverHttp } = await import("tunnel");
+    const tunnel = httpsOverHttp({
+      proxy: {
+        host: process.env.PROXY_HOST,
+        port: process.env.PROXY_PORT as unknown as number,
+      },
+    });
+    baseConf.baseOptions = {
+      httpsAgent: tunnel,
+      proxy: false,
+    };
+  }
+  return baseConf;
+}
+
+async function createNewOpenAIApi(apiKey: string) {
+  const conf = await getConfig(apiKey);
+  const configuration = new Configuration(conf);
 
   return new OpenAIApi(configuration);
 }
@@ -27,7 +46,7 @@ export type RequestSend = {
   conversation_id: number;
   messages: ChatCompletionRequestMessage[];
 };
-export type ResponseSend = Awaited<ReturnType<typeof sendMsgs>>;
+export type ResponseSend = Awaited<ReturnType<typeof getAllChatsInsideConversation>>;
 
 export type RequestGetChats = {
   action: "get_chats";
@@ -35,12 +54,7 @@ export type RequestGetChats = {
 };
 export type ResponseGetChats = Awaited<ReturnType<typeof getAllChatsInsideConversation>>;
 
-export type RequestGetConversations = {
-  action: "get_conversations";
-};
-export type ResponseGetConversation = Awaited<ReturnType<typeof getAllConversionsByUserId>>;
-
-type RequestBody = RequestSend | RequestGetChats | RequestGetConversations;
+type RequestBody = RequestSend | RequestGetChats;
 
 const handler: NextApiHandler = async (req, res) => {
   if (!secret) {
@@ -63,7 +77,8 @@ const handler: NextApiHandler = async (req, res) => {
     return;
   }
 
-  const chatClient = chatClients.get(keyHashed) || createNewOpenAIApi(decrypt(user.key_encrypted, secret, user.iv));
+  const chatClient =
+    chatClients.get(keyHashed) || (await createNewOpenAIApi(decrypt(user.key_encrypted, secret, user.iv)));
   chatClients.set(keyHashed, chatClient);
 
   if (req.method === "POST" && req.body) {
@@ -71,38 +86,47 @@ const handler: NextApiHandler = async (req, res) => {
 
     switch (body.action) {
       case "send": {
-        const chats = await getAllChatsInsideConversation(body.conversation_id);
+        let conversation_id: number | undefined | null = body.conversation_id;
+        // if no conversation.ts exists, create new one as default, elsewise `create Chat` will throw error
+        if (!conversation_id) {
+          const defaultConvesation = await createConversation({
+            user_id: user.id as number,
+            name: "Default Conversation name",
+          });
+          conversation_id = defaultConvesation?.id;
+        }
+        if (conversation_id == null) {
+          res.status(400).json({ error: "No conversation_id found" });
+          return;
+        }
+
+        const chats = await getAllChatsInsideConversation(conversation_id);
         await sendMsgs({
           res,
           client: chatClient,
-          conversation_id: body.conversation_id,
+          conversation_id: conversation_id,
           msgs: chats.map(
             (it) => ({ role: it.role, content: it.content, name: it.name } as ChatCompletionRequestMessage),
           ),
           newMsgs: body.messages,
         });
-        break;
-      }
-
-      case "get_conversations": {
-        const conversations = await getAllConversionsByUserId(user.id as number);
-
-        res.status(200).json(conversations);
-        break;
+        return;
       }
 
       case "get_chats": {
         const chats = await getAllChatsInsideConversation(body.conversation_id);
 
         res.status(200).json(chats);
-        break;
+        return;
       }
 
       default:
         res.status(400).json(`Not supported action of ${(body as any)?.action}`);
+        return;
     }
   } else {
     res.status(404).json({ error: "Not found" });
+    return;
   }
 };
 export default handler;
@@ -121,9 +145,10 @@ async function sendMsgs({
   newMsgs: ChatCompletionRequestMessage[];
 }) {
   try {
+    const messages = [...msgs, ...newMsgs].map((it) => ({ ...it, name: it.name ?? undefined }));
     const response = await client.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: [...msgs, ...newMsgs],
+      messages,
       temperature: 0.5,
       max_tokens: 200,
     });
@@ -138,10 +163,18 @@ async function sendMsgs({
       return;
     }
 
-    // save to database
-    await Promise.all(newMsgs.map((it) => createChat({ conversation_id, ...it })));
+    // add response to newMsgs
+    messages.push({ ...choices[0].message, name: undefined });
 
-    return res.status(200).json({ messages: newMsgs });
+    const needToSave = newMsgs.concat(choices[0].message).map((it) => ({ ...it, conversation_id }));
+    // save to database
+    const result = await createChat(needToSave);
+    if (!result) {
+      res.status(500).json({ error: "Cannot save to database" });
+      return;
+    }
+
+    return res.status(200).json([choices[0].message] as unknown as ResponseSend);
   } catch (e: any) {
     console.error(e);
     let msg = e.message;

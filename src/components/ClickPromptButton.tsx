@@ -16,7 +16,6 @@ import { Button } from "@/components/ChakraUI";
 import { BeatLoader } from "react-spinners";
 import styled from "@emotion/styled";
 import { ChatGPTApp } from "@/components/ChatGPTApp";
-import { ChatMessage, sentMessageReq } from "@/api/chat-api";
 import { ClickPromptSmall } from "@/components/CustomIcon";
 import Image from "next/image";
 
@@ -37,10 +36,11 @@ export type ExecButtonProps = {
   text: string;
   size?: ButtonSize;
   children?: React.ReactNode;
-  onResponse?: (response: ChatMessage) => void;
+  onResponse?: (response: ResponseSend) => void;
 };
 
 import clickPromptLogo from "@/assets/clickprompt-light.svg?url";
+import { RequestSend, ResponseSend } from "@/pages/api/chatgpt/chat";
 
 export type ClickPromptBirdParams = { width?: number; height?: number };
 export function ClickPromptBird(props: ClickPromptBirdParams) {
@@ -74,7 +74,13 @@ export function ExecutePromptButton(props: ExecButtonProps) {
 
     // send response to server
     setIsLoading(true);
-    const messageData = await sentMessageReq(props.text);
+    const messageData = await fetch("/api/chatgpt/chat", {
+      method: "POST",
+      body: JSON.stringify({
+        action: "send",
+        messages: [{ role: "user", content: props.text }],
+      } as RequestSend),
+    }).then((res) => res.json());
     if (!messageData.error) {
       if (!!messageData.messages) {
         props.onResponse ? props.onResponse(messageData) : null;

@@ -75,7 +75,6 @@ export type AppDataI18n = AppData["i18n"];
 
 import { SITE_INTERNAL_HEADER_LOCALE, SITE_INTERNAL_HEADER_PATHNAME } from "@/configs/constants";
 import { PagePath } from "./pagePath";
-import * as console from "console";
 
 export async function getAppData(): Promise<AppData> {
   let pathname: PagePath = "/";

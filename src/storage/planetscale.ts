@@ -54,6 +54,16 @@ export const getAllConversionsByUserId = cache(async (userId: number) => {
     .execute();
 });
 
+export const changeConversationName = cache(async (conversationId: number, name: string) => {
+  return queryBuilder
+    .updateTable("conversations")
+    .set({
+      name,
+    })
+    .where("conversations.id", "=", conversationId)
+    .execute();
+});
+
 export const getAllChatsInsideConversation = cache(async (conversationId: number) => {
   return queryBuilder
     .selectFrom("chats")
@@ -79,12 +89,26 @@ export const createUser = cache(async (data: Pick<UserTable, "key_hashed" | "iv"
 });
 
 export const createConversation = cache(async (data: Pick<ConversationTable, "user_id" | "name">) => {
-  return queryBuilder.insertInto("conversations").values(data).execute();
+  const r = await queryBuilder.insertInto("conversations").values(data).executeTakeFirst();
+
+  if (!r) {
+    return null;
+  }
+
+  return queryBuilder
+    .selectFrom("conversations")
+    .selectAll()
+    .where("conversations.id", "=", Number(r.insertId))
+    .limit(1)
+    .executeTakeFirst();
 });
 
-export const createChat = cache(async (data: Pick<ChatTable, "conversation_id" | "role" | "content" | "name">) => {
-  console.log("createChat data: ", data);
+export const createChat = cache(async (data: Pick<ChatTable, "conversation_id" | "role" | "content" | "name">[]) => {
   return queryBuilder.insertInto("chats").values(data).execute();
+});
+
+export const getChatById = cache(async (chatId: number) => {
+  return queryBuilder.selectFrom("chats").selectAll().where("chats.id", "=", chatId).limit(1).executeTakeFirst();
 });
 
 export const deleteConversation = cache(async (conversationId: number) => {
