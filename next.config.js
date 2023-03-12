@@ -13,6 +13,18 @@ const nextConfig = {
   },
 
   webpack: (config, options) => {
+    if (options.isServer) {
+      const originalEntry = config.entry;
+      config.entry = async () => {
+        const entries = await originalEntry();
+        if (entries["pages/_app"]) {
+          entries["pages/_app"].unshift("./src/fuck-the-fetch.ts");
+        }
+
+        return entries;
+      };
+    }
+
     config.module.rules.push({
       test: /\.yml/,
       use: "yaml-loader",
