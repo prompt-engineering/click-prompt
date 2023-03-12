@@ -74,20 +74,14 @@ export function ExecutePromptButton(props: ExecButtonProps) {
 
     // send response to server
     setIsLoading(true);
-    const messageData = await fetch("/api/chatgpt/chat", {
+    const messageData: ResponseSend = await fetch("/api/chatgpt/chat", {
       method: "POST",
       body: JSON.stringify({
         action: "send",
         messages: [{ role: "user", content: props.text }],
       } as RequestSend),
     }).then((res) => res.json());
-    if (!messageData.error) {
-      if (!!messageData.messages) {
-        props.onResponse ? props.onResponse(messageData) : null;
-      }
-    } else {
-      console.error(messageData.error);
-    }
+    props.onResponse ? props.onResponse(messageData) : null;
 
     onClose();
     setIsLoading(false);

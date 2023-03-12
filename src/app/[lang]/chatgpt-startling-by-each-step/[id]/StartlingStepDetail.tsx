@@ -45,8 +45,7 @@ function StartlingStepDetail({ index, step, content, onCache, cachedValue }: Ste
   const [response, setResponse] = React.useState<string | undefined>(undefined);
 
   const handleResponse = (response: ResponseSend) => {
-    const messages = response;
-    const assistantMessage = messages.filter((message) => message.role === "assistant");
+    const assistantMessage = response.filter((message) => message.role === "assistant");
     const assistantResponse = assistantMessage[0].content;
     setResponse(assistantResponse);
 
