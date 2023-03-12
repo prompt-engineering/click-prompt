@@ -32,7 +32,7 @@ export async function isLoggedIn(hashedKey?: string) {
     // Client-side
     const response = await fetch("/api/chatgpt/verify", {
       method: "POST",
-      body: hashedKey ?? undefined,
+      body: hashedKey ?? "",
     }).then((it) => it.json());
 
     return response.loggedIn;
@@ -47,7 +47,7 @@ export async function isLoggedIn(hashedKey?: string) {
   const headersPropagated = { cookie: headers().get("cookie") as string };
   const response = await fetch(new URL("/api/chatgpt/verify", new URL(urlStr)), {
     method: "POST",
-    body: hashedKey ?? undefined,
+    body: hashedKey ?? "",
     headers: headersPropagated,
   }).then((it) => it.json());
   console.log("response", response);

@@ -8,7 +8,7 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(404).json({ error: "Not found" });
     return;
   }
-  const keyHashed = req.body ?? req.cookies[SITE_USER_COOKIE] ?? "";
+  const keyHashed = req.body ? req.body : req.cookies[SITE_USER_COOKIE] ?? "";
 
   if (!keyHashed) {
     res.status(200).json({ message: "You're not logged in yet!", loggedIn: false });
