@@ -2,10 +2,8 @@ import { createCipheriv, createDecipheriv, randomBytes, createHash } from "node:
 const hasher = createHash("sha256");
 
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { ChatCompletionRequestMessage, OpenAIApi } from "openai";
 import { SITE_USER_COOKIE } from "@/configs/constants";
 import { createUser, getUserByKeyHashed, isValidUser } from "@/storage/planetscale";
-import * as console from "console";
 
 // type Request = {
 //   action: "login" | "logout";
@@ -39,7 +37,6 @@ export function decrypt(encrypted: string, secret: string, iv: string) {
 export const secret = process.env["ENC_KEY"];
 
 const handler: NextApiHandler = async (req, res) => {
-  console.log("process.version", process.version);
   if (!secret) {
     res.status(500).json({
       error: "No secret key env in the server.",
@@ -104,8 +101,13 @@ export async function getUser(req: NextApiRequest, res: NextApiResponse): Promis
 
   const user = await getUserByKeyHashed(keyHashed);
   if (!user) {
+    kickOutUser(res);
     res.status(400).json({ error: "Your login session has been expired!" });
     return null;
   }
   return user;
+}
+
+export function kickOutUser(res: NextApiResponse) {
+  res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=; Max-Age=0; HttpOnly; Path=/;`);
 }

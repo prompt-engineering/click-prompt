@@ -7,11 +7,9 @@ import { decrypt, secret } from "@/pages/api/chatgpt/user";
 import {
   createChat,
   getAllChatsInsideConversation,
-  getAllConversionsByUserId,
   getUserByKeyHashed,
   createConversation,
 } from "@/storage/planetscale";
-import * as console from "console";
 
 async function getConfig(apiKey: string) {
   const baseConf: ConfigurationParameters = {
@@ -36,7 +34,6 @@ async function getConfig(apiKey: string) {
 
 async function createNewOpenAIApi(apiKey: string) {
   const conf = await getConfig(apiKey);
-  console.log("conf", conf);
   const configuration = new Configuration(conf);
 
   return new OpenAIApi(configuration);
@@ -49,15 +46,13 @@ export type RequestSend = {
   conversation_id: number;
   messages: ChatCompletionRequestMessage[];
 };
-export type ResponseSend = Awaited<ReturnType<typeof sendMsgs>>;
+export type ResponseSend = Awaited<ReturnType<typeof getAllChatsInsideConversation>>;
 
 export type RequestGetChats = {
   action: "get_chats";
   conversation_id: number;
 };
 export type ResponseGetChats = Awaited<ReturnType<typeof getAllChatsInsideConversation>>;
-
-export type ResponseGetConversation = Awaited<ReturnType<typeof getAllConversionsByUserId>>;
 
 type RequestBody = RequestSend | RequestGetChats;
 
@@ -91,15 +86,20 @@ const handler: NextApiHandler = async (req, res) => {
 
     switch (body.action) {
       case "send": {
-        let conversation_id = body.conversation_id;
+        let conversation_id: number | undefined | null = body.conversation_id;
         // if no conversation.ts exists, create new one as default, elsewise `create Chat` will throw error
         if (!conversation_id) {
           const defaultConvesation = await createConversation({
             user_id: user.id as number,
             name: "Default Conversation name",
           });
-          conversation_id = Number(defaultConvesation.insertId);
+          conversation_id = defaultConvesation?.id;
         }
+        if (conversation_id == null) {
+          res.status(400).json({ error: "No conversation_id found" });
+          return;
+        }
+
         const chats = await getAllChatsInsideConversation(conversation_id);
         await sendMsgs({
           res,
@@ -110,21 +110,23 @@ const handler: NextApiHandler = async (req, res) => {
           ),
           newMsgs: body.messages,
         });
-        break;
+        return;
       }
 
       case "get_chats": {
         const chats = await getAllChatsInsideConversation(body.conversation_id);
 
         res.status(200).json(chats);
-        break;
+        return;
       }
 
       default:
         res.status(400).json(`Not supported action of ${(body as any)?.action}`);
+        return;
     }
   } else {
     res.status(404).json({ error: "Not found" });
+    return;
   }
 };
 export default handler;
@@ -143,7 +145,7 @@ async function sendMsgs({
   newMsgs: ChatCompletionRequestMessage[];
 }) {
   try {
-    const messages = [...msgs, ...newMsgs];
+    const messages = [...msgs, ...newMsgs].map((it) => ({ ...it, name: it.name ?? undefined }));
     const response = await client.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages,
@@ -160,14 +162,19 @@ async function sendMsgs({
       res.status(500).json({ error: "No response from OpenAI" });
       return;
     }
-    // add responce to newMsgs
-    messages.push(choices[0].message);
 
+    // add response to newMsgs
+    messages.push({ ...choices[0].message, name: undefined });
+
+    const needToSave = newMsgs.concat(choices[0].message).map((it) => ({ ...it, conversation_id }));
     // save to database
-    // TODO should provide chat service to manage it.
-    await Promise.all(newMsgs.concat(choices[0].message).map((it) => createChat({ conversation_id, ...it })));
+    const result = await createChat(needToSave);
+    if (!result) {
+      res.status(500).json({ error: "Cannot save to database" });
+      return;
+    }
 
-    return res.status(200).json({ messages });
+    return res.status(200).json([choices[0].message] as unknown as ResponseSend);
   } catch (e: any) {
     console.error(e);
     let msg = e.message;
