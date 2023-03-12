@@ -1,8 +1,8 @@
 import { RequestGetChats, RequestSend, ResponseGetChats, ResponseSend } from "@/pages/api/chatgpt/chat";
-import fetch from "node-fetch";
+import nodeFetch from "node-fetch";
 
 export async function getChatsByConversationId(conversationId: number) {
-  const response = await fetch("/api/chatgpt/chat", {
+  const response = await nodeFetch("/api/chatgpt/chat", {
     method: "POST",
     body: JSON.stringify({
       action: "get_chats",
@@ -24,7 +24,7 @@ export async function getChatsByConversationId(conversationId: number) {
 }
 
 export async function sendMessage(conversageId: number, message: string, name?: string) {
-  const response = await fetch("/api/chatgpt/chat", {
+  const response = await nodeFetch("/api/chatgpt/chat", {
     method: "POST",
     body: JSON.stringify({
       action: "send",
@@ -49,4 +49,31 @@ export async function sendMessage(conversageId: number, message: string, name?: 
   }
 
   return data;
+}
+
+export async function sendMsgWithStreamRes(conversageId: number, message: string, name?: string) {
+  const response = await fetch("/api/chatgpt/chat", {
+    method: "POST",
+    body: JSON.stringify({
+      action: "send_stream",
+      conversation_id: conversageId,
+      messages: [
+        {
+          role: "user",
+          content: message,
+          name: name ?? undefined,
+        },
+      ],
+    }),
+  });
+
+  if (!response.ok) {
+    alert("Error: " + response.statusText);
+    return;
+  }
+  if (response.body == null) {
+    alert("Error: sOmeTHiNg wEnT wRoNg");
+    return;
+  }
+  return response.body;
 }
