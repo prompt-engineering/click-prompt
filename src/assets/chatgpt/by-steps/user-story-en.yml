@@ -1,0 +1,87 @@
+name: User Story
+category: Development
+author: Phodal Huang
+description: This "step by step" interaction example will show how to combine ChatGPT to analyze requirements and write user stories? Analyze user stories, write test cases? Analyze user stories, write code?
+steps:
+  - name: Create game
+    ask: |
+      We're going to play a game called 'story'. In this game, I will give you a vague requirement, and you need to:
+
+      1. Analyze the requirement and write user stories using the 'Invest' principle, but you don't need to return them to me.
+      2. Write clear acceptance criteria for the user stories using the 'Given-When-Then' format as much as possible, but you don't need to return them to me.
+      3. Finally, return the title, content, and acceptance criteria of the user stories in the following format:
+
+        """
+      Title: {}
+      Content: {}
+      Acceptance Criteria:
+
+      1. AC01 {}
+         When {}
+         Then {}
+      2. AC02 {}
+         When {}
+         Then {}
+      """
+
+      When I say 'story: {}', we'll start the game. Do you know how to play this game? If you do, please reply with 'OK' only.
+    cachedResponseRegex:
+
+  - name: Analyze requirements and write user stories
+    ask: |
+      story: $$placeholder$$
+    cachedResponseRegex: .*
+    values:
+      placeholder: |
+        user login
+
+  - name: Mermaid sequence diagram
+    ask: |
+      I will give you a vague requirement, and you need to:
+
+      1. Analyze and refine the requirement, but you don't need to return the result to me.
+      2. Use Mermaid to draw a sequence diagram, but you don't need to return it to me.
+      3. Finally, only return the Mermaid code, nothing else.
+
+      The requirement is as follows:
+
+      """
+      $$response:1$$
+      """
+  - name: Analyze user stories and write test cases
+    ask: |
+      I will give you a requirement, and you need to:
+
+      1. Analyze the requirement, but you don't need to return the result to me.
+      2. Use Java + Spring + MockMVC to write test cases, where the comments in the code correspond to AC01, AC02, AC03, AC04, AC05, but you don't need to return it to me.
+      3. Finally, only return the Java code, nothing else.
+
+      The requirement is as follows:
+
+      """
+      $$response:1$$
+      """
+    cachedResponseRegex:
+  - name: Analyze user stories and write test code
+    ask: |
+      I will give you a requirement, and you need to analyze the requirement and write API using Java + Spring. The requirements are as follows:
+
+      1. Remove any unnecessary UI interaction code and only return the corresponding code.
+      2. Use comments within the method to explain how the implementation works.
+      3. Finally, you will only return the code to me, in the specified format.
+
+      ```java
+      // {}
+      @PostMapping({})
+      public void main(String args[])
+      {
+        // {}
+      }
+      ```
+
+      The requirement is as follows:
+
+      """
+      $$response:1$$
+      """
+    cachedResponseRegex:
