@@ -10,7 +10,7 @@ import { ChatGptIcon } from "@/components/CustomIcon";
 import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
 import { Textarea } from "@chakra-ui/react";
 import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StepDetail";
-import {ResponseSend} from "@/pages/api/chatgpt/chat";
+import { ResponseSend } from "@/pages/api/chatgpt/chat";
 
 type StepProps = {
   index: number;
