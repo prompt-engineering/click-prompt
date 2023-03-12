@@ -162,6 +162,7 @@ export const ChatRoom = ({
     }
 
     setConversations([data, ...conversations]);
+    return data;
   }
 
   async function changeConversationName(conversationId: number, name: string) {
@@ -259,6 +260,11 @@ export const ChatRoom = ({
 
     try {
       setDisable(true);
+      if (currentConversation == null) {
+        const created = await createConversation();
+        setCurrentConversation(created?.id ?? null);
+      }
+
       setMessage("");
       setChatHistory([
         ...chatHistory,
