@@ -64,15 +64,19 @@ function StartlingStepDetail({
     const assistantResponse = assistantMessage[0].content;
     setResponse(assistantResponse);
 
-    if (onCache && step.cachedResponseRegex) {
-      if (step.cachedResponseRegex === ".*" || step.cachedResponseRegex === "(.*?)") {
-        onCache(index, assistantResponse);
-      } else {
-        const regex = new RegExp(step.cachedResponseRegex);
-        const matched = assistantResponse.match(regex);
-        if (matched) {
-          onCache(index, matched[1]);
-        }
+    if (!onCache || !step.cachedResponseRegex) {
+      return;
+    }
+
+    // todo: check why regex not working well?
+    const isMatchAll = step.cachedResponseRegex === ".*" || step.cachedResponseRegex === "(.*?)";
+    if (isMatchAll) {
+      onCache(index, assistantResponse);
+    } else {
+      const regex = new RegExp(step.cachedResponseRegex);
+      const matched = assistantResponse.match(regex);
+      if (matched) {
+        onCache(index, matched[1]);
       }
     }
   };
