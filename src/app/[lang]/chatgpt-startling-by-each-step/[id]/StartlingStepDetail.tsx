@@ -7,10 +7,10 @@ import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { ExecutePromptButton } from "@/components/ClickPromptButton";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
-import { ChatMessage } from "@/api/chat-api";
 import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
 import { Textarea } from "@chakra-ui/react";
 import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StepDetail";
+import {ResponseSend} from "@/pages/api/chatgpt/chat";
 
 type StepProps = {
   index: number;
@@ -44,8 +44,8 @@ function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
 function StartlingStepDetail({ index, step, content, onCache, cachedValue }: StepProps) {
   const [response, setResponse] = React.useState<string | undefined>(undefined);
 
-  const handleResponse = (response: ChatMessage) => {
-    const messages = response.messages;
+  const handleResponse = (response: ResponseSend) => {
+    const messages = response;
     const assistantMessage = messages.filter((message) => message.role === "assistant");
     const assistantResponse = assistantMessage[0].content;
     setResponse(assistantResponse);
