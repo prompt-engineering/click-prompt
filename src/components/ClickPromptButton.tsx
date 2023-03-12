@@ -18,6 +18,12 @@ import styled from "@emotion/styled";
 import { ChatGPTApp } from "@/components/ChatGPTApp";
 import { ClickPromptSmall } from "@/components/CustomIcon";
 import Image from "next/image";
+import clickPromptLogo from "@/assets/clickprompt-light.svg?url";
+import * as UserAPI from "@/api/user";
+import { createConversation } from "@/api/conversation";
+import { sendMessage } from "@/api/chat";
+import { ResponseCreateConversation } from "@/pages/api/chatgpt/conversation";
+import { RequestSend, ResponseSend } from "@/pages/api/chatgpt/chat";
 
 type ButtonSize = "sm" | "md" | "lg";
 
@@ -33,14 +39,12 @@ type CPButtonProps = {
 export type ExecButtonProps = {
   loading?: boolean;
   onClick?: MouseEventHandler;
+  name: string;
   text: string;
   size?: ButtonSize;
   children?: React.ReactNode;
-  onResponse?: (response: ResponseSend) => void;
+  handleResponse?: any;
 };
-
-import clickPromptLogo from "@/assets/clickprompt-light.svg?url";
-import { RequestSend, ResponseSend } from "@/pages/api/chatgpt/chat";
 
 export type ClickPromptBirdParams = { width?: number; height?: number };
 export function ClickPromptBird(props: ClickPromptBirdParams) {
@@ -59,29 +63,27 @@ const StyledBird = styled(Image)`
 export function ExecutePromptButton(props: ExecButtonProps) {
   const [isLoading, setIsLoading] = useState(props.loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [hasLogin, setHasLogin] = useState(false);
 
   // todo: add login check
   const handleClick = async (event: any) => {
-    const response = await fetch("/api/chatgpt/verify");
-    const data = await response.json();
-
-    if (!data.loggedIn) {
+    try {
+      await UserAPI.isLoggedIn();
+    } catch (e) {
       onOpen();
-      setIsLoggedIn(false);
+      setHasLogin(false);
+    }
+
+    setIsLoading(true);
+    let conversation: ResponseCreateConversation = await createConversation();
+    if (!conversation) {
       return;
     }
 
-    // send response to server
-    setIsLoading(true);
-    const messageData: ResponseSend = await fetch("/api/chatgpt/chat", {
-      method: "POST",
-      body: JSON.stringify({
-        action: "send",
-        messages: [{ role: "user", content: props.text }],
-      } as RequestSend),
-    }).then((res) => res.json());
-    props.onResponse ? props.onResponse(messageData) : null;
+    let response: any = await sendMessage(conversation.id || 0, props.text);
+    if (!response) {
+      props.handleResponse ? props.handleResponse(response as ResponseSend) : null;
+    }
 
     onClose();
     setIsLoading(false);
@@ -101,7 +103,7 @@ export function ExecutePromptButton(props: ExecButtonProps) {
         </Button>
         <ClickPromptBird />
       </StyledPromptButton>
-      {!isLoggedIn && LoggingDrawer(isOpen, handleClose, isLoggedIn, props)}
+      {!hasLogin && LoggingDrawer(isOpen, handleClose, hasLogin, props)}
     </>
   );
 }

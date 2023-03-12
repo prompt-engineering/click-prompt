@@ -11,12 +11,12 @@ export async function getChatsByConversationId(conversationId: number) {
   const data = (await response.json()) as ResponseGetChats;
   if (!response.ok) {
     alert("Error: " + JSON.stringify((data as any).error));
-    return;
+    return null;
   }
 
   if (!data) {
     alert("Error(getChatsByConversationId): sOmeTHiNg wEnT wRoNg");
-    return;
+    return null;
   }
 
   return data;

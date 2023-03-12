@@ -79,7 +79,7 @@ function StartlingStepDetail({ index, step, content, onCache, cachedValue }: Ste
           <AskRenderer step={step} onAskUpdate={setAsk} cachedValue={cachedValue} />
         </Box>
       </HumanBlock>
-      <ExecutePromptButton text={ask} onResponse={handleResponse} />
+      <ExecutePromptButton text={ask} handleResponse={handleResponse} name={content.name} />
       <AiBlock direction='row' gap='2'>
         <Box>
           <ChatGptIcon />
