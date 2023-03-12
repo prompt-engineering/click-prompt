@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 import { SITE_INTERNAL_HEADER_URL } from "@/configs/constants";
 
 export async function logout() {

@@ -1,4 +1,5 @@
 import { RequestGetChats, RequestSend, ResponseGetChats, ResponseSend } from "@/pages/api/chatgpt/chat";
+import fetch from "node-fetch";
 
 export async function getChatsByConversationId(conversationId: number) {
   const response = await fetch("/api/chatgpt/chat", {
