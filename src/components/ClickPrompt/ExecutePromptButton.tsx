@@ -1,6 +1,6 @@
 "use client";
 
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import { Text, useDisclosure } from "@chakra-ui/react";
 import * as UserAPI from "@/api/user";
 import { ResponseCreateConversation } from "@/pages/api/chatgpt/conversation";
@@ -20,62 +20,85 @@ export type ExecButtonProps = {
   text: string;
   size?: ButtonSize;
   children?: React.ReactNode;
-  handleResponse?: any;
+  handleResponse?: (response: ResponseSend) => void;
   conversationId?: number;
   updateConversationId?: (conversationId: number) => void;
 };
 
-export function ExecutePromptButton(props: ExecButtonProps) {
+function ExecutePromptButton(props: ExecButtonProps) {
   const [isLoading, setIsLoading] = useState(props.loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasLogin, setHasLogin] = useState(false);
-  const [localId, setLocalId] = useState(props.conversationId);
 
   const handleClick = async () => {
+    setIsLoading(true);
+
     try {
-      await UserAPI.isLoggedIn();
+      const response = await UserAPI.isLoggedIn();
+      if (!response.loggedIn) {
+        onOpen();
+        setIsLoading(false);
+        return;
+      }
+
+      setHasLogin(true);
     } catch (e) {
-      onOpen();
+      console.log(e);
       setHasLogin(false);
     }
 
-    if (!localId) {
-      setIsLoading(true);
-      let conversation: ResponseCreateConversation = await createConversation();
+    let conversationId = props.conversationId;
+    if (!props.conversationId) {
+      const conversation: ResponseCreateConversation = await createConversation();
       if (!conversation) {
         return;
       }
 
-      let conversationId = conversation.id || 0;
-      setLocalId(conversationId);
+      conversationId = conversation.id as number;
       props.updateConversationId ? props.updateConversationId(conversationId) : null;
     }
 
-    let response: any = await sendMessage(localId!!, props.text);
-    console.log(response);
-    if (!response) {
-      props.handleResponse ? props.handleResponse(response as ResponseSend) : null;
+    if (conversationId) {
+      const response: any = await sendMessage(conversationId, props.text);
+      if (response && props.handleResponse) {
+        props.handleResponse(response as ResponseSend);
+      }
     }
 
-    onClose();
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    console.log(`hasLogin: ${hasLogin}`);
+    if (hasLogin) {
+      onClose();
+    }
+  }, [hasLogin]);
 
   const handleClose = () => {
     onClose();
   };
 
+  const updateLoginStatus = (status: boolean) => {
+    if (status) {
+      setHasLogin(true);
+      onClose();
+    }
+  };
+
   return (
     <>
       <StyledPromptButton>
-        <Button colorScheme='twitter' className='bg-blue' onClick={handleClick} {...props}>
+        <Button colorScheme='twitter' className='bg-blue' onClick={handleClick}>
           {props.children}
           {!isLoading && <Text>Prompt</Text>}
           {isLoading && <BeatLoader size={8} color='black' />}
         </Button>
         <ClickPromptBird />
       </StyledPromptButton>
-      {!hasLogin && LoggingDrawer(isOpen, handleClose, hasLogin, props)}
+      {!hasLogin && LoggingDrawer(isOpen, handleClose, hasLogin, props, updateLoginStatus)}
     </>
   );
 }
+
+export default ExecutePromptButton;

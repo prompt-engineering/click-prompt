@@ -1,16 +1,17 @@
 "use client";
 
 import React, { useEffect } from "react";
+import { Textarea } from "@chakra-ui/react";
+
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
 import { Avatar, Box } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
 import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
-import { Textarea } from "@chakra-ui/react";
 import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StepDetail";
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
-import { ExecutePromptButton } from "@/components/ClickPrompt/ExecutePromptButton";
+import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
 
 type StepProps = {
   index: number;
@@ -90,11 +91,11 @@ function StartlingStepDetail({
         </Box>
       </HumanBlock>
       <ExecutePromptButton
+        text={ask}
+        name={content.name}
+        handleResponse={handleResponse}
         conversationId={conversationId}
         updateConversationId={updateConversationId}
-        text={ask}
-        handleResponse={handleResponse}
-        name={content.name}
       />
       <AiBlock direction='row' gap='2'>
         <Box>
