@@ -1,5 +1,4 @@
 import { SITE_INTERNAL_HEADER_URL } from "@/configs/constants";
-import fetch from "node-fetch";
 
 export async function logout() {
   const response = await fetch("/api/chatgpt/user", {
