@@ -27,18 +27,21 @@ type AskRendererProps = { step: StepDetail; onAskUpdate: (ask: string) => void; 
 
 function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
   const askTask = fillStepWithValued(step, cachedValue);
+  const [value, setValue] = React.useState<string>(askTask.ask);
 
   useEffect(() => {
+    setValue(askTask.ask);
     onAskUpdate(askTask.ask);
-  });
+  }, [askTask.ask, setValue]);
 
   if (askTask.replaced) {
     return (
       <Textarea
         className='bg-white'
         h='calc(100%)'
-        value={askTask.ask}
+        value={value}
         onChange={(event) => {
+          setValue(event.target.value);
           onAskUpdate(event.target.value);
         }}
       />
