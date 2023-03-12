@@ -11,13 +11,19 @@ export const SupportedLocales = Object.keys(dictionaries) as SupportedLocale[];
 export const DefaultLocale: SupportedLocale = "zh-CN";
 
 export function stripLocaleInPath(pathname: string): PagePath {
-  const locale = pathname.split("/")[1];
+  let splits = pathname.split("/");
+  const locale = splits[1];
 
   let striped: PagePath;
   if (SupportedLocales.includes(locale as SupportedLocale)) {
     striped = pathname.replace(`/${locale}`, "") as PagePath;
   } else {
     striped = pathname as PagePath;
+  }
+
+  // todo: we read to read routes from Next.js
+  if (splits.length == 5 && hadChildRoutes.includes(splits[2])) {
+    striped = `/${splits[2]}/$` as PagePath;
   }
 
   return striped;
@@ -74,7 +80,7 @@ export type AppData = {
 export type AppDataI18n = AppData["i18n"];
 
 import { SITE_INTERNAL_HEADER_LOCALE, SITE_INTERNAL_HEADER_PATHNAME } from "@/configs/constants";
-import { PagePath } from "./pagePath";
+import { hadChildRoutes, PagePath } from "./pagePath";
 
 export async function getAppData(): Promise<AppData> {
   let pathname: PagePath = "/";
