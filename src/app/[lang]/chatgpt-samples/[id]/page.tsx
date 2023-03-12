@@ -16,6 +16,7 @@ import {
 import { notFound } from "next/navigation";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
+import { getAppData } from "@/i18n";
 
 interface Sample {
   name: string;
@@ -36,6 +37,16 @@ const getSampleNames = async () => {
 };
 
 async function Sample({ params }: { params: { id: string } }) {
+  const { locale, pathname, i18n } = await getAppData();
+  const i18nProps: GeneralI18nProps = {
+    locale,
+    pathname,
+    i18n: {
+      dict: i18n.dict,
+    },
+  };
+  const dict = i18nProps.i18n.dict;
+
   const names = await getSampleNames();
   if (!names.includes(params.id)) {
     notFound();
@@ -55,7 +66,7 @@ async function Sample({ params }: { params: { id: string } }) {
             <Box>
               <Breadcrumb>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href='/chatgpt-samples'>ChatGPT 示例</BreadcrumbLink>
+                  <BreadcrumbLink href='/chatgpt-samples'>{dict["chatgpt-samples"]}</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
                   <BreadcrumbLink href={`/chatgpt-samples/${params.id}`}>{content.name}</BreadcrumbLink>

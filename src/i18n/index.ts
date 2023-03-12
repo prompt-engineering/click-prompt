@@ -11,7 +11,7 @@ export const SupportedLocales = Object.keys(dictionaries) as SupportedLocale[];
 export const DefaultLocale: SupportedLocale = "zh-CN";
 
 export function stripLocaleInPath(pathname: string): PagePath {
-  let splits = pathname.split("/");
+  const splits = pathname.split("/");
   const locale = splits[1];
 
   let striped: PagePath;
