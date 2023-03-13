@@ -50,6 +50,7 @@ export const getAllConversionsByUserId = cache(async (userId: number) => {
     .selectFrom("conversations")
     .select(["conversations.id", "conversations.user_id", "conversations.name", "conversations.created_at"])
     .where((qb) => qb.where("conversations.user_id", "=", userId).where("conversations.deleted", "=", 0))
+    .orderBy("created_at", "desc")
     .limit(100)
     .execute();
 });

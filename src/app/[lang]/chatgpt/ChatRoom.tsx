@@ -8,15 +8,8 @@ import content from "@/assets/images/content.png";
 import send from "@/assets/icons/send.svg?url";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import type {
-  RequestGetConversations,
-  RequestCreateConversation,
-  ResponseCreateConversation,
-  ResponseGetConversations,
-  RequestDeleteConversation,
-  RequestChangeConversationName,
-} from "@/pages/api/chatgpt/conversation";
-import { RequestGetChats, RequestSend, ResponseGetChats, ResponseSend } from "@/pages/api/chatgpt/chat";
+import type { RequestGetConversations, ResponseGetConversations } from "@/pages/api/chatgpt/conversation";
+import { ResponseGetChats, ResponseSend } from "@/pages/api/chatgpt/chat";
 import { BeatLoader } from "react-spinners";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@chakra-ui/react";

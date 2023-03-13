@@ -1,45 +1,10 @@
 import { NextApiHandler, NextApiResponse } from "next";
-
 import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from "openai";
-import { Configuration, OpenAIApi, type ConfigurationParameters } from "openai";
-import { SITE_USER_COOKIE } from "@/configs/constants";
-import { decrypt, secret } from "@/pages/api/chatgpt/user";
-import {
-  createChat,
-  getAllChatsInsideConversation,
-  getUserByKeyHashed,
-  createConversation,
-} from "@/storage/planetscale";
-
-async function getConfig(apiKey: string) {
-  const baseConf: ConfigurationParameters = {
-    apiKey,
-  };
-  // FIXME now just for development
-  if (process.env.NODE_ENV === "development" && process.env.PROXY_HOST && process.env.PROXY_PORT) {
-    const { httpsOverHttp } = await import("tunnel");
-    const tunnel = httpsOverHttp({
-      proxy: {
-        host: process.env.PROXY_HOST,
-        port: process.env.PROXY_PORT as unknown as number,
-      },
-    });
-    baseConf.baseOptions = {
-      httpsAgent: tunnel,
-      proxy: false,
-    };
-  }
-  return baseConf;
-}
-
-async function createNewOpenAIApi(apiKey: string) {
-  const conf = await getConfig(apiKey);
-  const configuration = new Configuration(conf);
-
-  return new OpenAIApi(configuration);
-}
-
-const chatClients = new Map<string, OpenAIApi>();
+import type { OpenAIApi } from "openai";
+import { decryptKey } from "@/uitls/crypto.util";
+import { createChat, getAllChatsInsideConversation, createConversation } from "@/storage/planetscale";
+import { getChatClient } from "@/uitls/openapi.util";
+import { getUser } from "@/uitls/user.util";
 
 export type RequestSend = {
   action: "send";
@@ -57,29 +22,12 @@ export type ResponseGetChats = Awaited<ReturnType<typeof getAllChatsInsideConver
 type RequestBody = RequestSend | RequestGetChats;
 
 const handler: NextApiHandler = async (req, res) => {
-  if (!secret) {
-    res.status(500).json({
-      error: "No secret key env in the server.",
-    });
-    return;
-  }
-
-  const keyHashed = req.cookies[SITE_USER_COOKIE];
-  if (!keyHashed) {
-    res.status(400).json({ error: "You're not logged in yet!" });
-    return;
-  }
-
-  const user = await getUserByKeyHashed(keyHashed);
+  const user = await getUser(req, res);
   if (!user) {
-    res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=; Max-Age=0; HttpOnly; Path=/;`);
-    res.status(400).json({ error: "Your login session has been expired!" });
     return;
   }
 
-  const chatClient =
-    chatClients.get(keyHashed) || (await createNewOpenAIApi(decrypt(user.key_encrypted, secret, user.iv)));
-  chatClients.set(keyHashed, chatClient);
+  const chatClient = await getChatClient(user.key_hashed, await decryptKey(user.key_encrypted, user.iv));
 
   if (req.method === "POST" && req.body) {
     const body: RequestBody = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
