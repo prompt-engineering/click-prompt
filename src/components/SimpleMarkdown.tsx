@@ -150,7 +150,7 @@ export const defaults: Defaults = {
 };
 
 function SimpleMarkdown({ content }: any) {
-  const text = content.replaceAll("\n", "\n\n");
+  const text = content;
 
   function getHighlighter(match: RegExpExecArray, props: any, children: any) {
     const language = match[1];
@@ -158,18 +158,6 @@ function SimpleMarkdown({ content }: any) {
       return (
         <>
           <pre className='mermaid bg-white flex justify-center'>{children}</pre>
-          <Script
-            id={"mermaid"}
-            type='module'
-            strategy='afterInteractive'
-            dangerouslySetInnerHTML={{
-              __html: `
-        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
-        mermaid.initialize({startOnLoad: true});
-        mermaid.contentLoaded();
-`,
-            }}
-          />
         </>
       );
     }
@@ -213,7 +201,7 @@ function SimpleMarkdown({ content }: any) {
           code({ node, inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
             // we had replace \n to \n\n for markdown to works, but it will cause a bug in syntax highlighter, so we need to return it back.
-            const code = String(children)?.replaceAll("\n\n", "\n").replace(/\n$/, "");
+            const code = String(children)?.replace(/\n$/, "");
 
             return !inline && match ? (
               getHighlighter(match, props, code)
@@ -227,6 +215,19 @@ function SimpleMarkdown({ content }: any) {
       >
         {text}
       </ReactMarkdown>
+
+      <Script
+        id={"mermaid"}
+        type='module'
+        strategy='afterInteractive'
+        dangerouslySetInnerHTML={{
+          __html: `
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+        mermaid.initialize({startOnLoad: true});
+        mermaid.contentLoaded();
+`,
+        }}
+      />
     </>
   );
 }

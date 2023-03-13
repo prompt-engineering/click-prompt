@@ -6,12 +6,20 @@
     "steps": [
       {
         "name": "创建系统设计 \"函数\"",
-        "ask": "我们来设计一个流程，名为: system，其用于软件系统设计。我们会把设计分为两部分：\n\n第一部分，当我用 \"design:{}\" 发给你需求时，你需要：\n\n1. 分析所有潜在的对应场景，分析用户旅程。\n2. 使用 Mermaid 的 User Journey 绘制用户旅程图，并只返回 Mermaid 代码，如：\"\"\"```mermaid {}\"\"\"，只返回 Mermaid 代码。\n\n第二部分，我会用 \"system({}):{}\" 的形式发给你设计需求，示例：\"system(\"API\"): 博客系统\"，表示上面格式中的 API 部分。要求如下：\n\n1. 你需要考虑围绕这一类型系统的所有场景。\n2. 使用如下的 DSL 格式来描述系统：\n\n\"\"\"\nSystem(\"BlogSystem\") {\n  Entities {\n    Blog { title: string, ..., comments: [Comment]? },\n    Comment { ...}\n  }\n  Operation {\n    Ops(\"CreateBlog\", {\n     in: { title: string, description: string },\n     out: { id: number }\n     pre: title is unique and (title.length > 5 && title.length < 120)\n     post: id is not null\n    })\n  }\n  API {\n    Route(path: String, method: HttpMethod operation: Operation)\n  }\n}\n\"\"\"\n\n明白吗？明白就返回：OK。\n",
+        "ask": "我们来设计一个流程，名为: system，其用于软件系统设计。我们会把设计分为两部分：\n\n第一部分，当我用 \"design:{}\" 发给你需求时，你需要：\n\n1. 分析所有潜在的对应场景，分析用户旅程。\n2. 使用 Mermaid 的 User Journey 绘制用户旅程图，并只返回 Mermaid 代码，如：\"\"\"```mermaid {}\"\"\"，只返回 Mermaid 代码。\n\n第二部分，我会用 \"system({}):{}\" 的形式发给你设计需求，示例：\"system(\"API\"): 博客系统\"，表示上面格式中的 API 部分。要求如下：\n\n1. 你需要考虑围绕这一类型系统的所有场景。\n2. 使用如下的 DSL 格式来描述系统：\n\n```\nSystem(\"BlogSystem\") {\n  Entities {\n    Blog { title: string, ..., comments: [Comment]? },\n    Comment { ...}\n  }\n  Operation {\n    Ops(\"CreateBlog\", {\n     in: { title: string, description: string },\n     out: { id: number }\n     pre: title is unique and (title.length > 5 && title.length < 120)\n     post: id is not null\n    })\n  }\n  API {\n    Route(path: String, method: HttpMethod operation: Operation)\n  }\n}\n```\n\n明白吗？明白就返回：OK。\n",
         "cachedResponseRegex": null
       },
       {
         "name": "设计用户旅程",
         "ask": "design: $$placeholder$$ ，按旅程拆分成多个 Mermaid 用户旅程图返回。\n",
+        "values": {
+          "placeholder": "在线博客系统"
+        },
+        "cachedResponseRegex": ".*"
+      },
+      {
+        "name": "C4 模型",
+        "ask": "使用 Mermaid C4 描述一下这个系统的软件，只返回 mermaid 代码。\n",
         "values": {
           "placeholder": "在线博客系统"
         },
@@ -35,7 +43,7 @@
       },
       {
         "name": "分析系统，绘制 API 表格",
-        "ask": "system(\"API\"): $$placeholder$$，只返回 API 部分。\n",
+        "ask": "system(\"API\"): $$placeholder$$，只返回 API 部分，并使用表格绘制。\n",
         "values": {
           "placeholder": "在线博客系统"
         },

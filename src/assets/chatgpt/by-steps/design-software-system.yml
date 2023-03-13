@@ -18,7 +18,7 @@ steps:
       1. 你需要考虑围绕这一类型系统的所有场景。
       2. 使用如下的 DSL 格式来描述系统：
 
-      """
+      ```
       System("BlogSystem") {
         Entities {
           Blog { title: string, ..., comments: [Comment]? },
@@ -36,13 +36,20 @@ steps:
           Route(path: String, method: HttpMethod operation: Operation)
         }
       }
-      """
+      ```
 
       明白吗？明白就返回：OK。
     cachedResponseRegex:
   - name: 设计用户旅程
     ask: |
       design: $$placeholder$$ ，按旅程拆分成多个 Mermaid 用户旅程图返回。
+    values:
+      placeholder: 在线博客系统
+    cachedResponseRegex: .*
+
+  - name: C4 模型
+    ask: |
+      使用 Mermaid C4 描述一下这个系统的软件，只返回 mermaid 代码。
     values:
       placeholder: 在线博客系统
     cachedResponseRegex: .*
@@ -63,7 +70,7 @@ steps:
 
   - name: 分析系统，绘制 API 表格
     ask: |
-      system("API"): $$placeholder$$，只返回 API 部分。
+      system("API"): $$placeholder$$，只返回 API 部分，并使用表格绘制。
     values:
       placeholder: 在线博客系统
     cachedResponseRegex: .*
