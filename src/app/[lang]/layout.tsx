@@ -5,6 +5,7 @@ import Image from "next/image";
 import NavBar from "@/layout/NavBar";
 import { Container } from "@/components/ChakraUI";
 import { Provider } from "@/components/ChakraUI/Provider";
+import Script from "next/script";
 
 type RootLayoutProps = {
   params: {
@@ -58,6 +59,8 @@ export default function RootLayout({ params, children }: RootLayoutProps) {
           </a>
         </div>
         <AnalyticsWrapper />
+
+        <script src='https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js'></script>
       </body>
     </html>
   );

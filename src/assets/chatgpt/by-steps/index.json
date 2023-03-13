@@ -19,7 +19,7 @@
       },
       {
         "name": "C4 模型",
-        "ask": "使用 Mermaid C4 描述一下这个系统的软件，只返回 mermaid 代码。\n",
+        "ask": "使用 Mermaid C4 Diagrams，描述一下 $$placeholder$$ ，只返回 mermaid 代码。Mermaid C4 Diagrams 示例格式如下：\n\n```mermaid\n  C4Context\n  title {}\n  Enterprise_Boundary(b0, \"BankBoundary0\") {\n    Person(customerA, \"Banking Customer A\", \"{}\")\n    Person_Ext(customerC, \"{}\", \"desc\")\n\n    System(SystemAA, \"{}\", \"{}\")\n\n    Enterprise_Boundary(b1, \"{}\") {\n\n      SystemDb_Ext(SystemE, \"{}\", \"{}.\")\n\n      System_Boundary(b2, \"{}\") {\n        System(SystemA, \"{}\")\n      }\n\n      SystemDb(SystemD, \"{}\", \"{}\")\n\n      Boundary(b3, \"BankBoundary3\", \"boundary\") {\n        SystemQueue(SystemF, \"{}\", \"{}\")\n        SystemQueue_Ext(SystemG, \"{}\", \"{}\")\n      }\n    }\n  }\n\n  BiRel(customerA, SystemAA, \"{}\")\n  Rel(SystemAA, SystemC, \"{}\", \"{}\")\n\n  UpdateElementStyle(customerA, $fontColor=\"red\", $bgColor=\"grey\", $borderColor=\"red\")\n  UpdateRelStyle(customerA, SystemAA, $textColor=\"blue\", $lineColor=\"blue\", $offsetX=\"5\")\n\n  UpdateLayoutConfig($c4ShapeInRow=\"3\", $c4BoundaryInRow=\"1\")\n```\n",
         "values": {
           "placeholder": "在线博客系统"
         },
@@ -90,7 +90,7 @@
     "path": "user-story-en.yml"
   },
   {
-    "name": "用户故事",
+    "name": "模糊的需求到代码骨架",
     "category": "Development",
     "description": "这个 \"步步惊心\" 交互示例将会展示，如何结合 ChatGPT 分析需求，编写用户故事？分析用户故事，编写测试用例？分析用户故事，编写代码？",
     "steps": [

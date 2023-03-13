@@ -1,16 +1,14 @@
 "use client";
 
 import React from "react";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { Components } from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { Components } from "react-markdown";
 import { Code, Divider, Heading, Link, ListItem, OrderedList, Text, UnorderedList } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 import { Checkbox } from "@chakra-ui/checkbox";
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import { chakra } from "@chakra-ui/system";
 import remarkGfm from "remark-gfm";
-import Script from "next/script";
 
 // MIT License
 //
@@ -149,17 +147,33 @@ export const defaults: Defaults = {
   th: (props) => <Th>{props.children}</Th>,
 };
 
-function SimpleMarkdown({ content }: any) {
-  const text = content;
+let currentId = 0;
+const uuid = () => `mermaid-${(currentId++).toString()}`;
 
+function Mermaid({ graphDefinition }: { graphDefinition: string }) {
+  const [html, setHtml] = React.useState("");
+  const [hasError, setHasError] = React.useState(false);
+  React.useLayoutEffect(() => {
+    if (graphDefinition)
+      try {
+        (window as any).mermaid.mermaidAPI.render(uuid(), graphDefinition, (svgCode: any) => setHtml(svgCode));
+      } catch (e) {
+        setHtml("");
+        console.error(e);
+        setHasError(true);
+      }
+  }, [graphDefinition]);
+
+  if (hasError) return <code className={"mermaid"}>{graphDefinition}</code>;
+
+  return graphDefinition ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null;
+}
+
+function SimpleMarkdown({ content }: any) {
   function getHighlighter(match: RegExpExecArray, props: any, children: any) {
     const language = match[1];
     if (language == "mermaid") {
-      return (
-        <>
-          <pre className='mermaid bg-white flex justify-center'>{children}</pre>
-        </>
-      );
+      return <Mermaid graphDefinition={children} />;
     }
 
     return (
@@ -213,21 +227,8 @@ function SimpleMarkdown({ content }: any) {
           },
         }}
       >
-        {text}
+        {content}
       </ReactMarkdown>
-
-      <Script
-        id={"mermaid"}
-        type='module'
-        strategy='afterInteractive'
-        dangerouslySetInnerHTML={{
-          __html: `
-        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
-        mermaid.initialize({startOnLoad: true});
-        mermaid.contentLoaded();
-`,
-        }}
-      />
     </>
   );
 }
