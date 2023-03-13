@@ -1,18 +1,13 @@
 import { NextApiHandler, NextApiResponse } from "next";
-import type {
-  ChatCompletionRequestMessage,
-  ChatCompletionRequestMessageRoleEnum,
-  CreateChatCompletionResponse,
-} from "openai";
+import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from "openai";
 import type { OpenAIApi } from "openai";
 import { decryptKey } from "@/uitls/crypto.util";
 import { createChat, getAllChatsInsideConversation, createConversation } from "@/storage/planetscale";
 import { getChatClient } from "@/uitls/openapi.util";
 import { getUser } from "@/uitls/user.util";
-import { StreamResponce, StreamStatusEnum } from "@/uitls/stream-response.util";
 
 export type RequestSend = {
-  action: "send" | "send_stream";
+  action: "send";
   conversation_id: number;
   messages: ChatCompletionRequestMessage[];
 };
@@ -38,8 +33,7 @@ const handler: NextApiHandler = async (req, res) => {
     const body: RequestBody = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
     switch (body.action) {
-      case "send":
-      case "send_stream": {
+      case "send": {
         let conversation_id: number | undefined | null = body.conversation_id;
         // if no conversation.ts exists, create new one as default, elsewise `create Chat` will throw error
         if (!conversation_id) {
@@ -55,18 +49,6 @@ const handler: NextApiHandler = async (req, res) => {
         }
 
         const chats = await getAllChatsInsideConversation(conversation_id);
-        // WIP
-        if (body.action === "send_stream") {
-          return sendMsgsUseStream({
-            res,
-            client: chatClient,
-            conversation_id: conversation_id,
-            msgs: chats.map(
-              (it) => ({ role: it.role, content: it.content, name: it.name } as ChatCompletionRequestMessage),
-            ),
-            newMsgs: body.messages,
-          });
-        }
         await sendMsgs({
           res,
           client: chatClient,
@@ -150,80 +132,5 @@ async function sendMsgs({
       msg = e.response.data.error;
     }
     res.status(500).json({ error: msg });
-  }
-}
-// WIP: not real stream
-// refs:
-// https://github.com/vercel/next.js/issues/9965#issuecomment-614823642
-// https://beta.nextjs.org/docs/routing/route-handlers#streaming
-async function sendMsgsUseStream({
-  res,
-  client,
-  conversation_id,
-  msgs,
-  newMsgs,
-}: {
-  res: NextApiResponse;
-  client: OpenAIApi;
-  conversation_id: number;
-  msgs: ChatCompletionRequestMessage[];
-  newMsgs: ChatCompletionRequestMessage[];
-}) {
-  try {
-    const messages = [...msgs, ...newMsgs].map((it) => ({ ...it, name: it.name ?? undefined }));
-    const response = await client.createChatCompletion(
-      {
-        model: "gpt-3.5-turbo",
-        messages,
-        temperature: 0.5,
-        max_tokens: 200,
-        stream: true,
-      },
-      { responseType: "stream" },
-    );
-    if (response.status !== 200) {
-      res.status(response.status).json({ error: response.statusText });
-      return;
-    }
-
-    let msg = "",
-      role: ChatCompletionRequestMessageRoleEnum;
-    const stream = await StreamResponce<CreateChatCompletionResponse>(response, async (value, status) => {
-      // for save chat history
-      if (status !== StreamStatusEnum.ERROR) {
-        if (value.delta?.role) {
-          role = value.delta?.role;
-        }
-        if (value.delta?.content) {
-          msg += value.delta?.content;
-        }
-        console.log(`role: ${role}, msg: ${msg}`);
-      }
-      if (status === StreamStatusEnum.DONE) {
-        res.end();
-        // add response to newMsgs
-        const _newMsg = { content: msg, role };
-        messages.push({ ..._newMsg, name: undefined });
-
-        const needToSave = newMsgs.concat(_newMsg).map((it: any) => ({ ...it, conversation_id }));
-        // save to database
-        const result = await createChat(needToSave);
-        if (!result) {
-          // TODO logging
-          return;
-        }
-      }
-    });
-    return new Response(stream);
-  } catch (e: any) {
-    console.error(e);
-    let msg = e.message;
-    if (e.code === "ETIMEDOUT") {
-      msg = "Request api was timeout, pls confirm your network worked";
-    } else if (e.response && e.response.data) {
-      msg = e.response.data.error;
-    }
-    // res.status(500).json({ error: msg });
-    return new Response(msg);
   }
 }
