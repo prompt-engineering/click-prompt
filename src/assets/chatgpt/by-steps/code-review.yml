@@ -21,10 +21,19 @@ steps:
       $$patch$$
     values:
       patch: |
+        From 90d3e91b35cf503c1bda1695051101904db29e54 Mon Sep 17 00:00:00 2001
+        From: CGQAQ <m.jason.liu@outlook.com>
+        Date: Mon, 13 Mar 2023 17:15:42 +0800
+        Subject: [PATCH] feat: Clear conversations
+
+        ---
+        src/storage/planetscale.ts            | 10 ++++++++++
+        1 files changed, 10 insertions(+), 0 deletion(-)
+
         --- a/src/storage/planetscale.ts
-        +++ b/src/storage/planetscale.ts
-        @@ -122,6 +122,16 @@ export const deleteConversation = cache(async (conversationId: number) => {
-          .execute();
+          +++ b/src/storage/planetscale.ts
+          @@ -122,6 +122,16 @@ export const deleteConversation = cache(async (conversationId: number) => {
+               .execute();
         });
 
         +export const deleteAllConversationsByUserId = cache(async (userId: number) => {
@@ -37,8 +46,9 @@ steps:
         +    .execute();
         +});
         +
-         export const getUserByKeyHashed = cache(async (keyHashed: string) => {
-           const result = await queryBuilder
-           .selectFrom("users")
-
+           export const getUserByKeyHashed = cache(async (keyHashed: string) => {
+             const result = await queryBuilder
+             .selectFrom("users")
+        --
+        2.39.2
     cachedResponseRegex:
