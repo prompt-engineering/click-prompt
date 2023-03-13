@@ -18,7 +18,7 @@ steps:
       1. 你需要考虑围绕这一类型系统的所有场景。
       2. 使用如下的 DSL 格式来描述系统：
 
-      """
+      ```
       System("BlogSystem") {
         Entities {
           Blog { title: string, ..., comments: [Comment]? },
@@ -36,7 +36,7 @@ steps:
           Route(path: String, method: HttpMethod operation: Operation)
         }
       }
-      """
+      ```
 
       明白吗？明白就返回：OK。
     cachedResponseRegex:
