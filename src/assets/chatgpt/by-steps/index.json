@@ -18,6 +18,14 @@
         "cachedResponseRegex": ".*"
       },
       {
+        "name": "C4 模型",
+        "ask": "使用 Mermaid C4 描述一下这个系统的软件，只返回 mermaid 代码。\n",
+        "values": {
+          "placeholder": "在线博客系统"
+        },
+        "cachedResponseRegex": ".*"
+      },
+      {
         "name": "分析系统，绘制 Entities 图",
         "ask": "system(\"Entities\"): $$placeholder$$，返回 Mermaid 类图。\n",
         "values": {
@@ -35,7 +43,7 @@
       },
       {
         "name": "分析系统，绘制 API 表格",
-        "ask": "system(\"API\"): $$placeholder$$，只返回 API 部分。\n",
+        "ask": "system(\"API\"): $$placeholder$$，只返回 API 部分，并使用表格绘制。\n",
         "values": {
           "placeholder": "在线博客系统"
         },

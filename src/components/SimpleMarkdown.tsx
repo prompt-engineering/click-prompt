@@ -158,18 +158,6 @@ function SimpleMarkdown({ content }: any) {
       return (
         <>
           <pre className='mermaid bg-white flex justify-center'>{children}</pre>
-          <Script
-            id={"mermaid"}
-            type='module'
-            strategy='afterInteractive'
-            dangerouslySetInnerHTML={{
-              __html: `
-        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
-        mermaid.initialize({startOnLoad: true});
-        mermaid.contentLoaded();
-`,
-            }}
-          />
         </>
       );
     }
@@ -227,6 +215,19 @@ function SimpleMarkdown({ content }: any) {
       >
         {text}
       </ReactMarkdown>
+
+      <Script
+        id={"mermaid"}
+        type='module'
+        strategy='afterInteractive'
+        dangerouslySetInnerHTML={{
+          __html: `
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+        mermaid.initialize({startOnLoad: true});
+        mermaid.contentLoaded();
+`,
+        }}
+      />
     </>
   );
 }
