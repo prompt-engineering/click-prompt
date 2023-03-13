@@ -152,7 +152,7 @@ function SimpleMarkdown({ content }: any) {
   const text = content.replaceAll("\n", "\n\n");
 
   function getHighlighter(match: RegExpExecArray, props: any, children: any) {
-    let language = match[1];
+    const language = match[1];
     if (language == "mermaid") {
       return <pre className='mermaid bg-white flex justify-center'>{children}</pre>;
     }
@@ -210,6 +210,7 @@ function SimpleMarkdown({ content }: any) {
         {text}
       </ReactMarkdown>
       <Script
+        id={"mermaid"}
         type='module'
         strategy='afterInteractive'
         dangerouslySetInnerHTML={{
