@@ -154,7 +154,23 @@ function SimpleMarkdown({ content }: any) {
   function getHighlighter(match: RegExpExecArray, props: any, children: any) {
     const language = match[1];
     if (language == "mermaid") {
-      return <pre className='mermaid bg-white flex justify-center'>{children}</pre>;
+      return (
+        <>
+          <pre className='mermaid bg-white flex justify-center'>{children}</pre>
+          <Script
+            id={"mermaid"}
+            type='module'
+            strategy='afterInteractive'
+            dangerouslySetInnerHTML={{
+              __html: `
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+        mermaid.initialize({startOnLoad: true});
+        mermaid.contentLoaded();
+`,
+            }}
+          />
+        </>
+      );
     }
 
     return (
@@ -209,18 +225,6 @@ function SimpleMarkdown({ content }: any) {
       >
         {text}
       </ReactMarkdown>
-      <Script
-        id={"mermaid"}
-        type='module'
-        strategy='afterInteractive'
-        dangerouslySetInnerHTML={{
-          __html: `
-        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
-        mermaid.initialize({startOnLoad: true});
-        mermaid.contentLoaded();
-`,
-        }}
-      />
     </>
   );
 }

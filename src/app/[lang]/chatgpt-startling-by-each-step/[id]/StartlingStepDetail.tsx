@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { Textarea } from "@chakra-ui/react";
 
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
-import { Avatar, Box } from "@/components/ChakraUI";
+import { Avatar, Box, Text } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
