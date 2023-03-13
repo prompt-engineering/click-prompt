@@ -96,9 +96,10 @@ function ChatGptGeneral({ locale, i18n, chatgptSpecific }: { chatgptSpecific: Ch
                       sx={{ breakInside: "avoid-column" }}
                     >
                       <CardHeader>
-                        <ClickPromptButton text={sample.ask} size={"sm"}>
+                        <Flex justifyContent={"space-between"} alignItems={"center"}>
                           <StyledTitle>{sample.name}</StyledTitle>
-                        </ClickPromptButton>
+                          <ClickPromptButton text={sample.ask} size={"sm"} />
+                        </Flex>
                       </CardHeader>
                       <StyledCardBody maxH='320px' overflow='auto'>
                         <Heading size={"md"}>Prompt</Heading>
