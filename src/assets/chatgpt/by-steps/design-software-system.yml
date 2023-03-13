@@ -47,48 +47,6 @@ steps:
       placeholder: 在线博客系统
     cachedResponseRegex: .*
 
-  - name: C4 模型
-    ask: |
-      使用 Mermaid C4 Diagrams，描述一下 $$placeholder$$ ，只返回 mermaid 代码。Mermaid C4 Diagrams 示例格式如下：
-
-      ```mermaid
-        C4Context
-        title {}
-        Enterprise_Boundary(b0, "BankBoundary0") {
-          Person(customerA, "Banking Customer A", "{}")
-          Person_Ext(customerC, "{}", "desc")
-
-          System(SystemAA, "{}", "{}")
-
-          Enterprise_Boundary(b1, "{}") {
-
-            SystemDb_Ext(SystemE, "{}", "{}.")
-
-            System_Boundary(b2, "{}") {
-              System(SystemA, "{}")
-            }
-
-            SystemDb(SystemD, "{}", "{}")
-
-            Boundary(b3, "BankBoundary3", "boundary") {
-              SystemQueue(SystemF, "{}", "{}")
-              SystemQueue_Ext(SystemG, "{}", "{}")
-            }
-          }
-        }
-
-        BiRel(customerA, SystemAA, "{}")
-        Rel(SystemAA, SystemC, "{}", "{}")
-
-        UpdateElementStyle(customerA, $fontColor="red", $bgColor="grey", $borderColor="red")
-        UpdateRelStyle(customerA, SystemAA, $textColor="blue", $lineColor="blue", $offsetX="5")
-
-        UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
-      ```
-    values:
-      placeholder: 在线博客系统
-    cachedResponseRegex: .*
-
   - name: 分析系统，绘制 Entities 图
     ask: |
       system("Entities"): $$placeholder$$，返回 Mermaid 类图。

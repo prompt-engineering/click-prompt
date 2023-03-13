@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Textarea } from "@chakra-ui/react";
 
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
-import { Avatar, Box, Text } from "@/components/ChakraUI";
+import { Avatar, Box } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/SimpleMarkdown";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
@@ -12,6 +11,7 @@ import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/
 import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StepDetail";
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
+import { AskRenderer } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/AskRenderer";
 
 type StepProps = {
   index: number;
@@ -22,34 +22,6 @@ type StepProps = {
   conversationId?: number;
   updateConversationId?: (conversationId: number) => void;
 };
-
-type AskRendererProps = { step: StepDetail; onAskUpdate: (ask: string) => void; cachedValue: Record<number, any> };
-
-function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
-  const askTask = fillStepWithValued(step, cachedValue);
-  const [value, setValue] = React.useState<string>(askTask.ask);
-
-  useEffect(() => {
-    setValue(askTask.ask);
-    onAskUpdate(askTask.ask);
-  }, [askTask.ask, setValue]);
-
-  if (askTask.replaced) {
-    return (
-      <Textarea
-        className='bg-white'
-        h='calc(100%)'
-        value={value}
-        onChange={(event) => {
-          setValue(event.target.value);
-          onAskUpdate(event.target.value);
-        }}
-      />
-    );
-  }
-
-  return <SimpleMarkdown content={step.ask} />;
-}
 
 function StartlingStepDetail({
   index,

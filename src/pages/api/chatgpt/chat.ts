@@ -27,7 +27,7 @@ const handler: NextApiHandler = async (req, res) => {
     return;
   }
 
-  const chatClient = await getChatClient(user.key_hashed, await decryptKey(user.key_encrypted, user.iv));
+  const chatClient = await getChatClient(user.key_hashed, decryptKey(user.key_encrypted, user.iv));
 
   if (req.method === "POST" && req.body) {
     const body: RequestBody = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
