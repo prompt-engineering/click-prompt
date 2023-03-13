@@ -6,7 +6,7 @@
     "steps": [
       {
         "name": "Code Review",
-        "ask": "作为 Pull Request 的代码审查者，需对下列代码变更提供反馈。提供的变更以补丁形式呈现，每个补丁条目包含提交信息（Subject line）和以 unidiff 格式显示的代码变更（diffs）。\n\n要求：\n\n审查补丁中的代码变更（diffs）并提供反馈。\n如果有任何错误，请指出。\n代码是否按照提交信息中所述执行？\n不要强调小问题和琐碎问题。\n如果有多个评论，请使用项目符号。\n\n要审查的 Pull Request 补丁如下：\n$$patch$$\n",
+        "ask": "作为 Pull Request 的代码审查者，需对下列代码变更提供反馈。提供的变更以补丁形式呈现，每个补丁条目包含提交信息（Subject line）和以 unidiff 格式显示的代码变更（diffs）。\n\n要求：\n\n- 审查补丁中的代码变更（diffs）并提供反馈。\n- 如果有任何错误，请指出。\n- 代码是否按照提交信息中所述执行？\n- 不要强调小问题和琐碎问题。\n- 如果有多个评论，请使用项目符号。\n\n要审查的 Pull Request 补丁如下：\n\n$$patch$$\n",
         "values": {
           "patch": "--- a/src/storage/planetscale.ts\n+++ b/src/storage/planetscale.ts\n@@ -122,6 +122,16 @@ export const deleteConversation = cache(async (conversationId: number) => {\n  .execute();\n});\n\n+export const deleteAllConversationsByUserId = cache(async (userId: number) => {\n+  return queryBuilder\n+    .updateTable(\"conversations\")\n+    .set({\n   +      deleted: 1,\n+    })\n+    .where(\"conversations.user_id\", \"=\", userId)\n+    .execute();\n+});\n+\n export const getUserByKeyHashed = cache(async (keyHashed: string) => {\n   const result = await queryBuilder\n   .selectFrom(\"users\")\n"
         },
