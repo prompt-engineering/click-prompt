@@ -9,6 +9,7 @@ import { Image } from "@chakra-ui/image";
 import { Checkbox } from "@chakra-ui/checkbox";
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import { chakra } from "@chakra-ui/system";
+import Script from "next/script";
 
 // MIT License
 //
@@ -149,58 +150,77 @@ export const defaults: Defaults = {
 
 function SimpleMarkdown({ content }: any) {
   const text = content.replaceAll("\n", "\n\n");
+
   function getHighlighter(match: RegExpExecArray, props: any, children: any) {
+    let language = match[1];
+    if (language == "mermaid") {
+      return <pre className='mermaid bg-white flex justify-center'>{children}</pre>;
+    }
+
     return (
-      <SyntaxHighlighter language={match[1]} wrapLongLines={true} {...props}>
+      <SyntaxHighlighter language={language} wrapLongLines={true} {...props}>
         {children}
       </SyntaxHighlighter>
     );
   }
 
   return (
-    <ReactMarkdown
-      unwrapDisallowed={true}
-      components={{
-        p: defaults.p,
-        em: defaults.em,
-        blockquote: defaults.blockquote,
-        del: defaults.del,
-        hr: defaults.hr,
-        a: defaults.a,
-        img: defaults.img,
-        text: defaults.text,
-        ul: defaults.ul,
-        ol: defaults.ol,
-        li: defaults.li,
-        h1: defaults.heading,
-        h2: defaults.heading,
-        h3: defaults.heading,
-        h4: defaults.heading,
-        h5: defaults.heading,
-        h6: defaults.heading,
-        table: defaults.table,
-        thead: defaults.thead,
-        tbody: defaults.tbody,
-        tr: defaults.tr,
-        td: defaults.td,
-        th: defaults.th,
-        code({ node, inline, className, children, ...props }) {
-          const match = /language-(\w+)/.exec(className || "");
-          // we had replace \n to \n\n for markdown to works, but it will cause a bug in syntax highlighter, so we need to return it back.
-          const code = String(children)?.replaceAll("\n\n", "\n").replace(/\n$/, "");
+    <>
+      <ReactMarkdown
+        unwrapDisallowed={true}
+        components={{
+          p: defaults.p,
+          em: defaults.em,
+          blockquote: defaults.blockquote,
+          del: defaults.del,
+          hr: defaults.hr,
+          a: defaults.a,
+          img: defaults.img,
+          text: defaults.text,
+          ul: defaults.ul,
+          ol: defaults.ol,
+          li: defaults.li,
+          h1: defaults.heading,
+          h2: defaults.heading,
+          h3: defaults.heading,
+          h4: defaults.heading,
+          h5: defaults.heading,
+          h6: defaults.heading,
+          table: defaults.table,
+          thead: defaults.thead,
+          tbody: defaults.tbody,
+          tr: defaults.tr,
+          td: defaults.td,
+          th: defaults.th,
+          code({ node, inline, className, children, ...props }) {
+            const match = /language-(\w+)/.exec(className || "");
+            // we had replace \n to \n\n for markdown to works, but it will cause a bug in syntax highlighter, so we need to return it back.
+            const code = String(children)?.replaceAll("\n\n", "\n").replace(/\n$/, "");
 
-          return !inline && match ? (
-            getHighlighter(match, props, code)
-          ) : (
-            <code className={className + " " + "empty-language"} {...props}>
-              {code}
-            </code>
-          );
-        },
-      }}
-    >
-      {text}
-    </ReactMarkdown>
+            return !inline && match ? (
+              getHighlighter(match, props, code)
+            ) : (
+              <code className={className + " " + "empty-language"} {...props}>
+                {code}
+              </code>
+            );
+          },
+        }}
+      >
+        {text}
+      </ReactMarkdown>
+      <Script
+        type='module'
+        strategy='afterInteractive'
+        dangerouslySetInnerHTML={{
+          __html: `
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+        mermaid.initialize({startOnLoad: true});
+        mermaid.contentLoaded();
+`,
+        }}
+      />
+    </>
   );
 }
 

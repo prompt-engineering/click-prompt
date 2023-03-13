@@ -47,7 +47,7 @@ steps:
 
       1. 分析和完善需求，但是不需要返回结果给我。
       2. 使用 Mermaid 绘制时序图，但是不需要返回给我。
-      3. 最后，只返回 Mermaid 代码，只返回 Mermaid 代码。
+      3. 最后，只返回 Mermaid 代码，如："""```mermaid graph {}"""，只返回 Mermaid 代码。
 
       需求，如下：
 

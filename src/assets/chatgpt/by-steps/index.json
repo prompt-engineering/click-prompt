@@ -19,7 +19,7 @@
       },
       {
         "name": "Mermaid sequence diagram",
-        "ask": "I will give you a vague requirement, and you need to:\n\n1. Analyze and refine the requirement, but you don't need to return the result to me.\n2. Use Mermaid to draw a sequence diagram, but you don't need to return it to me.\n3. Finally, only return the Mermaid code, nothing else.\n\nThe requirement is as follows:\n\n\"\"\"\n$$response:1$$\n\"\"\"\n"
+        "ask": "I will give you a vague requirement, and you need to:\n\n1. Analyze and refine the requirement, but you don't need to return the result to me.\n2. Use Mermaid to draw a sequence diagram, but you don't need to return it to me.\n3. Finally, only return the Mermaid code, like：\"\"\"```mermaid  graph {}```\"\"\", nothing else.\n\nThe requirement is as follows:\n\n\"\"\"\n$$response:1$$\n\"\"\"\n"
       },
       {
         "name": "Analyze user stories and write test cases",
@@ -55,7 +55,7 @@
       },
       {
         "name": "Mermaid 绘制流程图",
-        "ask": "我会给你一个模糊的需求，你需要：\n\n1. 分析和完善需求，但是不需要返回结果给我。\n2. 使用 Mermaid 绘制时序图，但是不需要返回给我。\n3. 最后，只返回 Mermaid 代码，只返回 Mermaid 代码。\n\n需求，如下：\n\n\"\"\"\n$$response:1$$\n\"\"\"\n"
+        "ask": "我会给你一个模糊的需求，你需要：\n\n1. 分析和完善需求，但是不需要返回结果给我。\n2. 使用 Mermaid 绘制时序图，但是不需要返回给我。\n3. 最后，只返回 Mermaid 代码，如：\"\"\"```mermaid graph {}\"\"\"，只返回 Mermaid 代码。\n\n需求，如下：\n\n\"\"\"\n$$response:1$$\n\"\"\"\n"
       },
       {
         "name": "分析用户故事，编写测试用例",
