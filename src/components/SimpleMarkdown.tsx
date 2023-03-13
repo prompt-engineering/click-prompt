@@ -9,6 +9,7 @@ import { Image } from "@chakra-ui/image";
 import { Checkbox } from "@chakra-ui/checkbox";
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import { chakra } from "@chakra-ui/system";
+import remarkGfm from "remark-gfm";
 import Script from "next/script";
 
 // MIT License
@@ -184,6 +185,7 @@ function SimpleMarkdown({ content }: any) {
     <>
       <ReactMarkdown
         unwrapDisallowed={true}
+        remarkPlugins={[remarkGfm]}
         components={{
           p: defaults.p,
           em: defaults.em,
