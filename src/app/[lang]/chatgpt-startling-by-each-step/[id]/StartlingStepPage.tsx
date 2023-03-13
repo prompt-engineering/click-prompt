@@ -5,9 +5,17 @@ import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleG
 import StartlingStepDetail from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StartlingStepDetail";
 import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
 
-function StartlingStepPage({ content, id }: { content: StartlingStep; id: string }) {
+type StepPageProps = {
+  content: StartlingStep;
+  id: string;
+  i18n: GeneralI18nProps["i18n"];
+};
+
+function StartlingStepPage({ content, id, i18n }: StepPageProps) {
   const [conversationId, setConversationId] = React.useState<number | undefined>(undefined);
   const [cachedValue, setCachedValue] = React.useState<Record<number, any>>({});
+
+  const dict = i18n.dict;
 
   const updateCached = (index: number, value: any) => {
     setCachedValue((prev) => ({ ...prev, [index]: value }));
@@ -25,10 +33,10 @@ function StartlingStepPage({ content, id }: { content: StartlingStep; id: string
             <Box>
               <Breadcrumb>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href='/chatgpt-samples'>ChatGPT 示例</BreadcrumbLink>
+                  <BreadcrumbLink href='/chatgpt-startling-by-each-step'>{dict["by-each-step-samples"]}</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/chatgpt-samples/${id}`}>{content.name}</BreadcrumbLink>
+                  <BreadcrumbLink href={`/chatgpt-startling-by-each-step/${id}`}>{content.name}</BreadcrumbLink>
                 </BreadcrumbItem>
               </Breadcrumb>
             </Box>

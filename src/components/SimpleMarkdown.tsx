@@ -152,7 +152,7 @@ function SimpleMarkdown({ content }: any) {
   function getHighlighter(match: RegExpExecArray, props: any, children: any) {
     return (
       <SyntaxHighlighter language={match[1]} wrapLongLines={true} {...props}>
-        {content}
+        {children}
       </SyntaxHighlighter>
     );
   }
@@ -178,7 +178,6 @@ function SimpleMarkdown({ content }: any) {
         h4: defaults.heading,
         h5: defaults.heading,
         h6: defaults.heading,
-        pre: defaults.pre,
         table: defaults.table,
         thead: defaults.thead,
         tbody: defaults.tbody,
