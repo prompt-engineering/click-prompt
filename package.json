@@ -34,6 +34,7 @@
     "chinese-numbering": "^1.0.0",
     "color-name-list": "^10.5.0",
     "encoding": "^0.1.13",
+    "eventsource-parser": "^0.1.0",
     "formik": "^2.2.9",
     "framer-motion": "^10.0.1",
     "kysely": "^0.23.5",
