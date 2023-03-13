@@ -21,8 +21,7 @@ export function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps
     if (ref.current) {
       autosize(ref.current);
       return () => {
-        // @ts-ignore
-        autosize.destroy(ref.current);
+        if (ref.current) autosize.destroy(ref.current);
       };
     }
   }, []);
