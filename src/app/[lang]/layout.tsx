@@ -60,7 +60,7 @@ export default function RootLayout({ params, children }: RootLayoutProps) {
         </div>
         <AnalyticsWrapper />
 
-        <script src='https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js'></script>
+        <Script src='https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js' async></Script>
       </body>
     </html>
   );
