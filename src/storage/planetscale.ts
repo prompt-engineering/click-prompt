@@ -122,6 +122,16 @@ export const deleteConversation = cache(async (conversationId: number) => {
     .execute();
 });
 
+export const deleteAllConversationsByUserId = cache(async (userId: number) => {
+  return queryBuilder
+    .updateTable("conversations")
+    .set({
+      deleted: 1,
+    })
+    .where("conversations.user_id", "=", userId)
+    .execute();
+});
+
 export const getUserByKeyHashed = cache(async (keyHashed: string) => {
   const result = await queryBuilder
     .selectFrom("users")

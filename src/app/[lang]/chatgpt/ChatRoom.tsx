@@ -207,6 +207,14 @@ export const ChatRoom = ({
     setConversations(conversations.filter((conversation) => conversation.id !== conversationId));
   }
 
+  async function deleteAllConversations() {
+    const data = await ConversationAPI.deleteAllConversations();
+    if (!data) {
+      return;
+    }
+    setConversations([]);
+  }
+
   async function sendMessage() {
     if (message.length === 0) {
       alert("Please enter your message first.");
@@ -316,7 +324,15 @@ export const ChatRoom = ({
           ))}
         </div>
         <div>
-          <div className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'>
+          <div
+            className='flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20'
+            onClick={(e) => {
+              e.stopPropagation();
+              if (confirm("Are you sure to delete ALL conversations?")) {
+                deleteAllConversations();
+              }
+            }}
+          >
             <TrashcanIcon color='white' />
             Clear conversations
           </div>
