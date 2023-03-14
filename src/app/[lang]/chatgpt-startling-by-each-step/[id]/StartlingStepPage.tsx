@@ -4,18 +4,19 @@ import React from "react";
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
 import StartlingStepDetail from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StartlingStepDetail";
 import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
+import { extend } from "lodash-es";
 
 type StepPageProps = {
   content: StartlingStep;
   id: string;
-  i18n: GeneralI18nProps["i18n"];
+  i18n: GeneralI18nProps;
 };
 
 function StartlingStepPage({ content, id, i18n }: StepPageProps) {
   const [conversationId, setConversationId] = React.useState<number | undefined>(undefined);
   const [cachedValue, setCachedValue] = React.useState<Record<number, any>>({});
 
-  const dict = i18n.dict;
+  const dict = i18n.i18n.dict;
 
   const updateCached = (index: number, value: any) => {
     setCachedValue((prev) => ({ ...prev, [index]: value }));
@@ -33,12 +34,14 @@ function StartlingStepPage({ content, id, i18n }: StepPageProps) {
             <Box>
               <Breadcrumb>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href='/chatgpt-startling-by-each-step/'>
+                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-startling-by-each-step/`}>
                     {dict["by-each-step-samples"]}
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/chatgpt-startling-by-each-step/${id}`}>{content.name}</BreadcrumbLink>
+                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-startling-by-each-step/${id}`}>
+                    {content.name}
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
               </Breadcrumb>
             </Box>
