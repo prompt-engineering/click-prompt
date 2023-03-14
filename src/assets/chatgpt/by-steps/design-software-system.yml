@@ -42,7 +42,7 @@ steps:
     cachedResponseRegex:
   - name: 设计用户旅程
     ask: |
-      design: $$placeholder$$ ，按旅程拆分成多个 Mermaid 用户旅程图返回。
+      design: $$placeholder$$ ，按旅程拆分成多个 Mermaid User Journey Diagram 返回。
     values:
       placeholder: 在线博客系统
     cachedResponseRegex: .*

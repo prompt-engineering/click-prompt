@@ -28,15 +28,7 @@
       },
       {
         "name": "设计用户旅程",
-        "ask": "design: $$placeholder$$ ，按旅程拆分成多个 Mermaid 用户旅程图返回。\n",
-        "values": {
-          "placeholder": "在线博客系统"
-        },
-        "cachedResponseRegex": ".*"
-      },
-      {
-        "name": "C4 模型",
-        "ask": "使用 Mermaid C4 Diagrams，描述一下 $$placeholder$$ ，只返回 mermaid 代码。Mermaid C4 Diagrams 示例格式如下：\n\n```mermaid\n  C4Context\n  title {}\n  Enterprise_Boundary(b0, \"BankBoundary0\") {\n    Person(customerA, \"Banking Customer A\", \"{}\")\n    Person_Ext(customerC, \"{}\", \"desc\")\n\n    System(SystemAA, \"{}\", \"{}\")\n\n    Enterprise_Boundary(b1, \"{}\") {\n\n      SystemDb_Ext(SystemE, \"{}\", \"{}.\")\n\n      System_Boundary(b2, \"{}\") {\n        System(SystemA, \"{}\")\n      }\n\n      SystemDb(SystemD, \"{}\", \"{}\")\n\n      Boundary(b3, \"BankBoundary3\", \"boundary\") {\n        SystemQueue(SystemF, \"{}\", \"{}\")\n        SystemQueue_Ext(SystemG, \"{}\", \"{}\")\n      }\n    }\n  }\n\n  BiRel(customerA, SystemAA, \"{}\")\n  Rel(SystemAA, SystemC, \"{}\", \"{}\")\n\n  UpdateElementStyle(customerA, $fontColor=\"red\", $bgColor=\"grey\", $borderColor=\"red\")\n  UpdateRelStyle(customerA, SystemAA, $textColor=\"blue\", $lineColor=\"blue\", $offsetX=\"5\")\n\n  UpdateLayoutConfig($c4ShapeInRow=\"3\", $c4BoundaryInRow=\"1\")\n```\n",
+        "ask": "design: $$placeholder$$ ，按旅程拆分成多个 Mermaid User Journey Diagram 返回。\n",
         "values": {
           "placeholder": "在线博客系统"
         },
