@@ -12,6 +12,7 @@ import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-b
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
 import { AskRenderer } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/AskRenderer";
+import CopyComponent from "@/components/CopyComponent";
 
 type StepProps = {
   index: number;
@@ -87,6 +88,7 @@ function StartlingStepDetail({
         {response && (
           <Box gap='2' ml='2' flex='1'>
             <SimpleMarkdown content={response} />
+            <CopyComponent value={response} />
           </Box>
         )}
       </AiBlock>
