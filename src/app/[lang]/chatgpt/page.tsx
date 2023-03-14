@@ -8,8 +8,6 @@ import * as UserAPI from "@/api/user";
 
 export default async function ChatGPTPage() {
   const hashedKey = cookies().get(SITE_USER_COOKIE)?.value as string;
-  console.log("hashedKey", hashedKey);
-  console.log("cookes", cookies().getAll());
 
   let isLoggedin = false;
   try {

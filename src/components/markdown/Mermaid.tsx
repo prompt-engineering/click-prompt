@@ -40,7 +40,6 @@ export function Mermaid({ graphDefinition }: { graphDefinition: string }) {
         ref.current!.innerHTML = svgCode;
       });
       const it = document.getElementById(currentId);
-      // console.log("it", typeof it);
       // eslint-disable-next-line  @typescript-eslint/no-extra-non-null-assertion
       const instance = svgPanZoom(it!!);
 
