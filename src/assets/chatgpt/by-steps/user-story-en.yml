@@ -41,7 +41,7 @@ steps:
 
       1. Analyze and refine the requirement, but you don't need to return the result to me.
       2. Use Mermaid to draw a sequence diagram, but you don't need to return it to me.
-      3. Finally, only return the Mermaid code, nothing else.
+      3. Finally, only return the Mermaid code, like："""```mermaid  graph {}```""", nothing else.
 
       The requirement is as follows:
 

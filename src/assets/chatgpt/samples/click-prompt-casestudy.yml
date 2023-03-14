@@ -59,33 +59,40 @@ steps:
   - ask: |
       我们想在 ClickPrompt 上添加一个新的需求： 在 ClickPrompt 上使用 ChatGPT 自动创建 GitHub issue，以便于社区贡献者能更好的理解这个需求。输出需求：
 
-      ```
       """
-      Is your feature request related to a problem? Please describe.
+      **Is your feature request related to a problem? Please describe.**
+
       No
 
-      Describe the solution you'd like
+      **Describe the solution you'd like**
+
       A clear and concise description of what you want to happen.
 
-      Describe alternatives you've considered
+      **Describe alternatives you've considered**
+
       A clear and concise description of any alternative solutions or features you've considered.
 
-      Additional context
+      **Additional context**
+
       Add any other context or screenshots about the feature request here.
       """
-      ```
+
     response: |
       """
       Is your feature request related to a problem? Please describe.
+
       No
 
       Describe the solution you'd like
+
       I would like to be able to use ChatGPT to automatically create GitHub issues from within ClickPrompt. This would help community contributors better understand the requirements and goals of a given feature request.
 
       Describe alternatives you've considered
+
       Manually creating GitHub issues is a time-consuming process, and it can be difficult to ensure that all relevant information is included. By automating this process with ChatGPT, we can save time and improve the overall quality of the issues we create.
 
       Additional context
+
       Add any other context or screenshots about the feature request here.
       """
   - ask: |

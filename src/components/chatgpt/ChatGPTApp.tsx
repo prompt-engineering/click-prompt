@@ -1,7 +1,7 @@
 "use client";
 
-import { ChatRoom } from "@/app/[lang]/chatgpt/ChatRoom";
-import { LoginPage } from "@/app/[lang]/chatgpt/LoginPage";
+import { ChatRoom } from "@/components/chatgpt/ChatRoom";
+import { LoginPage } from "@/components/chatgpt/LoginPage";
 import React, { useEffect, useState } from "react";
 
 type ChatGPTAppProps = {

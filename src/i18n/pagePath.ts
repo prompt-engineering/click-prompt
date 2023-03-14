@@ -1,3 +1,5 @@
+export const hadChildRoutes = ["chatgpt-startling-by-each-step", "chatgpt-samples"];
+
 export const pages = [
   "/",
   "/chatgpt/",
@@ -5,8 +7,10 @@ export const pages = [
   "/chatgpt-generator-cot/",
   "/chatgpt-interactive-game/",
   "/chatgpt-startling-by-each-step/",
+  "/chatgpt-startling-by-each-step/$",
   "/chatgpt-prompt-role-play/",
   "/chatgpt-samples/",
+  "/chatgpt-samples/$",
   "/github-copilot-samples/",
   "/resources/",
   "/stable-diffusion-examples/",

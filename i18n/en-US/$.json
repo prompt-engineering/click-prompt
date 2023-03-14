@@ -4,10 +4,11 @@
   "chatgpt-generator-cot": "ChatGPT COT Mode",
   "chatgpt-interactive-game": "ChatGPT Interactive Game",
   "chatgpt-samples": "ChatGPT Samples",
-  "chatgpt-startling-by-each-step": "ChatGPT Startling by Each Step",
+  "chatgpt-startling-by-each-step": "ChatGPT Steps Run",
   "chatgpt": "ChatGPT Chat Room",
   "stable-diffusion-examples": "StableDiffusion Examples",
   "stable-diffusion-generator": "AI Painting Generator",
   "github-copilot-samples": "GitHub Copilot Samples",
+  "chatgpt-programming": "Programming",
   "resources": "Learning Resources"
 }

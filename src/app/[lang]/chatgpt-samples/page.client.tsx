@@ -23,7 +23,7 @@ import Link from "next/link";
 
 import samples from "@/assets/chatgpt/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import SimpleMarkdown from "@/components/SimpleMarkdown";
+import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 

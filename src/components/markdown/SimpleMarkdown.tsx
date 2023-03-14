@@ -1,14 +1,15 @@
 "use client";
 
 import React from "react";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown, { Components } from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { Components } from "react-markdown";
 import { Code, Divider, Heading, Link, ListItem, OrderedList, Text, UnorderedList } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 import { Checkbox } from "@chakra-ui/checkbox";
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import { chakra } from "@chakra-ui/system";
+import remarkGfm from "remark-gfm";
+import { Mermaid } from "@/components/markdown/Mermaid";
 
 // MIT License
 //
@@ -148,60 +149,66 @@ export const defaults: Defaults = {
 };
 
 function SimpleMarkdown({ content }: any) {
-  const text = content.replaceAll("\n", "\n\n");
   function getHighlighter(match: RegExpExecArray, props: any, children: any) {
+    const language = match[1];
+    if (language == "mermaid") {
+      return <Mermaid graphDefinition={children} />;
+    }
+
     return (
-      <SyntaxHighlighter language={match[1]} wrapLongLines={true} {...props}>
-        {content}
+      <SyntaxHighlighter language={language} wrapLongLines={true} {...props}>
+        {children}
       </SyntaxHighlighter>
     );
   }
 
   return (
-    <ReactMarkdown
-      unwrapDisallowed={true}
-      components={{
-        p: defaults.p,
-        em: defaults.em,
-        blockquote: defaults.blockquote,
-        del: defaults.del,
-        hr: defaults.hr,
-        a: defaults.a,
-        img: defaults.img,
-        text: defaults.text,
-        ul: defaults.ul,
-        ol: defaults.ol,
-        li: defaults.li,
-        h1: defaults.heading,
-        h2: defaults.heading,
-        h3: defaults.heading,
-        h4: defaults.heading,
-        h5: defaults.heading,
-        h6: defaults.heading,
-        pre: defaults.pre,
-        table: defaults.table,
-        thead: defaults.thead,
-        tbody: defaults.tbody,
-        tr: defaults.tr,
-        td: defaults.td,
-        th: defaults.th,
-        code({ node, inline, className, children, ...props }) {
-          const match = /language-(\w+)/.exec(className || "");
-          // we had replace \n to \n\n for markdown to works, but it will cause a bug in syntax highlighter, so we need to return it back.
-          const code = String(children)?.replaceAll("\n\n", "\n").replace(/\n$/, "");
+    <>
+      <ReactMarkdown
+        unwrapDisallowed={true}
+        remarkPlugins={[remarkGfm]}
+        components={{
+          p: defaults.p,
+          em: defaults.em,
+          blockquote: defaults.blockquote,
+          del: defaults.del,
+          hr: defaults.hr,
+          a: defaults.a,
+          img: defaults.img,
+          text: defaults.text,
+          ul: defaults.ul,
+          ol: defaults.ol,
+          li: defaults.li,
+          h1: defaults.heading,
+          h2: defaults.heading,
+          h3: defaults.heading,
+          h4: defaults.heading,
+          h5: defaults.heading,
+          h6: defaults.heading,
+          table: defaults.table,
+          thead: defaults.thead,
+          tbody: defaults.tbody,
+          tr: defaults.tr,
+          td: defaults.td,
+          th: defaults.th,
+          code({ node, inline, className, children, ...props }) {
+            const match = /language-(\w+)/.exec(className || "");
+            // we had replace \n to \n\n for markdown to works, but it will cause a bug in syntax highlighter, so we need to return it back.
+            const code = String(children)?.replace(/\n$/, "");
 
-          return !inline && match ? (
-            getHighlighter(match, props, code)
-          ) : (
-            <code className={className + " " + "empty-language"} {...props}>
-              {code}
-            </code>
-          );
-        },
-      }}
-    >
-      {text}
-    </ReactMarkdown>
+            return !inline && match ? (
+              getHighlighter(match, props, code)
+            ) : (
+              <code className={className + " " + "empty-language"} {...props}>
+                {code}
+              </code>
+            );
+          },
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </>
   );
 }
 
