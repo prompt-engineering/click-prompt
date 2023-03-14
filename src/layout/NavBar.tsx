@@ -15,7 +15,7 @@ import { ChevronDownIcon, ExternalLinkIcon, HamburgerIcon } from "@/components/C
 import Link from "next/link";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/constants";
-import LocaleSwitcher from "@/components/LocaleSwtcher";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 import { getAppData } from "@/i18n";
 
 export default async function NavBar({ locale }: { locale: string }) {

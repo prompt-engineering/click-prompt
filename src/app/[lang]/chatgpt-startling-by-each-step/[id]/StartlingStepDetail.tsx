@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
 import { Avatar, Box } from "@/components/ChakraUI";
-import SimpleMarkdown from "@/components/SimpleMarkdown";
+import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
 import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";

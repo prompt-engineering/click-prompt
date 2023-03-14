@@ -9,6 +9,7 @@ import { Checkbox } from "@chakra-ui/checkbox";
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import { chakra } from "@chakra-ui/system";
 import remarkGfm from "remark-gfm";
+import { Mermaid } from "@/components/markdown/Mermaid";
 
 // MIT License
 //
@@ -146,28 +147,6 @@ export const defaults: Defaults = {
   td: (props) => <Td>{props.children}</Td>,
   th: (props) => <Th>{props.children}</Th>,
 };
-
-let currentId = 0;
-const uuid = () => `mermaid-${(currentId++).toString()}`;
-
-function Mermaid({ graphDefinition }: { graphDefinition: string }) {
-  const [html, setHtml] = React.useState("");
-  const [hasError, setHasError] = React.useState(false);
-  React.useLayoutEffect(() => {
-    if (graphDefinition)
-      try {
-        (window as any).mermaid.mermaidAPI.render(uuid(), graphDefinition, (svgCode: any) => setHtml(svgCode));
-      } catch (e) {
-        setHtml("");
-        console.error(e);
-        setHasError(true);
-      }
-  }, [graphDefinition]);
-
-  if (hasError) return <code className={"mermaid"}>{graphDefinition}</code>;
-
-  return graphDefinition ? <div dangerouslySetInnerHTML={{ __html: html }} /> : null;
-}
 
 function SimpleMarkdown({ content }: any) {
   function getHighlighter(match: RegExpExecArray, props: any, children: any) {

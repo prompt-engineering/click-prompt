@@ -19,7 +19,7 @@ import {
   Link as NavLink,
   SimpleGrid,
 } from "@/components/ChakraUI";
-import SimpleMarkdown from "@/components/SimpleMarkdown";
+import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import styled from "@emotion/styled";

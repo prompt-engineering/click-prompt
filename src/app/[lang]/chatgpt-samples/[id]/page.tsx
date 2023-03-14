@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import CopyComponent from "@/components/CopyComponent";
-import SimpleMarkdown from "@/components/SimpleMarkdown";
+import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { ChatGptIcon } from "@/components/CustomIcon";
 import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 import {
