@@ -33,7 +33,9 @@ function StartlingStepPage({ content, id, i18n }: StepPageProps) {
             <Box>
               <Breadcrumb>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href='/chatgpt-startling-by-each-step'>{dict["by-each-step-samples"]}</BreadcrumbLink>
+                  <BreadcrumbLink href='/chatgpt-startling-by-each-step/'>
+                    {dict["by-each-step-samples"]}
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
                   <BreadcrumbLink href={`/chatgpt-startling-by-each-step/${id}`}>{content.name}</BreadcrumbLink>
