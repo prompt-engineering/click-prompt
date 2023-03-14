@@ -1,13 +1,14 @@
 import React, { useCallback, useState } from "react";
 import ReactFlow, { applyEdgeChanges, applyNodeChanges, Background, Controls, EdgeChange, NodeChange } from "reactflow";
 import "reactflow/dist/style.css";
+import { Node, Edge } from "@reactflow/core/dist/esm/types";
 
 type StepExplainProps = {
   json: string;
 };
 
 function StepExplain(props: StepExplainProps) {
-  const initialNodes = [
+  const initialNodes: Node[] = [
     {
       id: "1",
       data: { label: "Hello" },
@@ -21,13 +22,23 @@ function StepExplain(props: StepExplainProps) {
     },
   ];
 
-  const initialEdges = [{ id: "1-2", source: "1", target: "2", label: "to the", type: "step" }];
+  const initialEdges: Edge[] = [{ id: "1-2", source: "1", target: "2", label: "to the", type: "step" }];
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
 
-  const onNodesChange = useCallback((changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds)), []);
-  // @ts-ignore
-  const onEdgesChange = useCallback((changes: EdgeChange[]) => setEdges((eds) => applyEdgeChanges(changes, eds)), []);
+  const onNodesChange = useCallback(
+    (changes: NodeChange[]) =>
+      setNodes((nds) => {
+        return applyNodeChanges(changes, nds);
+      }),
+    [],
+  );
+
+  const onEdgesChange = useCallback((changes: EdgeChange[]) => {
+    setEdges((eds: Edge[]) => {
+      return applyEdgeChanges(changes, eds);
+    });
+  }, []);
 
   return (
     <div style={{ height: "100%" }}>
