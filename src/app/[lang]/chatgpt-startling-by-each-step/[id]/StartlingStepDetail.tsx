@@ -8,7 +8,7 @@ import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
 import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
-import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StepDetail";
+import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/step-detail";
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
 import { AskRenderer } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/AskRenderer";

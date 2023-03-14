@@ -1,4 +1,4 @@
-import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StepDetail";
+import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/step-detail";
 import React, { useEffect, useRef } from "react";
 import { Textarea } from "@chakra-ui/react";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";

@@ -23,7 +23,7 @@ import Image from "next/image";
 import { SdPrompt } from "@/components/StableDiffusion/SdPrompt";
 import samples from "@/assets/stable-diffusion/samples/index.json";
 import { ExternalLinkIcon, InfoIcon } from "@chakra-ui/icons";
-import { parseStableDiffusionData } from "@/data-processor/SduiParser";
+import { parseStableDiffusionData } from "@/data-processor/sdui-parser";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
 import styled from "@emotion/styled";

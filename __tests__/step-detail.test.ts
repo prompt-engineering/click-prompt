@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { fillStepWithValued } from "../src/app/[lang]/chatgpt-startling-by-each-step/[id]/StepDetail";
+import { fillStepWithValued } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/step-detail";
 
 describe("Step Valued", () => {
   it("fillStepWithValued", () => {

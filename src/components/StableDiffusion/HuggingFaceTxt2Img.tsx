@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button, Flex, Grid, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import styled from "@emotion/styled";
-import { StableDiffusionDataToString } from "@/data-processor/SduiParser";
+import { StableDiffusionDataToString } from "@/data-processor/sdui-parser";
 import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
 
 const ImageNote = styled("div")`
