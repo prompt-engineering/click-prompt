@@ -9,7 +9,8 @@ explain: |
     3[custom = "prompt,interactive"]
     4[custom = "prompt,interactive"]
     5[custom = "prompt,interactive"]
-    1 -> 2 -> 3
+    1 -> 2
+    2 -> 3
     2 -> 4
     2 -> 5
   }

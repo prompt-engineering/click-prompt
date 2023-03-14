@@ -4,6 +4,7 @@ export type StartlingStep = {
   name: string;
   category: string;
   author: string;
+  explain?: string;
   description: string;
   steps: StepDetail[];
 };

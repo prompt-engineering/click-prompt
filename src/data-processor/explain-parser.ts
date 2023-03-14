@@ -17,7 +17,7 @@ export const explainParser = (str: string) => {
   const edges = children.filter((item: any) => item.type === "edge_stmt");
 
   nodes.forEach((node: any) => {
-    graph.setNode(node.node_id.id, { label: node.node_id.id, width: 100, height: 50 });
+    graph.setNode(node.node_id.id, { label: node.node_id.id, width: 120, height: 50 });
   });
 
   edges.forEach((edge: any) => {
@@ -31,25 +31,29 @@ export const explainParser = (str: string) => {
 type FlowGraph = {
   nodes: {
     id: string;
-    label: string;
+    label: string | undefined;
     width: number;
     height: number;
-    x: number;
-    y: number;
-  };
+    position: {
+      x: number;
+      y: number;
+    };
+  }[];
   edges: {
+    id: string;
     source: string;
     target: string;
-  };
+  }[];
 };
-export function graphToFlow(graph: Graph) {
+
+export function graphToFlow(graph: Graph): FlowGraph {
   const nodes = graph.nodes().map((node) => {
     const { label, width, height, x, y } = graph.node(node);
-    return { id: node, label, width, height, x, y };
+    return { id: node, label, width, height, position: { x, y } };
   });
   const edges = graph.edges().map((edge) => {
     const { v, w } = edge;
-    return { source: v, target: w };
+    return { id: `${v}-${w}`, source: v, target: w };
   });
   return { nodes, edges };
 }

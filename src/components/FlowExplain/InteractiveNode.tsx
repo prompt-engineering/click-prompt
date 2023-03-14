@@ -3,8 +3,6 @@ import React, { ChangeEvent } from "react";
 import { useCallback } from "react";
 import { Handle, Position } from "reactflow";
 
-const handleStyle = { left: 10 };
-
 type TextNodeProps = {
   isConnectable: boolean;
 };
@@ -19,7 +17,7 @@ function InteractiveNode({ isConnectable }: TextNodeProps) {
       <Handle type='target' position={Position.Left} isConnectable={isConnectable} />
       <div>
         <StyledLabel htmlFor='text'>Text:</StyledLabel>
-        <input id='text' name='text' onChange={onChange} className='nodrag' />
+        <StyledInput id='text' name='text' onChange={onChange} className='nodrag' />
       </div>
       <Handle type='source' position={Position.Right} isConnectable={isConnectable} />
     </TextNodeStyle>
@@ -28,10 +26,16 @@ function InteractiveNode({ isConnectable }: TextNodeProps) {
 
 const TextNodeStyle = styled.div`
   height: 50px;
-  border: 1px solid #eee;
-  padding: 5px;
+  width: 120px;
+  border: 2px solid #eee;
+  padding: 4px;
   border-radius: 5px;
   background: white;
+`;
+
+const StyledInput = styled.input`
+  width: 108px;
+  height: 20px;
 `;
 
 const StyledLabel = styled.label`

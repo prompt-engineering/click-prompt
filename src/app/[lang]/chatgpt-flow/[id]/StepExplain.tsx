@@ -1,65 +1,57 @@
 import React, { useCallback, useState } from "react";
-import ReactFlow, {
-  applyEdgeChanges,
-  applyNodeChanges,
-  Background,
-  Controls,
-  EdgeChange,
-  NodeChange,
-  Position,
-} from "reactflow";
+import ReactFlow, { applyEdgeChanges, applyNodeChanges, Background, Controls, EdgeChange, NodeChange } from "reactflow";
 import "reactflow/dist/style.css";
 import { Node, Edge } from "@reactflow/core/dist/esm/types";
 import InteractiveNode from "@/components/FlowExplain/InteractiveNode";
+import { explainParser, graphToFlow } from "@/data-processor/explain-parser";
 
 type StepExplainProps = {
-  json: string;
+  content: string;
 };
 
 function StepExplain(props: StepExplainProps) {
-  const initialNodes: Node[] = [
-    {
-      id: "1",
-      data: { label: "Hello" },
-      position: { x: 50, y: 100 },
-      targetPosition: Position.Right,
-    },
-    {
-      id: "2",
-      type: "interactiveNode",
-      data: { label: "World" },
-      targetPosition: Position.Left,
-      position: { x: 300, y: 100 },
-    },
-  ];
+  let graph = explainParser(props.content);
+  let flowGraph = graphToFlow(graph);
 
-  const initialEdges: Edge[] = [{ id: "1-2", source: "1", target: "2", label: "to the", type: "step" }];
+  const initialNodes: Node[] = flowGraph.nodes.map((node) => {
+    return {
+      id: node.id,
+      data: { label: node.label },
+      position: node.position,
+      type: "interactiveNode",
+    };
+  });
+
+  const initialEdges: Edge[] = flowGraph.edges.map((edge) => {
+    return { id: edge.id, source: edge.source, target: edge.target, type: "step" };
+  });
+
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
   const nodeTypes = { interactiveNode: InteractiveNode };
 
-  const onNodesChange = useCallback(
-    (changes: NodeChange[]) =>
-      setNodes((nds) => {
-        return applyNodeChanges(changes, nds);
-      }),
-    [],
-  );
-
-  const onEdgesChange = useCallback((changes: EdgeChange[]) => {
-    setEdges((eds: Edge[]) => {
-      return applyEdgeChanges(changes, eds);
-    });
-  }, []);
+  // const onNodesChange = useCallback(
+  //   (changes: NodeChange[]) =>
+  //     setNodes((nds) => {
+  //       return applyNodeChanges(changes, nds);
+  //     }),
+  //   [],
+  // );
+  //
+  // const onEdgesChange = useCallback((changes: EdgeChange[]) => {
+  //   setEdges((eds: Edge[]) => {
+  //     return applyEdgeChanges(changes, eds);
+  //   });
+  // }, []);
 
   return (
     <div style={{ height: "100%" }}>
       <ReactFlow
         nodes={nodes}
         nodeTypes={nodeTypes}
-        onNodesChange={onNodesChange}
+        // onNodesChange={onNodesChange}
         edges={edges}
-        onEdgesChange={onEdgesChange}
+        // onEdgesChange={onEdgesChange}
       >
         <Background />
         <Controls />
