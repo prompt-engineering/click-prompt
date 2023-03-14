@@ -1,5 +1,9 @@
 import { NextApiHandler, NextApiResponse } from "next";
-import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from "openai";
+import type {
+  ChatCompletionRequestMessage,
+  ChatCompletionRequestMessageRoleEnum,
+  CreateChatCompletionResponse,
+} from "openai";
 import type { OpenAIApi } from "openai";
 import { decryptKey } from "@/uitls/crypto.util";
 import { createChat, getAllChatsInsideConversation, createConversation } from "@/storage/planetscale";
@@ -136,7 +140,6 @@ async function sendMsgs({
 
     return res.status(200).json([choices[0].message] as unknown as ResponseSend);
   } catch (e: any) {
-    console.error(e);
     let msg = e.message;
     if (e.code === "ETIMEDOUT") {
       msg = "Request api was timeout, pls confirm your network worked";
@@ -146,10 +149,7 @@ async function sendMsgs({
     res.status(500).json({ error: msg });
   }
 }
-// WIP: not real stream
-// refs:
-// https://github.com/vercel/next.js/issues/9965#issuecomment-614823642
-// https://beta.nextjs.org/docs/routing/route-handlers#streaming
+// may not real stream
 async function sendMsgsUseStream({
   res,
   client,
@@ -228,7 +228,6 @@ async function sendMsgsUseStream({
       }
     });
   } catch (e: any) {
-    console.log("异常了", e);
     if (e.response?.status) {
       e.response.data.on("data", (data: BufferSource | undefined) => {
         return res.status(500).json({ error: data?.toString() });
