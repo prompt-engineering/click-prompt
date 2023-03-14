@@ -1,10 +1,7 @@
 import "client-only";
 import React, { useCallback, useEffect, useRef } from "react";
 import svgPanZoom from "svg-pan-zoom";
-import { Button } from "@chakra-ui/react";
-
-let currentId = 0;
-const uuid = () => `mermaid-${(currentId++).toString()}`;
+import { Button, Flex } from "@chakra-ui/react";
 
 function downloadBlob(blob: Blob, filename: string) {
   const objectUrl = URL.createObjectURL(blob);
@@ -19,16 +16,19 @@ function downloadBlob(blob: Blob, filename: string) {
   setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
 }
 
+let currentId = 0;
+const uuid = () => `mermaid-${(currentId++).toString()}`;
+
 export function Mermaid({ graphDefinition }: { graphDefinition: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [hasError, setHasError] = React.useState(false);
-  const currentId = uuid();
+  let currentId = "";
 
-  const downloadSVG = useCallback(() => {
+  const downloadSVG = () => {
     const svg = ref.current!.innerHTML;
     const blob = new Blob([svg], { type: "image/svg+xml" });
     downloadBlob(blob, `myimage.svg`);
-  }, []);
+  };
 
   useEffect(() => {
     if (!graphDefinition) {
@@ -36,14 +36,10 @@ export function Mermaid({ graphDefinition }: { graphDefinition: string }) {
     }
 
     try {
+      currentId = uuid();
       (window as any).mermaid.mermaidAPI.render(currentId, graphDefinition, (svgCode: string) => {
         ref.current!.innerHTML = svgCode;
       });
-      const it = document.getElementById(currentId);
-      // eslint-disable-next-line  @typescript-eslint/no-extra-non-null-assertion
-      const instance = svgPanZoom(it!!);
-
-      return () => instance.destroy();
     } catch (e) {
       console.info(e);
       setHasError(true);
@@ -52,10 +48,22 @@ export function Mermaid({ graphDefinition }: { graphDefinition: string }) {
 
   if (hasError) return <code className={"mermaid"}>{graphDefinition}</code>;
 
+  const makeZoom = () => {
+    console.log(currentId);
+    const currentElement = document.getElementById(currentId);
+    if (!currentElement) return;
+
+    const instance = svgPanZoom(currentElement);
+    return () => instance.destroy();
+  };
+
   return (
     <>
       <div ref={ref}></div>
-      <Button onClick={downloadSVG}>Download SVG</Button>
+      <Flex gap={4}>
+        <Button onClick={makeZoom}>Enable Zoom</Button>
+        <Button onClick={downloadSVG}>Download SVG</Button>
+      </Flex>
     </>
   );
 }
