@@ -7,7 +7,7 @@ const uuid = () => `mermaid-${(currentId++).toString()}`;
 export function Mermaid({ graphDefinition }: { graphDefinition: string }) {
   const [html, setHtml] = React.useState("");
   const [hasError, setHasError] = React.useState(false);
-  let currentId = uuid();
+  const currentId = uuid();
 
   React.useLayoutEffect(() => {
     if (!graphDefinition) {
@@ -27,7 +27,10 @@ export function Mermaid({ graphDefinition }: { graphDefinition: string }) {
 
   setTimeout(() => {
     document.getElementById(currentId)?.addEventListener("load", function () {
-      svgPanZoom(document.getElementById(currentId)!!);
+      if (document.getElementById(currentId)) {
+        // eslint-disable-next-line  @typescript-eslint/no-extra-non-null-assertion
+        svgPanZoom(document.getElementById(currentId)!!);
+      }
     });
   }, 100);
 
