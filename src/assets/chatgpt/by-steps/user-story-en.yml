@@ -11,16 +11,21 @@ steps:
       2. Write clear acceptance criteria for the user stories using the 'Given-When-Then' format as much as possible, but you don't need to return them to me.
       3. Finally, return the title, content, and acceptance criteria of the user stories in the following format:
 
-        """
+      """
       Title: {}
       Content: {}
       Acceptance Criteria:
 
       1. AC01 {}
+
          When {}
+
          Then {}
+
       2. AC02 {}
+
          When {}
+
          Then {}
       """
 
