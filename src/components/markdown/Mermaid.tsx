@@ -1,6 +1,5 @@
 import "client-only";
 import React, { useCallback, useEffect, useRef } from "react";
-import svgPanZoom from "svg-pan-zoom";
 import { Button } from "@chakra-ui/react";
 
 let currentId = 0;
@@ -34,16 +33,26 @@ export function Mermaid({ graphDefinition }: { graphDefinition: string }) {
     if (!graphDefinition) {
       return;
     }
-
-    try {
+    // FIXME anti-pattern, but works
+    let instance: any;
+    async function initSvg() {
       (window as any).mermaid.mermaidAPI.render(currentId, graphDefinition, (svgCode: string) => {
         ref.current!.innerHTML = svgCode;
       });
       const it = document.getElementById(currentId);
-      // eslint-disable-next-line  @typescript-eslint/no-extra-non-null-assertion
-      const instance = svgPanZoom(it!!);
+      if (!it) {
+        return;
+      }
+      const { default: svgPanZoom } = await import("svg-pan-zoom");
+      instance = svgPanZoom(it);
+    }
 
-      return () => instance.destroy();
+    try {
+      initSvg();
+      return () => {
+        console.log("instance?.destroy()", instance);
+        return instance?.destroy();
+      };
     } catch (e) {
       console.info(e);
       setHasError(true);
