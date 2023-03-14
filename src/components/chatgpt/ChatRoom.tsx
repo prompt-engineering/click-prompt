@@ -16,6 +16,7 @@ import { Input } from "@chakra-ui/react";
 import * as ChatAPI from "@/api/chat";
 import * as ConversationAPI from "@/api/conversation";
 import * as UserAPI from "@/api/user";
+import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -361,11 +362,15 @@ export const ChatRoom = ({
                 {chat.role === "user" ? (
                   <div className='self-end flex'>
                     {/* chat bubble badge */}
-                    <div className='rounded-md bg-green-400 text-white text-xl px-4 py-2 max-w-xl'>{chat.content}</div>
+                    <div className='rounded-md bg-green-400 text-white text-xl px-4 py-2 max-w-xl'>
+                      <SimpleMarkdown content={chat.content}></SimpleMarkdown>
+                    </div>
                   </div>
                 ) : (
                   <div className='self-start flex'>
-                    <p className='rounded-md bg-orange-400 text-white text-xl px-4 py-2 max-w-xl'>{chat.content}</p>
+                    <div className='rounded-md bg-orange-400 text-white text-xl px-4 py-2 max-w-xl'>
+                      <SimpleMarkdown content={chat.content}></SimpleMarkdown>
+                    </div>
                   </div>
                 )}
               </div>

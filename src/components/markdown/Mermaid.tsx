@@ -1,6 +1,5 @@
 import "client-only";
-import React, { useCallback, useEffect, useRef } from "react";
-import svgPanZoom from "svg-pan-zoom";
+import React, { useEffect, useRef } from "react";
 import { Button, Flex } from "@chakra-ui/react";
 
 function downloadBlob(blob: Blob, filename: string) {
@@ -48,11 +47,12 @@ export function Mermaid({ graphDefinition }: { graphDefinition: string }) {
 
   if (hasError) return <code className={"mermaid"}>{graphDefinition}</code>;
 
-  const makeZoom = () => {
+  const makeZoom = async () => {
     console.log(currentId);
     const currentElement = document.getElementById(currentId);
     if (!currentElement) return;
-
+    // fix for `ReferenceError: window is not defined`
+    const { default: svgPanZoom } = await import("svg-pan-zoom");
     const instance = svgPanZoom(currentElement);
     return () => instance.destroy();
   };
