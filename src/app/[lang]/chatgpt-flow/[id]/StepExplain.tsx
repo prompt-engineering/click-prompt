@@ -12,8 +12,8 @@ type StepExplainProps = {
 };
 
 function StepExplain(props: StepExplainProps) {
-  let graph = explainParser(props.step.explain || "");
-  let flowGraph = graphToFlow(graph);
+  const graph = explainParser(props.step.explain || "");
+  const flowGraph = graphToFlow(graph);
 
   function getLabel(node: {
     id: string;
