@@ -45,6 +45,10 @@ function StartlingStepPage({ content, id, i18n }: StepPageProps) {
               </Breadcrumb>
             </Box>
 
+            {/*<Box style={{ position: "relative", height: "200px" }}>*/}
+            {/*  <StepExplain json={""} />*/}
+            {/*</Box>*/}
+
             <Heading as='h4'>{content.name}</Heading>
 
             <SimpleGrid columns={1} spacing={4}>

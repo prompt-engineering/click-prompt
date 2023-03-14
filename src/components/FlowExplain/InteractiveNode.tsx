@@ -16,13 +16,12 @@ function InteractiveNode({ isConnectable }: TextNodeProps) {
 
   return (
     <TextNodeStyle>
-      <Handle type='target' position={Position.Top} isConnectable={isConnectable} />
+      <Handle type='target' position={Position.Left} isConnectable={isConnectable} />
       <div>
         <StyledLabel htmlFor='text'>Text:</StyledLabel>
         <input id='text' name='text' onChange={onChange} className='nodrag' />
       </div>
-      <Handle type='source' position={Position.Bottom} id='a' style={handleStyle} isConnectable={isConnectable} />
-      <Handle type='source' position={Position.Bottom} id='b' isConnectable={isConnectable} />
+      <Handle type='source' position={Position.Right} isConnectable={isConnectable} />
     </TextNodeStyle>
   );
 }
