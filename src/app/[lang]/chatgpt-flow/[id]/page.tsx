@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
-import StartlingStepPage from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StartlingStepPage";
+import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
+import StartlingStepPage from "@/app/[lang]/chatgpt-flow/[id]/StartlingStepPage";
 import { getAppData } from "@/i18n";
 
 const getSampleNames = async () => {

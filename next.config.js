@@ -11,7 +11,20 @@ const nextConfig = {
   images: {
     domains: ["prompt-engineering.github.io"],
   },
-
+  async redirects() {
+    return [
+      {
+        source: "/zh-CN/chatgpt-startling-by-each-step/:id/",
+        destination: "/zh-CN/chatgpt-flow/:id/",
+        permanent: true,
+      },
+      {
+        source: "/en-US/chatgpt-startling-by-each-step/:id/",
+        destination: "/en-US/chatgpt-flow/:id/",
+        permanent: true,
+      },
+    ];
+  },
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.yml/,

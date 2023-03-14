@@ -2,8 +2,8 @@
 
 import React from "react";
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
-import StartlingStepDetail from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StartlingStepDetail";
-import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
+import StartlingStepDetail from "@/app/[lang]/chatgpt-flow/[id]/StartlingStepDetail";
+import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
 
 type StepPageProps = {
   content: StartlingStep;
@@ -33,14 +33,10 @@ function StartlingStepPage({ content, id, i18n }: StepPageProps) {
             <Box>
               <Breadcrumb>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-startling-by-each-step/`}>
-                    {dict["by-each-step-samples"]}
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-flow/`}>{dict["by-each-step-samples"]}</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-startling-by-each-step/${id}`}>
-                    {content.name}
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-flow/${id}`}>{content.name}</BreadcrumbLink>
                 </BreadcrumbItem>
               </Breadcrumb>
             </Box>

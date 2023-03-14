@@ -1,4 +1,4 @@
-import { StepDetail } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/step-detail";
+import { StepDetail } from "@/app/[lang]/chatgpt-flow/[id]/step-detail";
 
 export type StartlingStep = {
   name: string;
