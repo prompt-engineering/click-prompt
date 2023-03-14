@@ -44,7 +44,7 @@ function StartlingStepPage({ content, id, i18n }: StepPageProps) {
 
             {content.explain && (
               <Box style={{ position: "relative", height: "320px" }}>
-                <StepExplain content={content.explain} />
+                <StepExplain step={content} />
               </Box>
             )}
 

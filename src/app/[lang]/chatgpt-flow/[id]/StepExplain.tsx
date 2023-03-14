@@ -1,22 +1,35 @@
-import React, { useCallback, useState } from "react";
-import ReactFlow, { applyEdgeChanges, applyNodeChanges, Background, Controls, EdgeChange, NodeChange } from "reactflow";
+import React from "react";
+import ReactFlow, { Background, Controls } from "reactflow";
+import { Edge, Node } from "@reactflow/core/dist/esm/types";
 import "reactflow/dist/style.css";
-import { Node, Edge } from "@reactflow/core/dist/esm/types";
+
 import InteractiveNode from "@/components/FlowExplain/InteractiveNode";
 import { explainParser, graphToFlow } from "@/data-processor/explain-parser";
+import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
 
 type StepExplainProps = {
-  content: string;
+  step: StartlingStep;
 };
 
 function StepExplain(props: StepExplainProps) {
-  let graph = explainParser(props.content);
+  let graph = explainParser(props.step.explain || "");
   let flowGraph = graphToFlow(graph);
+
+  function getLabel(node: {
+    id: string;
+    label: string | undefined;
+    width: number;
+    height: number;
+    position: { x: number; y: number };
+  }) {
+    const id = parseInt(node.id) || 0;
+    return props.step.steps[id]?.name || "";
+  }
 
   const initialNodes: Node[] = flowGraph.nodes.map((node) => {
     return {
       id: node.id,
-      data: { label: node.label },
+      data: { label: getLabel(node) },
       position: node.position,
       type: "interactiveNode",
     };
@@ -26,33 +39,11 @@ function StepExplain(props: StepExplainProps) {
     return { id: edge.id, source: edge.source, target: edge.target, type: "step" };
   });
 
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
   const nodeTypes = { interactiveNode: InteractiveNode };
-
-  // const onNodesChange = useCallback(
-  //   (changes: NodeChange[]) =>
-  //     setNodes((nds) => {
-  //       return applyNodeChanges(changes, nds);
-  //     }),
-  //   [],
-  // );
-  //
-  // const onEdgesChange = useCallback((changes: EdgeChange[]) => {
-  //   setEdges((eds: Edge[]) => {
-  //     return applyEdgeChanges(changes, eds);
-  //   });
-  // }, []);
 
   return (
     <div style={{ height: "100%" }}>
-      <ReactFlow
-        nodes={nodes}
-        nodeTypes={nodeTypes}
-        // onNodesChange={onNodesChange}
-        edges={edges}
-        // onEdgesChange={onEdgesChange}
-      >
+      <ReactFlow fitView={true} nodes={initialNodes} nodeTypes={nodeTypes} edges={initialEdges}>
         <Background />
         <Controls />
       </ReactFlow>
