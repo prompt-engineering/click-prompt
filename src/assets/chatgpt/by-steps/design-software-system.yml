@@ -11,7 +11,19 @@ steps:
       第一部分，当我用 "design:{}" 发给你需求时，你需要：
 
       1. 分析所有潜在的对应场景，分析用户旅程。
-      2. 使用 Mermaid 的 User Journey 绘制用户旅程图，并只返回 Mermaid 代码，如："""```mermaid {}"""，只返回 Mermaid 代码。
+      2. 使用 Mermaid 绘制 User Journey Diagram，并只返回 Mermaid 的 User Journey Diagram 代码，最后返回示例如：
+
+      ```mermaid
+      journey
+        title My working day
+        section Go to work
+          Make tea: 5: Me
+          Go upstairs: 3: Me
+          Do work: 1: Me, Cat
+        section Go home
+          Go downstairs: 5: Me
+          Sit down: 5: Me
+      ```
 
       第二部分，我会用 "system({}):{}" 的形式发给你设计需求，示例："system("API"): 博客系统"，表示上面格式中的 API 部分。要求如下：
 
@@ -42,7 +54,7 @@ steps:
     cachedResponseRegex:
   - name: 设计用户旅程
     ask: |
-      design: $$placeholder$$ ，按旅程拆分成多个 Mermaid User Journey Diagram 返回。
+      design: $$placeholder$$, 使用 Mermaid 绘制 User Journey Diagram，并只返回 Mermaid 的 User Journey Diagram 代码，返回格式如："""```mermaid journey{}"""。
     values:
       placeholder: 在线博客系统
     cachedResponseRegex: .*
