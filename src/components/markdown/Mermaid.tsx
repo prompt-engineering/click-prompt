@@ -1,4 +1,4 @@
-import "client-only";
+"use client";
 import React, { useCallback, useEffect, useRef } from "react";
 import svgPanZoom from "svg-pan-zoom";
 import { Button } from "@chakra-ui/react";

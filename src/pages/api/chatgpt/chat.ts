@@ -95,6 +95,12 @@ const handler: NextApiHandler = async (req, res) => {
 };
 export default handler;
 
+const CHAT_COMPLETION_CONFIG = {
+  model: "gpt-3.5-turbo",
+  temperature: 0.5,
+  max_tokens: 512,
+};
+
 async function sendMsgs({
   res,
   client,
@@ -111,10 +117,8 @@ async function sendMsgs({
   try {
     const messages = [...msgs, ...newMsgs].map((it) => ({ ...it, name: it.name ?? undefined }));
     const response = await client.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      ...CHAT_COMPLETION_CONFIG,
       messages,
-      temperature: 0.5,
-      max_tokens: 512,
     });
     if (response.status !== 200) {
       res.status(response.status).json({ error: response.statusText });
@@ -167,10 +171,8 @@ async function sendMsgsUseStream({
     const messages = [...msgs, ...newMsgs].map((it) => ({ ...it, name: it.name ?? undefined }));
     const response = await client.createChatCompletion(
       {
-        model: "gpt-3.5-turbo",
+        ...CHAT_COMPLETION_CONFIG,
         messages,
-        temperature: 0.5,
-        max_tokens: 200,
         stream: true,
       },
       { responseType: "stream" },

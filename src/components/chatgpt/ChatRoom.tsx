@@ -16,6 +16,7 @@ import { Input } from "@chakra-ui/react";
 import * as ChatAPI from "@/api/chat";
 import * as ConversationAPI from "@/api/conversation";
 import * as UserAPI from "@/api/user";
+import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -214,7 +215,8 @@ export const ChatRoom = ({
     }
     setConversations([]);
   }
-
+  // FIXME anti-pattern, should use `useState`
+  let codeMark = "";
   async function sendMessage() {
     if (message.length === 0) {
       alert("Please enter your message first.");
@@ -265,6 +267,15 @@ export const ChatRoom = ({
                 parsed.content = "";
                 updatedHistory = [...updatedHistory, parsed];
               } else if (!!parsed.content) {
+                if (parsed.content === "```") {
+                  // code block start
+                  if (!codeMark) {
+                    codeMark = parsed.content;
+                  } else {
+                    // code block end remove it
+                    codeMark = "";
+                  }
+                }
                 updatedHistory[updatedHistory.length - 1].content += parsed.content;
               }
               setChatHistory([...updatedHistory]);
@@ -394,8 +405,9 @@ export const ChatRoom = ({
                   </div>
                 ) : (
                   <div className='self-start flex'>
-                    {/* FIXME can't directly use `SimpleMarkdown`, the content was spliced */}
-                    <p className='rounded-md bg-orange-400 text-white text-xl px-4 py-2 max-w-xl'>{chat.content}</p>
+                    <div className='rounded-md bg-orange-400 text-white text-xl px-4 py-2 max-w-xl'>
+                      <SimpleMarkdown content={`${chat.content}${codeMark}`}></SimpleMarkdown>
+                    </div>
                   </div>
                 )}
               </div>
