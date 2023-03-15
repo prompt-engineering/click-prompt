@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useEffect } from "react";
+import { Heading } from "@chakra-ui/react";
+import styled from "@emotion/styled";
 
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
 import { Avatar, Box } from "@/components/ChakraUI";
@@ -68,6 +70,9 @@ function StartlingStepDetail({
 
   return (
     <>
+      <StyledStepHeading>
+        Step {index + 1}. {step.name}
+      </StyledStepHeading>
       <HumanBlock direction='row' justify='space-between'>
         <Avatar bg='teal.500' name={content.author} size='sm' mr={2} />
         <Box w='100%' p={4} h='100%'>
@@ -95,5 +100,9 @@ function StartlingStepDetail({
     </>
   );
 }
+
+const StyledStepHeading = styled.h4`
+  font-size: 1.5rem;
+`;
 
 export default StartlingStepDetail;

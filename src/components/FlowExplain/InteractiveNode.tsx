@@ -13,13 +13,22 @@ function InteractiveNode(props: TextNodeProps) {
   return (
     <TextNodeStyle>
       <Handle type='target' position={Position.Left} isConnectable={isConnectable} />
-      <StyledLabel>{props.data.label}</StyledLabel>
+      <Title>{props.data.label}</Title>
       <Handle type='source' position={Position.Right} isConnectable={isConnectable} />
     </TextNodeStyle>
   );
 }
 
 const TextNodeStyle = styled.div`
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+
   height: 50px;
   width: 120px;
   border: 2px solid #eee;
@@ -28,9 +37,11 @@ const TextNodeStyle = styled.div`
   background: white;
 `;
 
-const StyledLabel = styled.label`
+const Title = styled.p`
   display: block;
+  width: 100%;
   font-size: 12px;
+  text-align: center;
 `;
 
 export default InteractiveNode;
