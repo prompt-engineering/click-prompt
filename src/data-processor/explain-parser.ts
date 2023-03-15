@@ -57,7 +57,7 @@ type FlowGraph = {
 
 export function graphToFlow(graph: Graph): FlowGraph {
   const nodes = graph.nodes().map((nodeStr) => {
-    let node = graph.node(nodeStr);
+    const node = graph.node(nodeStr);
     const { label, width, height, x, y } = node;
     let data = {};
     if (node.hasOwnProperty("data")) {
