@@ -3,7 +3,7 @@
 import "client-only";
 import React, { useCallback, useEffect, useRef, use } from "react";
 import svgPanZoom from "svg-pan-zoom";
-import { Button } from "@chakra-ui/react";
+import { Button, Flex } from "@chakra-ui/react";
 import mermaid from "mermaid";
 
 let currentId = 0;
@@ -43,14 +43,8 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
     mermaid.mermaidAPI
       .render(currentId, graphDefinition)
       .then(({ svg, bindFunctions }) => {
-        if (instance) {
-          instance.destroy();
-          instance = null;
-        }
-
         ref.current!.innerHTML = svg;
         bindFunctions?.(ref.current!);
-        instance = svgPanZoom(ref.current!.querySelector("svg")!);
       })
       .catch((e) => {
         console.info(e);
@@ -66,11 +60,47 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
       });
   }, [graphDefinition]);
 
-  if (!graphDefinition) return <code className={"mermaid"}>{graphDefinition}</code>;
+  useEffect(() => {
+    const handleSpaceDown = (e: KeyboardEvent) => {
+      if (e.code === "Space" && !e.repeat) {
+        makeZoom();
+      }
+    };
+
+    const handleSpaceUp = (e: KeyboardEvent) => {
+      if (e.code === "Space" && !e.repeat) {
+        disableZoom();
+      }
+    };
+    document.addEventListener("keydown", handleSpaceDown);
+    document.addEventListener("keyup", handleSpaceUp);
+
+    return () => {
+      document.removeEventListener("keydown", handleSpaceDown);
+      document.removeEventListener("keyup", handleSpaceUp);
+    };
+  }, []);
+
+  const makeZoom = () => {
+    if (instance) {
+      return;
+    }
+    instance = svgPanZoom(ref.current!.querySelector("svg")!);
+  };
+
+  const disableZoom = () => {
+    if (instance) {
+      instance.destroy();
+      instance = null;
+    }
+  };
 
   if (hasError) return <code className={"mermaid"}>{graphDefinition}</code>;
   return (
     <>
+      <Flex justifyContent='flex-end' className='text-gray-400 font-bold'>
+        * hold space to pan & zoom
+      </Flex>
       <div ref={ref}></div>
       <Button onClick={downloadSVG}>Download SVG</Button>
     </>
