@@ -4,11 +4,11 @@ author: Phodal Huang
 description: 这个 "逐步运行" 交互示例将会展示，如何结合 ChatGPT 分析需求，编写用户故事？分析用户故事，编写测试用例？分析用户故事，编写代码？
 explain: |
   digraph G {
-    0[custom = "prompt"]
-    1[custom = "prompt,interactive"]
-    2[custom = "prompt,interactive"]
-    3[custom = "prompt,interactive"]
-    4[custom = "prompt,interactive"]
+    0[flowType = "prompt"]
+    1[flowType = "prompt,interactive"]
+    2[flowType = "prompt,interactive"]
+    3[flowType = "prompt,interactive"]
+    4[flowType = "prompt,interactive"]
     0 -> 1
     1 -> 2
     1 -> 3

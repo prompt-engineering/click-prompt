@@ -16,11 +16,11 @@ author: Phodal Huang
 description: In this example, we will design a user journey for online shopping.
 explain: |
   digraph G {
-    0[custom = "prompt"]
-    1[custom = "prompt,interactive"]
-    2[custom = "prompt,interactive"]
-    3[custom = "prompt,interactive"]
-    4[custom = "prompt,interactive"]
+    0[flowType = "prompt"]
+    1[flowType = "prompt,interactive"]
+    2[flowType = "prompt,interactive"]
+    3[flowType = "prompt,interactive"]
+    4[flowType = "prompt,interactive"]
     0 -> 1
     1 -> 2
     1 -> 3

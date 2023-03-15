@@ -32,6 +32,10 @@ export const explainParser = (str: string) => {
   return graph;
 };
 
+type CustomFieldData = {
+  flowType?: string;
+};
+
 type FlowGraph = {
   nodes: {
     id: string;
@@ -42,7 +46,7 @@ type FlowGraph = {
       x: number;
       y: number;
     };
-    data?: any;
+    data?: CustomFieldData;
   }[];
   edges: {
     id: string;
