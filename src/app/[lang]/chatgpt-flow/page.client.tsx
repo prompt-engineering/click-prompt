@@ -19,7 +19,7 @@ import {
   Link as NavLink,
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import samples from "@/assets/chatgpt/by-steps/index.json";
+import samples from "@/assets/chatgpt/flow/index.json";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import Link from "next/link";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";

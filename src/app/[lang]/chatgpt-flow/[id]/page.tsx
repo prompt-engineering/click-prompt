@@ -5,7 +5,7 @@ import StartlingStepPage from "@/app/[lang]/chatgpt-flow/[id]/StartlingStepPage"
 import { getAppData } from "@/i18n";
 
 const getSampleNames = async () => {
-  const index = await import("@/assets/chatgpt/by-steps/index.json").then((mod) => mod.default);
+  const index = await import("@/assets/chatgpt/flow/index.json").then((mod) => mod.default);
   return index.map((item) => item.path.split(".").slice(0, -1).join("."));
 };
 
