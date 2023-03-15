@@ -1,7 +1,7 @@
 "use client";
 
 import "client-only";
-import React, { useCallback, useEffect, useRef, use, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import svgPanZoom from "svg-pan-zoom";
 import { Button, Flex } from "@chakra-ui/react";
 import mermaid from "mermaid";
@@ -36,7 +36,7 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
   }, []);
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current || !graphDefinition) return;
     mermaid.initialize({
       startOnLoad: false,
     });
@@ -104,7 +104,7 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
     instance?.center();
   }, [instance]);
 
-  if (hasError) return <code className={"mermaid"}>{graphDefinition}</code>;
+  if (hasError || !graphDefinition) return <code className={"mermaid"}>{graphDefinition}</code>;
   return (
     <>
       <Flex justifyContent='flex-end' className='text-gray-400 font-bold'>
