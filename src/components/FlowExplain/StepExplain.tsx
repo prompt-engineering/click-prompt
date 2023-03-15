@@ -6,6 +6,7 @@ import "reactflow/dist/style.css";
 import InteractiveNode from "@/components/FlowExplain/InteractiveNode";
 import { explainParser, graphToFlow } from "@/data-processor/explain-parser";
 import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
+import PromptNode from "@/components/FlowExplain/PromptNode";
 
 type StepExplainProps = {
   step: StartlingStep;
@@ -31,7 +32,7 @@ function StepExplain(props: StepExplainProps) {
       id: node.id,
       data: { label: getLabel(node) },
       position: node.position,
-      type: "interactiveNode",
+      type: node.data?.flowType || "prompt",
     };
   });
 
@@ -39,7 +40,7 @@ function StepExplain(props: StepExplainProps) {
     return { id: edge.id, source: edge.source, target: edge.target, type: "step" };
   });
 
-  const nodeTypes = { interactiveNode: InteractiveNode };
+  const nodeTypes = { interactive: InteractiveNode, prompt: PromptNode };
 
   return (
     <div style={{ height: "100%" }}>

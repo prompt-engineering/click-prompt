@@ -5,10 +5,10 @@ description: 在这个示例中，我们将会使用 ChatGPT 分析系统，编�
 explain: |
   digraph G {
     0[flowType = "prompt"]
-    1[flowType = "prompt,interactive"]
-    2[flowType = "prompt,interactive"]
-    3[flowType = "prompt,interactive"]
-    4[flowType = "prompt,interactive"]
+    1[flowType = "interactive"]
+    2[flowType = "interactive"]
+    3[flowType = "interactive"]
+    4[flowType = "interactive"]
     0 -> 1
     1 -> 2
     1 -> 3
