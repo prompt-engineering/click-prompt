@@ -23,7 +23,7 @@ function downloadBlob(blob: Blob, filename: string) {
 }
 
 export default function Mermaid({ graphDefinition }: { graphDefinition: string }) {
-  let [instance, setInstance] = useState<SvgPanZoom.Instance | null>(null);
+  const [instance, setInstance] = useState<SvgPanZoom.Instance | null>(null);
   const enableZoom = useCallback(() => {
     instance?.enablePan();
     instance?.enableZoom();
