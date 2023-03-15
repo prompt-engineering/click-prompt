@@ -1,7 +1,7 @@
 "use client";
 
 import "client-only";
-import React, { useCallback, useEffect, useRef, use } from "react";
+import React, { useCallback, useEffect, useRef, use, useState } from "react";
 import svgPanZoom from "svg-pan-zoom";
 import { Button, Flex } from "@chakra-ui/react";
 import mermaid from "mermaid";
@@ -22,8 +22,9 @@ function downloadBlob(blob: Blob, filename: string) {
   setTimeout(() => URL.revokeObjectURL(objectUrl), 5000);
 }
 
-let instance: SvgPanZoom.Instance | null = null;
 export default function Mermaid({ graphDefinition }: { graphDefinition: string }) {
+  let [instance, setInstance] = useState<SvgPanZoom.Instance | null>(null);
+
   const ref = useRef<HTMLDivElement>(null);
   const [hasError, setHasError] = React.useState(false);
   const currentId = uuid();
@@ -45,6 +46,12 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
       .then(({ svg, bindFunctions }) => {
         ref.current!.innerHTML = svg;
         bindFunctions?.(ref.current!);
+
+        setInstance(svgPanZoom(ref.current!.querySelector("svg")!));
+        instance?.fit();
+        instance?.center();
+        instance?.disablePan();
+        instance?.disableZoom();
       })
       .catch((e) => {
         console.info(e);
@@ -63,6 +70,7 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
   useEffect(() => {
     const handleSpaceDown = (e: KeyboardEvent) => {
       if (e.code === "Space" && !e.repeat) {
+        e.preventDefault();
         makeZoom();
       }
     };
@@ -81,19 +89,20 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
     };
   }, []);
 
-  const makeZoom = () => {
-    if (instance) {
-      return;
-    }
-    instance = svgPanZoom(ref.current!.querySelector("svg")!);
-  };
+  const makeZoom = useCallback(() => {
+    instance?.enablePan();
+    instance?.enableZoom();
+  }, [instance]);
 
-  const disableZoom = () => {
-    if (instance) {
-      instance.destroy();
-      instance = null;
-    }
-  };
+  const disableZoom = useCallback(() => {
+    instance?.disablePan();
+    instance?.disableZoom();
+  }, [instance]);
+
+  const resetZoom = useCallback(() => {
+    instance?.fit();
+    instance?.center();
+  }, [instance]);
 
   if (hasError) return <code className={"mermaid"}>{graphDefinition}</code>;
   return (
@@ -101,8 +110,16 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
       <Flex justifyContent='flex-end' className='text-gray-400 font-bold'>
         * hold space to pan & zoom
       </Flex>
-      <div ref={ref}></div>
-      <Button onClick={downloadSVG}>Download SVG</Button>
+      <div
+        ref={ref}
+        onPointerDown={(event) => {
+          ref.current?.querySelector("svg")?.setPointerCapture(event.pointerId);
+        }}
+      ></div>
+      <Flex gap={2}>
+        <Button onClick={resetZoom}>Reset Pan&Zoom</Button>
+        <Button onClick={downloadSVG}>Download SVG</Button>
+      </Flex>
     </>
   );
 }
