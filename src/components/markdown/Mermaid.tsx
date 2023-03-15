@@ -24,6 +24,20 @@ function downloadBlob(blob: Blob, filename: string) {
 
 export default function Mermaid({ graphDefinition }: { graphDefinition: string }) {
   let [instance, setInstance] = useState<SvgPanZoom.Instance | null>(null);
+  const enableZoom = useCallback(() => {
+    instance?.enablePan();
+    instance?.enableZoom();
+  }, [instance]);
+
+  const disableZoom = useCallback(() => {
+    instance?.disablePan();
+    instance?.disableZoom();
+  }, [instance]);
+
+  const resetZoom = useCallback(() => {
+    instance?.fit();
+    instance?.center();
+  }, [instance]);
 
   const ref = useRef<HTMLDivElement>(null);
   const [hasError, setHasError] = React.useState(false);
@@ -47,11 +61,14 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
         ref.current!.innerHTML = svg;
         bindFunctions?.(ref.current!);
 
-        setInstance(svgPanZoom(ref.current!.querySelector("svg")!));
-        instance?.fit();
-        instance?.center();
-        instance?.disablePan();
-        instance?.disableZoom();
+        setInstance(() => {
+          const instance = svgPanZoom(ref.current!.querySelector("svg")!);
+          instance.fit();
+          instance.center();
+          instance.disablePan();
+          instance.disableZoom();
+          return instance;
+        });
       })
       .catch((e) => {
         console.info(e);
@@ -71,7 +88,7 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
     const handleSpaceDown = (e: KeyboardEvent) => {
       if (e.code === "Space" && !e.repeat) {
         e.preventDefault();
-        makeZoom();
+        enableZoom();
       }
     };
 
@@ -87,22 +104,7 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
       document.removeEventListener("keydown", handleSpaceDown);
       document.removeEventListener("keyup", handleSpaceUp);
     };
-  }, []);
-
-  const makeZoom = useCallback(() => {
-    instance?.enablePan();
-    instance?.enableZoom();
-  }, [instance]);
-
-  const disableZoom = useCallback(() => {
-    instance?.disablePan();
-    instance?.disableZoom();
-  }, [instance]);
-
-  const resetZoom = useCallback(() => {
-    instance?.fit();
-    instance?.center();
-  }, [instance]);
+  }, [enableZoom, disableZoom]);
 
   if (hasError || !graphDefinition) return <code className={"mermaid"}>{graphDefinition}</code>;
   return (
