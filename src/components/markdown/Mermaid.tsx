@@ -34,8 +34,6 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
     downloadBlob(blob, `myimage.svg`);
   }, []);
 
-  if (!graphDefinition) return <code className={"mermaid"}>{graphDefinition}</code>;
-
   useEffect(() => {
     if (!ref.current) return;
     mermaid.initialize({
@@ -67,6 +65,8 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
         }
       });
   }, [graphDefinition]);
+
+  if (!graphDefinition) return <code className={"mermaid"}>{graphDefinition}</code>;
 
   if (hasError) return <code className={"mermaid"}>{graphDefinition}</code>;
   return (
