@@ -312,8 +312,9 @@ export const ChatRoom = ({
           {conversations.map((conversation) => (
             <div
               key={conversation.id}
-              className={`${currentConversation === conversation.id ? "bg-emerald-700 hover:bg-emerald-900" : "hover:bg-gray-500/10"
-                } flex py-3 px-3 items-center justify-between gap-3 rounded-md transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20`}
+              className={`${
+                currentConversation === conversation.id ? "bg-emerald-700 hover:bg-emerald-900" : "hover:bg-gray-500/10"
+              } flex py-3 px-3 items-center justify-between gap-3 rounded-md transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20`}
               onClick={(event) => {
                 handleConversation(conversation.id!, event);
               }}
