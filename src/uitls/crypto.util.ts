@@ -3,7 +3,7 @@ import { createCipheriv, createDecipheriv, randomBytes, createHash } from "node:
 if (!process.env["ENC_KEY"]) {
   // for skip CI
   // throw Error("No secret key env in the server.");
-  console.log("No secret key env in the server.")
+  console.log("No secret key env in the server.");
 }
 
 const hasher = createHash("sha256");
