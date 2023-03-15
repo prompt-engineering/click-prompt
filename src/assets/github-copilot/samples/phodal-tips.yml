@@ -183,4 +183,3 @@ snippets:
       const ROLES = [t("genius"), t("rich"), t("waste"), t("adventurer"), t("orphan"), t("playboy"), t("lucky"), t("strong"), t("loser"), t("scholar")];
       const Output = { "genius": "天才", "rich": "豪门弃子", "waste": "修炼废物", "adventurer": "冒险家", "orphan": "孤儿", "playboy": "情圣", "lucky": "幸运儿", "strong": "强者", "loser": "屌丝", "scholar": "学者" };
       ```
-                                                                                                                          ```

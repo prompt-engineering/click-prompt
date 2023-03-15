@@ -2,13 +2,13 @@ name: ci
 
 on:
   push:
-    branches: [dev]
+    branches: [dev, master]
   pull_request:
     branches: [dev]
 
 jobs:
   build:
-    name: Build & Test on ${{ matrix.node-version }}
+    name: Build & Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,12 +19,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
+
       - run: npm ci
+
       - run: npm run test
+
       - run: npm run build --if-present
   lint:
     name: format and lint
@@ -34,10 +36,12 @@ jobs:
         uses: actions/checkout@v3
         with:
           persist-credentials: false
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+
+      - uses: actions/setup-node@v3
         with:
-          node-version: "lts/gallium"
+          node-version: 16
       - run: npm ci
+
       - run: npm run format
+
       - run: npm run lint

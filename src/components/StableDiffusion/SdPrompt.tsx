@@ -4,7 +4,7 @@ import React, { useRef, useEffect, ChangeEvent, MouseEvent } from "react";
 import { Box, Button, Flex, Grid, Text, Textarea } from "@chakra-ui/react";
 import CopyComponent from "@/components/CopyComponent";
 import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
-import { parseStableDiffusionData, StableDiffusionDataToString } from "@/data-processor/SduiParser";
+import { parseStableDiffusionData, StableDiffusionDataToString } from "@/data-processor/sdui-parser";
 import styled from "@emotion/styled";
 
 const StyledGreyTextarea = styled(Textarea)`
