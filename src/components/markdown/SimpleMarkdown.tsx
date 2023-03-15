@@ -9,7 +9,7 @@ import { Checkbox } from "@chakra-ui/checkbox";
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import { chakra } from "@chakra-ui/system";
 import remarkGfm from "remark-gfm";
-import { Mermaid } from "@/components/markdown/Mermaid";
+import MermaidWrapper from "./MermaidWrapper";
 
 // MIT License
 //
@@ -152,7 +152,7 @@ function SimpleMarkdown({ content }: any) {
   function getHighlighter(match: RegExpExecArray, props: any, children: any) {
     const language = match[1];
     if (language == "mermaid") {
-      return <Mermaid graphDefinition={children} />;
+      return <MermaidWrapper graphDefinition={children} />;
     }
 
     return (

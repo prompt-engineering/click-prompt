@@ -41,6 +41,7 @@
     "kysely": "^0.23.5",
     "kysely-planetscale": "^1.3.0",
     "lodash-es": "^4.17.21",
+    "mermaid": "^10.0.2",
     "nearest-color": "^0.4.4",
     "negotiator": "^0.6.3",
     "next": "13.2.3",
