@@ -17,7 +17,11 @@ export const explainParser = (str: string) => {
   const edges = children.filter((item: any) => item.type === "edge_stmt");
 
   nodes.forEach((node: any) => {
-    graph.setNode(node.node_id.id, { label: node.node_id.id, width: 120, height: 50 });
+    const data = node.attr_list.reduce((acc: any, item: any) => {
+      acc[item.id] = item.eq;
+      return acc;
+    }, {});
+    graph.setNode(node.node_id.id, { label: node.node_id.id, width: 120, height: 50, data });
   });
 
   edges.forEach((edge: any) => {
@@ -38,6 +42,7 @@ type FlowGraph = {
       x: number;
       y: number;
     };
+    data?: any;
   }[];
   edges: {
     id: string;
@@ -47,13 +52,20 @@ type FlowGraph = {
 };
 
 export function graphToFlow(graph: Graph): FlowGraph {
-  const nodes = graph.nodes().map((node) => {
-    const { label, width, height, x, y } = graph.node(node);
-    return { id: node, label, width, height, position: { x, y } };
+  const nodes = graph.nodes().map((nodeStr) => {
+    let node = graph.node(nodeStr);
+    const { label, width, height, x, y } = node;
+    let data = {};
+    if (node.hasOwnProperty("data")) {
+      data = (node as any)["data"];
+    }
+
+    return { id: nodeStr, label, width, height, position: { x, y }, data };
   });
   const edges = graph.edges().map((edge) => {
     const { v, w } = edge;
     return { id: `${v}-${w}`, source: v, target: w };
   });
+
   return { nodes, edges };
 }

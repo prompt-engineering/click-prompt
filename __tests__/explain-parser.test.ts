@@ -36,12 +36,11 @@ digraph G {
 
     expect(flows.nodes.length).toEqual(5);
 
-    console.log(flows.nodes[0]);
-
     expect(flows.nodes[0].height).toEqual(50);
     expect(flows.nodes[0].width).toEqual(120);
     expect(flows.nodes[0].position.x).toEqual(60);
     expect(flows.nodes[0].position.y).toEqual(75);
+    expect(flows.nodes[0].data).toEqual({ custom: "prompt" });
 
     expect(flows.edges.length).toEqual(3);
   });
