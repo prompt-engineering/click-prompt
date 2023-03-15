@@ -24,7 +24,7 @@ async function StepDetailPage({ params }: { params: { id: string } }) {
     notFound();
   }
 
-  const content: StartlingStep = await import(`@/assets/chatgpt/by-steps/${params.id}.yml`).then((mod) => mod.default);
+  const content: StartlingStep = await import(`@/assets/chatgpt/flow/${params.id}.yml`).then((mod) => mod.default);
 
   if (!content) {
     notFound();
