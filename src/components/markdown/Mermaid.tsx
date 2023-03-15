@@ -61,6 +61,7 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
         //  Error: Diagram error not found.
         // we need to check if the svg is rendered.
         // if rendered, we can ignore the error.
+        // ref: https://github.com/mermaid-js/mermaid/issues/4140
         if (ref.current?.querySelector("svg") == null) {
           setHasError(true);
         }
