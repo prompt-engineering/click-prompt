@@ -2,6 +2,19 @@ name: 模糊的需求到代码骨架
 category: Development
 author: Phodal Huang
 description: 这个 "逐步运行" 交互示例将会展示，如何结合 ChatGPT 分析需求，编写用户故事？分析用户故事，编写测试用例？分析用户故事，编写代码？
+explain: |
+  digraph G {
+    0[custom = "prompt"]
+    1[custom = "prompt,interactive"]
+    2[custom = "prompt,interactive"]
+    3[custom = "prompt,interactive"]
+    4[custom = "prompt,interactive"]
+    0 -> 1
+    1 -> 2
+    1 -> 3
+    1 -> 4
+  }
+
 steps:
   - name: 创建需求游戏
     ask: |
@@ -30,7 +43,6 @@ steps:
 
       当我说 """story: {}""" ，咱们开始游戏。知道这个游戏怎么玩吗？知道的话，请只回复：OK
     cachedResponseRegex:
-
   - name: 分析需求，编写用户故事
     ask: |
       story: $$placeholder$$

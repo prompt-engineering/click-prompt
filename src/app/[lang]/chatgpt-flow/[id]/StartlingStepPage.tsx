@@ -2,9 +2,9 @@
 
 import React from "react";
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
-import StartlingStepDetail from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StartlingStepDetail";
-import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
-import { extend } from "lodash-es";
+import StartlingStepDetail from "@/app/[lang]/chatgpt-flow/[id]/StartlingStepDetail";
+import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
+import StepExplain from "./StepExplain";
 
 type StepPageProps = {
   content: StartlingStep;
@@ -34,17 +34,19 @@ function StartlingStepPage({ content, id, i18n }: StepPageProps) {
             <Box>
               <Breadcrumb>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-startling-by-each-step/`}>
-                    {dict["by-each-step-samples"]}
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-flow/`}>{dict["by-each-step-samples"]}</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-startling-by-each-step/${id}`}>
-                    {content.name}
-                  </BreadcrumbLink>
+                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-flow/${id}`}>{content.name}</BreadcrumbLink>
                 </BreadcrumbItem>
               </Breadcrumb>
             </Box>
+
+            {content.explain && (
+              <Box style={{ position: "relative", height: "320px" }}>
+                <StepExplain step={content} />
+              </Box>
+            )}
 
             <Heading as='h4'>{content.name}</Heading>
 

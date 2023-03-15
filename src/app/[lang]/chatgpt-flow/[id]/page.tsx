@@ -1,11 +1,11 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { StartlingStep } from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/startling.type";
-import StartlingStepPage from "@/app/[lang]/chatgpt-startling-by-each-step/[id]/StartlingStepPage";
+import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
+import StartlingStepPage from "@/app/[lang]/chatgpt-flow/[id]/StartlingStepPage";
 import { getAppData } from "@/i18n";
 
 const getSampleNames = async () => {
-  const index = await import("@/assets/chatgpt/by-steps/index.json").then((mod) => mod.default);
+  const index = await import("@/assets/chatgpt/flow/index.json").then((mod) => mod.default);
   return index.map((item) => item.path.split(".").slice(0, -1).join("."));
 };
 
@@ -24,7 +24,7 @@ async function StepDetailPage({ params }: { params: { id: string } }) {
     notFound();
   }
 
-  const content: StartlingStep = await import(`@/assets/chatgpt/by-steps/${params.id}.yml`).then((mod) => mod.default);
+  const content: StartlingStep = await import(`@/assets/chatgpt/flow/${params.id}.yml`).then((mod) => mod.default);
 
   if (!content) {
     notFound();
