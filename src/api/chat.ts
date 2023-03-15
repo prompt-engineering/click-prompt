@@ -52,8 +52,9 @@ export async function sendMessage(conversageId: number, message: string, name?: 
 }
 
 export async function sendMsgWithStreamRes(conversageId: number, message: string, name?: string) {
-  const response = await fetch("/api/chatgpt/chat", {
+  const response = await fetch("/api/chatgpt/stream", {
     method: "POST",
+    headers: { Accept: "text/event-stream" },
     body: JSON.stringify({
       action: "send_stream",
       conversation_id: conversageId,

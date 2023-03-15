@@ -245,6 +245,7 @@ export const ChatRoom = ({
 
       const data = await ChatAPI.sendMsgWithStreamRes(currentConversation as number, message);
       if (!data) {
+        setDisable(false);
         setChatHistory([...updatedHistory.slice(0, updatedHistory.length - 1)]);
         return;
       }
