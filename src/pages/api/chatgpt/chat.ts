@@ -1,9 +1,5 @@
 import { NextApiHandler, NextApiResponse } from "next";
-import type {
-  ChatCompletionRequestMessage,
-  ChatCompletionRequestMessageRoleEnum,
-  CreateChatCompletionResponse,
-} from "openai";
+import type { ChatCompletionRequestMessage, CreateChatCompletionResponse } from "openai";
 import type { OpenAIApi } from "openai";
 import { decryptKey } from "@/uitls/crypto.util";
 import { createChat, getAllChatsInsideConversation, createConversation } from "@/storage/planetscale";
@@ -12,7 +8,7 @@ import { getUser } from "@/uitls/user.util";
 import { CHAT_COMPLETION_CONFIG } from "@/configs/constants";
 
 export type RequestSend = {
-  action: "send" | "send_stream";
+  action: "send";
   conversation_id: number;
   messages: ChatCompletionRequestMessage[];
 };
