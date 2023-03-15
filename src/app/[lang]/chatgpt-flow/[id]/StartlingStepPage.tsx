@@ -4,7 +4,7 @@ import React from "react";
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
 import StartlingStepDetail from "@/app/[lang]/chatgpt-flow/[id]/StartlingStepDetail";
 import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
-import StepExplain from "./StepExplain";
+import StepExplain from "../../../../components/FlowExplain/StepExplain";
 
 type StepPageProps = {
   content: StartlingStep;
