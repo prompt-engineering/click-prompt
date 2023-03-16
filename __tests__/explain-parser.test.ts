@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { explainParser, graphToFlow } from "../src/data-processor/explain-parser";
+import { explainParser, graphToFlow } from "@/data-processor/explain-parser";
 
 describe("StableDiffusion Prompt Parser", () => {
   it("parse", () => {

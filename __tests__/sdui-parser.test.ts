@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { parseStableDiffusionData } from "../src/data-processor/sdui-parser";
+import { parseStableDiffusionData } from "@/data-processor/sdui-parser";
 
 describe("StableDiffusion Prompt Parser", () => {
   it("parse", () => {
