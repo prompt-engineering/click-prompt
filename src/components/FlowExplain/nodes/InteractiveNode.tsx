@@ -32,7 +32,7 @@ const TextNodeStyle = styled.div`
 
   min-height: 50px;
   width: 120px;
-  border: 2px solid #eee;
+  border: 2px solid #555;
   padding: 4px;
   border-radius: 5px;
   background: white;
