@@ -5,6 +5,14 @@
     "description": "ClickPrompt Workflow for development ClickFlow",
     "steps": [
       {
+        "name": "初步代码生成",
+        "ask": "我要使用 $$placeholder$$，帮我生成代码吧。\n",
+        "markdownEditor": true,
+        "values": {
+          "placeholder": "node-fetch 结合 GitHub issue 来自动化创建 issue"
+        }
+      },
+      {
         "name": "创建需求",
         "ask": "我们想在 ClickPrompt 上添加一个新的需求： $$placeholder$$，请帮我写一个需求的 issue。\n\n要求：输出需求的格式如下：\n\n\"\"\"\n**Is your feature request related to a problem? Please describe.**\n\nNo\n\n**Describe the solution you'd like**\n\nA clear and concise description of what you want to happen.\n\n**Describe alternatives you've considered**\n\nA clear and concise description of any alternative solutions or features you've considered.\n\n**Additional context**\n\nAdd any other context or screenshots about the feature request here.\n\"\"\"\n\n请按照格式输出需求。\n",
         "markdownEditor": true,
