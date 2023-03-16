@@ -5,12 +5,10 @@ description: ClickPrompt Workflow for development ClickFlow
 explain: |
   digraph G {
     0[flowType = "interactive"]
-    1[flowType = "interactive"]
-    0 -> 1
   }
 
 steps:
-  - name: 思路扩展
+  - name: 创建需求
     ask: |
       我们想在 ClickPrompt 上添加一个新的需求： $$placeholder$$。输出需求如下：
 

@@ -44,7 +44,7 @@ async function apiAction(apiAction: ApiAction) {
   }
 }
 
-async function actionDispatcher(action: FlowAction) {
+export async function actionDispatcher(action: FlowAction) {
   switch (action.type) {
     case "api":
       if (action.api) await apiAction(action.api!);

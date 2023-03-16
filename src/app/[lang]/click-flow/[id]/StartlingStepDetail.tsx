@@ -14,6 +14,7 @@ import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
 import { AskRenderer } from "@/app/[lang]/click-flow/[id]/AskRenderer";
 import CopyComponent from "@/components/CopyComponent";
+import FlowActionComponent from "@/app/[lang]/click-flow/[id]/FlowActionComponent";
 
 type StepProps = {
   index: number;
@@ -96,6 +97,13 @@ function StartlingStepDetail({
           </Box>
         )}
       </AiBlock>
+      {step.actions?.length > 0 && (
+        <>
+          {step.actions.map((action) => (
+            <FlowActionComponent action={action} />
+          ))}
+        </>
+      )}
     </>
   );
 }
