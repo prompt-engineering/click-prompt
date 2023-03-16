@@ -4,7 +4,8 @@ author: Phodal Huang
 description: ClickPrompt Workflow for development ClickFlow
 explain: |
   digraph G {
-    0[flowType = "interactive"]
+    0[flowType = "prompt"]
+    1[flowType = "interactive"]
   }
 
 steps:
