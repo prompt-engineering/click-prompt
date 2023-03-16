@@ -42,9 +42,11 @@ steps:
         type: "api"
         postProcessFunction: "toMarkdown"
         api:
-          url: https://api.github.com/repos/phodal/clickprompt/issues
+          url: https://api.github.com/repos/prompt-engineering/click-prompt/issues
           method: POST
           headers:
             - name: Authorization
               value: token ${{ secrets.GITHUB_TOKEN }}
-          body: '{"title": "Add ChatGPT for ClickPrompt", "body": "$$response$$"}'
+          body:
+            title: Add ChatGPT for ClickPrompt
+            body: $$response$$

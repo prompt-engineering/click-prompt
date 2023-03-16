@@ -30,9 +30,10 @@ async function apiAction(apiAction: ApiAction, content: string) {
       url,
       method,
       headers,
-      body: JSON.parse(body.replace("$$response$$", JSON.stringify(content))),
-    }),
+      body: body,
+    }).replace('"$$response$$"', JSON.stringify(content)),
   });
+
   if (response.ok) {
     const { headers, body } = await response.json();
     return {

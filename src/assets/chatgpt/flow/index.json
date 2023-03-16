@@ -26,7 +26,10 @@
                   "value": "token ${{ secrets.GITHUB_TOKEN }}"
                 }
               ],
-              "body": "{\"title\": \"Add ChatGPT for ClickPrompt\", \"body\": \"$$response$$\"}"
+              "body": {
+                "title": "Add ChatGPT for ClickPrompt",
+                "body": "$$response$$"
+              }
             }
           }
         ]
