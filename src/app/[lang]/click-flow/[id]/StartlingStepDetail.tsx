@@ -9,7 +9,7 @@ import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
 import { StartlingFlow } from "@/app/[lang]/click-flow/[id]/startling.type";
-import { fillStepWithValued, FlowStep } from "@/app/[lang]/click-flow/[id]/flow-step";
+import { fillStepWithValued, FlowStep } from "@/app/[lang]/click-flow/[id]/flow-action";
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
 import { AskRenderer } from "@/app/[lang]/click-flow/[id]/AskRenderer";

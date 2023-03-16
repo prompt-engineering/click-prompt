@@ -1,4 +1,4 @@
-import { FlowStep } from "@/app/[lang]/click-flow/[id]/flow-step";
+import { FlowStep } from "@/app/[lang]/click-flow/[id]/flow-action";
 
 export type StartlingFlow = {
   name: string;

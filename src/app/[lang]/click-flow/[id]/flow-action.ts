@@ -6,6 +6,22 @@ export type FlowStep = {
   markdownEditor?: boolean;
   cachedResponseRegex: string;
   values: Record<string, string>;
+
+  actions: FlowAction[];
+};
+
+export type FlowAction = {
+  name: string;
+  type: "api" | "open";
+  api?: {
+    url: string;
+    method: string;
+    headers: {
+      name: string;
+      value: string;
+    }[];
+    body: string;
+  };
 };
 
 export function fillStepWithValued(
