@@ -4,7 +4,7 @@ import React from "react";
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
 import StartlingStepDetail from "@/app/[lang]/chatgpt-flow/[id]/StartlingStepDetail";
 import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
-import StepExplain from "../../../../components/FlowExplain/StepExplain";
+import FlowExplain from "../../../../components/FlowExplain/FlowExplain";
 
 type StepPageProps = {
   content: StartlingStep;
@@ -44,7 +44,7 @@ function StartlingStepPage({ content, id, i18n }: StepPageProps) {
 
             {content.explain && (
               <Box style={{ position: "relative", height: "320px" }}>
-                <StepExplain step={content} />
+                <FlowExplain flow={content} name={} />
               </Box>
             )}
 

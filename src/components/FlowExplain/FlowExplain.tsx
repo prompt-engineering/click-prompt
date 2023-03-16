@@ -3,16 +3,16 @@ import ReactFlow, { Background, Controls } from "reactflow";
 import { Edge, Node } from "@reactflow/core/dist/esm/types";
 import "reactflow/dist/style.css";
 
-import InteractiveNode from "@/components/FlowExplain/InteractiveNode";
+import InteractiveNode from "@/components/FlowExplain/nodes/InteractiveNode";
 import { explainParser, graphToFlow } from "@/data-processor/explain-parser";
 import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
-import PromptNode from "@/components/FlowExplain/PromptNode";
+import PromptNode from "@/components/FlowExplain/nodes/PromptNode";
 
 type StepExplainProps = {
   step: StartlingStep;
 };
 
-function StepExplain(props: StepExplainProps) {
+function FlowExplain(props: StepExplainProps) {
   const graph = explainParser(props.step.explain || "");
   const flowGraph = graphToFlow(graph);
 
@@ -52,4 +52,4 @@ function StepExplain(props: StepExplainProps) {
   );
 }
 
-export default StepExplain;
+export default FlowExplain;
