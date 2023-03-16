@@ -10,7 +10,9 @@ explain: |
 steps:
   - name: 创建需求
     ask: |
-      我们想在 ClickPrompt 上添加一个新的需求： $$placeholder$$。输出需求如下：
+      我们想在 ClickPrompt 上添加一个新的需求： $$placeholder$$，请帮我写一个需求的 issue。
+
+      要求：输出需求的格式如下：
 
       """
       **Is your feature request related to a problem? Please describe.**
@@ -30,7 +32,7 @@ steps:
       Add any other context or screenshots about the feature request here.
       """
 
-      请帮我们围绕上面的格式创建 issue。
+      请按照格式输出需求。
     markdownEditor: true
     cachedResponseRegex:
     values:
@@ -45,8 +47,4 @@ steps:
           headers:
             - name: Authorization
               value: token ${{ secrets.GITHUB_TOKEN }}
-          body: |
-            {
-              "title": "Add ChatGPT for ClickPrompt",
-              "body": $$response$$
-            }
+          body: '{"title": "Add ChatGPT for ClickPrompt", "body": "$$response$$"}'

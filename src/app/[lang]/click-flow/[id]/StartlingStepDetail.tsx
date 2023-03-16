@@ -99,8 +99,8 @@ function StartlingStepDetail({
       </AiBlock>
       {response && step.actions?.length > 0 && (
         <>
-          {step.actions.map((action) => (
-            <FlowActionComponent action={action} response={response} />
+          {step.actions.map((action, key) => (
+            <FlowActionComponent action={action} response={response} key={key} />
           ))}
         </>
       )}

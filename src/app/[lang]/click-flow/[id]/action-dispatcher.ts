@@ -30,7 +30,7 @@ async function apiAction(apiAction: ApiAction, content: string) {
       url,
       method,
       headers,
-      body: body.replace("$$response$$", content),
+      body: JSON.parse(body.replace("$$response$$", JSON.stringify(content))),
     }),
   });
   if (response.ok) {
