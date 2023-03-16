@@ -189,5 +189,35 @@
     ],
     "author": "Phodal Huang",
     "path": "user-story.yml"
+  },
+  {
+    "name": "写作",
+    "category": "Development",
+    "description": "Flow for writting.",
+    "steps": [
+      {
+        "name": "思路扩展",
+        "ask": "我想写一篇文章，主题围绕于：$$placeholder$$，有什么合适的方向？",
+        "values": {
+          "placeholder": "ChatGPT 与内容创作？"
+        },
+        "cachedResponseRegex": null
+      },
+      {
+        "name": "继续思考",
+        "ask": "有创意一点的呢？",
+        "cachedResponseRegex": null
+      },
+      {
+        "name": "设计大纲",
+        "ask": null,
+        "values": {
+          "placeholder": "如何用 ChatGPT 来写作？"
+        },
+        "cachedResponseRegex": null
+      }
+    ],
+    "author": "Phodal Huang",
+    "path": "writting.yml"
   }
 ]

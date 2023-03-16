@@ -1,0 +1,27 @@
+name: 写作
+category: Development
+author: Phodal Huang
+description: Flow for writting.
+explain: |
+  digraph G {
+    0[flowType = "prompt"]
+    1[flowType = "prompt"]
+    2[flowType = "prompt"]
+    0 -> 1
+    1 -> 2
+  }
+
+steps:
+  - name: 思路扩展
+    ask: 我想写一篇文章，主题围绕于：$$placeholder$$，有什么合适的方向？
+    values:
+      placeholder: ChatGPT 与内容创作？
+    cachedResponseRegex:
+  - name: 继续思考
+    ask: 有创意一点的呢？
+    cachedResponseRegex:
+  - name: 设计大纲
+    ask:
+    values:
+      placeholder: 如何用 ChatGPT 来写作？
+    cachedResponseRegex:
