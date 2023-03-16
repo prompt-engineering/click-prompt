@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useCallback } from "react";
 import { MarkdownEditor } from "@remirror/react-editors/markdown";
-import { useDocChanged, useHelpers, useKeymap } from "@remirror/react";
+import { useDocChanged, useHelpers, useKeymap, useRemirror } from "@remirror/react";
 import { KeyBindingProps } from "@remirror/core-types/dist-types/core-types";
 
 const hooks = [
@@ -39,7 +41,6 @@ export const OnTextChange = ({ onChange }: { onChange: (html: string) => void })
 
 const FlowMarkdownEditor = ({ text, onChange }: { text: string; onChange: (text: string) => void }) => {
   const valueChange = (value: string) => {
-    console.log(value);
     onChange(value || "");
   };
 
