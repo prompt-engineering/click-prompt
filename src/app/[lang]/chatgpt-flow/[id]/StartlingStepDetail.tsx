@@ -9,8 +9,8 @@ import { Avatar, Box } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
-import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
-import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-flow/[id]/step-detail";
+import { StartlingFlow } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
+import { fillStepWithValued, FlowStep } from "@/app/[lang]/chatgpt-flow/[id]/flow-step";
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
 import { AskRenderer } from "@/app/[lang]/chatgpt-flow/[id]/AskRenderer";
@@ -18,8 +18,8 @@ import CopyComponent from "@/components/CopyComponent";
 
 type StepProps = {
   index: number;
-  step: StepDetail;
-  content: StartlingStep;
+  step: FlowStep;
+  flow: StartlingFlow;
   cachedValue: Record<number, any>;
   onCache?: (step: number, response: string) => void;
   conversationId?: number;
@@ -29,7 +29,7 @@ type StepProps = {
 function StartlingStepDetail({
   index,
   step,
-  content,
+  flow,
   onCache,
   cachedValue,
   conversationId,
@@ -74,14 +74,14 @@ function StartlingStepDetail({
         Step {index + 1}. {step.name}
       </StyledStepHeading>
       <HumanBlock direction='row' justify='space-between'>
-        <Avatar bg='teal.500' name={content.author} size='sm' mr={2} />
+        <Avatar bg='teal.500' name={flow.author} size='sm' mr={2} />
         <Box w='100%' p={4} h='100%'>
           <AskRenderer step={step} onAskUpdate={setAsk} cachedValue={cachedValue} />
         </Box>
       </HumanBlock>
       <ExecutePromptButton
         text={ask}
-        name={content.name}
+        name={flow.name}
         handleResponse={handleResponse}
         conversationId={conversationId}
         updateConversationId={updateConversationId}

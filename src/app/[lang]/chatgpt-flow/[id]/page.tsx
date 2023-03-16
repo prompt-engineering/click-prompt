@@ -1,6 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
+import { StartlingFlow } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
 import StartlingStepPage from "@/app/[lang]/chatgpt-flow/[id]/StartlingStepPage";
 import { getAppData } from "@/i18n";
 
@@ -24,13 +24,13 @@ async function StepDetailPage({ params }: { params: { id: string } }) {
     notFound();
   }
 
-  const content: StartlingStep = await import(`@/assets/chatgpt/flow/${params.id}.yml`).then((mod) => mod.default);
+  const flow: StartlingFlow = await import(`@/assets/chatgpt/flow/${params.id}.yml`).then((mod) => mod.default);
 
-  if (!content) {
+  if (!flow) {
     notFound();
   }
 
-  return <>{content && <StartlingStepPage step={content} id={params.id} i18n={i18nProps} />}</>;
+  return <>{flow && <StartlingStepPage flow={flow} id={params.id} i18n={i18nProps} />}</>;
 }
 
 export default StepDetailPage;

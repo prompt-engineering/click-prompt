@@ -1,11 +1,11 @@
-import { fillStepWithValued, StepDetail } from "@/app/[lang]/chatgpt-flow/[id]/step-detail";
+import { fillStepWithValued, FlowStep } from "@/app/[lang]/chatgpt-flow/[id]/flow-step";
 import React, { useEffect, useRef } from "react";
 import { Textarea } from "@chakra-ui/react";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import autosize from "autosize";
 import styled from "@emotion/styled";
 
-type AskRendererProps = { step: StepDetail; onAskUpdate: (ask: string) => void; cachedValue: Record<number, any> };
+type AskRendererProps = { step: FlowStep; onAskUpdate: (ask: string) => void; cachedValue: Record<number, any> };
 
 export function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps) {
   const askTask = fillStepWithValued(step, cachedValue);

@@ -1,4 +1,4 @@
-export type StepDetail = {
+export type FlowStep = {
   name: string;
   ask: string;
   response?: string;
@@ -7,7 +7,7 @@ export type StepDetail = {
 };
 
 export function fillStepWithValued(
-  step: StepDetail,
+  step: FlowStep,
   cachedValue: Record<number, any>,
 ): { replaced: boolean; ask: string } {
   const regex = new RegExp(/\$\$([a-zA-Z0-9_]+)\$\$/);

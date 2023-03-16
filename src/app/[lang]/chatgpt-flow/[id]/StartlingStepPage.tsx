@@ -3,16 +3,16 @@
 import React from "react";
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
 import StartlingStepDetail from "@/app/[lang]/chatgpt-flow/[id]/StartlingStepDetail";
-import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
+import { StartlingFlow } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
 import FlowExplain from "../../../../components/FlowExplain/FlowExplain";
 
 type StepPageProps = {
-  step: StartlingStep;
+  flow: StartlingFlow;
   id: string;
   i18n: GeneralI18nProps;
 };
 
-function StartlingStepPage({ step, id, i18n }: StepPageProps) {
+function StartlingStepPage({ flow, id, i18n }: StepPageProps) {
   const [conversationId, setConversationId] = React.useState<number | undefined>(undefined);
   const [cachedValue, setCachedValue] = React.useState<Record<number, any>>({});
 
@@ -28,7 +28,7 @@ function StartlingStepPage({ step, id, i18n }: StepPageProps) {
 
   return (
     <>
-      {step && (
+      {flow && (
         <>
           <Flex direction='column' gap='4'>
             <Box>
@@ -37,26 +37,26 @@ function StartlingStepPage({ step, id, i18n }: StepPageProps) {
                   <BreadcrumbLink href={`/${i18n.locale}/chatgpt-flow/`}>{dict["by-each-step-samples"]}</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-flow/${id}`}>{step.name}</BreadcrumbLink>
+                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-flow/${id}`}>{flow.name}</BreadcrumbLink>
                 </BreadcrumbItem>
               </Breadcrumb>
             </Box>
 
-            {step.explain && (
+            {flow.explain && (
               <Box style={{ position: "relative", height: "320px" }}>
-                <FlowExplain step={step} />
+                <FlowExplain step={flow} />
               </Box>
             )}
 
-            <Heading as='h4'>{step.name}</Heading>
+            <Heading as='h4'>{flow.name}</Heading>
 
             <SimpleGrid columns={1} spacing={4}>
-              {step.steps.map((step, index) => (
+              {flow.steps.map((step, index) => (
                 <StartlingStepDetail
                   index={index}
+                  flow={flow}
                   step={step}
                   key={index}
-                  content={step}
                   onCache={updateCached}
                   cachedValue={cachedValue}
                   conversationId={conversationId}

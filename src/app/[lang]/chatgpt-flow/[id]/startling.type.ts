@@ -1,10 +1,10 @@
-import { StepDetail } from "@/app/[lang]/chatgpt-flow/[id]/step-detail";
+import { FlowStep } from "@/app/[lang]/chatgpt-flow/[id]/flow-step";
 
-export type StartlingStep = {
+export type StartlingFlow = {
   name: string;
   category: string;
   author: string;
   explain?: string;
   description: string;
-  steps: StepDetail[];
+  steps: FlowStep[];
 };

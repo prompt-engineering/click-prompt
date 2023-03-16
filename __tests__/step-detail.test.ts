@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { fillStepWithValued } from "../src/app/[lang]/chatgpt-flow/[id]/step-detail";
+import { fillStepWithValued } from "@/app/[lang]/chatgpt-flow/[id]/flow-step";
 
 describe("Step Valued", () => {
   it("fillStepWithValued", () => {
