@@ -1,0 +1,52 @@
+name: ClickPrompt Workflow
+category: Development
+author: Phodal Huang
+description: ClickPrompt Workflow for development ClickFlow
+explain: |
+  digraph G {
+    0[flowType = "interactive"]
+    1[flowType = "interactive"]
+    0 -> 1
+  }
+
+steps:
+  - name: 思路扩展
+    ask: |
+      我们想在 ClickPrompt 上添加一个新的需求： $$placeholder$$。输出需求如下：
+
+      """
+      **Is your feature request related to a problem? Please describe.**
+
+      No
+
+      **Describe the solution you'd like**
+
+      A clear and concise description of what you want to happen.
+
+      **Describe alternatives you've considered**
+
+      A clear and concise description of any alternative solutions or features you've considered.
+
+      **Additional context**
+
+      Add any other context or screenshots about the feature request here.
+      """
+
+    markdownEditor: true
+    cachedResponseRegex:
+    values:
+      placeholder: 在 ClickPrompt 上使用 ChatGPT 自动创建 GitHub issue，以便于社区贡献者能更好的理解这个需求
+    actions:
+      - name: Create issue
+        type: "api"
+        api:
+          url: https://api.github.com/repos/phodal/clickprompt/issues
+          method: POST
+          headers:
+            - name: Authorization
+              value: token ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            {
+              "title": "Add ChatGPT for ClickPrompt",
+              "body": "${{ steps.0.ask }}"
+            }

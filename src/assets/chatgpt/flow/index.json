@@ -1,5 +1,40 @@
 [
   {
+    "name": "ClickPrompt Workflow",
+    "category": "Development",
+    "description": "ClickPrompt Workflow for development ClickFlow",
+    "steps": [
+      {
+        "name": "思路扩展",
+        "ask": "我们想在 ClickPrompt 上添加一个新的需求： $$placeholder$$。输出需求如下：\n\n\"\"\"\n**Is your feature request related to a problem? Please describe.**\n\nNo\n\n**Describe the solution you'd like**\n\nA clear and concise description of what you want to happen.\n\n**Describe alternatives you've considered**\n\nA clear and concise description of any alternative solutions or features you've considered.\n\n**Additional context**\n\nAdd any other context or screenshots about the feature request here.\n\"\"\"\n",
+        "markdownEditor": true,
+        "cachedResponseRegex": null,
+        "values": {
+          "placeholder": "在 ClickPrompt 上使用 ChatGPT 自动创建 GitHub issue，以便于社区贡献者能更好的理解这个需求"
+        },
+        "actions": [
+          {
+            "name": "Create issue",
+            "type": "api",
+            "api": {
+              "url": "https://api.github.com/repos/phodal/clickprompt/issues",
+              "method": "POST",
+              "headers": [
+                {
+                  "name": "Authorization",
+                  "value": "token ${{ secrets.GITHUB_TOKEN }}"
+                }
+              ],
+              "body": "{\n  \"title\": \"Add ChatGPT for ClickPrompt\",\n  \"body\": \"${{ steps.0.ask }}\"\n}\n"
+            }
+          }
+        ]
+      }
+    ],
+    "author": "Phodal Huang",
+    "path": "click-flow.yml"
+  },
+  {
     "name": "Code Review",
     "category": "Development",
     "description": "在这个示例中，我们将会展示如何使用 ChatGPT 进行代码审查。",
