@@ -13,6 +13,8 @@ export type FlowAction = {
   type: FlowActionType;
   api?: ApiAction;
   open?: OpenAction;
+  postProcessFunction?: "toMarkdown";
+  preProcessFunction?: "fromMarkdown";
 };
 
 export type FlowActionType = "api" | "open";

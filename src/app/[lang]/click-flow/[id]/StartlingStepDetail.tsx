@@ -100,7 +100,7 @@ function StartlingStepDetail({
       {response && step.actions?.length > 0 && (
         <>
           {step.actions.map((action) => (
-            <FlowActionComponent action={action} />
+            <FlowActionComponent action={action} response={response} />
           ))}
         </>
       )}

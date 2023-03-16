@@ -38,6 +38,7 @@ steps:
     actions:
       - name: Create issue
         type: "api"
+        postProcessFunction: "toMarkdown"
         api:
           url: https://api.github.com/repos/phodal/clickprompt/issues
           method: POST
@@ -47,5 +48,5 @@ steps:
           body: |
             {
               "title": "Add ChatGPT for ClickPrompt",
-              "body": "${{ steps.0.ask }}"
+              "body": $$response$$
             }

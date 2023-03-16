@@ -1,21 +1,25 @@
 import { ApiAction, FlowAction, OpenAction } from "@/app/[lang]/click-flow/[id]/flow-action";
 import fetch from "node-fetch";
 
+export type ActionResult = ActionSuccess | ActionError;
+export type ActionSuccess = {
+  success: true;
+  result?: any;
+};
+
+export type ActionError = {
+  success: false;
+  error: string;
+};
+
 async function openAction(openAction: OpenAction) {
   window.open(openAction.scheme);
+  return {
+    success: true,
+  };
 }
 
-// export type ApiAction = {
-//   url: string;
-//   method: string;
-//   headers: {
-//     name: string;
-//     value: string;
-//   }[];
-//   body: string;
-// };
-// wrapper api action request to /api/proxy
-async function apiAction(apiAction: ApiAction) {
+async function apiAction(apiAction: ApiAction, content: string) {
   const { url, method, headers, body } = apiAction;
   const response = await fetch(`/api/action/proxy`, {
     method: "POST",
@@ -26,14 +30,13 @@ async function apiAction(apiAction: ApiAction) {
       url,
       method,
       headers,
-      body,
+      body: body.replace("$$response$$", content),
     }),
   });
   if (response.ok) {
     const { headers, body } = await response.json();
     return {
       success: true,
-      headers: headers,
       result: body,
     };
   } else {
@@ -44,15 +47,20 @@ async function apiAction(apiAction: ApiAction) {
   }
 }
 
-export async function actionDispatcher(action: FlowAction) {
+export async function actionDispatcher(action: FlowAction, content: string): Promise<ActionResult> {
   switch (action.type) {
     case "api":
-      if (action.api) await apiAction(action.api!);
+      if (action.api) await apiAction(action.api!, content);
       break;
     case "open":
-      if (action.open) openAction(action.open!);
+      if (action.open) await openAction(action.open!);
       break;
     default:
       console.log("Unknown action type");
   }
+
+  return {
+    success: false,
+    error: "Unknown action type",
+  };
 }
