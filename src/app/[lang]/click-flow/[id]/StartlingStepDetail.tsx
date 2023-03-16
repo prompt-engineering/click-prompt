@@ -97,7 +97,7 @@ function StartlingStepDetail({
           </Box>
         )}
       </AiBlock>
-      {step.actions?.length > 0 && (
+      {response && step.actions?.length > 0 && (
         <>
           {step.actions.map((action) => (
             <FlowActionComponent action={action} />

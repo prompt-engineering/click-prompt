@@ -5,8 +5,8 @@
     "description": "ClickPrompt Workflow for development ClickFlow",
     "steps": [
       {
-        "name": "思路扩展",
-        "ask": "我们想在 ClickPrompt 上添加一个新的需求： $$placeholder$$。输出需求如下：\n\n\"\"\"\n**Is your feature request related to a problem? Please describe.**\n\nNo\n\n**Describe the solution you'd like**\n\nA clear and concise description of what you want to happen.\n\n**Describe alternatives you've considered**\n\nA clear and concise description of any alternative solutions or features you've considered.\n\n**Additional context**\n\nAdd any other context or screenshots about the feature request here.\n\"\"\"\n",
+        "name": "创建需求",
+        "ask": "我们想在 ClickPrompt 上添加一个新的需求： $$placeholder$$。输出需求如下：\n\n\"\"\"\n**Is your feature request related to a problem? Please describe.**\n\nNo\n\n**Describe the solution you'd like**\n\nA clear and concise description of what you want to happen.\n\n**Describe alternatives you've considered**\n\nA clear and concise description of any alternative solutions or features you've considered.\n\n**Additional context**\n\nAdd any other context or screenshots about the feature request here.\n\"\"\"\n\n请帮我们围绕上面的格式创建 issue。\n",
         "markdownEditor": true,
         "cachedResponseRegex": null,
         "values": {

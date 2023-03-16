@@ -30,6 +30,7 @@ steps:
       Add any other context or screenshots about the feature request here.
       """
 
+      请帮我们围绕上面的格式创建 issue。
     markdownEditor: true
     cachedResponseRegex:
     values:
