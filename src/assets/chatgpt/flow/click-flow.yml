@@ -48,13 +48,14 @@ steps:
         type: "api"
         postProcessFunction: "toMarkdown"
         api:
-          url: https://api.github.com/repos/prompt-engineering/click-prompt/issues
+          url: https://api.github.com/repos/phodal-archive/apache-arrow-chapi-demo/issues
           method: POST
           headers:
-            - key: Accept
-              value: application/vnd.github.v3+json
             - key: Authorization
               value: Bearer ${{ secrets.GITHUB_TOKEN }}
           body:
             title: Add ChatGPT for ClickPrompt
             body: $$response$$
+            assignees: []
+            milestone: null
+            labels: []

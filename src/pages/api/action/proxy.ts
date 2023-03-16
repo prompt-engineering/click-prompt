@@ -5,7 +5,7 @@ export type ApiAction = {
   url: string;
   method: string;
   headers: {
-    name: string;
+    key: string;
     value: string;
   }[];
   body: string;
@@ -19,30 +19,27 @@ const handler: NextApiHandler = async (req, res) => {
   const { url, method, headers, body } = req.body as ApiAction;
 
   const proxy_body: any = typeof body === "string" ? JSON.parse(body) : body;
-  const [response] = await Promise.all([
-    fetch(url, {
-      method,
-      // todo: convert headers
-      headers: headers.reduce((acc, { name, value }) => {
-        (acc as any)[name] = value;
-        return acc;
-      }),
-      body: JSON.stringify(proxy_body),
-    }),
-  ]);
 
-  console.log("create proxy request: ", method, url, headers, body);
-  console.log("proxy response: ", response.status, response.statusText, await response.text());
+  let browserHeaders: Record<string, string> = headers.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
+
+  const response = await fetch(url, {
+    method,
+    headers: browserHeaders,
+    body: JSON.stringify(proxy_body),
+  });
+
+  console.log("create proxy request: ", method, url, browserHeaders);
+  console.log("proxy response: ", response.status, response.statusText);
 
   if (response.ok) {
     const { headers, body } = await response.json();
-    return res.status(200).json({
+    return res.status(response.status).json({
       headers,
       body,
     });
   } else {
-    return res.status(400).json({
-      error: await response.text(),
+    return res.status(response.status).json({
+      error: await response.json(),
     });
   }
 };
