@@ -30,7 +30,7 @@ async function StepDetailPage({ params }: { params: { id: string } }) {
     notFound();
   }
 
-  return <>{content && <StartlingStepPage content={content} id={params.id} i18n={i18nProps} />}</>;
+  return <>{content && <StartlingStepPage step={content} id={params.id} i18n={i18nProps} />}</>;
 }
 
 export default StepDetailPage;

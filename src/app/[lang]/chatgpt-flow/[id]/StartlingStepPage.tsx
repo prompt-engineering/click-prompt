@@ -7,12 +7,12 @@ import { StartlingStep } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
 import FlowExplain from "../../../../components/FlowExplain/FlowExplain";
 
 type StepPageProps = {
-  content: StartlingStep;
+  step: StartlingStep;
   id: string;
   i18n: GeneralI18nProps;
 };
 
-function StartlingStepPage({ content, id, i18n }: StepPageProps) {
+function StartlingStepPage({ step, id, i18n }: StepPageProps) {
   const [conversationId, setConversationId] = React.useState<number | undefined>(undefined);
   const [cachedValue, setCachedValue] = React.useState<Record<number, any>>({});
 
@@ -28,7 +28,7 @@ function StartlingStepPage({ content, id, i18n }: StepPageProps) {
 
   return (
     <>
-      {content && (
+      {step && (
         <>
           <Flex direction='column' gap='4'>
             <Box>
@@ -37,26 +37,26 @@ function StartlingStepPage({ content, id, i18n }: StepPageProps) {
                   <BreadcrumbLink href={`/${i18n.locale}/chatgpt-flow/`}>{dict["by-each-step-samples"]}</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbItem>
-                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-flow/${id}`}>{content.name}</BreadcrumbLink>
+                  <BreadcrumbLink href={`/${i18n.locale}/chatgpt-flow/${id}`}>{step.name}</BreadcrumbLink>
                 </BreadcrumbItem>
               </Breadcrumb>
             </Box>
 
-            {content.explain && (
+            {step.explain && (
               <Box style={{ position: "relative", height: "320px" }}>
-                <FlowExplain flow={content} name={} />
+                <FlowExplain step={step} />
               </Box>
             )}
 
-            <Heading as='h4'>{content.name}</Heading>
+            <Heading as='h4'>{step.name}</Heading>
 
             <SimpleGrid columns={1} spacing={4}>
-              {content.steps.map((step, index) => (
+              {step.steps.map((step, index) => (
                 <StartlingStepDetail
                   index={index}
                   step={step}
                   key={index}
-                  content={content}
+                  content={step}
                   onCache={updateCached}
                   cachedValue={cachedValue}
                   conversationId={conversationId}
