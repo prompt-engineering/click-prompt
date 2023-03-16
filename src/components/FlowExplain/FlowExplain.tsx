@@ -5,7 +5,7 @@ import "reactflow/dist/style.css";
 
 import InteractiveNode from "@/components/FlowExplain/nodes/InteractiveNode";
 import { explainParser, graphToFlow } from "@/data-processor/explain-parser";
-import { StartlingFlow } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
+import { StartlingFlow } from "@/app/[lang]/click-flow/[id]/startling.type";
 import PromptNode from "@/components/FlowExplain/nodes/PromptNode";
 
 type StepExplainProps = {

@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { StartlingFlow } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
-import StartlingStepPage from "@/app/[lang]/chatgpt-flow/[id]/StartlingStepPage";
+import { StartlingFlow } from "@/app/[lang]/click-flow/[id]/startling.type";
+import StartlingStepPage from "@/app/[lang]/click-flow/[id]/StartlingStepPage";
 import { getAppData } from "@/i18n";
 
 const getSampleNames = async () => {

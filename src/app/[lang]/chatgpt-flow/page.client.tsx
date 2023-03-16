@@ -55,7 +55,7 @@ function StartlingByEachStepList({ i18n }: GeneralI18nProps) {
               <CardFooter>
                 <Flex w='90%' flexGrow={"column"} justifyContent='space-between'>
                   <Box>
-                    <Link href={"/chatgpt-flow/" + sample.path.split(".")[0]}>
+                    <Link href={"/click-flow/" + sample.path.split(".")[0]}>
                       <Button>{dict["view-here"]}</Button>
                     </Link>
                   </Box>

@@ -35,8 +35,8 @@ export default async function NavBar({ locale }: { locale: string }) {
       ],
     },
     {
-      title: g("chatgpt-flow"),
-      url: `/chatgpt-flow/`,
+      title: g("click-flow"),
+      url: `/click-flow/`,
     },
     {
       title: "StableDiffusion",

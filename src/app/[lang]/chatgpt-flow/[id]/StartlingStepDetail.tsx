@@ -9,11 +9,11 @@ import { Avatar, Box } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
-import { StartlingFlow } from "@/app/[lang]/chatgpt-flow/[id]/startling.type";
-import { fillStepWithValued, FlowStep } from "@/app/[lang]/chatgpt-flow/[id]/flow-step";
+import { StartlingFlow } from "@/app/[lang]/click-flow/[id]/startling.type";
+import { fillStepWithValued, FlowStep } from "@/app/[lang]/click-flow/[id]/flow-step";
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
-import { AskRenderer } from "@/app/[lang]/chatgpt-flow/[id]/AskRenderer";
+import { AskRenderer } from "@/app/[lang]/click-flow/[id]/AskRenderer";
 import CopyComponent from "@/components/CopyComponent";
 
 type StepProps = {

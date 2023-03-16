@@ -1,4 +1,4 @@
-export const hadChildRoutes = ["chatgpt-flow", "chatgpt-samples"];
+export const hadChildRoutes = ["click-flow", "chatgpt-samples"];
 
 export const pages = [
   "/",
@@ -6,8 +6,8 @@ export const pages = [
   "/chatgpt-general/",
   "/chatgpt-generator-cot/",
   "/chatgpt-interactive-game/",
-  "/chatgpt-flow/",
-  "/chatgpt-flow/$",
+  "/click-flow/",
+  "/click-flow/$",
   "/chatgpt-prompt-role-play/",
   "/chatgpt-samples/",
   "/chatgpt-samples/$",

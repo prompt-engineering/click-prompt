@@ -1,4 +1,4 @@
-import { fillStepWithValued, FlowStep } from "@/app/[lang]/chatgpt-flow/[id]/flow-step";
+import { fillStepWithValued, FlowStep } from "@/app/[lang]/click-flow/[id]/flow-step";
 import React, { useEffect, useRef } from "react";
 import { Textarea } from "@chakra-ui/react";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";

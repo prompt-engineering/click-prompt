@@ -82,7 +82,7 @@ steps:
       $$response:1$$
       """
     cachedResponseRegex:
-  - name: 分析用户故事，编写测试代码
+  - name: 分析用户故事，编写功能代码
     ask: |
       我给你一个需求，你需要分析需求，使用 Java + Spring 编写 API，要求如下：
 
