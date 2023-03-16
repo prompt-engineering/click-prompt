@@ -20,7 +20,13 @@ const handler: NextApiHandler = async (req, res) => {
 
   const proxy_body: any = typeof body === "string" ? JSON.parse(body) : body;
 
-  let browserHeaders: Record<string, string> = headers.reduce((acc, { key, value }) => ({ ...acc, [key]: value }), {});
+  const browserHeaders: Record<string, string> = headers.reduce(
+    (acc, { key, value }) => ({
+      ...acc,
+      [key]: value,
+    }),
+    {},
+  );
 
   const response = await fetch(url, {
     method,
