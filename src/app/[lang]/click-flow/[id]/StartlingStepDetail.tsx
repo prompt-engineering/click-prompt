@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Heading } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
