@@ -15,21 +15,21 @@ const nextConfig = {
     return [
       {
         source: "/zh-CN/chatgpt-startling-by-each-step/:id/",
-        destination: "/zh-CN/click-flow/:id/",
+        destination: "/zh-CN/chatgpt-flow/:id/",
         permanent: true,
       },
       {
         source: "/en-US/chatgpt-startling-by-each-step/:id/",
-        destination: "/en-US/click-flow/:id/",
+        destination: "/en-US/chatgpt-flow/:id/",
         permanent: true,
       },
       {
-        source: "/zh-CN/click-flow/:id/",
+        source: "/zh-CN/chatgpt-flow/:id/",
         destination: "/zh-CN/click-flow/:id/",
         permanent: true,
       },
       {
-        source: "/en-US/click-flow/:id/",
+        source: "/en-US/chatgpt-flow/:id/",
         destination: "/en-US/click-flow/:id/",
         permanent: true,
       },
