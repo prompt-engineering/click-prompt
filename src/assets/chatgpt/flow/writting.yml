@@ -23,6 +23,7 @@ steps:
     values:
       placeholder: ChatGPT 与内容创作？
     cachedResponseRegex:
+    markdownEditor: true
   - name: 继续思考
     ask: 有创意一点的呢？
     cachedResponseRegex:

@@ -201,7 +201,8 @@
         "values": {
           "placeholder": "ChatGPT 与内容创作？"
         },
-        "cachedResponseRegex": null
+        "cachedResponseRegex": null,
+        "markdownEditor": true
       },
       {
         "name": "继续思考",

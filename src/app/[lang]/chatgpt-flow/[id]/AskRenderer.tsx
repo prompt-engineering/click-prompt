@@ -4,6 +4,7 @@ import { Textarea } from "@chakra-ui/react";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import autosize from "autosize";
 import styled from "@emotion/styled";
+import FlowMarkdownEditor from "@/components/markdown/FlowMarkdownEditor";
 
 type AskRendererProps = { step: FlowStep; onAskUpdate: (ask: string) => void; cachedValue: Record<number, any> };
 
@@ -25,6 +26,18 @@ export function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps
       };
     }
   }, []);
+
+  if (step.markdownEditor) {
+    return (
+      <FlowMarkdownEditor
+        text={value}
+        onChange={(text) => {
+          setValue(text);
+          onAskUpdate(text);
+        }}
+      />
+    );
+  }
 
   if (askTask.replaced) {
     return (

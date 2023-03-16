@@ -2,6 +2,8 @@ export type FlowStep = {
   name: string;
   ask: string;
   response?: string;
+
+  markdownEditor?: boolean;
   cachedResponseRegex: string;
   values: Record<string, string>;
 };
