@@ -45,8 +45,10 @@ steps:
           url: https://api.github.com/repos/prompt-engineering/click-prompt/issues
           method: POST
           headers:
-            - name: Authorization
-              value: token ${{ secrets.GITHUB_TOKEN }}
+            - key: Accept
+              value: application/vnd.github.v3+json
+            - key: Authorization
+              value: Bearer ${{ secrets.GITHUB_TOKEN }}
           body:
             title: Add ChatGPT for ClickPrompt
             body: $$response$$
