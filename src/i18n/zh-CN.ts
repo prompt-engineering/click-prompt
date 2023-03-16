@@ -15,6 +15,7 @@ import _stableDiffusionExamples from "@i18n/zh-CN/_stable-diffusion-examples.jso
 import _stableDiffusionGenerator from "@i18n/zh-CN/_stable-diffusion-generator.json";
 import _chatgptStartlingByEachStep from "@i18n/zh-CN/_click-flow.json";
 import _chatgptStartlingByEachStepDetail from "@i18n/zh-CN/click-flow/$.json";
+import _stableDiffusionDeepDanbooru from "@i18n/zh-CN/_stable-diffusion-deepdanbooru.json";
 
 export type GlobalKey = keyof typeof _global;
 const pages = {
@@ -32,6 +33,7 @@ const pages = {
   "/resources/": _resources,
   "/stable-diffusion-examples/": _stableDiffusionExamples,
   "/stable-diffusion-generator/": _stableDiffusionGenerator,
+  "/stable-diffusion-deepdanbooru/": _stableDiffusionDeepDanbooru,
 } satisfies Record<PagePath, any>;
 export type PageKey<P extends PagePath> = keyof (typeof pages)[P];
 

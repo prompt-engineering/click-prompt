@@ -15,6 +15,7 @@ export const pages = [
   "/resources/",
   "/stable-diffusion-examples/",
   "/stable-diffusion-generator/",
+  "/stable-diffusion-deepdanbooru/",
 ] as const;
 
 export type PagePath = (typeof pages)[number];

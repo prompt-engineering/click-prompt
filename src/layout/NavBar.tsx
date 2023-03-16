@@ -43,6 +43,7 @@ export default async function NavBar({ locale }: { locale: string }) {
       children: [
         { url: `/stable-diffusion-examples/`, title: g("stable-diffusion-examples") },
         { url: `/stable-diffusion-generator/`, title: g("stable-diffusion-generator") },
+        { url: `/stable-diffusion-deepdanbooru/`, title: g("stable-diffusion-deepdanbooru") },
       ],
     },
     {
