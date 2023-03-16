@@ -20,6 +20,7 @@ async function openAction(openAction: OpenAction) {
 }
 
 async function apiAction(apiAction: ApiAction, content: string) {
+  // todo: show config for token, when user click on the action
   const { url, method, headers, body } = apiAction;
   const response = await fetch(`/api/action/proxy`, {
     method: "POST",
