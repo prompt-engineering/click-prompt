@@ -435,7 +435,7 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
   const [bracketType, setBracketType] = useState<BracketType>(BracketType.round);
 
   const DEFAULT_NEGATIVE_PROMPT =
-    "nsfw, not_safe_for_work, nude, sexual, worst quality, low quality, normal quality, watermark, blurry";
+    "nsfw, blurry, bad anatomy, ugly, disfigured, deformed, extra limbs, mutation, out of frame, poorly drawn face, poorly drawn hands, low quality, worst quality, watermark, extra legs, extra arms, mutated hands, jpeg artifacts, nude, naked, topless, nipple, bottomless,";
   const [currentPrompt, setCurrentPrompt] = useState<StableDiffusionGenData>({
     prompt: "",
     negativePrompt: DEFAULT_NEGATIVE_PROMPT,

@@ -13,6 +13,7 @@ import _githubCopilotSamples from "@i18n/en-US/_github-copilot-samples.json";
 import _resources from "@i18n/en-US/_resources.json";
 import _stableDiffusionExamples from "@i18n/en-US/_stable-diffusion-examples.json";
 import _stableDiffusionGenerator from "@i18n/en-US/_stable-diffusion-generator.json";
+import _stableDiffusionDeepDanbooru from "@i18n/en-US/_stable-diffusion-deepdanbooru.json";
 import _chatgptStartlingByEachStep from "@i18n/en-US/_chatgpt-flow.json";
 import _chatgptStartlingByEachStepDetail from "@i18n/en-US/chatgpt-flow/$.json";
 
@@ -32,6 +33,7 @@ const pages = {
   "/resources/": _resources,
   "/stable-diffusion-examples/": _stableDiffusionExamples,
   "/stable-diffusion-generator/": _stableDiffusionGenerator,
+  "/stable-diffusion-deepdanbooru/": _stableDiffusionDeepDanbooru,
 } satisfies Record<PagePath, any>;
 export type PageKey<P extends PagePath> = keyof (typeof pages)[P];
 
