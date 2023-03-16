@@ -2,26 +2,32 @@ export type FlowStep = {
   name: string;
   ask: string;
   response?: string;
-
   markdownEditor?: boolean;
   cachedResponseRegex: string;
   values: Record<string, string>;
-
   actions: FlowAction[];
 };
 
 export type FlowAction = {
   name: string;
-  type: "api" | "open";
-  api?: {
-    url: string;
-    method: string;
-    headers: {
-      name: string;
-      value: string;
-    }[];
-    body: string;
-  };
+  type: FlowActionType;
+  api?: ApiAction;
+  open?: OpenAction;
+};
+
+export type FlowActionType = "api" | "open";
+export type ApiAction = {
+  url: string;
+  method: string;
+  headers: {
+    name: string;
+    value: string;
+  }[];
+  body: string;
+};
+
+export type OpenAction = {
+  scheme: string;
 };
 
 export function fillStepWithValued(
