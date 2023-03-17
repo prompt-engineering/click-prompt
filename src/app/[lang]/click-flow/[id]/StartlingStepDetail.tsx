@@ -14,8 +14,8 @@ import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
 import { AskRenderer } from "@/app/[lang]/click-flow/[id]/AskRenderer";
 import CopyComponent from "@/components/CopyComponent";
-import PostFlowAction from "@/flows/actions/PostFlowAction";
-import PreFlowAction from "@/flows/actions/PreFlowAction";
+import PostFlowAction from "@/flows/components/PostFlowAction";
+import PreFlowAction from "@/flows/components/PreFlowAction";
 import { fillStepWithValued, FlowStep } from "@/flows/types/flow-step";
 
 type StepProps = {

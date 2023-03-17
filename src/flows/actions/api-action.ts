@@ -1,7 +1,11 @@
 import { ApiAction } from "@/flows/types/flow-action";
 import fetch from "node-fetch";
 
-export async function postApiAction(apiAction: ApiAction, content: string) {
+export async function apiProxy(apiAction: ApiAction, body?: string) {
+  return await postApiAction(apiAction, body!);
+}
+
+async function postApiAction(apiAction: ApiAction, content: string) {
   // todo: show config for token, when user click on the actions
   const { url, method, headers, body } = apiAction;
   const response = await fetch(`/api/action/proxy`, {

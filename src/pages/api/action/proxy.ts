@@ -28,6 +28,11 @@ const handler: NextApiHandler = async (req, res) => {
     {},
   );
 
+  // ignore body when method is GET
+  if (method === "GET") {
+    delete browserHeaders["body"];
+  }
+
   const response = await fetch(url, {
     method,
     headers: browserHeaders,
