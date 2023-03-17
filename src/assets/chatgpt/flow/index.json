@@ -16,12 +16,12 @@
             "name": "Fetch issue",
             "type": "api",
             "api": {
-              "url": "https://api.github.com/repos/phodal-archive/apache-arrow-chapi-demo/issues",
+              "url": "https://api.github.com/repos/prompt-engineering/click-prompt/issues",
               "method": "GET",
               "headers": [
                 {
                   "key": "Authorization",
-                  "value": "Bearer ${{ secrets.GITHUB_TOKEN }}"
+                  "value": "Bearer ${{ GITHUB_TOKEN }}"
                 }
               ],
               "postProcess": [
@@ -33,7 +33,7 @@
                   "outputVar": "issues"
                 }
               ],
-              "showComponents": [
+              "postComponents": [
                 {
                   "name": "JsonViewer",
                   "args": "issues"
@@ -59,12 +59,12 @@
             "name": "Create issue",
             "type": "api",
             "api": {
-              "url": "https://api.github.com/repos/phodal-archive/apache-arrow-chapi-demo/issues",
+              "url": "https://api.github.com/repos/prompt-engineering/click-prompt/issues",
               "method": "POST",
               "headers": [
                 {
                   "key": "Authorization",
-                  "value": "Bearer ${{ secrets.GITHUB_TOKEN }}"
+                  "value": "Bearer ${{ GITHUB_TOKEN }}"
                 }
               ],
               "body": {

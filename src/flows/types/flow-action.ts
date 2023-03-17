@@ -3,8 +3,23 @@ export type FlowAction = {
   type: FlowActionType;
   api?: ApiAction;
   open?: OpenAction;
-  postProcessFunction?: "toMarkdown" | "jsonPath";
-  preProcessFunction?: "fromMarkdown";
+  // the function after execute the api action
+  postProcess?: ActionProcess[];
+  // the function before execute the api action
+  preProcess?: ActionProcess[];
+
+  postComponents?: ActionPostComponent[];
+};
+
+export type ActionProcess = {
+  function: "jsonPath" | "fromMarkdown" | "toMarkdown";
+  args?: string[];
+  outputVar?: string;
+};
+
+export type ActionPostComponent = {
+  name: string;
+  args?: string;
 };
 
 export type FlowActionType = "api" | "open";

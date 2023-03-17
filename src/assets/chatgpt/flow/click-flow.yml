@@ -48,7 +48,7 @@ steps:
               args:
                 - "$.0.body"
               outputVar: "issues"
-          showComponents:
+          postComponents:
             - name: "JsonViewer"
               args: "issues"
     values:
@@ -94,9 +94,9 @@ steps:
           body:
             title: Add ChatGPT for ClickPrompt
             body: $$response$$
-            assignees: []
+            assignees: [ ]
             milestone: null
-            labels: []
+            labels: [ ]
   - name: 初步代码生成
     ask: |
       我要使用 $$placeholder$$，帮我生成代码吧。

@@ -11,7 +11,11 @@ function PostFlowAction({ action, response }: ActionProps) {
     postActionDispatcher(modifiedAction, response).then((r) => console.log(r));
   };
 
-  return <SharedFlowAction action={action} onSubmit={handleSubmit} />;
+  return (
+    <>
+      <SharedFlowAction action={action} onSubmit={handleSubmit} />
+    </>
+  );
 }
 
 export default PostFlowAction;
