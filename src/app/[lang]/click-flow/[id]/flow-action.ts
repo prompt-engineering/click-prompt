@@ -5,7 +5,8 @@ export type FlowStep = {
   markdownEditor?: boolean;
   cachedResponseRegex: string;
   values: Record<string, string>;
-  actions: FlowAction[];
+  preActions: FlowAction[];
+  postActions: FlowAction[];
 };
 
 export type FlowAction = {

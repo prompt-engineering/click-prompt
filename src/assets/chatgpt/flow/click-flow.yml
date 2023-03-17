@@ -8,13 +8,24 @@ explain: |
     1[flowType = "interactive"]
   }
 
+stepGuide: false
+
 steps:
-  - name: 初步代码生成
+  - name: 上下文准备
     ask: |
-      我要使用 $$placeholder$$，帮我生成代码吧。
-    markdownEditor: true
-    values:
-      placeholder: node-fetch 结合 GitHub issue 来自动化创建 issue
+      我们是 ClickPrompt 开源项目的贡献者，在对话继续之前请阅读一下这些资料：
+
+      - ClickPrompt 是一款专为 Prompt 编写者设计的工具，它支持多种基于 Prompt 的 AI 应用，例如 Stable Diffusion、ChatGPT 和 GitHub Copilot 等。 使用 ClickPrompt，您可以轻松地查看、分享和一键运行这些模型，同时提供在线的 Prompt 生成器，使用户能够根据自己的需求轻松创建符合要求的 Prompt，并与其他人分享。
+      - ClickPrompt 包含了些页面组件：chatgpt、chatgpt-general、chatgpt-generator-cot、chatgpt-interactive-game、chatgpt-prompt-role-play、chatgpt-samples、click-flow、github-copilot-samples、resources、stable-diffusion-examples、stable-diffusion-generator
+      - ClickPrompt 使用 Next.js、React、Chakra UI、Tailwind 等作为主要的开发框架，使用 Planetscale 作为数据库。
+
+      阅读完毕后，请回复 OK。
+  - name: 分析问题
+    ask: |
+      在 ClickPrompt 上，有一个用户反馈了一个问题，帮我分析一下他的问题原因可能是什么？
+    pre-actions:
+      - name: Fetch issue
+        type: "api"
   - name: 创建需求
     ask: |
       我们想在 ClickPrompt 上添加一个新的需求： $$placeholder$$，请帮我写一个需求的 issue。
@@ -44,10 +55,11 @@ steps:
     cachedResponseRegex:
     values:
       placeholder: 在 ClickPrompt 上使用 ChatGPT 自动创建 GitHub issue，以便于社区贡献者能更好的理解这个需求
-    actions:
+    post-actions:
       - name: Create issue
         type: "api"
-        postProcessFunction: "toMarkdown"
+        #        post and pre functions
+        #        postProcessFunction: "toMarkdown"
         api:
           url: https://api.github.com/repos/phodal-archive/apache-arrow-chapi-demo/issues
           method: POST
@@ -60,3 +72,9 @@ steps:
             assignees: []
             milestone: null
             labels: []
+  - name: 初步代码生成
+    ask: |
+      我要使用 $$placeholder$$，帮我生成代码吧。
+    markdownEditor: true
+    values:
+      placeholder: node-fetch 结合 GitHub issue 来自动化创建 issue
