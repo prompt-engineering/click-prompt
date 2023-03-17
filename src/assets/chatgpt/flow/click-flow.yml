@@ -26,6 +26,16 @@ steps:
     preActions:
       - name: Fetch issue
         type: "api"
+        api:
+          url: https://api.github.com/repos/phodal-archive/apache-arrow-chapi-demo/issues
+          method: GET
+          headers:
+            - key: Authorization
+              value: Bearer ${{ secrets.GITHUB_TOKEN }}
+          postProcess:
+            - function: "jsonPath"
+              args:
+                - "$.0.body"
   - name: 创建需求
     ask: |
       我们想在 ClickPrompt 上添加一个新的需求： $$placeholder$$，请帮我写一个需求的 issue。
@@ -58,8 +68,6 @@ steps:
     postActions:
       - name: Create issue
         type: "api"
-        #        post and pre functions
-        #        postProcessFunction: "toMarkdown"
         api:
           url: https://api.github.com/repos/phodal-archive/apache-arrow-chapi-demo/issues
           method: POST
