@@ -23,7 +23,7 @@ steps:
   - name: 分析问题
     ask: |
       在 ClickPrompt 上，有一个用户反馈了一个问题，帮我分析一下他的问题原因可能是什么？
-    pre-actions:
+    preActions:
       - name: Fetch issue
         type: "api"
   - name: 创建需求
@@ -55,7 +55,7 @@ steps:
     cachedResponseRegex:
     values:
       placeholder: 在 ClickPrompt 上使用 ChatGPT 自动创建 GitHub issue，以便于社区贡献者能更好的理解这个需求
-    post-actions:
+    postActions:
       - name: Create issue
         type: "api"
         #        post and pre functions

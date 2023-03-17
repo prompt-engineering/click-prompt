@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
+import { Flex } from "@chakra-ui/react";
 
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
 import { Avatar, Box } from "@/components/ChakraUI";
@@ -14,7 +15,8 @@ import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
 import { AskRenderer } from "@/app/[lang]/click-flow/[id]/AskRenderer";
 import CopyComponent from "@/components/CopyComponent";
-import FlowActionComponent from "@/app/[lang]/click-flow/[id]/FlowActionComponent";
+import PostFlowActionComponent from "@/app/[lang]/click-flow/[id]/PostFlowActionComponent";
+import PreFlowActionComponent from "@/app/[lang]/click-flow/[id]/PreFlowActionComponent";
 
 type StepProps = {
   index: number;
@@ -82,14 +84,23 @@ function StartlingStepDetail({
           <AskRenderer step={step} onAskUpdate={setAsk} cachedValue={cachedValue} />
         </Box>
       </HumanBlock>
-      {(!response || /** disable if stepGuide is falsey */ !flow.stepGuide) && (
-        <ExecutePromptButton
-          text={ask}
-          name={flow.name}
-          handleResponse={handleResponse}
-          conversationId={conversationId}
-          updateConversationId={updateConversationId}
-        />
+      {(!response || /** disable if stepGuide is false */ !flow.stepGuide) && (
+        <Flex flexDirection={"row"} gap={4} padding={8}>
+          {step.preActions?.length > 0 && (
+            <>
+              {step.preActions.map((action, key) => (
+                <PreFlowActionComponent action={action} key={key} />
+              ))}
+            </>
+          )}
+          <ExecutePromptButton
+            text={ask}
+            name={flow.name}
+            handleResponse={handleResponse}
+            conversationId={conversationId}
+            updateConversationId={updateConversationId}
+          />
+        </Flex>
       )}
       <AiBlock direction='row' gap='2'>
         <Box>
@@ -105,7 +116,7 @@ function StartlingStepDetail({
       {response && step.preActions?.length > 0 && (
         <>
           {step.preActions.map((action, key) => (
-            <FlowActionComponent action={action} response={response} key={key} />
+            <PostFlowActionComponent action={action} response={response} key={key} />
           ))}
         </>
       )}

@@ -3,12 +3,11 @@ import { FlowAction } from "@/app/[lang]/click-flow/[id]/flow-action";
 import { Button } from "@chakra-ui/react";
 import { actionDispatcher } from "@/app/[lang]/click-flow/[id]/action-dispatcher";
 
-type ActionProps = { action: FlowAction; response: string };
+type ActionProps = { action: FlowAction };
 
-function FlowActionComponent({ action, response }: ActionProps) {
-  const gptResponse = response;
+function PreFlowActionComponent({ action }: ActionProps) {
   const clickButton = () => {
-    actionDispatcher(action, gptResponse).then((r) => console.log(r));
+    console.log("click button");
   };
 
   return (
@@ -20,4 +19,4 @@ function FlowActionComponent({ action, response }: ActionProps) {
   );
 }
 
-export default FlowActionComponent;
+export default PreFlowActionComponent;
