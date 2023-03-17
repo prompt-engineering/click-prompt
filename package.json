@@ -59,6 +59,7 @@
     "react-color": "^2.19.3",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",
+    "react-json-view": "^1.21.3",
     "react-markdown": "^8.0.5",
     "react-spinners": "^0.13.8",
     "react-syntax-highlighter": "^15.5.0",
@@ -107,6 +108,12 @@
     "tunnel": "^0.0.6",
     "walkdir": "^0.4.1",
     "yaml-loader": "^0.8.0"
+  },
+  "overrides": {
+    "react-json-view": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   },
   "engines": {
     "npm": ">=8.11.0",

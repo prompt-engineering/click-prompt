@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { jsonPath } from "@/data-processor/flow-functions/jsonPath";
+import { jsonPath } from "@/flows/flow-functions/jsonPath";
 
 describe("Json Parse for function", () => {
   it("parse", () => {
