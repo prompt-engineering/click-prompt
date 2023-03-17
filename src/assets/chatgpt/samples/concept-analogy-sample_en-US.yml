@@ -1,0 +1,61 @@
+name: Make ChatGPT analogous migration
+description: How to make ChatGPT migrate analogously to help us do our job better.
+category: programming
+author: Phodal Huang
+homepage: https://www.phodal.com/
+preview: |
+  Do you know the ContextMap in DDD?
+  Do you know DSL (Domain Specific Language)?
+  Design a DSL to represent the Context Map in DDD.
+
+steps:
+  - ask: |
+      Do you know the ContextMap in DDD?
+    response: |
+      Yes, I do. In Domain Driven Design (DDD), a Context Map is a tool used to describe the relationships between different subdomains.
+
+      Context Map shows the relationship between the contexts of different subdomains, including their relationships such as cooperation, opposition or disassociation.Context Map can help teams understand the boundaries between different subdomains and coordinate the interaction and collaboration between different subdomains.
+
+      The Context Map is often presented as a graphical tool that shows the relationships between different sub-domains and how they interact with each other. At the same time, Context Map can also be used to record and track the protocols and contracts between different sub-domains to ensure that the interactions between them are meaningful, reliable and consistent.
+
+      In short, Context Map is a very important concept in DDD to help teams understand the relationships between different sub-domains and provide guidance for system design and implementation.
+  - ask: |
+      Do you know DSL (Domain Specific Language)?
+    response: |
+      Yes, I know.
+      Yes, I am aware that DSL (Domain-Specific Language) is a programming language designed for a specific domain. Unlike general-purpose programming languages, DSLs are more focused on solving problems in a particular domain and have higher expressiveness and readability.
+
+      DSLs can be designed and implemented according to domain-specific requirements, so it can better describe the concepts and operations in the domain. DSLs can help developers to express the concepts and rules in the domain more efficiently and accurately when writing domain-specific code, thus improving the maintainability and extensibility of the system.
+
+      DSLs can be divided into two types: internal DSLs and external DSLs. Internal DSLs are created on the basis of general-purpose programming languages and are implemented through specific programming techniques and libraries. External DSLs, on the other hand, are stand-alone languages that typically require specific parsers and compilers for interpretation and execution.
+
+      In domain-driven design (DDD), DSLs can help teams better express the domain model and thus better design and implement the system. By using DSLs, domain concepts and business rules can be better mapped into the code to make the code more closely match the domain requirements, thus improving the understandability and maintainability of the system.
+  - ask: |
+      Design a DSL to represent the Context Map in a DDD.
+    response: |
+      Okay, here is a simple DSL design for representing the Context Map in a DDD.
+
+      ```css
+      ContextMap:
+        Subdomain { Name: [subdomain_name] }
+          [CollaboratesWith: [other_subdomain_name], ...]
+          [ConformistWith: [other_subdomain_name], ...]
+          [Antagonizes: [other_subdomain_name], ...]
+        ...
+      ```
+
+      In the DSL above, the ContextMap represents the entire context map. Each Subdomain represents a subdomain and Name is the name of the subdomain. The relationship between subdomains can be described by CollaboratesWith, ConformistWith and Antagonizes.
+
+      For example, the following is an example of a Context Map containing the relationship between two subdomains.
+
+      ```css
+      ContextMap:
+        Subdomain { Name: "Order" }
+                            CollaboratesWith: "Inventory"
+        Subdomain { Name: "Inventory" }
+                            Antagonizes: "order"
+      ```
+
+      In this example, the "Orders" subdomain collaborates with the "Inventory" subdomain, while the "Inventory" subdomain antagonizes the "Orders" subdomain.
+
+      This is just a simple example, and in practice the design of a DSL depends on the specific application scenario and requirements, and can be adapted and extended as needed. But in general, the DSL is intended to make the Context Map easier to understand, represent and maintain.

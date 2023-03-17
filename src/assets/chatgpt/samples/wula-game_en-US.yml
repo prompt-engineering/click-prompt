@@ -1,0 +1,127 @@
+name: Let AI analyze problems step by step:Wula game
+description: Wula is a game based on CoT thinking, to learn CoT by playing.
+category: normal
+author: Phodal Huang
+homepage: https://www.phodal.com/
+preview: |
+  Let's play a programming game called wula, which consists of five steps.
+
+  Step 1. Problem Analysis: In each round, you will see a problem starting with "wula:" and you will need to analyze the problem and briefly describe the usual way to solve it.
+
+  Step 2. Code writing: You need to write the code to solve this problem in JavaScript and output the corresponding code and present your code (no less than 200 words).
+
+  Step 3. Code execution: You need to execute the code written in step 2 as a JavaScript Console. If no test data is given, you need to generate your own random test data and input these data into the code for calculation.
+
+  Step 4. Error handling: If your code has errors or does not execute properly, you need to output the errors and go back to step 2 to restart the game until your code works properly.
+
+  Step 5. Summarize: You need to summarize the problem and your solution in no less than 100 words so that others can briefly understand the problem and its solution.
+
+  See how to play this game? Then let's get started!
+steps:
+  - ask: |
+      Let's play a programming game called wula, which consists of five steps.
+
+      Step 1. Problem Analysis: For each round of the game, you will see a problem that starts with "wula:" and you will need to analyze the problem and briefly describe the usual way to solve it.
+
+      Step 2. Code writing: You need to write the code to solve this problem in JavaScript and output the corresponding code and present your code (no less than 200 words).
+
+      Step 3. Code execution: You need to execute the code written in step 2 as a JavaScript Console. If no test data is given, you need to generate your own random test data and input these data into the code for calculation.
+
+      Step 4. Error handling: If your code has errors or does not execute properly, you need to output the errors and go back to step 2 to restart the game until your code works properly.
+
+      Step 5. Summarize: You need to summarize the problem and your solution in no less than 100 words so that others can briefly understand the problem and its solution.
+
+      See how to play this game? Then let's get started!
+    response: |
+      Of course, I know the rules of the game very well. I'm ready to start.
+
+      Step 1. Problem analysis.
+      wula: How do I convert a string to a number?
+
+        When we need to convert a string to a number, we can use JavaScript's built-in functions parseInt() or parseFloat(). These functions parse a string to a number and return the corresponding numeric value. parseInt() parses a string to an integer, while parseFloat() can parse to a floating point number.
+
+        Step 2. Code writing.
+        The following is sample code for converting a string to an integer using the parseInt() function.
+
+        ```javascript
+        function convertStringToNumber(str) {
+          return parseInt(str);
+        }
+        ```
+
+        console.log(convertStringToNumber("123")); // output 123
+
+        The first line of the code defines a function called convertStringToNumber that takes a string as an argument and converts it to an integer using the parseInt() function. The second line of the function uses the console.log() function to output the converted numeric value to the console.
+
+        The following is sample code for converting a string to a floating point number using the parseFloat() function.
+
+        ```javascript
+        function convertStringToFloat(str) {
+          return parseFloat(str);
+        }
+
+        console.log(convertStringToFloat("3.14")); // output 3.14
+        ```
+
+        The first line of the code defines a function called convertStringToFloat that takes a string as an argument and converts it to a float using the parseFloat() function. The second line of the function uses the console.log() function to output the converted numeric value to the console.
+
+        Step 3. Code execution.
+        We can execute the code by entering the above code in the JavaScript Console and providing test data. For example, we can use the following code for testing.
+
+        ```javascript
+        console.log(convertStringToNumber("123")); // output 123
+        console.log(convertStringToFloat("3.14")); // output 3.14
+        ```
+
+        This will call the convertStringToNumber and convertStringToFloat functions respectively and pass the strings "123" and "3.14" as arguments to these functions. The result will be output in the console.
+
+        Step 4. Error handling.
+        If we make an error while writing our code, such as misspelling or using the wrong syntax when defining a function, the JavaScript Console will display an error message to help us find and fix the problem. In this case, we need to fix the error in the code and re-execute the code until it works properly.
+
+        Step 5. Summarize.
+        Converting between strings and numbers is very common in programming, because many times we need to read strings from user input or other data sources and then convert them to numbers for calculation or processing. JavaScript provides built-in functions parseInt() and parseFloat() to perform this operation easily. We can use these functions by writing simple code to convert strings to numbers.
+  - ask: |
+      wula: chicken and rabbit problem
+    response: |
+      Step 1. Problem Analysis.
+      wula: The chicken and rabbit cage problem is a classic problem in which there are a number of chickens and rabbits in a cage with n heads and m feet.
+
+        This problem can be solved by solving an algebraic equation. We assume that there are x chickens and y rabbits in the cage, and since each chicken has 2 feet and each rabbit has 4 feet, we can obtain the following two equations based on the conditions of the problem.
+
+        x + y = n (total number of heads)
+        2x + 4y = m (total number of feet)
+
+        We can solve this system of equations to get the values of x and y to find out how many chickens and rabbits are inside the cage.
+
+        Step 2. Code writing.
+        Here is the code to solve the chicken and rabbit cage problem using JavaScript.
+
+        ```javascript
+        function calculateChickenAndRabbit(n, m) {
+          let y = (m - 2 * n) / 2;
+          let x = n - y;
+          if (y < 0 || x < 0 || y ! == Math.floor(y) || x ! == Math.floor(x)) {
+          return "No solution";
+          }
+          return [x, y];
+        }
+        console.log(calculateChickenAndRabbit(10, 26)); // output [6, 4]
+        ```
+        The first line of the code defines a function called calculateChickenAndRabbit, which takes two arguments n and m representing the total number of heads and feet, respectively. The second line of the function uses the above algebraic equation to calculate the value of y. Then, according to the equation x + y = n, we can get the value of x. Finally, if the calculated x and y are not non-negative integers, or if y is not equal to an integer, the function will return "no solution". Otherwise, the function will return an array containing the number of chickens and rabbits.
+
+        Step 3. Code execution.
+        We can execute the code by entering the above code in the JavaScript Console and providing test data. For example, we can use the following code for testing.
+
+        ```javascript
+        console.log(calculateChickenAndRabbit(10, 26)); // output [6, 4]
+        console.log(calculateChickenAndRabbit(20, 60)); // output [10, 10]
+        console.log(calculateChickenAndRabbit(2, 8)); // output "no solution"
+        ```
+
+        This will call the calculateChickenAndRabbit function separately and pass different arguments to this function. The execution result will be output in the console.
+
+        Step 4. Error handling.
+        If we make an error while writing our code, such as a calculation error or using the wrong syntax, the JavaScript Console will display an error message to help us find and fix the problem. In this case, we need to fix the error in the code and re-execute the code until it works properly.
+
+        Step 5. Summarize.
+        The chicken and rabbit problem is an interesting mathematical problem that can be solved by solving algebraic equations.

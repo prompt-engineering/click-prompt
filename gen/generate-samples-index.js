@@ -8,10 +8,9 @@ const yaml = require("js-yaml");
 
 function genChatGptSamples() {
   const templatesDir = path.join(__dirname, "../src/assets/chatgpt/samples");
-  const indexFile = path.join(templatesDir, "index.json");
 
   const files = walkdir.sync(templatesDir, { no_recurse: true });
-  const index = files
+  const samplesMap = files
     .filter((f) => f.endsWith(".yml"))
     .map((f) => {
       const content = fs.readFileSync(f, "utf8");
@@ -26,9 +25,20 @@ function genChatGptSamples() {
         preview,
         path: path.relative(templatesDir, f),
       };
-    });
+    })
+    .reduce((map, f) => {
+      const lan = f.path.match(/(_[a-z]{2}-[A-Z]{2})/)[0];
+      if (map.has(lan)) {
+        map.set(lan, [...map.get(lan), f]);
+      } else {
+        map.set(lan, [f]);
+      }
+      return map;
+    }, new Map());
 
-  fs.writeFileSync(indexFile, JSON.stringify(index, null, 2));
+  for (let key of samplesMap.keys()) {
+    fs.writeFileSync(path.join(templatesDir, `index${key}.json`), JSON.stringify(samplesMap.get(key), null, 2));
+  }
 }
 
 function genStableDiffusionSamples() {
