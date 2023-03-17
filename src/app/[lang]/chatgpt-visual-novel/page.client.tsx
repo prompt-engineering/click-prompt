@@ -196,7 +196,7 @@ function ChatGptVisualNovel({ i18n }: GeneralI18nProps) {
           onClick={handleStoryNextStep}
         >
           <Image
-            src={locations[scene.story[step].location]}
+            src={scene.story[step].location in locations ? locations[scene.story[step].location] : locations["garden"]}
             alt={scene.story[step].location}
             style={{
               position: "absolute",
