@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Fragment } from "react";
 import { useFormik } from "formik";
 import { Button, FormControl, Grid, Input } from "@chakra-ui/react";

@@ -22,7 +22,7 @@ async function postApiAction(apiAction: ApiAction, content: string) {
   });
 
   if (response.ok) {
-    const { headers, body } = await response.json();
+    const body = await response.json();
     return {
       success: true,
       result: body,

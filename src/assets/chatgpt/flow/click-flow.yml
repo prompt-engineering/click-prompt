@@ -41,16 +41,18 @@ steps:
           url: https://api.github.com/repos/prompt-engineering/click-prompt/issues
           method: GET
           headers:
+            - key: Accept
+              value: application/vnd.github+json
             - key: Authorization
               value: Bearer ${{ GITHUB_TOKEN }}
-          postProcess:
-            - function: "jsonPath"
-              args:
-                - "$.0.body"
-              outputVar: "issues"
-          postComponents:
-            - name: "JsonViewer"
-              args: "issues"
+        postProcess:
+          - function: "jsonPath"
+            args:
+              - "$.0.body"
+            outputVar: "issues"
+        postComponents:
+          - name: "JsonViewer"
+            args: "issues"
     values:
       issue: "$$issue$$"
   - name: 创建需求
@@ -89,14 +91,16 @@ steps:
           url: https://api.github.com/repos/prompt-engineering/click-prompt/issues
           method: POST
           headers:
+            - key: Accept
+              value: application/vnd.github+json
             - key: Authorization
               value: Bearer ${{ GITHUB_TOKEN }}
           body:
             title: Add ChatGPT for ClickPrompt
             body: $$response$$
-            assignees: [ ]
+            assignees: []
             milestone: null
-            labels: [ ]
+            labels: []
   - name: 初步代码生成
     ask: |
       我要使用 $$placeholder$$，帮我生成代码吧。

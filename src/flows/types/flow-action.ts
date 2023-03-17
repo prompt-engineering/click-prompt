@@ -7,7 +7,6 @@ export type FlowAction = {
   postProcess?: ActionProcess[];
   // the function before execute the api action
   preProcess?: ActionProcess[];
-
   postComponents?: ActionPostComponent[];
 };
 
@@ -18,7 +17,7 @@ export type ActionProcess = {
 };
 
 export type ActionPostComponent = {
-  name: string;
+  name: "JsonViewer" | "MarkdownViewer";
   args?: string;
 };
 

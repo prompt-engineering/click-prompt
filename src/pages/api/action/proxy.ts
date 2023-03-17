@@ -43,11 +43,8 @@ const handler: NextApiHandler = async (req, res) => {
   console.log("proxy response: ", response.status, response.statusText);
 
   if (response.ok) {
-    const { headers, body } = await response.json();
-    return res.status(response.status).json({
-      headers,
-      body,
-    });
+    const body = await response.json();
+    return res.status(response.status).json(body);
   } else {
     return res.status(response.status).json({
       error: await response.json(),

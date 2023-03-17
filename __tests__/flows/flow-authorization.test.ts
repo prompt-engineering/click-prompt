@@ -20,4 +20,19 @@ describe("Flow Authorization", () => {
       ]),
     ).toEqual([]);
   });
+
+  it("parse two values", () => {
+    expect(
+      parseConfigures([
+        {
+          key: "Accept",
+          value: "application/vnd.github+json",
+        },
+        {
+          key: "Authorization",
+          value: " $${{ GITHUB_TOKEN }}",
+        },
+      ]),
+    ).toEqual([{ key: "Authorization", value: "${{ GITHUB_TOKEN }}" }]);
+  });
 });
