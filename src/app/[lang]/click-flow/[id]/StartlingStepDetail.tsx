@@ -73,6 +73,12 @@ function StartlingStepDetail({
     }
   }, [cachedValue]);
 
+  const updateValue = (response: string) => {
+    if (onCache) {
+      onCache(index, response);
+    }
+  };
+
   return (
     <AnimatedStepContainer>
       <StyledStepHeading>
@@ -89,7 +95,7 @@ function StartlingStepDetail({
           {step.preActions?.length > 0 && (
             <>
               {step.preActions.map((action, key) => (
-                <PreFlowAction action={action} key={key} />
+                <PreFlowAction action={action} key={key} onResponse={updateValue} />
               ))}
             </>
           )}
