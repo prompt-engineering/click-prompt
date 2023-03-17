@@ -1,11 +1,7 @@
 import React from "react";
+import { AuthKeyValues } from "@/flows/types/flow-action";
 
-type AuthKeyValues = {
-  key: string;
-  value: string;
-}[];
-
-export function parseConfigures(values: AuthKeyValues) {
+export function parseConfigures(values: AuthKeyValues): AuthKeyValues {
   const regex = /\${{.*}}/g;
   const configures = values.map((v) => {
     const match = v.value.match(regex);
@@ -17,7 +13,7 @@ export function parseConfigures(values: AuthKeyValues) {
     }
   });
 
-  return configures;
+  return configures as AuthKeyValues;
 }
 
 type ConfigProps = {

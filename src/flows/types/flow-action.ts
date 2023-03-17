@@ -11,12 +11,14 @@ export type FlowActionType = "api" | "open";
 export type ApiAction = {
   url: string;
   method: string;
-  headers: {
-    name: string;
-    value: string;
-  }[];
+  headers: AuthKeyValues;
   body: string;
 };
+
+export type AuthKeyValues = {
+  key: string;
+  value: string;
+}[];
 
 export type OpenAction = {
   scheme: string;
