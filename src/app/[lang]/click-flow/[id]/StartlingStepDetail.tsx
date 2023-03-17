@@ -24,6 +24,7 @@ type StepProps = {
   onCache?: (step: number, response: string) => void;
   conversationId?: number;
   updateConversationId?: (conversationId: number) => void;
+  onStepComplete: (step: number) => void;
 };
 
 function StartlingStepDetail({
@@ -34,6 +35,7 @@ function StartlingStepDetail({
   cachedValue,
   conversationId,
   updateConversationId,
+  onStepComplete,
 }: StepProps) {
   const [response, setResponse] = React.useState<string | undefined>(undefined);
 
@@ -41,6 +43,7 @@ function StartlingStepDetail({
     const assistantMessage = response.filter((message) => message.role === "assistant");
     const assistantResponse = assistantMessage[0].content;
     setResponse(assistantResponse);
+    onStepComplete(index);
 
     if (!onCache || !step.cachedResponseRegex) {
       return;
@@ -69,7 +72,7 @@ function StartlingStepDetail({
   }, [cachedValue]);
 
   return (
-    <>
+    <AnimatedStepContainer>
       <StyledStepHeading>
         Step {index + 1}. {step.name}
       </StyledStepHeading>
@@ -79,13 +82,15 @@ function StartlingStepDetail({
           <AskRenderer step={step} onAskUpdate={setAsk} cachedValue={cachedValue} />
         </Box>
       </HumanBlock>
-      <ExecutePromptButton
-        text={ask}
-        name={flow.name}
-        handleResponse={handleResponse}
-        conversationId={conversationId}
-        updateConversationId={updateConversationId}
-      />
+      {!response && (
+        <ExecutePromptButton
+          text={ask}
+          name={flow.name}
+          handleResponse={handleResponse}
+          conversationId={conversationId}
+          updateConversationId={updateConversationId}
+        />
+      )}
       <AiBlock direction='row' gap='2'>
         <Box>
           <ChatGptIcon />
@@ -104,12 +109,33 @@ function StartlingStepDetail({
           ))}
         </>
       )}
-    </>
+    </AnimatedStepContainer>
   );
 }
 
 const StyledStepHeading = styled.h4`
   font-size: 1.5rem;
+`;
+
+// ref: https://codepen.io/kiruu/pen/XWdYrEa
+const AnimatedStepContainer = styled.div`
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-delay: 500ms;
+  animation-name: fadeInLeft;
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translate3d(-100%, 0, 0);
+      transform: translate3d(-100%, 0, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+      transform: none;
+    }
+  }
 `;
 
 export default StartlingStepDetail;

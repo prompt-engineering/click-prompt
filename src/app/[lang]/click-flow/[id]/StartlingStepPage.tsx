@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
 import StartlingStepDetail from "@/app/[lang]/click-flow/[id]/StartlingStepDetail";
 import { StartlingFlow } from "@/app/[lang]/click-flow/[id]/startling.type";
@@ -15,6 +15,28 @@ type StepPageProps = {
 function StartlingStepPage({ flow, id, i18n }: StepPageProps) {
   const [conversationId, setConversationId] = React.useState<number | undefined>(undefined);
   const [cachedValue, setCachedValue] = React.useState<Record<number, any>>({});
+
+  const [currentStep, setCurrentStep] = React.useState<number>(0);
+
+  const bottomAnchor = React.useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    let counter = 0;
+    const id = setInterval(() => {
+      if (bottomAnchor.current) {
+        bottomAnchor.current.scrollIntoView({ behavior: "auto" });
+      }
+
+      counter++;
+      // animation delay 500ms
+      if (counter > 5) {
+        clearInterval(id);
+      }
+    }, 100);
+
+    return () => {
+      clearInterval(id);
+    };
+  }, [currentStep]);
 
   const dict = i18n.i18n.dict;
 
@@ -51,18 +73,24 @@ function StartlingStepPage({ flow, id, i18n }: StepPageProps) {
             <Heading as='h4'>{flow.name}</Heading>
 
             <SimpleGrid columns={1} spacing={4}>
-              {flow.steps.map((step, index) => (
-                <StartlingStepDetail
-                  index={index}
-                  flow={flow}
-                  step={step}
-                  key={index}
-                  onCache={updateCached}
-                  cachedValue={cachedValue}
-                  conversationId={conversationId}
-                  updateConversationId={updateConversationId}
-                />
-              ))}
+              {flow.steps.map(
+                (step, index) =>
+                  index <= currentStep && (
+                    <StartlingStepDetail
+                      index={index}
+                      flow={flow}
+                      step={step}
+                      key={index}
+                      onCache={updateCached}
+                      cachedValue={cachedValue}
+                      conversationId={conversationId}
+                      updateConversationId={updateConversationId}
+                      onStepComplete={(index) => setCurrentStep(index + 1)}
+                    />
+                  ),
+              )}
+
+              <div ref={bottomAnchor}></div>
             </SimpleGrid>
           </Flex>
         </>
