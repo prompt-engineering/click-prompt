@@ -115,7 +115,7 @@ const hander: NextApiHandler = async (req, res) => {
       return res.status(200).json(conversation);
     }
     default: {
-      return res.status(400).json({ error: "Invalid action" });
+      return res.status(400).json({ error: "Invalid actions" });
     }
   }
 };

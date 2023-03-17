@@ -1,10 +1,10 @@
-import { fillStepWithValued, FlowStep } from "@/flows/action/flow-action";
 import React, { useEffect, useRef } from "react";
 import { Textarea } from "@chakra-ui/react";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import autosize from "autosize";
 import styled from "@emotion/styled";
-import FlowMarkdownEditor from "@/flows/FlowMarkdownEditor";
+import FlowMarkdownEditor from "@/flows/components/FlowMarkdownEditor";
+import { fillStepWithValued, FlowStep } from "@/flows/types/flow-step";
 
 type AskRendererProps = { step: FlowStep; onAskUpdate: (ask: string) => void; cachedValue: Record<number, any> };
 

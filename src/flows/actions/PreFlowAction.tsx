@@ -1,11 +1,11 @@
 import React from "react";
-import { FlowAction } from "@/flows/action/flow-action";
+import { FlowAction } from "@/flows/types/flow-action";
 import { Button } from "@chakra-ui/react";
-import { actionDispatcher } from "@/flows/action/action-dispatcher";
+import { actionDispatcher } from "@/flows/action-dispatcher";
 
 type ActionProps = { action: FlowAction };
 
-function PreFlowActionComponent({ action }: ActionProps) {
+function PreFlowAction({ action }: ActionProps) {
   const clickButton = () => {
     console.log("click button");
   };
@@ -19,4 +19,4 @@ function PreFlowActionComponent({ action }: ActionProps) {
   );
 }
 
-export default PreFlowActionComponent;
+export default PreFlowAction;

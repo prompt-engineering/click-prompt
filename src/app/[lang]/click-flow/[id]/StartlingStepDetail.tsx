@@ -9,14 +9,14 @@ import { Avatar, Box } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
-import { StartlingFlow } from "@/flows/ClickFlow.type";
-import { fillStepWithValued, FlowStep } from "@/flows/action/flow-action";
+import { StartlingFlow } from "@/flows/types/click-flow";
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
 import { AskRenderer } from "@/app/[lang]/click-flow/[id]/AskRenderer";
 import CopyComponent from "@/components/CopyComponent";
-import PostFlowActionComponent from "@/flows/action/PostFlowActionComponent";
-import PreFlowActionComponent from "@/flows/action/PreFlowActionComponent";
+import PostFlowAction from "@/flows/actions/PostFlowAction";
+import PreFlowAction from "@/flows/actions/PreFlowAction";
+import { fillStepWithValued, FlowStep } from "@/flows/types/flow-step";
 
 type StepProps = {
   index: number;
@@ -89,7 +89,7 @@ function StartlingStepDetail({
           {step.preActions?.length > 0 && (
             <>
               {step.preActions.map((action, key) => (
-                <PreFlowActionComponent action={action} key={key} />
+                <PreFlowAction action={action} key={key} />
               ))}
             </>
           )}
@@ -116,7 +116,7 @@ function StartlingStepDetail({
       {response && step.preActions?.length > 0 && (
         <>
           {step.preActions.map((action, key) => (
-            <PostFlowActionComponent action={action} response={response} key={key} />
+            <PostFlowAction action={action} response={response} key={key} />
           ))}
         </>
       )}

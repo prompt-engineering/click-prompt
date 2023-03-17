@@ -4,7 +4,7 @@ import { createUser, isValidUser } from "@/storage/planetscale";
 import { encryptedKey, hashedKey } from "@/uitls/crypto.util";
 
 // type Request = {
-//   action: "login" | "logout";
+//   actions: "login" | "logout";
 //   key?: string;
 // };
 
@@ -54,7 +54,7 @@ const handler: NextApiHandler = async (req, res) => {
       res.setHeader("Set-Cookie", `${SITE_USER_COOKIE}=; Max-Age=0; HttpOnly; Path=/;`);
       return res.status(200).json({ message: "Logged out" } as Response);
     default:
-      return res.status(400).json({ error: "Unknown action" } as Response);
+      return res.status(400).json({ error: "Unknown actions" } as Response);
   }
 };
 export default handler;

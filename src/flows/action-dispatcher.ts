@@ -1,16 +1,5 @@
-import { ApiAction, FlowAction, OpenAction } from "@/flows/action/flow-action";
+import { ActionResult, ApiAction, FlowAction, OpenAction } from "@/flows/types/flow-action";
 import fetch from "node-fetch";
-
-export type ActionResult = ActionSuccess | ActionError;
-export type ActionSuccess = {
-  success: true;
-  result?: any;
-};
-
-export type ActionError = {
-  success: false;
-  error: string;
-};
 
 async function openAction(openAction: OpenAction) {
   window.open(openAction.scheme);
@@ -20,7 +9,7 @@ async function openAction(openAction: OpenAction) {
 }
 
 async function apiAction(apiAction: ApiAction, content: string) {
-  // todo: show config for token, when user click on the action
+  // todo: show config for token, when user click on the actions
   const { url, method, headers, body } = apiAction;
   const response = await fetch(`/api/action/proxy`, {
     method: "POST",
@@ -58,11 +47,11 @@ export async function actionDispatcher(action: FlowAction, content: string): Pro
       if (action.open) await openAction(action.open!);
       break;
     default:
-      console.log("Unknown action type");
+      console.log("Unknown actions type");
   }
 
   return {
     success: false,
-    error: "Unknown action type",
+    error: "Unknown actions type",
   };
 }

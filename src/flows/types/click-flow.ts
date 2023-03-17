@@ -1,4 +1,4 @@
-import { FlowStep } from "@/flows/action/flow-action";
+import { FlowStep } from "@/flows/types/flow-step";
 
 export type StartlingFlow = {
   name: string;

@@ -5,7 +5,7 @@ import "reactflow/dist/style.css";
 
 import InteractiveNode from "@/flows/explain/nodes/InteractiveNode";
 import { explainParser, graphToFlow } from "@/data-processor/explain-parser";
-import { StartlingFlow } from "@/flows/ClickFlow.type";
+import { StartlingFlow } from "@/flows/types/click-flow";
 import PromptNode from "@/flows/explain/nodes/PromptNode";
 
 type StepExplainProps = {

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
 import StartlingStepDetail from "@/app/[lang]/click-flow/[id]/StartlingStepDetail";
-import { StartlingFlow } from "@/flows/ClickFlow.type";
+import { StartlingFlow } from "@/flows/types/click-flow";
 import FlowExplain from "../../../../flows/explain/FlowExplain";
 
 type StepPageProps = {
