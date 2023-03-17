@@ -7,6 +7,7 @@ type ActionProps = { action: FlowAction; response: string };
 
 function PostFlowAction({ action, response }: ActionProps) {
   const gptResponse = response;
+
   const clickButton = () => {
     postActionDispatcher(action, gptResponse).then((r) => console.log(r));
   };

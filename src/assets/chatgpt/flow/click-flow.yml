@@ -42,7 +42,7 @@ steps:
           method: GET
           headers:
             - key: Authorization
-              value: Bearer ${{ secrets.GITHUB_TOKEN }}
+              value: Bearer ${{ GITHUB_TOKEN }}
           postProcess:
             - function: "jsonPath"
               args:
@@ -90,7 +90,7 @@ steps:
           method: POST
           headers:
             - key: Authorization
-              value: Bearer ${{ secrets.GITHUB_TOKEN }}
+              value: Bearer ${{ GITHUB_TOKEN }}
           body:
             title: Add ChatGPT for ClickPrompt
             body: $$response$$
