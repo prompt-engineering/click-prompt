@@ -14,7 +14,25 @@
         "preActions": [
           {
             "name": "Fetch issue",
-            "type": "api"
+            "type": "api",
+            "api": {
+              "url": "https://api.github.com/repos/phodal-archive/apache-arrow-chapi-demo/issues",
+              "method": "GET",
+              "headers": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer ${{ secrets.GITHUB_TOKEN }}"
+                }
+              ],
+              "postProcess": [
+                {
+                  "function": "jsonPath",
+                  "args": [
+                    "$.0.body"
+                  ]
+                }
+              ]
+            }
           }
         ]
       },
