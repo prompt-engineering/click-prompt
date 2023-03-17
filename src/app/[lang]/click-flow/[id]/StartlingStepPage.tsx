@@ -75,7 +75,7 @@ function StartlingStepPage({ flow, id, i18n }: StepPageProps) {
             <SimpleGrid columns={1} spacing={4}>
               {flow.steps.map(
                 (step, index) =>
-                  index <= currentStep && (
+                  (index <= currentStep || !flow.stepGuide) /** show all if stepGuide is falsey */ && (
                     <StartlingStepDetail
                       index={index}
                       flow={flow}

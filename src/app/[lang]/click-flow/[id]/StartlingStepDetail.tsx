@@ -82,7 +82,7 @@ function StartlingStepDetail({
           <AskRenderer step={step} onAskUpdate={setAsk} cachedValue={cachedValue} />
         </Box>
       </HumanBlock>
-      {!response && (
+      {(!response || /** disable if stepGuide is falsey */ !flow.stepGuide) && (
         <ExecutePromptButton
           text={ask}
           name={flow.name}

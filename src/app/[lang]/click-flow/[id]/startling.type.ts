@@ -7,4 +7,5 @@ export type StartlingFlow = {
   explain?: string;
   description: string;
   steps: FlowStep[];
+  stepGuide?: boolean;
 };
