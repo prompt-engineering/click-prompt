@@ -1,0 +1,46 @@
+[
+  {
+    "name": "ClickPrompt",
+    "description": "ClickPrompt How to use ChatGPT to assist in programming",
+    "author": "ClickPrompt Team",
+    "category": "writing",
+    "homepage": "https://github.com/prompt-engineering/click-prompt",
+    "preview": "Example 1: Template Example 1: Using ChatGPT to create an issue We want to add a new requirement to ClickPrompt: Use ChatGPT to automatically create GitHub issues on ClickPrompt so that the community contributors can better understand the requirement.\nExample 2: Template Example 2: Writing code using ChatGPT to analyze an issue. We are contributors to the ClickPrompt open source project and we would like you to add some new features to ClickPrompt. Please read this information before you start.\n",
+    "path": "click-prompt-casestudy_en-US.yml"
+  },
+  {
+    "name": "Make ChatGPT analogous migration",
+    "description": "How to make ChatGPT migrate analogously to help us do our job better.",
+    "author": "Phodal Huang",
+    "category": "programming",
+    "homepage": "https://www.phodal.com/",
+    "preview": "Do you know the ContextMap in DDD?\nDo you know DSL (Domain Specific Language)?\nDesign a DSL to represent the Context Map in DDD.\n",
+    "path": "concept-analogy-sample_en-US.yml"
+  },
+  {
+    "name": "DDD Sample",
+    "description": "A sample template for DDD",
+    "author": "Phodal Huang",
+    "category": "programming",
+    "homepage": "https://www.phodal.com/",
+    "preview": "Let's define the steps of the DDD game, there are 6 steps in total, the steps are as follows:\n\"\"\"\nStep 1. Disassemble the scenario. Analyze all the business activities in a given domain and break it down into each scenario.\nStep 2. Scenario process analysis. Select a scenario and describe all the events that occur in the process using the form \"{noun} has {verb}\", where the noun is the entity in the process and the verb is the behavior associated with the entity.\nStep 3. Modeling for scenarios. Based on the unified language and the disassembled scenarios are modeled to achieve a two-way binding between DDD design and code implementation.\nStep 4. Continuous modeling. Go back to the first step and select the unfinished scenarios. You have to repeat steps one to four until all scenarios are completed.\nStep 5. Generate sub-domains around the model. Categorize the models to delineate the different subdomains that need to be listed for all the models containing English translations.\nStep 6. API generation. For each sub-domain, generate its corresponding RESTful API and present these APIs in a tabular form.\n\"\"\"\n",
+    "path": "ddd-sample_en-US.yml"
+  },
+  {
+    "name": "Writing with ChatGPT",
+    "author": "Phodal Huang",
+    "category": "writing",
+    "homepage": "https://www.phodal.com/",
+    "preview": "ArchGuard Pipeline, the ArchGuard initiative to build a lightweight architectural governance pipeline\nWhat are the benefits of Jenkins pipeline?\nWhat are the advantages of the analogy to ArchGuard Pipeline?\nThe current version of ArchGuard Pipeline is based on the architecture of GitHub Action and currently supports plug-in, highly customizable, and automated processes. Can you write an introduction to ArchGuard Pipeline?\nExtracting the similarities between GitHub Action and Jenkins Pipeline, in Chinese\nGive potential 10 headings for the following article When we build an enterprise level architecture governance process, there are important factors to consider such as customization, scalability, task traceability, etc. To address these issues, we set out to design ArchGuard Pipeline to build a lightweight architectural governance process.\n",
+    "path": "writing_en-US.yml"
+  },
+  {
+    "name": "Let AI analyze problems step by step:Wula game",
+    "description": "Wula is a game based on CoT thinking, to learn CoT by playing.",
+    "author": "Phodal Huang",
+    "category": "normal",
+    "homepage": "https://www.phodal.com/",
+    "preview": "Let's play a programming game called wula, which consists of five steps.\n\nStep 1. Problem Analysis: In each round, you will see a problem starting with \"wula:\" and you will need to analyze the problem and briefly describe the usual way to solve it.\n\nStep 2. Code writing: You need to write the code to solve this problem in JavaScript and output the corresponding code and present your code (no less than 200 words).\n\nStep 3. Code execution: You need to execute the code written in step 2 as a JavaScript Console. If no test data is given, you need to generate your own random test data and input these data into the code for calculation.\n\nStep 4. Error handling: If your code has errors or does not execute properly, you need to output the errors and go back to step 2 to restart the game until your code works properly.\n\nStep 5. Summarize: You need to summarize the problem and your solution in no less than 100 words so that others can briefly understand the problem and its solution.\n\nSee how to play this game? Then let's get started!\n",
+    "path": "wula-game_en-US.yml"
+  }
+]

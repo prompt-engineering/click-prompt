@@ -6,7 +6,7 @@
     "category": "writing",
     "homepage": "https://github.com/prompt-engineering/click-prompt",
     "preview": "示例 1：模板示例 1：使用 ChatGPT 创建 issue。我们想在 ClickPrompt 上添加一个新的需求： 在 ClickPrompt 上使用 ChatGPT 自动创建 GitHub issue，以便于社区贡献者能更好的理解这个需求。\n示例 2：模板示例 2：使用 ChatGPT 分析 issue 编写代码。我们是 ClickPrompt 开源项目的贡献者，我们想让你为 ClickPrompt 添加一些新的功能。开始之前请阅读一下这些资料。\n示例 3：模板示例 3：使用 ChatGPT 分析 CHANGELOG，发布更新日志。\n",
-    "path": "click-prompt-casestudy.yml"
+    "path": "click-prompt-casestudy_zh-CN.yml"
   },
   {
     "name": "让 ChatGPT 类比迁移",
@@ -15,7 +15,7 @@
     "category": "programming",
     "homepage": "https://www.phodal.com/",
     "preview": "知道 DDD 里的 ContextMap 吗？\n知道 DSL（领域特定语言）吗？\n设计一个 DSL 来表示 DDD 里的 Context Map 。\n",
-    "path": "concept-analogy-sample.yml"
+    "path": "concept-analogy-sample_zh-CN.yml"
   },
   {
     "name": "DDD Sample",
@@ -24,7 +24,7 @@
     "category": "programming",
     "homepage": "https://www.phodal.com/",
     "preview": "我们来定义一下 DDD 游戏的步骤，一共有 6 个步骤，步骤如下:\n\"\"\"\n第一步. 拆解场景。分析特定领域的所有商业活动，并将其拆解出每个场景。\n第二步. 场景过程分析。选定一个场景，并使用 \"{名词}已{动词}\" 的形式描述过程中所有发生的事件，其中的名词是过程中的实体，其中的动词是实体相关的行为。\n第三步. 针对场景建模。基于统一语言和拆解出的场景进行建模，以实现 DDD 设计与代码实现的双向绑定。\n第四步. 持续建模。回到第一步，选择未完成的场景。你要重复第一到第四步，直到所有的场景完成。\n第五步. 围绕模型生成子域。对模型进行分类，以划定不同的子域，需要列出所有的模型包含英语翻译。\n第六步. API 生成。对于每一个子域，生成其对应的 RESTful API，并以表格的形式展现这些 API。\n\"\"\"\n",
-    "path": "ddd-sample.yml"
+    "path": "ddd-sample_zh-CN.yml"
   },
   {
     "name": "使用 ChatGPT 写作",
@@ -33,7 +33,7 @@
     "category": "writing",
     "homepage": "https://www.phodal.com/",
     "preview": "ArchGuard Pipeline，是 ArchGuard 计划构建轻量级架构治理 pipeline\nJenkins pipeline 有什么优点？\n类比到 ArchGuard Pipeline，它会有什么优点？\n当前版本 ArchGuard Pipeline 参考了 GitHub Action 的架构设计，当前可以支持插件化、高度定制化、自动化流程，能为 ArchGuard Pipeline 写一个介绍吗？\n提取一下 GitHub Action 与 Jenkins Pipeline 的相似性，中文表示\n给出如下文章的潜在 10 个标题 当我们构建企业级的架构治理流程时，需要考虑到一些重要的因素，比如定制性、可扩展性、任务可追溯性等。为了解决这些问题，我们开始设计 ArchGuard Pipeline 来构建轻量级的架构治理流程。\n",
-    "path": "writing.yml"
+    "path": "writing_zh-CN.yml"
   },
   {
     "name": "让 AI 一步步分析问题：Wula 游戏",
@@ -42,6 +42,6 @@
     "category": "normal",
     "homepage": "https://www.phodal.com/",
     "preview": "我们来玩一个编程游戏名为 wula，包含五个步骤：\n\n第一步. 问题分析：每一轮游戏，你将看到一个以 \"wula:\" 开头的问题，你需要分析这个问题并简单介绍一下通常解决这个问题的方法。\n\n第二步. 代码编写：你需要用 JavaScript 编写解决这个问题的代码，并输出对应的代码，并介绍一下你的代码（不少于 200 字）。\n\n第三步. 代码执行：你需要作为 JavaScript Console 执行第二步写的代码，如果没有给出测试数据，你需要自己随机生成测试数据，并将这些数据输入到代码中进行计算。\n\n第四步. 错误处理：如果你的代码存在错误或无法正常执行，你需要输出错误，并回到第二步重新开始游戏，直到你的代码能够正常工作。\n\n第五步. 总结：你需要用不少于 100 字左右总结一下这个问题，以及你的解决方案，让其他人可以简单了解这个问题及其解决方案。\n\n明白这个游戏怎么玩儿了嘛？那我们开始吧！\n",
-    "path": "wula-game.yml"
+    "path": "wula-game_zh-CN.yml"
   }
 ]

@@ -17,26 +17,14 @@ import { notFound } from "next/navigation";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
 import { getAppData } from "@/i18n";
+import type { Sample, SampleDetail } from "../type";
 
-interface Sample {
-  name: string;
-  description: string;
-  category: string;
-  author: string;
-  homepage: string;
-  preview: string;
-  steps: {
-    ask: string;
-    response: string;
-  }[];
-}
-
-const getSampleNames = async () => {
-  const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
-  return index.map((item) => item.path.split(".").slice(0, -1).join("."));
+const getSampleNames = async (locale: GeneralI18nProps["locale"]) => {
+  const index = await import(`@/assets/chatgpt/samples/index_${locale}.json`).then((mod) => mod.default);
+  return index.map((item: Sample) => item.path.split(".").slice(0, -1).join("."));
 };
 
-async function Sample({ params }: { params: { id: string } }) {
+async function ChatGptSampleDetail({ params }: { params: { id: string } }) {
   const { locale, pathname, i18n } = await getAppData();
   const i18nProps: GeneralI18nProps = {
     locale,
@@ -47,12 +35,12 @@ async function Sample({ params }: { params: { id: string } }) {
   };
   const dict = i18nProps.i18n.dict;
 
-  const names = await getSampleNames();
+  const names = await getSampleNames(locale);
   if (!names.includes(params.id)) {
     notFound();
   }
 
-  const content: Sample = await import(`@/assets/chatgpt/samples/${params.id}.yml`).then((mod) => mod.default);
+  const content: SampleDetail = await import(`@/assets/chatgpt/samples/${params.id}.yml`).then((mod) => mod.default);
 
   if (!content) {
     notFound();
@@ -111,4 +99,4 @@ async function Sample({ params }: { params: { id: string } }) {
   );
 }
 
-export default Sample;
+export default ChatGptSampleDetail;

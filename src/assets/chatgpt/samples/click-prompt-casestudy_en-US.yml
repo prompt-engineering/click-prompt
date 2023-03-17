@@ -1,0 +1,125 @@
+name: ClickPrompt
+description: ClickPrompt How to use ChatGPT to assist in programming
+category: writing
+author: ClickPrompt Team
+homepage: https://github.com/prompt-engineering/click-prompt
+preview: |
+  Example 1: Template Example 1: Using ChatGPT to create an issue We want to add a new requirement to ClickPrompt: Use ChatGPT to automatically create GitHub issues on ClickPrompt so that the community contributors can better understand the requirement.
+  Example 2: Template Example 2: Writing code using ChatGPT to analyze an issue. We are contributors to the ClickPrompt open source project and we would like you to add some new features to ClickPrompt. Please read this information before you start.
+
+steps:
+  - ask: |
+      We want to add a new requirement to ClickPrompt: automatically create GitHub issues on ClickPrompt using ChatGPT so that community contributors can better understand this requirement. Output requirements.
+
+      ```
+      """
+      Is your feature request related to a problem? Please describe.
+      No
+
+      Describe the solution you'd like
+      A clear and concise description of what you want to happen.
+
+      Describe alternatives you've considered
+      A clear and concise description of any alternative solutions or features you've considered.
+
+      Additional context
+      Add any other context or screenshots about the feature request here.
+      """
+      ```
+    response: |
+      """
+      Is your feature request related to a problem? Please describe.
+      No
+
+      Describe the solution you'd like
+      I would like to be able to use ChatGPT to automatically create GitHub issues from within ClickPrompt. This would help community contributors better understand the requirements and goals of a given feature request.
+
+      Describe alternatives you've considered
+      Manually creating GitHub issues is a time-consuming process, and it can be difficult to ensure that all relevant information is included. By automating this process with ChatGPT, we can save time and improve the overall quality of the issues we create.
+
+      Additional context
+      Add any other context or screenshots about the feature request here.
+      """
+  - ask: |
+      We are contributors to the ClickPrompt open source project and we would like you to add some new features to ClickPrompt. Before you start, please read this information.
+
+      - ClickPrompt is a tool designed for Prompt writers that supports a variety of Prompt-based AI applications, such as Stable Diffusion, ChatGPT, and GitHub Copilot. With ClickPrompt, you can easily view, share, and run these models with one click, while providing an online Prompt generator that allows users to easily create compliant Prompt based on their needs and share it with others.
+      - ClickPrompt includes several page components: chatgpt, chatgpt-general, chatgpt-generator-cot, chatgpt-interactive-game, chatgpt-prompt-role-play, chatgpt- samples, chatgpt-startling-by-each-step, github-copilot-samples, resources, stable-diffusion-examples, stable-diffusion-generator
+      - ClickPrompt uses Next.js, React, Chakra UI, Tailwind, etc. as the main development frameworks and Planetscale as the database.
+
+      Now, we want you to add a new feature, namely: feature: add tour guide for ClickPrompt. the description is as follows.
+
+      """
+      """
+
+      How should I modify it? Give a direct example?
+    response: |
+      To add tour guide functionality to the home page of ClickPrompt, you can use the reactour library. First, you need to install reactour:
+
+      ```bash
+      npm install reactour
+      ```
+
+      Then, in the home page code of ClickPrompt, you need to introduce the reactour component：
+
+      ```jsx
+      import Tour from 'reactour/dist/components/Tour/Tour';
+      import { useTour } from 'reactour/dist/hooks/useTour';
+      ```
+
+      Next, add the Tour code to the component's JSX.:
+
+      ```jsx
+      <Provider>
+        {/* https://github.com/vercel/next.js/issues/42292 */}
+        {/* @ts-expect-error Async Server Component */}
+        <NavBar locale={lang} />
+        <Container maxW='8xl' p={{ md: "2rem", base: "1rem" }}>
+          {children}
+        </Container>
+        </Provider>
+        <div className='flex justify-center py-4'>
+        <a
+        className='flex gap-4 items-center'
+        href='https://vercel.com?utm_source=prompt-engineering&utm_campaign=oss'
+        target={"_blank"}
+        >
+        <span>Powered by</span>
+        <Image
+        height={24}
+        width={116}
+        src='https://images.ctfassets.net/e5382hct74si/78Olo8EZRdUlcDUFQvnzG7/fa4cdb6dc04c40fceac194134788a0e2/1618983297-powered-by-vercel.svg'
+        alt='Vercel Logo'
+        />
+        </a>
+        </div>
+        <AnalyticsWrapper />
+        <Tour
+          steps={[
+            {
+              selector: '.navbar-nav > li:nth-child(1) > a',
+              content: 'This is the ChatGPT section',
+            },
+            {
+              selector: '.navbar-nav > li:nth-child(2) > a',
+              content: 'This is the StableDiffusion section',
+            },
+            {
+              selector: '.navbar-nav > li:nth-child(3) > a',
+              content: 'This is the StableDiffusion Generator section',
+            },
+            {
+              selector: '.navbar-nav > li:nth-child(4) > a',
+              content: 'This is the GitHub Copilot section',
+            },
+            {
+              selector: '.navbar-nav > li:nth-child(5) > a',
+              content: 'This is the Resources section',
+            },
+          ]}
+          isOpen={isTourOpen}
+          onRequestClose={() => setIsTourOpen(false)}
+        />
+      ```
+
+      In the above code, the steps property defines each step of the Tour, where selector specifies the selector of the component that needs to guide the user, and content is the explanation of the step. isOpen property controls the on/off state of the Tour, and onRequestClose property defines the callback function to close the Tour.
