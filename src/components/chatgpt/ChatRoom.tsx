@@ -129,7 +129,7 @@ export const ChatRoom = ({
         chatsWrapper.current.scrollTop = chatsWrapper.current.scrollHeight;
       }
     });
-  }, [chatHistory?.length]);
+  }, [chatHistory]);
 
   const onEnterForSendMessage: React.KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (event.code === "Enter" || event.code === "NumpadEnter") {
@@ -215,7 +215,8 @@ export const ChatRoom = ({
     }
     setConversations([]);
   }
-
+  // FIXME anti-pattern, should use `useState`
+  let codeMark = "";
   async function sendMessage() {
     if (message.length === 0) {
       alert("Please enter your message first.");
@@ -230,7 +231,7 @@ export const ChatRoom = ({
       }
 
       setMessage("");
-      setChatHistory([
+      let updatedHistory = [
         ...chatHistory,
         {
           role: "user",
@@ -238,20 +239,59 @@ export const ChatRoom = ({
           // TODO(CGQAQ): custom name of user
           // name: "User",
         },
-      ] as ResponseSend);
+      ] as ResponseSend;
 
-      const data = await ChatAPI.sendMessage(currentConversation as number, message);
+      setChatHistory([...updatedHistory]);
+
+      const data = await ChatAPI.sendMsgWithStreamRes(currentConversation as number, message);
       if (!data) {
-        setChatHistory((c) => c.slice(0, c.length - 1));
+        setDisable(false);
+        setChatHistory([...updatedHistory.slice(0, updatedHistory.length - 1)]);
         return;
       }
-      setChatHistory((c) => [...c, ...data]);
+      const reader = data.getReader();
+      const decoder = new TextDecoder();
+      let isDone = false;
+      while (!isDone) {
+        const { value, done } = await reader.read();
+        isDone = done;
+        const chunkValue = decoder.decode(value);
+        const lines = chunkValue.split("\n").filter((line) => line.trim() !== "");
+        for (const line of lines) {
+          const message = line.replace(/^data: /, "");
+          if (message === "[DONE]") {
+            setDisable(false);
+          } else {
+            const parsed = JSON.parse(message).choices[0].delta;
+            if (parsed && Object.keys(parsed).length > 0) {
+              if (!!parsed.role) {
+                parsed.content = "";
+                updatedHistory = [...updatedHistory, parsed];
+              } else if (!!parsed.content) {
+                if (parsed.content === "```") {
+                  // code block start
+                  if (!codeMark) {
+                    codeMark = parsed.content;
+                  } else {
+                    // code block end remove it
+                    codeMark = "";
+                  }
+                }
+                updatedHistory[updatedHistory.length - 1].content += parsed.content;
+              }
+              setChatHistory([...updatedHistory]);
+            }
+          }
+        }
+      }
     } catch (err) {
       console.log(err);
-    } finally {
       setDisable(false);
+    } finally {
+      // setDisable(false);
     }
   }
+
   async function logout() {
     await UserAPI.logout();
     setIsLoggedIn(false);
@@ -369,7 +409,7 @@ export const ChatRoom = ({
                 ) : (
                   <div className='self-start flex'>
                     <div className='rounded-md bg-orange-400 text-white text-xl px-4 py-2 max-w-xl'>
-                      <SimpleMarkdown content={chat.content}></SimpleMarkdown>
+                      <SimpleMarkdown content={`${chat.content}${codeMark}`}></SimpleMarkdown>
                     </div>
                   </div>
                 )}

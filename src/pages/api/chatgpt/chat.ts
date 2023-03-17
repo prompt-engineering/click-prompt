@@ -5,6 +5,7 @@ import { decryptKey } from "@/uitls/crypto.util";
 import { createChat, getAllChatsInsideConversation, createConversation } from "@/storage/planetscale";
 import { getChatClient } from "@/uitls/openapi.util";
 import { getUser } from "@/uitls/user.util";
+import { CHAT_COMPLETION_CONFIG } from "@/configs/constants";
 
 export type RequestSend = {
   action: "send";
@@ -95,10 +96,8 @@ async function sendMsgs({
   try {
     const messages = [...msgs, ...newMsgs].map((it) => ({ ...it, name: it.name ?? undefined }));
     const response = await client.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      ...CHAT_COMPLETION_CONFIG,
       messages,
-      temperature: 0.5,
-      max_tokens: 512,
     });
     if (response.status !== 200) {
       res.status(response.status).json({ error: response.statusText });
@@ -124,7 +123,6 @@ async function sendMsgs({
 
     return res.status(200).json([choices[0].message] as unknown as ResponseSend);
   } catch (e: any) {
-    console.error(e);
     let msg = e.message;
     if (e.code === "ETIMEDOUT") {
       msg = "Request api was timeout, pls confirm your network worked";
