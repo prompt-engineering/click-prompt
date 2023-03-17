@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Textarea } from "@chakra-ui/react";
+import { Box, Textarea } from "@chakra-ui/react";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import autosize from "autosize";
 import styled from "@emotion/styled";
@@ -41,19 +41,25 @@ export function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps
 
   if (askTask.replaced) {
     return (
-      <StyledTextarea
-        className='bg-white'
-        value={value}
-        ref={ref}
-        onChange={(event) => {
-          setValue(event.target.value);
-          onAskUpdate(event.target.value);
-        }}
-      />
+      <Box w='100%' h='100%'>
+        <StyledTextarea
+          className='bg-white'
+          value={value}
+          ref={ref}
+          onChange={(event) => {
+            setValue(event.target.value);
+            onAskUpdate(event.target.value);
+          }}
+        />
+      </Box>
     );
   }
 
-  return <SimpleMarkdown content={step.ask} />;
+  return (
+    <div>
+      <SimpleMarkdown content={step.ask} />
+    </div>
+  );
 }
 
 const StyledTextarea = styled(Textarea)`

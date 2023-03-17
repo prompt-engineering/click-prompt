@@ -4,6 +4,7 @@ import React, { useCallback } from "react";
 import { MarkdownEditor } from "@remirror/react-editors/markdown";
 import { useDocChanged, useHelpers, useKeymap, useRemirror } from "@remirror/react";
 import { KeyBindingProps } from "@remirror/core-types/dist-types/core-types";
+import styled from "@emotion/styled";
 
 const hooks = [
   () => {
@@ -45,12 +46,17 @@ const FlowMarkdownEditor = ({ text, onChange }: { text: string; onChange: (text:
   };
 
   return (
-    <div style={{ padding: 16 }}>
+    <StyledMarkdownContainer>
       <MarkdownEditor initialContent={text} hooks={hooks}>
         <OnTextChange onChange={valueChange} />
       </MarkdownEditor>
-    </div>
+    </StyledMarkdownContainer>
   );
 };
+
+const StyledMarkdownContainer = styled.div`
+  background: #fff;
+  width: 100%;
+`;
 
 export default FlowMarkdownEditor;
