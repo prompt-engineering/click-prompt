@@ -3,10 +3,10 @@ import ReactFlow, { Background, Controls } from "reactflow";
 import { Edge, Node } from "@reactflow/core/dist/esm/types";
 import "reactflow/dist/style.css";
 
-import InteractiveNode from "@/components/FlowExplain/nodes/InteractiveNode";
+import InteractiveNode from "@/flows/explain/nodes/InteractiveNode";
 import { explainParser, graphToFlow } from "@/data-processor/explain-parser";
-import { StartlingFlow } from "@/app/[lang]/click-flow/[id]/startling.type";
-import PromptNode from "@/components/FlowExplain/nodes/PromptNode";
+import { StartlingFlow } from "@/flows/ClickFlow.type";
+import PromptNode from "@/flows/explain/nodes/PromptNode";
 
 type StepExplainProps = {
   step: StartlingFlow;

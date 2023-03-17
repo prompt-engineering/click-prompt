@@ -9,14 +9,14 @@ import { Avatar, Box } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
-import { StartlingFlow } from "@/app/[lang]/click-flow/[id]/startling.type";
-import { fillStepWithValued, FlowStep } from "@/app/[lang]/click-flow/[id]/flow-action";
+import { StartlingFlow } from "@/flows/ClickFlow.type";
+import { fillStepWithValued, FlowStep } from "@/flows/action/flow-action";
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
 import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
 import { AskRenderer } from "@/app/[lang]/click-flow/[id]/AskRenderer";
 import CopyComponent from "@/components/CopyComponent";
-import PostFlowActionComponent from "@/app/[lang]/click-flow/[id]/PostFlowActionComponent";
-import PreFlowActionComponent from "@/app/[lang]/click-flow/[id]/PreFlowActionComponent";
+import PostFlowActionComponent from "@/flows/action/PostFlowActionComponent";
+import PreFlowActionComponent from "@/flows/action/PreFlowActionComponent";
 
 type StepProps = {
   index: number;

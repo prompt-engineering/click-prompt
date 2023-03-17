@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { fillStepWithValued } from "@/app/[lang]/click-flow/[id]/flow-action";
+import { fillStepWithValued } from "@/flows/action/flow-action";
 
 describe("Step Valued", () => {
   it("fillStepWithValued", () => {

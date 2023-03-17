@@ -1,6 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { StartlingFlow } from "@/app/[lang]/click-flow/[id]/startling.type";
+import { StartlingFlow } from "@/flows/ClickFlow.type";
 import StartlingStepPage from "@/app/[lang]/click-flow/[id]/StartlingStepPage";
 import { getAppData } from "@/i18n";
 

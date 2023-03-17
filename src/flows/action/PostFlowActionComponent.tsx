@@ -1,7 +1,7 @@
 import React from "react";
-import { FlowAction } from "@/app/[lang]/click-flow/[id]/flow-action";
+import { FlowAction } from "@/flows/action/flow-action";
 import { Button } from "@chakra-ui/react";
-import { actionDispatcher } from "@/app/[lang]/click-flow/[id]/action-dispatcher";
+import { actionDispatcher } from "@/flows/action/action-dispatcher";
 
 type ActionProps = { action: FlowAction; response: string };
 

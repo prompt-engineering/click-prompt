@@ -1,4 +1,4 @@
-import { ApiAction, FlowAction, OpenAction } from "@/app/[lang]/click-flow/[id]/flow-action";
+import { ApiAction, FlowAction, OpenAction } from "@/flows/action/flow-action";
 import fetch from "node-fetch";
 
 export type ActionResult = ActionSuccess | ActionError;
