@@ -10,7 +10,7 @@
       },
       {
         "name": "分析问题",
-        "ask": "在 ClickPrompt 上，有一个用户反馈了一个问题，帮我分析一下他的问题原因可能是什么？\n",
+        "ask": "在 ClickPrompt 上，有一个用户反馈了一个问题，帮我分析一下他的问题原因可能是什么？\n\n$$issue$$\n",
         "preActions": [
           {
             "name": "Fetch issue",
@@ -29,12 +29,22 @@
                   "function": "jsonPath",
                   "args": [
                     "$.0.body"
-                  ]
+                  ],
+                  "outputVar": "issues"
+                }
+              ],
+              "showComponents": [
+                {
+                  "name": "JsonViewer",
+                  "args": "issues"
                 }
               ]
             }
           }
-        ]
+        ],
+        "values": {
+          "issue": "$$issue$$"
+        }
       },
       {
         "name": "创建需求",
