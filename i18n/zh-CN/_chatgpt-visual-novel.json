@@ -1,0 +1,17 @@
+{
+  "prompt_start": "请撰写一个",
+  "prompt_after_story_genre": "故事。这个故事中男性主人公（speaker）与",
+  "prompt_after_number_of_girls": "个女孩交谈。请按照如下格式写这个故事：",
+  "prompt_follow_rules": "请一定要遵循下面的规范：\n- 每一个对话都要有speaker且不能是narrator.\n- mood只能从这些中挑选：",
+  "prompt_locations": "- location只能从这些中挑选：",
+  "prompt_end": "- 所有的dialogue和人物名都需要是中文。\n- 请先回答至多5个dialogue，不用写完这个故事。\n- 请输出JSON格式，不能出现除了JSON的任何其他内容。",
+  "select_genre": "请选择一个故事类型：",
+  "crime": "犯罪",
+  "sci-fi": "科幻",
+  "fantasy": "奇幻",
+  "horror": "恐怖",
+  "romance": "爱情",
+  "sd_note_prefix": "图片由 ",
+  "sd_note_model": " 生成，模型：",
+  "reset": "重置"
+}
