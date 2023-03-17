@@ -17,23 +17,12 @@ import { notFound } from "next/navigation";
 import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
 import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
 import { getAppData } from "@/i18n";
-
-interface Sample {
-  name: string;
-  description: string;
-  category: string;
-  author: string;
-  homepage: string;
-  preview: string;
-  steps: {
-    ask: string;
-    response: string;
-  }[];
-}
+import type { Sample, SampleDetail } from "../type";
 
 const getSampleNames = async () => {
-  const index = await import("@/assets/chatgpt/samples/index.json").then((mod) => mod.default);
-  return index.map((item) => item.path.split(".").slice(0, -1).join("."));
+  const { locale } = await getAppData();
+  const index = await import(`@/assets/chatgpt/samples/index_${locale}.json`).then((mod) => mod.default);
+  return index.map((item: Sample) => item.path.split(".").slice(0, -1).join("."));
 };
 
 async function Sample({ params }: { params: { id: string } }) {
@@ -52,7 +41,7 @@ async function Sample({ params }: { params: { id: string } }) {
     notFound();
   }
 
-  const content: Sample = await import(`@/assets/chatgpt/samples/${params.id}.yml`).then((mod) => mod.default);
+  const content: SampleDetail = await import(`@/assets/chatgpt/samples/${params.id}.yml`).then((mod) => mod.default);
 
   if (!content) {
     notFound();
