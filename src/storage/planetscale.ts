@@ -50,6 +50,7 @@ export const getAllConversionsByUserId = cache(async (userId: number) => {
     .selectFrom("conversations")
     .select(["conversations.id", "conversations.user_id", "conversations.name", "conversations.created_at"])
     .where((qb) => qb.where("conversations.user_id", "=", userId).where("conversations.deleted", "=", 0))
+    .orderBy("created_at", "desc")
     .limit(100)
     .execute();
 });
@@ -118,6 +119,16 @@ export const deleteConversation = cache(async (conversationId: number) => {
       deleted: 1,
     })
     .where("conversations.id", "=", conversationId)
+    .execute();
+});
+
+export const deleteAllConversationsByUserId = cache(async (userId: number) => {
+  return queryBuilder
+    .updateTable("conversations")
+    .set({
+      deleted: 1,
+    })
+    .where("conversations.user_id", "=", userId)
     .execute();
 });
 

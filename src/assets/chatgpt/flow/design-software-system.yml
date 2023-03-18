@@ -1,0 +1,90 @@
+name: 软件系统设计
+category: Development
+author: Phodal Huang
+description: 在这个示例中，我们将会使用 ChatGPT 分析系统，编写软件系统设计。
+explain: |
+  digraph G {
+    0[flowType = "prompt"]
+    1[flowType = "interactive"]
+    2[flowType = "interactive"]
+    3[flowType = "interactive"]
+    4[flowType = "interactive"]
+    0 -> 1
+    1 -> 2
+    1 -> 3
+    1 -> 4
+  }
+
+steps:
+  - name: 创建系统设计 "函数"
+    ask: |
+      我们来设计一个流程，名为: system，其用于软件系统设计。我们会把设计分为两部分：
+
+      第一部分，当我用 "design:{}" 发给你需求时，你需要：
+
+      1. 分析所有潜在的对应场景，分析用户旅程。
+      2. 使用 Mermaid 绘制 User Journey Diagram，并只返回 Mermaid 的 User Journey Diagram 代码，最后返回示例如：
+
+      ```mermaid
+      journey
+        title My working day
+        section Go to work
+          Make tea: 5: Me
+          Go upstairs: 3: Me
+          Do work: 1: Me, Cat
+        section Go home
+          Go downstairs: 5: Me
+          Sit down: 5: Me
+      ```
+
+      第二部分，我会用 "system({}):{}" 的形式发给你设计需求，示例："system("API"): 博客系统"，表示上面格式中的 API 部分。要求如下：
+
+      1. 你需要考虑围绕这一类型系统的所有场景。
+      2. 使用如下的 DSL 格式来描述系统：
+
+      ```
+      System("BlogSystem") {
+        Entities {
+          Blog { title: string, ..., comments: [Comment]? },
+          Comment { ...}
+        }
+        Operation {
+          Ops("CreateBlog", {
+           in: { title: string, description: string },
+           out: { id: number }
+           pre: title is unique and (title.length > 5 && title.length < 120)
+           post: id is not null
+          })
+        }
+        API {
+          Route(path: String, method: HttpMethod operation: Operation)
+        }
+      }
+      ```
+
+      明白吗？明白就返回：OK。
+    cachedResponseRegex:
+  - name: 设计用户旅程
+    ask: |
+      design: $$placeholder$$, 使用 Mermaid 绘制 User Journey Diagram，并只返回 Mermaid 的 User Journey Diagram 代码，返回格式如："""```mermaid journey{}"""。
+    values:
+      placeholder: 在线博客系统
+    cachedResponseRegex: .*
+  - name: 分析系统，绘制 Entities 图
+    ask: |
+      system("Entities"): $$placeholder$$，返回 Mermaid 类图。
+    values:
+      placeholder: 在线博客系统
+    cachedResponseRegex: .*
+  - name: 分析系统，绘制 Operation 图
+    ask: |
+      system("Operation"): $$placeholder$$，只返回 Operation 部分。
+    values:
+      placeholder: 在线博客系统
+    cachedResponseRegex: .*
+  - name: 分析系统，绘制 API 表格
+    ask: |
+      system("API"): $$placeholder$$，只返回 API 部分，并使用表格绘制。
+    values:
+      placeholder: 在线博客系统
+    cachedResponseRegex: .*

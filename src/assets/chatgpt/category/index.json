@@ -46,6 +46,11 @@
     "category": "Programming",
     "samples": [
       {
+        "name": "流程图",
+        "ask": "使用 mermaid 绘制一个用户登陆的流程图",
+        "response": "以下是一个使用 mermaid 绘制用户登录流程图的示例：\n\n```mermaid\ngraph LR;\n  A[用户]-->B[输入用户名和密码];\n  B-->C[发送登录请求];\n  C-->D[验证用户名和密码];\n  D-->|成功|E[登录成功];\n  D-->|失败|F[登录失败];\n  E-->G[跳转到用户页面];\n  F-->H[提示错误信息];\n```\n\n上述代码使用 graph LR 指令指定了绘图的类型和方向。然后，我们定义了四个节点，分别是用户（A）、输入用户名和密码（B）、发送登录请求（C）和验证用户名和密码（D）。最后，我们使用条件语句 |成功| 和 |失败| 来表示登录的成功或失败，并分别连接到登录成功（E）或登录失败（F）的节点。如果登录成功，我们将跳转到用户页面（G），否则我们将提示错误信息（H）。\n\n您可以将上述代码复制到您的 mermaid 图表中，并使用 mermaid.initialize() 和 mermaid.render() 方法呈现该图表。\n"
+      },
+      {
         "name": "程序转换",
         "ask": "将转换下面的程序转换为 JavaScript 代码：\n```python\ndef foo():\n    print(\"Hello World\")\n```\n",
         "response": "将这个 Python 函数转换为 JavaScript 函数，可以使用以下代码：\n```javascript\nfunction foo() {\n  console.log(\"Hello World\");\n}\n```\n在 JavaScript 中，我们使用 function 关键字来声明函数，然后在大括号中定义函数体。与 Python 不同的是，在 JavaScript 中，我们使用 console.log() 方法来打印输出而不是 print() 函数。因此，我们可以通过将 print() 语句替换为 console.log() 语句来将这个函数从 Python 转换为 JavaScript。\n"

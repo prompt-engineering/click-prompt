@@ -1,0 +1,50 @@
+name: 写作
+category: Development
+author: Phodal Huang
+description: Flow for writting.
+explain: |
+  digraph G {
+    0[flowType = "interactive"]
+    1[flowType = "interactive"]
+    2[flowType = "interactive"]
+    3[flowType = "interactive"]
+    4[flowType = "interactive"]
+    5[flowType = "interactive"]
+    0 -> 1
+    1 -> 2
+    2 -> 3
+    2 -> 4
+    2 -> 5
+  }
+
+steps:
+  - name: 思路扩展
+    ask: 我想写一篇文章，主题围绕于：$$placeholder$$，有什么合适的方向？只返回合适的方向。
+    markdownEditor: true
+    values:
+      placeholder: ChatGPT 与内容创作？
+    cachedResponseRegex:
+  - name: 继续思考
+    ask: 有创意一点的呢？
+    markdownEditor: true
+    cachedResponseRegex:
+  - name: 合适的标题
+    ask: 围绕于 """$$placeholder$$"""，帮我想 10 个合适的 10 个相关的标题
+    markdownEditor: true
+    values:
+      placeholder: 利用 ChatGPT 进行内容创作的协作 ChatGPT，如何作为一个协作平台，让多个内容创作者共同创作一篇文章或一个视频
+    cachedResponseRegex:
+  - name: 设计大纲
+    ask: 帮我围绕上这个标题 """$$placeholder$$"""，设计一个大纲吧？
+    markdownEditor: true
+    values:
+      placeholder: 协作的力量：ChatGPT 如何彻底改变内容创作
+    cachedResponseRegex: .*
+  - name: 编写内容
+    ask: 现在，围绕于这个大纲 """$$response:3$$"""，帮我写一篇文章吧？
+    markdownEditor: true
+    cachedResponseRegex:
+  - name: 写总结
+    ask: 好的，现在，帮我写一下文章的总结。
+    markdownEditor: true
+    cachedResponseRegex:

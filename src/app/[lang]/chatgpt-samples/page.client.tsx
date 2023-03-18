@@ -21,13 +21,13 @@ import {
 
 import Link from "next/link";
 
-import samples from "@/assets/chatgpt/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import SimpleMarkdown from "@/components/SimpleMarkdown";
+import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
+import type { Sample } from "./type";
 
-function ChatGptSamples({ i18n }: GeneralI18nProps) {
+function ChatGptSamples({ i18n, samples }: { samples: Sample[] } & GeneralI18nProps) {
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt`;
   const dict = i18n.dict;
 

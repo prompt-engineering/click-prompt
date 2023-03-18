@@ -1,0 +1,93 @@
+name: DDD Sample
+description: A sample template for DDD
+category: programming
+author: Phodal Huang
+homepage: https://www.phodal.com/
+preview: |
+  Let's define the steps of the DDD game, there are 6 steps in total, the steps are as follows:
+  """
+  Step 1. Disassemble the scenario. Analyze all the business activities in a given domain and break it down into each scenario.
+  Step 2. Scenario process analysis. Select a scenario and describe all the events that occur in the process using the form "{noun} has {verb}", where the noun is the entity in the process and the verb is the behavior associated with the entity.
+  Step 3. Modeling for scenarios. Based on the unified language and the disassembled scenarios are modeled to achieve a two-way binding between DDD design and code implementation.
+  Step 4. Continuous modeling. Go back to the first step and select the unfinished scenarios. You have to repeat steps one to four until all scenarios are completed.
+  Step 5. Generate sub-domains around the model. Categorize the models to delineate the different subdomains that need to be listed for all the models containing English translations.
+  Step 6. API generation. For each sub-domain, generate its corresponding RESTful API and present these APIs in a tabular form.
+  """
+
+steps:
+  - ask: |
+      Let's define the steps of the DDD game, there are 6 steps, the steps are as follows:
+
+      """
+
+      Step 1. Disassemble the scenario. Analyze all the business activities in a given domain and break it down into each scenario.
+
+      Step 2. Scenario process analysis. Select a scenario and describe all the events that occur in the process using the form "{noun} has {verb}", where the noun is the entity in the process and the verb is the behavior associated with the entity.
+
+      Step 3. Modeling for scenarios. Based on the unified language and the disassembled scenarios are modeled to achieve a two-way binding between DDD design and code implementation.
+
+      Step 4. Continuous modeling. Go back to the first step and select the unfinished scenarios. You have to repeat steps one to four until all scenarios are completed.
+
+      Step 5. Generate sub-domains around the model. Categorize the models to delineate the different subdomains that need to be listed for all the models containing English translations.
+
+      Step 6. API generation. For each sub-domain, generate its corresponding RESTful API and present these APIs in a tabular form.
+
+      """
+
+      Note that when I say """ddd Step {}: {}""" it means that the first step of analysis is performed, e.g. """ddd Step 1 : Blog System""" means that only the first step of DDD analysis is performed for the blog system. I posted """ddd : { }""", then it means analyze the whole system in 6 steps. See how this game is played?
+    response: |
+      Yes, I get it, it's a game of software development through DDD (Domain Driven Design) methodology, there are 6 steps. The first step is to disassemble the scenario, breaking down the business activity in a specific domain into multiple scenarios.
+      The second step is to perform a process analysis for a scenario, describing all events in the scenario using the form "{noun} has {verb}". The third step is modeling based on the unified language and the disassembled scenarios to achieve a two-way binding between DDD design and code implementation.
+      The fourth step is to continue modeling, go back to the first step to select unfinished scenarios, and repeat the first to third steps until all scenarios are completed. The fifth step is to generate sub-domains around the model and classify the model to delineate different sub-domains. The sixth step is to generate RESTful APIs corresponding to each sub-domain and present these APIs in a tabular form.
+  - ask: ddd Blog System
+    response: |
+      Okay, let's proceed with the analysis of the DDD game, using the online shopping mall as an example.
+
+      ## ddd Step 1: Disassemble the scenario
+
+      The online mall scenario can be divided into the following.
+
+      ``css
+      User registration and login
+      Product display and search
+      Shopping cart management
+      Order management and payment
+      Logistics and delivery
+      After-sales service
+      ```
+      ## ddd Step 2: Scenario process analysis
+
+      ```css
+      User publishes a blog post
+        User is logged in -> User fills in blog post content -> User clicks publish -> System saves the blog post
+      User edits the blog post
+       User is logged in -> User goes to edit page -> User modifies blog post content -> User clicks save -> System updates blog post content
+      User delete blog post
+        User is logged in -> User goes to the blog post details page -> User clicks Delete -> System deletes the blog post
+      User posts a comment
+        User is logged in -> User goes to the blog post details page -> User fills in the comment content -> User clicks Post Comment -> System saves the comment
+      User browses blog posts
+        User goes to the home page -> User clicks to the blog post list page -> User clicks to the specific blog post
+      ```
+  - ask: |
+      ddd Step 6: Online Blog
+    response: |
+      In step 6 of the DDD, we need to present each subdomain and its corresponding RESTful API in a tabular form. for online blogging systems, consider the following subdomains.
+
+      ```css
+      User subdomain: contains user registration, login, information management and other functions.
+      Blog subdomain: contains blog creation, editing, deletion, query and other functions.
+      Comment subdomain: contains the comment creation, deletion, query and other functions.
+      Tags subdomain: contains tags creation, editing, deletion, query and other functions.
+      Relationship subdomain: contains the creation, deletion, query and other functions of the relationship between users such as followers and fans.
+      ```
+
+      For each subdomain, we need to define the corresponding RESTful API to implement the functionality of that subdomain. For example, for the users subdomain, the following RESTful API may need to be defined.
+
+      - POST /api/users: register users
+      - POST /api/users/login: user login
+      - GET /api/users/:id: Get information about the specified user
+      - PUT /api/users/:id: update the specified user information
+      - DELETE /api/users/:id: Delete the specified user
+
+      For the blog subdomain, the following RESTful API may need to be defined.

@@ -8,6 +8,7 @@ import { ClickPromptSmall } from "@/components/CustomIcon";
 import clickPromptLogo from "@/assets/clickprompt-light.svg?url";
 import { CPButtonProps, StyledBird, StyledPromptButton } from "@/components/ClickPrompt/Button.shared";
 import { LoggingDrawer } from "@/components/ClickPrompt/LoggingDrawer";
+import * as UserAPI from "@/api/user";
 
 export type ClickPromptBirdParams = { width?: number; height?: number };
 
@@ -25,9 +26,8 @@ export function ClickPromptButton(props: CPButtonProps) {
 
   const handleClick = async (event: any) => {
     setIsLoading(true);
-    const response = await fetch("/api/chatgpt/verify");
-    const data = await response.json();
-    setIsLoggedIn(data.loggedIn);
+    const isLoggedIn = await UserAPI.isLoggedIn();
+    setIsLoggedIn(isLoggedIn);
     onOpen();
     props.onClick && props.onClick(event);
   };

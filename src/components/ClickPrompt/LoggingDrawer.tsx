@@ -1,7 +1,7 @@
 "use client";
 
 import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay } from "@chakra-ui/react";
-import { ChatGPTApp } from "@/components/ChatGPTApp";
+import { ChatGPTApp } from "@/components/chatgpt/ChatGPTApp";
 import React from "react";
 import { CPButtonProps } from "@/components/ClickPrompt/Button.shared";
 

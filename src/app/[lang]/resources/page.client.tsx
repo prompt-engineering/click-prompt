@@ -42,7 +42,7 @@ function ReadingList({ locale, i18n }: GeneralI18nProps) {
       <Alert status='info'>
         <AlertIcon />
         <AlertTitle>{dict["share-my-common-gpt-scene"]}</AlertTitle>
-        <Link href={`${GITHUB_URL}/tree/master/public/data`} isExternal>
+        <Link href={`${GITHUB_URL}/tree/dev/public/data`} isExternal>
           {dict["PR"]} <ExternalLinkIcon />
         </Link>
       </Alert>

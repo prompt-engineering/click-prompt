@@ -34,7 +34,7 @@ function generateByCategory() {
 }
 
 function generateBySteps() {
-  const stepsDir = path.join(__dirname, "../src/assets/chatgpt/by-steps");
+  const stepsDir = path.join(__dirname, "../src/assets/chatgpt/flow");
   const stepsFile = path.join(stepsDir, "index.json");
 
   const files = walkdir.sync(stepsDir, { no_recurse: true });

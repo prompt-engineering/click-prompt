@@ -4,7 +4,7 @@ import React from "react";
 import { Alert, AlertIcon, AlertTitle, Box, Card, CardBody, CardHeader, Heading, Link, Stack } from "@chakra-ui/react";
 import samples from "@/assets/github-copilot/samples/index.json";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import SimpleMarkdown from "@/components/SimpleMarkdown";
+import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import CopyComponent from "@/components/CopyComponent";
 

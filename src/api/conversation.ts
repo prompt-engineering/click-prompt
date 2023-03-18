@@ -2,8 +2,10 @@ import fetch from "node-fetch";
 import {
   RequestChangeConversationName,
   RequestCreateConversation,
+  RequestDeleteAllConversation,
   RequestDeleteConversation,
   ResponseCreateConversation,
+  ResponseDeleteAllConversation,
 } from "@/pages/api/chatgpt/conversation";
 
 export async function createConversation(name?: string) {
@@ -67,6 +69,27 @@ export async function deleteConversation(conversationId: number) {
 
   if (!data) {
     alert("Error(deleteConversation): sOmeTHiNg wEnT wRoNg");
+    return;
+  }
+
+  return data;
+}
+
+export async function deleteAllConversations() {
+  const response = await fetch("/api/chatgpt/conversation", {
+    method: "POST",
+    body: JSON.stringify({
+      action: "delete_all_conversations",
+    } as RequestDeleteAllConversation),
+  });
+  const data = (await response.json()) as ResponseDeleteAllConversation;
+  if (!response.ok) {
+    alert("Error: " + JSON.stringify((data as any).error));
+    return;
+  }
+
+  if (data.error) {
+    alert("Error(deleteAllConversation): sOmeTHiNg wEnT wRoNg: " + data.error);
     return;
   }
 

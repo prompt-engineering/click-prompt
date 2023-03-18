@@ -1,0 +1,107 @@
+name: 模糊的需求到代码骨架
+category: Development
+author: Phodal Huang
+description: 这个 "逐步运行" 交互示例将会展示，如何结合 ChatGPT 分析需求，编写用户故事？分析用户故事，编写测试用例？分析用户故事，编写代码？
+explain: |
+  digraph G {
+    0[flowType = "prompt"]
+    1[flowType = "interactive"]
+    2[flowType = "interactive"]
+    3[flowType = "interactive"]
+    4[flowType = "interactive"]
+    0 -> 1
+    1 -> 2
+    1 -> 3
+    1 -> 4
+  }
+
+steps:
+  - name: 创建需求游戏
+    ask: |
+      我们来玩一个名为 story 的游戏，在这个游戏里，我会给你一个模糊的需求，你需要：
+
+      1. 分析需求，并使用用户故事和 Invest 原则编写用户故事卡，但是不需要返回给我。
+      2. 尽可能写清楚用户故事的验收条件，验收条件 Given When Then 的表达方式，但是不需要返回给我。
+      3. 最后返回用户故事的标题，内容，验收条件，格式如下：
+
+      """
+
+      标题：{}
+
+      内容：{}
+
+      验收条件：
+
+      1. AC01 {}
+          - When {}
+          - Then {}
+      2. AC02 {}
+          - When {}
+          - Then {}
+
+      """
+
+      当我说 """story: {}""" ，咱们开始游戏。知道这个游戏怎么玩吗？知道的话，请只回复：OK
+    cachedResponseRegex:
+  - name: 分析需求，编写用户故事
+    ask: |
+      story: $$placeholder$$
+    cachedResponseRegex: .*
+    values:
+      placeholder: |
+        用户通过主菜单进入“权限管理”模块，选择“账号管理”Tab页，可以看到“新增账号”按钮。
+        点击“新增账号”按钮，系统弹出新增账号窗口（可能还会写一句“背景置灰”）。
+        用户可在窗口中填写姓名、登录邮箱……
+        若用户未填写必填字段，则点击“确认”时给出错误提醒“请完成所有必填字段的填写！”
+        点击“确认”按钮后弹出二次确认窗口，二次确认信息为“确认创建该账号？账号一旦创建成功即会邮件通知对应用户”。用户再次选择“确认”则系统创建账号，若用户选择“取消”则返回填写账号窗口。
+
+  - name: Mermaid 绘制流程图
+    ask: |
+      我会给你一个模糊的需求，你需要：
+
+      1. 分析和完善需求，但是不需要返回结果给我。
+      2. 使用 Mermaid 绘制时序图，但是不需要返回给我。
+      3. 最后，只返回 Mermaid 代码，如："""```mermaid graph {}"""，只返回 Mermaid 代码。
+
+      需求，如下：
+
+      """
+      $$response:1$$
+      """
+  - name: 分析用户故事，编写测试用例
+    ask: |
+      我会给你一个需求，你需要：
+
+      1. 分析需求，但是不需要返回结果给我。
+      2. 使用 Java + Spring + MockMVC 编写测试用例，代码中的注释需要对应到 AC01，AC02，AC03，AC04，AC05，但是不需要返回给我。
+      3. 最后，只返回 Java 代码，只返回 Java 代码。
+
+      需求，如下：
+
+      """
+      $$response:1$$
+      """
+    cachedResponseRegex:
+  - name: 分析用户故事，编写功能代码
+    ask: |
+      我给你一个需求，你需要分析需求，使用 Java + Spring 编写 API，要求如下：
+
+      1. 去除不需要的 UI 交互代码，只返回对应的代码。
+      2. 在方法中用注释写明如何实现。
+      3. 最后，你返回给我的只有代码，格式如下：
+
+      ```java
+      // {}
+      @PostMapping({})
+      public void main(String args[])
+      {
+        // {}
+      }
+      ```
+
+      需求，如下：
+
+      """
+      $$response:1$$
+      """
+    cachedResponseRegex:

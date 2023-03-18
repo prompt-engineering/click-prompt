@@ -4,10 +4,13 @@
   "chatgpt-generator-cot": "ChatGPT 思维链模式",
   "chatgpt-interactive-game": "ChatGPT 交互式游戏",
   "chatgpt-samples": "ChatGPT 示例",
-  "chatgpt-startling-by-each-step": "ChatGPT 步步惊心",
+  "click-flow": "ClickFlow",
   "chatgpt": "ChatGPT 聊天室",
   "stable-diffusion-examples": "StableDiffusion 示例",
   "stable-diffusion-generator": "AI 绘画生成器",
+  "stable-diffusion-deepdanbooru": "DeepDanbooru 图片标签分析",
   "github-copilot-samples": "GitHub Copilot 示例",
-  "resources": "学习资料"
+  "chatgpt-programming": "编程",
+  "resources": "学习资料",
+  "chatgpt-visual-novel": "ChatGPT 视觉小说"
 }

@@ -4,10 +4,13 @@
   "chatgpt-generator-cot": "ChatGPT COT Mode",
   "chatgpt-interactive-game": "ChatGPT Interactive Game",
   "chatgpt-samples": "ChatGPT Samples",
-  "chatgpt-startling-by-each-step": "ChatGPT Startling by Each Step",
+  "click-flow": "ClickFlow",
   "chatgpt": "ChatGPT Chat Room",
   "stable-diffusion-examples": "StableDiffusion Examples",
   "stable-diffusion-generator": "AI Painting Generator",
+  "stable-diffusion-deepdanbooru": "DeepDanbooru Image Tag Estimation",
   "github-copilot-samples": "GitHub Copilot Samples",
-  "resources": "Learning Resources"
+  "chatgpt-programming": "Programming",
+  "resources": "Learning Resources",
+  "chatgpt-visual-novel": "ChatGPT Visual Novel"
 }

@@ -15,7 +15,7 @@ import { ChevronDownIcon, ExternalLinkIcon, HamburgerIcon } from "@/components/C
 import Link from "next/link";
 import { ClickPromptIcon } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/constants";
-import LocaleSwitcher from "@/components/LocaleSwtcher";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 import { getAppData } from "@/i18n";
 
 export default async function NavBar({ locale }: { locale: string }) {
@@ -31,15 +31,22 @@ export default async function NavBar({ locale }: { locale: string }) {
         { url: `/chatgpt-generator-cot/`, title: g("chatgpt-generator-cot") },
         { url: `/chatgpt-interactive-game/`, title: g("chatgpt-interactive-game") },
         { url: `/chatgpt-samples/`, title: g("chatgpt-samples") },
-        { url: `/chatgpt-startling-by-each-step/`, title: g("chatgpt-startling-by-each-step") },
         { url: `/chatgpt/`, title: g("chatgpt") },
+        { url: `/chatgpt-visual-novel/`, title: g("chatgpt-visual-novel") },
       ],
     },
     {
-      title: "StableDiffusion",
-      children: [{ url: `/stable-diffusion-examples/`, title: g("stable-diffusion-examples") }],
+      title: g("click-flow"),
+      url: `/click-flow/`,
     },
-    { url: `/stable-diffusion-generator/`, title: g("stable-diffusion-generator") },
+    {
+      title: "StableDiffusion",
+      children: [
+        { url: `/stable-diffusion-examples/`, title: g("stable-diffusion-examples") },
+        { url: `/stable-diffusion-generator/`, title: g("stable-diffusion-generator") },
+        { url: `/stable-diffusion-deepdanbooru/`, title: g("stable-diffusion-deepdanbooru") },
+      ],
+    },
     {
       title: "GitHub Copilot",
       children: [{ url: `/github-copilot-samples/`, title: g("github-copilot-samples") }],
