@@ -48,7 +48,7 @@ steps:
         postProcess:
           - function: "jsonPath"
             args:
-              - "$.*.[title,body]"
+              - "$..[title,body]"
               - ["title", "body"]
             outputVar: "issues"
         postComponents:
