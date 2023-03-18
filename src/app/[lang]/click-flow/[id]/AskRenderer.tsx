@@ -5,6 +5,7 @@ import autosize from "autosize";
 import styled from "@emotion/styled";
 import FlowMarkdownEditor from "@/flows/components/FlowMarkdownEditor";
 import { fillStepWithValued, FlowStep } from "@/flows/types/flow-step";
+import { MarkdownWrapper } from "@/flows/components/MarkdownWrapper";
 
 type AskRendererProps = { step: FlowStep; onAskUpdate: (ask: string) => void; cachedValue: Record<number, any> };
 
@@ -29,7 +30,7 @@ export function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps
 
   if (step.markdownEditor) {
     return (
-      <FlowMarkdownEditor
+      <MarkdownWrapper
         text={value}
         onChange={(text) => {
           setValue(text);

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useCallback } from "react";
+import dynamic from "next/dynamic";
+
 import { MarkdownEditor } from "@remirror/react-editors/markdown";
 import { useDocChanged, useHelpers, useKeymap } from "@remirror/react";
 import { KeyBindingProps } from "@remirror/core-types/dist-types/core-types";
