@@ -1,0 +1,17 @@
+{
+  "prompt_start": "Please write a ",
+  "prompt_after_story_genre": " story in which the speaker, who is a male, have conversations with",
+  "prompt_after_number_of_girls": "girls. Please write the story in the following format:",
+  "prompt_follow_rules": "You must use the following rules:\n- Each dialogue must have a speaker and should not be \"narrator\".\n- The mood can only be either one of",
+  "prompt_locations": "- The location can be either one of",
+  "prompt_end": "- Please answer at most 5 dialogue first, don't finish the story.\n- Please output only in JSON format and do not output anything that is not in JSON.",
+  "select_genre": "Please select a genre of your story: ",
+  "crime": "crime",
+  "sci-fi": "sci-fi",
+  "fantasy": "fantasy",
+  "horror": "horror",
+  "romance": "romance",
+  "sd_note_prefix": "Images pre-generated using ",
+  "sd_note_model": " with ",
+  "reset": "Reset"
+}

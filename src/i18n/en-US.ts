@@ -7,6 +7,7 @@ import _chatgptGeneral from "@i18n/en-US/_chatgpt-general.json";
 import _chatgptGeneratorCot from "@i18n/en-US/_chatgpt-generator-cot.json";
 import _chatgptInteractiveGame from "@i18n/en-US/_chatgpt-interactive-game.json";
 import _chatgptPromptRolePlay from "@i18n/en-US/_chatgpt-prompt-role-play.json";
+import _chatgptVisualNovel from "@i18n/en-US/_chatgpt-visual-novel.json";
 import _chatgptSamples from "@i18n/en-US/_chatgpt-samples.json";
 import _chatgptSampleDetail from "@i18n/en-US/chatgpt-samples/$.json";
 import _githubCopilotSamples from "@i18n/en-US/_github-copilot-samples.json";
@@ -25,6 +26,7 @@ const pages = {
   "/chatgpt-generator-cot/": _chatgptGeneratorCot,
   "/chatgpt-interactive-game/": _chatgptInteractiveGame,
   "/chatgpt-prompt-role-play/": _chatgptPromptRolePlay,
+  "/chatgpt-visual-novel/": _chatgptVisualNovel,
   "/click-flow/": _chatgptStartlingByEachStep,
   "/click-flow/$": _chatgptStartlingByEachStepDetail,
   "/chatgpt-samples/": _chatgptSamples,

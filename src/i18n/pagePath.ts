@@ -9,6 +9,7 @@ export const pages = [
   "/click-flow/",
   "/click-flow/$",
   "/chatgpt-prompt-role-play/",
+  "/chatgpt-visual-novel/",
   "/chatgpt-samples/",
   "/chatgpt-samples/$",
   "/github-copilot-samples/",
