@@ -7,8 +7,8 @@ export type FlowStep = {
   markdownEditor?: boolean;
   cachedResponseRegex: string;
   values: Record<string, string>;
-  preActions?: FlowAction[];
-  postActions?: FlowAction[];
+  preActions: FlowAction[];
+  postActions: FlowAction[];
 };
 
 export function fillStepWithValued(

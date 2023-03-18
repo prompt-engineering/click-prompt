@@ -1,5 +1,5 @@
-import jp from "jsonpath";
+import { JSONPath } from "jsonpath-plus";
 
 export function jsonPath(json: object, path: string) {
-  return jp.query(json, path);
+  return JSONPath({ path, json });
 }

@@ -10,6 +10,8 @@ describe("Step Valued", () => {
       values: {
         placeholder: "用户通过主菜单进入“权限管理”模块，选择“账号管理”Tab页，可以看到“新增账号”按钮。",
       },
+      preActions: [],
+      postActions: [],
     };
     let result = fillStepWithValued(step, {});
     expect(result.replaced).toEqual(true);
@@ -24,6 +26,8 @@ describe("Step Valued", () => {
       ask: "story: $$response:1$$",
       cachedResponseRegex: "/.*/",
       values: {},
+      preActions: [],
+      postActions: [],
     };
     let result = fillStepWithValued(step, {
       1: "Cached Value",
