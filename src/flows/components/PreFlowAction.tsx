@@ -2,10 +2,9 @@ import React from "react";
 import { Flex } from "@chakra-ui/react";
 
 import { FlowAction } from "@/flows/types/flow-action";
-
-import { preActionDispatcher } from "../pre-action-dispatcher";
-import SharedFlowAction from "./SharedFlowAction";
 import { PostComponentDispatcher } from "@/flows/components/PostComponentDispatcher";
+import SharedFlowAction from "./SharedFlowAction";
+import { preActionDispatcher } from "../pre-action-dispatcher";
 
 type ActionProps = { action: FlowAction; onResponse?: (value: any) => void };
 
