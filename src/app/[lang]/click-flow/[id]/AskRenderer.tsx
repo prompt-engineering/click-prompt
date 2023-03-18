@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { Box, Textarea } from "@chakra-ui/react";
-import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import autosize from "autosize";
 import styled from "@emotion/styled";
-import FlowMarkdownEditor from "@/flows/components/FlowMarkdownEditor";
+
+import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { fillStepWithValued, FlowStep } from "@/flows/types/flow-step";
-import { MarkdownWrapper } from "@/flows/components/MarkdownWrapper";
+import { FlowMarkdownWrapper } from "@/flows/components/FlowMarkdownWrapper";
 
 type AskRendererProps = { step: FlowStep; onAskUpdate: (ask: string) => void; cachedValue: Record<number, any> };
 
@@ -30,7 +30,7 @@ export function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps
 
   if (step.markdownEditor) {
     return (
-      <MarkdownWrapper
+      <FlowMarkdownWrapper
         text={value}
         onChange={(text) => {
           setValue(text);

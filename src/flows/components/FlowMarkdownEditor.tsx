@@ -1,12 +1,10 @@
 "use client";
 
 import React, { useCallback } from "react";
-import dynamic from "next/dynamic";
-
-import { MarkdownEditor } from "@remirror/react-editors/markdown";
-import { useDocChanged, useHelpers, useKeymap } from "@remirror/react";
-import { KeyBindingProps } from "@remirror/core-types/dist-types/core-types";
 import styled from "@emotion/styled";
+import { useDocChanged, useHelpers, useKeymap } from "@remirror/react";
+import { MarkdownEditor } from "@remirror/react-editors/markdown";
+import { KeyBindingProps } from "@remirror/core-types/dist-types/core-types";
 
 const hooks = [
   () => {
@@ -21,7 +19,6 @@ const hooks = [
       [getJSON],
     );
 
-    // "Mod" means platform-agnostic modifier key - i.e. Ctrl on Windows, or Cmd on macOS
     useKeymap("Mod-s", handleSaveShortcut);
   },
 ];
@@ -42,6 +39,9 @@ export const OnTextChange = ({ onChange }: { onChange: (html: string) => void })
   return null;
 };
 
+/**
+ * @deprecated: Don't direct use this, Use <FlowMarkdownWrapper /> instead
+ */
 const FlowMarkdownEditor = ({ text, onChange }: { text: string; onChange: (text: string) => void }) => {
   const valueChange = (value: string) => {
     onChange(value || "");
