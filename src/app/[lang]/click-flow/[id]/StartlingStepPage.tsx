@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Heading, SimpleGrid } from "@/components/ChakraUI";
 import StartlingStepDetail from "@/app/[lang]/click-flow/[id]/StartlingStepDetail";
 import { StartlingFlow } from "@/flows/types/click-flow";
-import FlowExplain from "../../../../flows/explain/FlowExplain";
+import FlowExplain from "@/flows/explain/FlowExplain";
 
 type StepPageProps = {
   flow: StartlingFlow;
@@ -20,6 +20,11 @@ function StartlingStepPage({ flow, id, i18n }: StepPageProps) {
 
   const bottomAnchor = React.useRef<HTMLDivElement>(null);
   useEffect(() => {
+    // if stepGuide is falsey, don't scroll
+    if (!flow.stepGuide) {
+      return;
+    }
+
     let counter = 0;
     const id = setInterval(() => {
       if (bottomAnchor.current) {
@@ -51,49 +56,47 @@ function StartlingStepPage({ flow, id, i18n }: StepPageProps) {
   return (
     <>
       {flow && (
-        <>
-          <Flex direction='column' gap='4'>
-            <Box>
-              <Breadcrumb>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href={`/${i18n.locale}/click-flow/`}>{dict["by-each-step-samples"]}</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbItem>
-                  <BreadcrumbLink href={`/${i18n.locale}/click-flow/${id}`}>{flow.name}</BreadcrumbLink>
-                </BreadcrumbItem>
-              </Breadcrumb>
-            </Box>
+        <Flex direction='column' gap='4'>
+          <Box>
+            <Breadcrumb>
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/${i18n.locale}/click-flow/`}>{dict["by-each-step-samples"]}</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink href={`/${i18n.locale}/click-flow/${id}`}>{flow.name}</BreadcrumbLink>
+              </BreadcrumbItem>
+            </Breadcrumb>
+          </Box>
 
-            {flow.explain && (
-              <Box style={{ position: "relative", height: "320px" }}>
-                <FlowExplain step={flow} />
-              </Box>
+          {flow.explain && (
+            <Box style={{ position: "relative", height: "320px" }}>
+              <FlowExplain step={flow} />
+            </Box>
+          )}
+
+          <Heading as='h4'>{flow.name}</Heading>
+
+          <SimpleGrid columns={1} spacing={4}>
+            {flow.steps.map(
+              (step, index) =>
+                (index <= currentStep || !flow.stepGuide) /** show all if stepGuide is falsey */ && (
+                  <StartlingStepDetail
+                    index={index}
+                    flow={flow}
+                    step={step}
+                    key={index}
+                    onCache={updateCached}
+                    cachedValue={cachedValue}
+                    conversationId={conversationId}
+                    updateConversationId={updateConversationId}
+                    onStepComplete={(index) => setCurrentStep(index + 1)}
+                  />
+                ),
             )}
 
-            <Heading as='h4'>{flow.name}</Heading>
-
-            <SimpleGrid columns={1} spacing={4}>
-              {flow.steps.map(
-                (step, index) =>
-                  (index <= currentStep || !flow.stepGuide) /** show all if stepGuide is falsey */ && (
-                    <StartlingStepDetail
-                      index={index}
-                      flow={flow}
-                      step={step}
-                      key={index}
-                      onCache={updateCached}
-                      cachedValue={cachedValue}
-                      conversationId={conversationId}
-                      updateConversationId={updateConversationId}
-                      onStepComplete={(index) => setCurrentStep(index + 1)}
-                    />
-                  ),
-              )}
-
-              <div ref={bottomAnchor}></div>
-            </SimpleGrid>
-          </Flex>
-        </>
+            <div ref={bottomAnchor}></div>
+          </SimpleGrid>
+        </Flex>
       )}
     </>
   );

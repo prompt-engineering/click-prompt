@@ -49,7 +49,7 @@ const FlowMarkdownEditor = ({ text, onChange }: { text: string; onChange: (text:
 
   return (
     <StyledMarkdownContainer>
-      <MarkdownEditor initialContent={text} hooks={hooks}>
+      <MarkdownEditor initialContent={text} hooks={hooks} autoFocus={false}>
         <OnTextChange onChange={valueChange} />
       </MarkdownEditor>
     </StyledMarkdownContainer>
