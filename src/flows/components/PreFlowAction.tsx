@@ -1,8 +1,11 @@
 import React from "react";
+import { Flex } from "@chakra-ui/react";
+
 import { ActionPostComponent, FlowAction } from "@/flows/types/flow-action";
+import { JsonViewer } from "@/flows/flow-components/JsonViewer";
+
 import { preActionDispatcher } from "../pre-action-dispatcher";
 import SharedFlowAction from "./SharedFlowAction";
-import { JsonViewer } from "@/flows/flow-components/JsonViewer";
 
 type ActionProps = { action: FlowAction; onResponse?: (value: any) => void };
 
@@ -37,13 +40,13 @@ function PreFlowAction({ action }: ActionProps) {
   }
 
   return (
-    <>
+    <Flex flexDirection={"column"}>
       <SharedFlowAction action={action} onSubmit={handleSubmit} />
       {isShowPostComponent &&
         action.postComponents?.length &&
         action.postComponents?.length > 0 &&
         showPostComp(action.postComponents, result)}
-    </>
+    </Flex>
   );
 }
 
