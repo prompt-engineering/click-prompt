@@ -22,16 +22,13 @@ import { JSONPath } from "jsonpath-plus";
  * const result = jsonPath(json, path, keys);
  */
 export function jsonPath(json: object, path: string, keys: string[]) {
-  let result = JSONPath({ path, json });
-  if (keys.length > 0) {
-    result = result.map((item: any) => {
-      const obj: any = {};
-      keys.forEach((key) => {
-        obj[key] = item[key];
-      });
-      return obj;
-    });
-  }
+  const matchedObjects = JSONPath({ path, json });
+  // 遍历匹配的对象数组
+  return matchedObjects.map((obj: { [x: string]: any }) => {
+    // 使用keys数组提取所需的属性值
+    const extractedValues = keys.map((key) => obj[key]);
 
-  return result;
+    // 返回提取的属性值构成的对象
+    return Object.fromEntries(keys.map((key, i) => [key, extractedValues[i]]));
+  });
 }

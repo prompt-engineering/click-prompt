@@ -48,8 +48,8 @@ steps:
         postProcess:
           - function: "jsonPath"
             args:
-              - "$.*.[name,population]"
-              - ["name", "population"]
+              - "$.*.[title,body]"
+              - ["title", "body"]
             outputVar: "issues"
         postComponents:
           - name: "JsonViewer"
