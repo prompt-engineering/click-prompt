@@ -2,7 +2,7 @@
 
 import React, { useCallback } from "react";
 import { MarkdownEditor } from "@remirror/react-editors/markdown";
-import { useDocChanged, useHelpers, useKeymap, useRemirror } from "@remirror/react";
+import { useDocChanged, useHelpers, useKeymap } from "@remirror/react";
 import { KeyBindingProps } from "@remirror/core-types/dist-types/core-types";
 import styled from "@emotion/styled";
 
