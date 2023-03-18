@@ -4,10 +4,10 @@ import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Flex } from "@chakra-ui/react";
 
-import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
+import { HumanBlock } from "@/components/chatgpt/HumanBlock";
 import { Avatar, Box } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
-import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
+import { AiBlock } from "@/components/chatgpt/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
 import { StartlingFlow } from "@/flows/types/click-flow";
 import { ResponseSend } from "@/pages/api/chatgpt/chat";
