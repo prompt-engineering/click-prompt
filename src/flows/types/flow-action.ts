@@ -12,7 +12,7 @@ export type FlowAction = {
 
 export type ActionProcess = {
   function: "jsonPath" | "fromMarkdown" | "toMarkdown";
-  args?: string[];
+  args?: any[];
   outputVar?: string;
 };
 

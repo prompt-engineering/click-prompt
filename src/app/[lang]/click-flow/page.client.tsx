@@ -27,16 +27,6 @@ import { CP_GITHUB_ASSETS } from "@/configs/constants";
 function StartlingByEachStepList({ i18n }: GeneralI18nProps) {
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt`;
   const dict = i18n.dict;
-  //
-  // const cities = [
-  //   { name: "London", population: 8615246 },
-  //   { name: "Berlin", population: 3517424 },
-  //   { name: "Madrid", population: 3165235 },
-  //   { name: "Rome", population: 2870528 },
-  // ];
-  //
-  // const names = jsonPath(cities, "$.*.[name,population]");
-  // console.log(names);
 
   return (
     <>
