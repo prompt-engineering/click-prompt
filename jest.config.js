@@ -14,6 +14,7 @@ const customJestConfig = {
   testEnvironment: "jest-environment-jsdom",
   moduleNameMapper: {
     "^jsonpath-plus": require.resolve("jsonpath-plus"),
+    "^lodash-es$": "lodash",
     "^@/(.*)": "<rootDir>/src/$1",
   },
   transformIgnorePatterns: ["/node_modules/", "^.+\\.module\\.(css|sass|scss)$"],
