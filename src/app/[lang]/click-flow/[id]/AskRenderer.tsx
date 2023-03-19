@@ -42,25 +42,19 @@ export function AskRenderer({ step, onAskUpdate, cachedValue }: AskRendererProps
 
   if (askTask.replaced) {
     return (
-      <Box w='100%' h='100%'>
-        <StyledTextarea
-          className='bg-white'
-          value={value}
-          ref={ref}
-          onChange={(event) => {
-            setValue(event.target.value);
-            onAskUpdate(event.target.value);
-          }}
-        />
-      </Box>
+      <StyledTextarea
+        className='bg-white'
+        value={value}
+        ref={ref}
+        onChange={(event) => {
+          setValue(event.target.value);
+          onAskUpdate(event.target.value);
+        }}
+      />
     );
   }
 
-  return (
-    <div>
-      <SimpleMarkdown content={step.ask} />
-    </div>
-  );
+  return <SimpleMarkdown content={step.ask} />;
 }
 
 const StyledTextarea = styled(Textarea)`

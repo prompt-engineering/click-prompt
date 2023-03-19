@@ -86,7 +86,9 @@ function StartlingStepDetail({
       </StyledStepHeading>
       <HumanBlock direction='row' justify='space-between'>
         <Avatar bg='teal.500' name={flow.author} size='sm' mr={2} />
-        <AskRenderer step={step} onAskUpdate={setAsk} cachedValue={cachedValue} />
+        <Box w='100%' h='100%'>
+          <AskRenderer step={step} onAskUpdate={setAsk} cachedValue={cachedValue} />
+        </Box>
       </HumanBlock>
       {(!response || /** disable if stepGuide is false */ !flow.stepGuide) && (
         <Flex flexDirection={"row"} gap={4} padding={8}>
