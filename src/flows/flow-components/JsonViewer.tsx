@@ -1,8 +1,10 @@
-import ReactJson from "react-json-view";
+import dynamic from "next/dynamic";
+
+const DynamicReactJson = dynamic(import("react-json-view"), { ssr: false });
 
 export function JsonViewer({ json }: { json: object }) {
   return (
-    <ReactJson
+    <DynamicReactJson
       src={json}
       enableClipboard={false}
       displayDataTypes={false}

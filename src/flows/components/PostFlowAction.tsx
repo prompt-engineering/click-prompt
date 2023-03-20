@@ -4,6 +4,7 @@ import { FlowAction } from "@/flows/types/flow-action";
 import { postActionDispatcher } from "@/flows/post-action-dispatcher";
 import SharedFlowAction from "@/flows/components/SharedFlowAction";
 import { PostComponentDispatcher } from "@/flows/components/PostComponentDispatcher";
+import { processDispatcher } from "@/flows/components/ProcessDispatcher";
 
 type ActionProps = { action: FlowAction; response: string };
 
@@ -17,7 +18,12 @@ function PostFlowAction({ action, response }: ActionProps) {
   const handleSubmit = (modifiedAction: FlowAction) => {
     postActionDispatcher(modifiedAction, response).then((r) => {
       if (r.success) {
-        setResult(r.result);
+        // handle in here
+        let newResult = r.result;
+        if (action.postProcess) {
+          newResult = processDispatcher(action.postProcess, r.result);
+        }
+        setResult(newResult);
         if (hasPostComponent) {
           setIsShowPostComponent(true);
         }

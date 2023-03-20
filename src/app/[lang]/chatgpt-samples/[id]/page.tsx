@@ -14,8 +14,8 @@ import {
   Flex,
 } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
-import { AiBlock } from "@/app/[lang]/chatgpt-samples/components/AiBlock";
-import { HumanBlock } from "@/app/[lang]/chatgpt-samples/components/HumanBlock";
+import { AiBlock } from "@/components/chatgpt/AiBlock";
+import { HumanBlock } from "@/components/chatgpt/HumanBlock";
 import { getAppData } from "@/i18n";
 import type { Sample, SampleDetail } from "../type";
 
