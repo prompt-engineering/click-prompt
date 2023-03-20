@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prepare": "husky install",
     "dev": "npm run prepare:data && cross-env NODE_ENV='development' next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
@@ -96,7 +95,6 @@
     "eslint-config-next": "13.2.3",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.3",
     "jest": "^29.4.3",
     "jest-environment-jsdom": "^29.4.3",
     "js-yaml": "^4.1.0",

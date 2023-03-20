@@ -1,0 +1,13 @@
+{
+  "name": "click-prompt",
+  "version": "0.0.1",
+  "scripts": {
+    "prepare": "husky install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "turbo": "^1.8.3",
+    "husky": "^8.0.3"
+  },
+  "workspaces": ["packages/*"]
+}
