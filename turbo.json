@@ -9,6 +9,9 @@
       "dependsOn": ["build"],
       "inputs": ["__tests__/**/*.tsx", "__tests__/**/*.ts"]
     },
-    "lint": {}
+    "format": {},
+    "lint": {
+      "dependsOn": ["format"]
+    }
   }
 }

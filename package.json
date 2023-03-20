@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "scripts": {
     "prepare": "husky install",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "format": "turbo run format",
+    "lint": "turbo run lint"
   },
   "devDependencies": {
     "turbo": "^1.8.3",
