@@ -4,7 +4,7 @@
 ![GitHub](https://img.shields.io/github/license/prompt-engineering/click-prompt)
 [![Discord](https://img.shields.io/discord/1082563233593966612)](https://discord.gg/FSWXq4DmEj)
 
-<img src="src/assets/clickprompt-home.svg" width='128' height='128' alt='ClickPrompt Logo' />
+<img src="packages/click-prompt/src/assets/clickprompt-home.svg" width='128' height='128' alt='ClickPrompt Logo' />
 
 English | [简体中文](./README.zh-CN.md)
 
