@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "vite build"
+    "build": "echo build"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
