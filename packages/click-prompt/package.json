@@ -48,7 +48,7 @@
     "mermaid": "^10.0.2",
     "nearest-color": "^0.4.4",
     "negotiator": "^0.6.3",
-    "next": "13.2.3",
+    "next": "13.2.4",
     "next-sitemap": "^4.0.2",
     "node-fetch": "^2",
     "openai": "^3.2.1",
