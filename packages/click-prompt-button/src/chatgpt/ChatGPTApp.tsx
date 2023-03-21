@@ -6,8 +6,26 @@ type ChatGPTAppProps = {
   loggedIn?: boolean;
   updateLoginStatus?: (loggedIn: boolean) => void;
   initMessage?: string;
+  changeConversationNameApi: (conversation_id: number, name: string) => Promise<any>;
+  createConversationApi: (name?: string) => Promise<any>;
+  getChatsByConversationIdApi: (conversationId: number) => Promise<any>;
+  deleteConversationApi: (conversationId: number) => Promise<any>;
+  deleteAllConversationsApi: () => Promise<any>;
+  sendMsgWithStreamResApi: (conversageId: number, message: string, name?: string) => Promise<any>;
+  logoutApi: () => Promise<any>;
 };
-export const ChatGPTApp = ({ loggedIn, initMessage, updateLoginStatus }: ChatGPTAppProps) => {
+export const ChatGPTApp = ({
+  loggedIn,
+  initMessage,
+  updateLoginStatus,
+  changeConversationNameApi,
+  createConversationApi,
+  getChatsByConversationIdApi,
+  deleteConversationApi,
+  deleteAllConversationsApi,
+  sendMsgWithStreamResApi,
+  logoutApi,
+}: ChatGPTAppProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(loggedIn ?? false);
 
   useEffect(() => {
@@ -20,31 +38,13 @@ export const ChatGPTApp = ({ loggedIn, initMessage, updateLoginStatus }: ChatGPT
     <ChatRoom
       setIsLoggedIn={setIsLoggedIn}
       initMessage={initMessage}
-      changeConversationNameApi={function (conversation_id: number, name: string): Promise<any> {
-        throw new Error("Function not implemented.");
-      }}
-      createConversationApi={function (name?: string | undefined): Promise<any> {
-        throw new Error("Function not implemented.");
-      }}
-      getChatsByConversationIdApi={function (conversationId: number): Promise<any> {
-        throw new Error("Function not implemented.");
-      }}
-      deleteConversationApi={function (conversationId: number): Promise<any> {
-        throw new Error("Function not implemented.");
-      }}
-      deleteAllConversationsApi={function (): Promise<any> {
-        throw new Error("Function not implemented.");
-      }}
-      sendMsgWithStreamResApi={function (
-        conversageId: number,
-        message: string,
-        name?: string | undefined
-      ): Promise<any> {
-        throw new Error("Function not implemented.");
-      }}
-      logoutApi={function (): Promise<any> {
-        throw new Error("Function not implemented.");
-      }}
+      changeConversationNameApi={changeConversationNameApi}
+      createConversationApi={createConversationApi}
+      getChatsByConversationIdApi={getChatsByConversationIdApi}
+      deleteConversationApi={deleteConversationApi}
+      deleteAllConversationsApi={deleteAllConversationsApi}
+      sendMsgWithStreamResApi={sendMsgWithStreamResApi}
+      logoutApi={logoutApi}
     />
   ) : (
     <LoginPage
