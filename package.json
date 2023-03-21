@@ -6,7 +6,8 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "format": "turbo run format",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "dev": "turbo run dev --filter=click-prompt"
   },
   "devDependencies": {
     "turbo": "^1.8.3",

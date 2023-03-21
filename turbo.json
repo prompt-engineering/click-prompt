@@ -12,6 +12,7 @@
     "format": {},
     "lint": {
       "dependsOn": ["format"]
-    }
+    },
+    "dev": {}
   }
 }
