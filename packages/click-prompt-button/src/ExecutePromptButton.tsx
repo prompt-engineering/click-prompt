@@ -1,27 +1,48 @@
-import React, { MouseEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Text, useDisclosure } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
-import { ClickPromptBird } from "./ClickPromptButton";
-import { ButtonSize, StyledPromptButton } from "./Button.shared";
-import { LoggingDrawer } from "./LoggingDrawer";
+import { StyledPromptButton } from "@/SharedButton";
+import { LoggingDrawer } from "@/LoggingDrawer";
+import { ClickPromptBird } from "@/ClickPromptBird";
 
 export type ExecButtonProps = {
   loading?: boolean;
-  onClick?: MouseEventHandler;
-  name: string;
   text: string;
-  size?: ButtonSize;
   children?: React.ReactNode;
   handleResponse?: (response: any) => void;
   conversationId?: number;
   updateConversationId?: (conversationId: number) => void;
-  isLoggedIn: () => Promise<any>;
   createConversation: (name?: string) => Promise<any>;
   sendMessage: (conversageId: number, message: string, name?: string) => Promise<any>;
+  isLoggedInApi: () => Promise<any>;
+  changeConversationNameApi: (conversation_id: number, name: string) => Promise<any>;
+  createConversationApi: (name?: string) => Promise<any>;
+  getChatsByConversationIdApi: (conversationId: number) => Promise<any>;
+  deleteConversationApi: (conversationId: number) => Promise<any>;
+  deleteAllConversationsApi: () => Promise<any>;
+  sendMsgWithStreamResApi: (conversageId: number, message: string, name?: string) => Promise<any>;
+  logoutApi: () => Promise<any>;
 };
 
-function ExecutePromptButton(props: ExecButtonProps) {
-  const [isLoading, setIsLoading] = useState(props.loading);
+export const ExecutePromptButton = ({
+  loading,
+  text,
+  children,
+  handleResponse,
+  conversationId,
+  updateConversationId,
+  createConversation,
+  sendMessage,
+  isLoggedInApi,
+  changeConversationNameApi,
+  createConversationApi,
+  getChatsByConversationIdApi,
+  deleteConversationApi,
+  deleteAllConversationsApi,
+  sendMsgWithStreamResApi,
+  logoutApi,
+}: ExecButtonProps) => {
+  const [isLoading, setIsLoading] = useState(loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasLogin, setHasLogin] = useState(false);
 
@@ -29,7 +50,7 @@ function ExecutePromptButton(props: ExecButtonProps) {
     setIsLoading(true);
 
     try {
-      const isLoggedIn = await props.isLoggedIn();
+      const isLoggedIn = await isLoggedInApi();
       if (!isLoggedIn) {
         onOpen();
         setIsLoading(false);
@@ -40,21 +61,21 @@ function ExecutePromptButton(props: ExecButtonProps) {
       setHasLogin(false);
     }
 
-    let conversationId = props.conversationId;
-    if (!props.conversationId) {
-      const conversation = await props.createConversation();
+    let newConversationId = conversationId;
+    if (!conversationId) {
+      const conversation = await createConversation();
       if (!conversation) {
         return;
       }
 
-      conversationId = conversation.id as number;
-      props.updateConversationId ? props.updateConversationId(conversationId) : null;
+      newConversationId = conversation.id as number;
+      updateConversationId ? updateConversationId(newConversationId) : null;
     }
 
-    if (conversationId) {
-      const response: any = await props.sendMessage(conversationId, props.text);
-      if (response && props.handleResponse) {
-        props.handleResponse(response as any);
+    if (newConversationId) {
+      const response: any = await sendMessage(newConversationId, text);
+      if (response && handleResponse) {
+        handleResponse(response as any);
       }
     }
 
@@ -83,15 +104,27 @@ function ExecutePromptButton(props: ExecButtonProps) {
     <>
       <StyledPromptButton>
         <Button colorScheme="twitter" className="bg-blue" onClick={handleClick}>
-          {props.children}
+          {children}
           {!isLoading && <Text>Prompt</Text>}
           {isLoading && <BeatLoader size={8} color="black" />}
         </Button>
         <ClickPromptBird />
       </StyledPromptButton>
-      {!hasLogin && LoggingDrawer(isOpen, handleClose, hasLogin, props, updateLoginStatus)}
+      {!hasLogin &&
+        LoggingDrawer({
+          isOpen,
+          handleClose,
+          updateStatus: updateLoginStatus,
+          isLoggedIn: hasLogin,
+          initMessage: text,
+          changeConversationNameApi: changeConversationNameApi,
+          createConversationApi: createConversationApi,
+          getChatsByConversationIdApi: getChatsByConversationIdApi,
+          deleteConversationApi: deleteConversationApi,
+          deleteAllConversationsApi: deleteAllConversationsApi,
+          sendMsgWithStreamResApi: sendMsgWithStreamResApi,
+          logoutApi: logoutApi,
+        })}
     </>
   );
-}
-
-export default ExecutePromptButton;
+};
