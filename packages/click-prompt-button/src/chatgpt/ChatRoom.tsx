@@ -1,9 +1,9 @@
-import NewChat from "@/assets/icons/new-chat.svg";
-import TrashcanIcon from "@/assets/icons/trashcan.svg";
-import LogoutIcon from "@/assets/icons/logout.svg";
+import { ReactComponent as NewChat } from "@/assets/icons/new-chat.svg";
+import { ReactComponent as TrashcanIcon } from "@/assets/icons/trashcan.svg";
+import { ReactComponent as LogoutIcon } from "@/assets/icons/logout.svg";
 import Image from "next/image";
 import content from "@/assets/images/content.png";
-import send from "@/assets/icons/send.svg?url";
+import sendIconUrl from "@/assets/icons/send.svg";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { BeatLoader } from "react-spinners";
@@ -66,7 +66,7 @@ const ChatSendButton = styled("button")`
   right: 8px;
   width: 48px;
   height: 48px;
-  background-image: url(${send});
+  background-image: url(${sendIconUrl});
   background-size: 24px;
   background-position: center;
   background-repeat: no-repeat;
