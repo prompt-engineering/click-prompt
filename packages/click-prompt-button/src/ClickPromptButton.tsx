@@ -5,21 +5,14 @@ import { ClickPromptSmall } from "@/CustomIcon";
 import { ButtonSize, StyledPromptButton } from "@/SharedButton";
 import { LoggingDrawer } from "@/LoggingDrawer";
 import { ClickPromptBird } from "@/ClickPromptBird";
+import { SharedApi } from "@/types/shared";
 
-interface ClickPromptButtonProps {
+interface ClickPromptButtonProps extends SharedApi {
   loading?: boolean;
   onClick?: MouseEventHandler;
   size?: ButtonSize;
   text: string;
   children?: React.ReactNode;
-  isLoggedInApi: () => Promise<any>;
-  changeConversationNameApi: (conversation_id: number, name: string) => Promise<any>;
-  createConversationApi: (name?: string) => Promise<any>;
-  getChatsByConversationIdApi: (conversationId: number) => Promise<any>;
-  deleteConversationApi: (conversationId: number) => Promise<any>;
-  deleteAllConversationsApi: () => Promise<any>;
-  sendMsgWithStreamResApi: (conversageId: number, message: string, name?: string) => Promise<any>;
-  logoutApi: () => Promise<any>;
 }
 
 export function ClickPromptButton({

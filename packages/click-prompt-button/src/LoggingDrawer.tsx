@@ -1,20 +1,14 @@
 import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay } from "@chakra-ui/react";
 import { ChatGPTApp } from "@/chatgpt/ChatGPTApp";
 import React from "react";
+import { SharedApi } from "@/types/shared";
 
-interface LoggingDrawerProps {
+interface LoggingDrawerProps extends Omit<SharedApi, "isLoggedInApi"> {
   isOpen: boolean;
   handleClose: () => void;
   isLoggedIn: boolean;
   updateStatus?: (loggedIn: boolean) => void;
   initMessage: string;
-  changeConversationNameApi: (conversation_id: number, name: string) => Promise<any>;
-  createConversationApi: (name?: string) => Promise<any>;
-  getChatsByConversationIdApi: (conversationId: number) => Promise<any>;
-  deleteConversationApi: (conversationId: number) => Promise<any>;
-  deleteAllConversationsApi: () => Promise<any>;
-  sendMsgWithStreamResApi: (conversageId: number, message: string, name?: string) => Promise<any>;
-  logoutApi: () => Promise<any>;
 }
 
 export function LoggingDrawer({

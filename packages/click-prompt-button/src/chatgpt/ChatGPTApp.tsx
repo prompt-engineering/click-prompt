@@ -1,18 +1,12 @@
 import { ChatRoom } from "@/chatgpt/ChatRoom";
 import { LoginPage } from "@/chatgpt/LoginPage";
 import React, { useEffect, useState } from "react";
+import { SharedApi } from "@/types/shared";
 
-type ChatGPTAppProps = {
+interface ChatGPTAppProps extends Omit<SharedApi, "isLoggedInApi"> {
   loggedIn?: boolean;
   updateLoginStatus?: (loggedIn: boolean) => void;
   initMessage?: string;
-  changeConversationNameApi: (conversation_id: number, name: string) => Promise<any>;
-  createConversationApi: (name?: string) => Promise<any>;
-  getChatsByConversationIdApi: (conversationId: number) => Promise<any>;
-  deleteConversationApi: (conversationId: number) => Promise<any>;
-  deleteAllConversationsApi: () => Promise<any>;
-  sendMsgWithStreamResApi: (conversageId: number, message: string, name?: string) => Promise<any>;
-  logoutApi: () => Promise<any>;
 };
 export const ChatGPTApp = ({
   loggedIn,

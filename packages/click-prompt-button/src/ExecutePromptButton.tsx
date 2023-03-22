@@ -4,25 +4,16 @@ import { BeatLoader } from "react-spinners";
 import { StyledPromptButton } from "@/SharedButton";
 import { LoggingDrawer } from "@/LoggingDrawer";
 import { ClickPromptBird } from "@/ClickPromptBird";
+import { SharedApi } from "@/types/shared";
 
-export type ExecButtonProps = {
+interface ExecButtonProps extends SharedApi {
   loading?: boolean;
   text: string;
   children?: React.ReactNode;
   handleResponse?: (response: any) => void;
   conversationId?: number;
   updateConversationId?: (conversationId: number) => void;
-  createConversation: (name?: string) => Promise<any>;
-  sendMessage: (conversageId: number, message: string, name?: string) => Promise<any>;
-  isLoggedInApi: () => Promise<any>;
-  changeConversationNameApi: (conversation_id: number, name: string) => Promise<any>;
-  createConversationApi: (name?: string) => Promise<any>;
-  getChatsByConversationIdApi: (conversationId: number) => Promise<any>;
-  deleteConversationApi: (conversationId: number) => Promise<any>;
-  deleteAllConversationsApi: () => Promise<any>;
-  sendMsgWithStreamResApi: (conversageId: number, message: string, name?: string) => Promise<any>;
-  logoutApi: () => Promise<any>;
-};
+}
 
 export const ExecutePromptButton = ({
   loading,
@@ -31,8 +22,6 @@ export const ExecutePromptButton = ({
   handleResponse,
   conversationId,
   updateConversationId,
-  createConversation,
-  sendMessage,
   isLoggedInApi,
   changeConversationNameApi,
   createConversationApi,
@@ -63,7 +52,7 @@ export const ExecutePromptButton = ({
 
     let newConversationId = conversationId;
     if (!conversationId) {
-      const conversation = await createConversation();
+      const conversation = await createConversationApi();
       if (!conversation) {
         return;
       }
@@ -73,7 +62,7 @@ export const ExecutePromptButton = ({
     }
 
     if (newConversationId) {
-      const response: any = await sendMessage(newConversationId, text);
+      const response: any = await sendMsgWithStreamResApi(newConversationId, text);
       if (response && handleResponse) {
         handleResponse(response as any);
       }
@@ -117,13 +106,13 @@ export const ExecutePromptButton = ({
           updateStatus: updateLoginStatus,
           isLoggedIn: hasLogin,
           initMessage: text,
-          changeConversationNameApi: changeConversationNameApi,
-          createConversationApi: createConversationApi,
-          getChatsByConversationIdApi: getChatsByConversationIdApi,
-          deleteConversationApi: deleteConversationApi,
-          deleteAllConversationsApi: deleteAllConversationsApi,
-          sendMsgWithStreamResApi: sendMsgWithStreamResApi,
-          logoutApi: logoutApi,
+          changeConversationNameApi,
+          createConversationApi,
+          getChatsByConversationIdApi,
+          deleteConversationApi,
+          deleteAllConversationsApi,
+          sendMsgWithStreamResApi,
+          logoutApi,
         })}
     </>
   );

@@ -10,6 +10,7 @@ import { BeatLoader } from "react-spinners";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@chakra-ui/react";
 import SimpleMarkdown from "@/markdown/SimpleMarkdown";
+import { SharedApi } from "@/types/shared";
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -74,6 +75,11 @@ const ChatSendButton = styled("button")`
   outline: none;
 `;
 
+interface ChatRoomProps extends Omit<SharedApi, "isLoggedInApi"> {
+  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
+  initMessage?: string;
+}
+
 export const ChatRoom = ({
   setIsLoggedIn,
   initMessage,
@@ -84,17 +90,7 @@ export const ChatRoom = ({
   deleteAllConversationsApi,
   sendMsgWithStreamResApi,
   logoutApi,
-}: {
-  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
-  initMessage?: string;
-  changeConversationNameApi: (conversation_id: number, name: string) => Promise<any>;
-  createConversationApi: (name?: string) => Promise<any>;
-  getChatsByConversationIdApi: (conversationId: number) => Promise<any>;
-  deleteConversationApi: (conversationId: number) => Promise<any>;
-  deleteAllConversationsApi: () => Promise<any>;
-  sendMsgWithStreamResApi: (conversageId: number, message: string, name?: string) => Promise<any>;
-  logoutApi: () => Promise<any>;
-}) => {
+}: ChatRoomProps) => {
   const chatsWrapper = React.useRef<HTMLDivElement>(null);
   const [disable, setDisable] = React.useState(false);
   const [chatHistory, setChatHistory] = React.useState<any>([]);
