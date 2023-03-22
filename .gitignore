@@ -16,6 +16,8 @@ pnpm-lock.yaml
 
 # production
 /build
+**/dist
+**/.turbo
 
 # misc
 .DS_Store
@@ -29,6 +31,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
 
 # vercel
 .vercel
@@ -36,10 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# intellij
 .idea
 
-**/dist
+# generated
 public/sitemap-0.xml
 src/assets/resources/**/*.json
-
-.env
