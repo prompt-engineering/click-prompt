@@ -1,12 +1,13 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Button, Input } from "@chakra-ui/react";
+import type { Response } from "@/types/shared";
 
 export const LoginPage = ({
   setIsLoggedIn,
   loginApi,
 }: {
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
-  loginApi: (key: string) => Promise<any>;
+  loginApi: (key: string) => Promise<Response>;
 }) => {
   const [openAiKey, setOpenAiKey] = React.useState("");
 

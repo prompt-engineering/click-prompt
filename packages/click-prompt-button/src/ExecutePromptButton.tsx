@@ -4,15 +4,16 @@ import { BeatLoader } from "react-spinners";
 import { StyledPromptButton } from "@/SharedButton";
 import { LoggingDrawer } from "@/LoggingDrawer";
 import { ClickPromptBird } from "@/ClickPromptBird";
-import { SharedApi } from "@/types/shared";
+import type { Response, SharedApi } from "@/types/shared";
 
 interface ExecButtonProps extends SharedApi {
   loading?: boolean;
   text: string;
   children?: React.ReactNode;
-  handleResponse?: (response: any) => void;
+  handleResponse?: (response: ReadableStream<Uint8Array> | null) => void;
   conversationId?: number;
   updateConversationId?: (conversationId: number) => void;
+  loginApi: () => Promise<Response>;
 }
 
 export const ExecutePromptButton = ({
@@ -30,6 +31,7 @@ export const ExecutePromptButton = ({
   deleteAllConversationsApi,
   sendMsgWithStreamResApi,
   logoutApi,
+  loginApi,
 }: ExecButtonProps) => {
   const [isLoading, setIsLoading] = useState(loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,9 +64,9 @@ export const ExecutePromptButton = ({
     }
 
     if (newConversationId) {
-      const response: any = await sendMsgWithStreamResApi(newConversationId, text);
+      const response = await sendMsgWithStreamResApi(newConversationId, text);
       if (response && handleResponse) {
-        handleResponse(response as any);
+        handleResponse(response);
       }
     }
 
@@ -113,6 +115,7 @@ export const ExecutePromptButton = ({
           deleteAllConversationsApi,
           sendMsgWithStreamResApi,
           logoutApi,
+          loginApi,
         })}
     </>
   );

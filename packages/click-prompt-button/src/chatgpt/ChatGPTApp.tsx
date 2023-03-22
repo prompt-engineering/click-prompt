@@ -1,13 +1,14 @@
 import { ChatRoom } from "@/chatgpt/ChatRoom";
 import { LoginPage } from "@/chatgpt/LoginPage";
 import React, { useEffect, useState } from "react";
-import { SharedApi } from "@/types/shared";
+import type { Response, SharedApi } from "@/types/shared";
 
 interface ChatGPTAppProps extends Omit<SharedApi, "isLoggedInApi"> {
   loggedIn?: boolean;
   updateLoginStatus?: (loggedIn: boolean) => void;
   initMessage?: string;
-};
+  loginApi: () => Promise<Response>;
+}
 export const ChatGPTApp = ({
   loggedIn,
   initMessage,
@@ -19,6 +20,7 @@ export const ChatGPTApp = ({
   deleteAllConversationsApi,
   sendMsgWithStreamResApi,
   logoutApi,
+  loginApi,
 }: ChatGPTAppProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState(loggedIn ?? false);
 
@@ -41,11 +43,6 @@ export const ChatGPTApp = ({
       logoutApi={logoutApi}
     />
   ) : (
-    <LoginPage
-      setIsLoggedIn={setIsLoggedIn}
-      loginApi={function (key: string): Promise<any> {
-        throw new Error("Function not implemented.");
-      }}
-    />
+    <LoginPage setIsLoggedIn={setIsLoggedIn} loginApi={loginApi} />
   );
 };

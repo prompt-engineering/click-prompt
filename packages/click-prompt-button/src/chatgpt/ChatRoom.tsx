@@ -10,7 +10,7 @@ import { BeatLoader } from "react-spinners";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@chakra-ui/react";
 import SimpleMarkdown from "@/markdown/SimpleMarkdown";
-import { SharedApi } from "@/types/shared";
+import type { Chat, Conversation, SharedApi } from "@/types/shared";
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -93,10 +93,10 @@ export const ChatRoom = ({
 }: ChatRoomProps) => {
   const chatsWrapper = React.useRef<HTMLDivElement>(null);
   const [disable, setDisable] = React.useState(false);
-  const [chatHistory, setChatHistory] = React.useState<any>([]);
+  const [chatHistory, setChatHistory] = React.useState<Chat[]>([]);
   const [message, setMessage] = React.useState(initMessage ?? "");
 
-  const [conversations, setConversations] = useState<any>([]);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
   const [currentConversation, setCurrentConversation] = useState<number | null>(null);
   // editing conversation name
   const [editing, setEditing] = useState<number | null>(null);
@@ -110,11 +110,11 @@ export const ChatRoom = ({
           method: "POST",
           body: JSON.stringify({
             action: "get_conversations",
-          } as any),
+          }),
         });
-        const data = (await response.json()) as any;
+        const data = await response.json();
         if (!response.ok) {
-          alert("Error: " + JSON.stringify((data as any).error));
+          alert("Error: " + JSON.stringify(data.error));
           return;
         }
         setConversations(data);
@@ -155,7 +155,7 @@ export const ChatRoom = ({
   async function changeConversationName(conversationId: number, name: string) {
     await changeConversationNameApi(conversationId, name);
 
-    setConversations((c: any[]) =>
+    setConversations((c) =>
       c.map((conversation) => {
         if (conversation.id === conversationId) {
           return {
@@ -175,7 +175,7 @@ export const ChatRoom = ({
         if (conversationId == null) {
           return;
         }
-        setEditingName(conversations.find((c: any) => c.id === conversationId)?.name ?? "");
+        setEditingName(conversations.find((c) => c.id === conversationId)?.name ?? "");
         setEditing(conversationId);
         return;
       }
@@ -208,7 +208,7 @@ export const ChatRoom = ({
     if (!data) {
       return;
     }
-    setConversations(conversations.filter((conversation: any) => conversation.id !== conversationId));
+    setConversations(conversations.filter((conversation) => conversation.id !== conversationId));
   }
 
   async function deleteAllConversations() {
@@ -242,7 +242,7 @@ export const ChatRoom = ({
           // TODO(CGQAQ): custom name of user
           // name: "User",
         },
-      ] as any;
+      ] as Chat[];
 
       setChatHistory([...updatedHistory]);
 
@@ -312,7 +312,7 @@ export const ChatRoom = ({
           New chat
         </div>
         <div className="overflow-y-auto overflow-container">
-          {conversations.map((conversation: any) => (
+          {conversations.map((conversation) => (
             <div
               key={conversation.id}
               className={`${
@@ -399,7 +399,7 @@ export const ChatRoom = ({
           ref={chatsWrapper}
           className="flex flex-col gap-4 w-full px-4 max-h-[80%] overflow-y-auto mt-11 scroll-smooth"
         >
-          {chatHistory.map((chat: any, index: number) => {
+          {chatHistory.map((chat, index) => {
             return (
               <div key={index} className="flex flex-col gap-14 ">
                 {chat.role === "user" ? (

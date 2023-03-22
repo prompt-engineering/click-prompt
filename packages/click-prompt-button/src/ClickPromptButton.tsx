@@ -5,7 +5,7 @@ import { ClickPromptSmall } from "@/CustomIcon";
 import { ButtonSize, StyledPromptButton } from "@/SharedButton";
 import { LoggingDrawer } from "@/LoggingDrawer";
 import { ClickPromptBird } from "@/ClickPromptBird";
-import { SharedApi } from "@/types/shared";
+import type { Response, SharedApi } from "@/types/shared";
 
 interface ClickPromptButtonProps extends SharedApi {
   loading?: boolean;
@@ -13,6 +13,7 @@ interface ClickPromptButtonProps extends SharedApi {
   size?: ButtonSize;
   text: string;
   children?: React.ReactNode;
+  loginApi: () => Promise<Response>;
 }
 
 export function ClickPromptButton({
@@ -29,12 +30,13 @@ export function ClickPromptButton({
   deleteAllConversationsApi,
   sendMsgWithStreamResApi,
   logoutApi,
+  loginApi,
 }: ClickPromptButtonProps) {
   const [isLoading, setIsLoading] = useState(loading);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleClick = async (event: any) => {
+  const handleClick = async (event: React.MouseEvent) => {
     setIsLoading(true);
     const isLoggedIn = await isLoggedInApi();
     setIsLoggedIn(isLoggedIn);
@@ -90,6 +92,7 @@ export function ClickPromptButton({
         deleteAllConversationsApi,
         sendMsgWithStreamResApi,
         logoutApi,
+        loginApi,
       })}
     </Box>
   );
