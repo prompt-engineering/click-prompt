@@ -1,13 +1,13 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+**/node_modules
 /.pnp
 .pnp.js
-pnpm-lock.yaml
+**/pnpm-lock.yaml
 
 # testing
-/coverage
+**/coverage
 
 # next.js
 /.next/
@@ -15,7 +15,7 @@ pnpm-lock.yaml
 /out/
 
 # production
-/build
+**/build
 **/dist
 **/.turbo
 

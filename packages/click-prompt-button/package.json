@@ -2,10 +2,15 @@
   "name": "click-prompt-button",
   "version": "0.1.0",
   "description": "click prompt button is react component that can be used to execute a prompt from ChatGPT in any web page. It is a part of the ClickPrompt",
-  "main": "index.js",
+  "type": "module",
+  "module": "./dist/click-prompt-button.js",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "vite build"
+    "build": "tsc && vite build"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
