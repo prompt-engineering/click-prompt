@@ -5,40 +5,25 @@ import { ClickPromptSmall } from "@/CustomIcon";
 import { ButtonSize, StyledPromptButton } from "@/SharedButton";
 import { LoggingDrawer } from "@/LoggingDrawer";
 import { ClickPromptBird } from "@/ClickPromptBird";
-import type { Response, SharedApi } from "@/types/shared";
+import type { LlmServiceApi } from "@/types/llmServiceApi";
 
-interface ClickPromptButtonProps extends SharedApi {
+interface ClickPromptButtonProps {
   loading?: boolean;
   onClick?: MouseEventHandler;
   size?: ButtonSize;
   text: string;
   children?: React.ReactNode;
-  loginApi: () => Promise<Response>;
+  llmServiceApi: LlmServiceApi;
 }
 
-export function ClickPromptButton({
-  isLoggedInApi,
-  children,
-  size,
-  text,
-  onClick,
-  loading,
-  changeConversationNameApi,
-  createConversationApi,
-  getChatsByConversationIdApi,
-  deleteConversationApi,
-  deleteAllConversationsApi,
-  sendMsgWithStreamResApi,
-  logoutApi,
-  loginApi,
-}: ClickPromptButtonProps) {
+export function ClickPromptButton({ children, size, text, onClick, loading, llmServiceApi }: ClickPromptButtonProps) {
   const [isLoading, setIsLoading] = useState(loading);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClick = async (event: React.MouseEvent) => {
     setIsLoading(true);
-    const isLoggedIn = await isLoggedInApi();
+    const isLoggedIn = await llmServiceApi.isLoggedIn();
     setIsLoggedIn(isLoggedIn);
     onOpen();
     onClick && onClick(event);
@@ -85,14 +70,7 @@ export function ClickPromptButton({
         handleClose,
         isLoggedIn,
         initMessage: text,
-        changeConversationNameApi,
-        createConversationApi,
-        getChatsByConversationIdApi,
-        deleteConversationApi,
-        deleteAllConversationsApi,
-        sendMsgWithStreamResApi,
-        logoutApi,
-        loginApi,
+        llmServiceApi,
       })}
     </Box>
   );

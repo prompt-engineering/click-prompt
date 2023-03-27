@@ -4,16 +4,16 @@ import { BeatLoader } from "react-spinners";
 import { StyledPromptButton } from "@/SharedButton";
 import { LoggingDrawer } from "@/LoggingDrawer";
 import { ClickPromptBird } from "@/ClickPromptBird";
-import type { Response, SharedApi } from "@/types/shared";
+import type { LlmServiceApi } from "@/types/llmServiceApi";
 
-interface ExecButtonProps extends SharedApi {
+interface ExecButtonProps {
   loading?: boolean;
   text: string;
   children?: React.ReactNode;
   handleResponse?: (response: ReadableStream<Uint8Array> | null) => void;
   conversationId?: number;
   updateConversationId?: (conversationId: number) => void;
-  loginApi: () => Promise<Response>;
+  llmServiceApi: LlmServiceApi;
 }
 
 export const ExecutePromptButton = ({
@@ -23,15 +23,7 @@ export const ExecutePromptButton = ({
   handleResponse,
   conversationId,
   updateConversationId,
-  isLoggedInApi,
-  changeConversationNameApi,
-  createConversationApi,
-  getChatsByConversationIdApi,
-  deleteConversationApi,
-  deleteAllConversationsApi,
-  sendMsgWithStreamResApi,
-  logoutApi,
-  loginApi,
+  llmServiceApi,
 }: ExecButtonProps) => {
   const [isLoading, setIsLoading] = useState(loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,8 +33,8 @@ export const ExecutePromptButton = ({
     setIsLoading(true);
 
     try {
-      const isLoggedIn = await isLoggedInApi();
-      if (!isLoggedIn) {
+      const isUserLoggedIn = await llmServiceApi.isLoggedIn();
+      if (!isUserLoggedIn) {
         onOpen();
         setIsLoading(false);
         return;
@@ -54,7 +46,7 @@ export const ExecutePromptButton = ({
 
     let newConversationId = conversationId;
     if (!conversationId) {
-      const conversation = await createConversationApi();
+      const conversation = await llmServiceApi.createConversation();
       if (!conversation) {
         return;
       }
@@ -64,7 +56,7 @@ export const ExecutePromptButton = ({
     }
 
     if (newConversationId) {
-      const response = await sendMsgWithStreamResApi(newConversationId, text);
+      const response = await llmServiceApi.sendMsgWithStreamRes(newConversationId, text);
       if (response && handleResponse) {
         handleResponse(response);
       }
@@ -108,14 +100,7 @@ export const ExecutePromptButton = ({
           updateStatus: updateLoginStatus,
           isLoggedIn: hasLogin,
           initMessage: text,
-          changeConversationNameApi,
-          createConversationApi,
-          getChatsByConversationIdApi,
-          deleteConversationApi,
-          deleteAllConversationsApi,
-          sendMsgWithStreamResApi,
-          logoutApi,
-          loginApi,
+          llmServiceApi,
         })}
     </>
   );

@@ -10,7 +10,7 @@ import { BeatLoader } from "react-spinners";
 import { useDebouncedCallback } from "use-debounce";
 import { Input } from "@chakra-ui/react";
 import SimpleMarkdown from "@/markdown/SimpleMarkdown";
-import type { Chat, Conversation, SharedApi } from "@/types/shared";
+import type { Chat, Conversation, LlmServiceApi } from "@/types/llmServiceApi";
 
 const ChatInput = styled("input")`
   background: #ffffff;
@@ -75,22 +75,13 @@ const ChatSendButton = styled("button")`
   outline: none;
 `;
 
-interface ChatRoomProps extends Omit<SharedApi, "isLoggedInApi"> {
+interface ChatRoomProps {
   setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
   initMessage?: string;
+  llmServiceApi: Omit<LlmServiceApi, "isLoggedIn">;
 }
 
-export const ChatRoom = ({
-  setIsLoggedIn,
-  initMessage,
-  changeConversationNameApi,
-  createConversationApi,
-  getChatsByConversationIdApi,
-  deleteConversationApi,
-  deleteAllConversationsApi,
-  sendMsgWithStreamResApi,
-  logoutApi,
-}: ChatRoomProps) => {
+export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoomProps) => {
   const chatsWrapper = React.useRef<HTMLDivElement>(null);
   const [disable, setDisable] = React.useState(false);
   const [chatHistory, setChatHistory] = React.useState<Chat[]>([]);
@@ -143,7 +134,7 @@ export const ChatRoom = ({
   };
 
   async function createConversation() {
-    const data = await createConversationApi();
+    const data = await llmServiceApi.createConversation();
     if (!data) {
       return;
     }
@@ -153,7 +144,7 @@ export const ChatRoom = ({
   }
 
   async function changeConversationName(conversationId: number, name: string) {
-    await changeConversationNameApi(conversationId, name);
+    await changeConversationName(conversationId, name);
 
     setConversations((c) =>
       c.map((conversation) => {
@@ -189,7 +180,7 @@ export const ChatRoom = ({
 
       try {
         setCurrentConversation(conversationId);
-        const data = await getChatsByConversationIdApi(conversationId);
+        const data = await llmServiceApi.getChatsByConversationId(conversationId);
         if (!data) {
           return;
         }
@@ -204,7 +195,7 @@ export const ChatRoom = ({
   );
 
   async function deleteConversation(conversationId: number) {
-    const data = await deleteConversationApi(conversationId);
+    const data = await llmServiceApi.deleteConversation(conversationId);
     if (!data) {
       return;
     }
@@ -212,7 +203,7 @@ export const ChatRoom = ({
   }
 
   async function deleteAllConversations() {
-    const data = await deleteAllConversationsApi();
+    const data = await llmServiceApi.deleteAllConversations();
     if (!data) {
       return;
     }
@@ -246,7 +237,7 @@ export const ChatRoom = ({
 
       setChatHistory([...updatedHistory]);
 
-      const data = await sendMsgWithStreamResApi(currentConversation as number, message);
+      const data = await llmServiceApi.sendMsgWithStreamRes(currentConversation as number, message);
       if (!data) {
         setDisable(false);
         setChatHistory([...updatedHistory.slice(0, updatedHistory.length - 1)]);
@@ -296,7 +287,7 @@ export const ChatRoom = ({
   }
 
   async function logout() {
-    await logoutApi();
+    await logout();
     setIsLoggedIn(false);
   }
 
