@@ -19,19 +19,23 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node 🧰
+        uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - run: npm ci
+      - name: Install Dependencies 🗂
+        run: npm ci
 
-      - run: |
+      - name: Build 🛠
+        run: |
           export NODE_OPTIONS="--max_old_space_size=4096"
           npm run build --if-present
 
-      - run: npm run test
+      - name: Test 🔧
+        run: npm run test
   lint:
-    name: format and lint
+    name: Format & Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -39,11 +43,13 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node 🧰
+        uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
 
-      - run: npm run format
+      - name: Install Dependencies 🗂
+        run: npm ci
 
-      - run: npm run lint
+      - name: Lint 💄
+        run: npm run lint
