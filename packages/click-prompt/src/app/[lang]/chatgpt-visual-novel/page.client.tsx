@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, MouseEventHandler, useMemo, ChangeEventHandler } from "react";
-import { Box, Card, CardBody, CardFooter, CardHeader, Flex, Text, Link, Stack, Select } from "@chakra-ui/react";
+import { ChangeEventHandler, MouseEventHandler, useMemo, useState } from "react";
+import { Box, Card, CardBody, CardFooter, CardHeader, Flex, Link, Select, Stack, Text } from "@chakra-ui/react";
 import { ArrowDownIcon } from "@chakra-ui/icons";
 import girl1_neutral from "@/assets/images/visual-novel/00055-3317647877.png";
 import girl1_happy from "@/assets/images/visual-novel/00057-3317647877.png";
@@ -34,11 +34,17 @@ import restaurant from "@/assets/images/visual-novel/00146-2156326714.png";
 
 import Image, { StaticImageData } from "next/image";
 import { upperFirst } from "lodash-es";
-import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
-import { ResponseSend } from "@/pages/api/chatgpt/chat";
+import { Chat, ExecutePromptButton } from "@/components/ClickPromptButton";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import CopyComponent from "@/components/CopyComponent";
-import { fontSize } from "@mui/system";
+import { isLoggedIn, login, logout } from "@/api/user";
+import {
+  changeConversationName,
+  createConversation,
+  deleteAllConversations,
+  deleteConversation,
+} from "@/api/conversation";
+import { getChatsByConversationId, sendMessage } from "@/api/chat";
 
 type StoryLine = {
   speaker: string;
@@ -51,6 +57,18 @@ type Scene = {
   speaker: string;
   girls: string[];
   story: StoryLine[];
+};
+
+const llmServiceApi: any = {
+  login,
+  logout,
+  isLoggedIn,
+  changeConversationName,
+  createConversation,
+  getChatsByConversationId,
+  deleteConversation,
+  deleteAllConversations,
+  sendMessage,
 };
 
 function ChatGptVisualNovel({ i18n }: GeneralI18nProps) {
@@ -117,7 +135,7 @@ function ChatGptVisualNovel({ i18n }: GeneralI18nProps) {
     }
   };
 
-  const handleResponse = (response: ResponseSend) => {
+  const handleResponse = (response: Chat[]) => {
     try {
       const newScene = JSON.parse(response[0].content.trim()) as Scene;
       if ("speaker" in newScene && "girls" in newScene && "story" in newScene) {
@@ -184,6 +202,7 @@ function ChatGptVisualNovel({ i18n }: GeneralI18nProps) {
                   handleResponse={handleResponse}
                   conversationId={conversationId}
                   updateConversationId={updateConversationId}
+                  llmServiceApi={llmServiceApi}
                 />
               </Box>
             </Flex>
@@ -262,6 +281,7 @@ function ChatGptVisualNovel({ i18n }: GeneralI18nProps) {
                   handleResponse={handleResponse}
                   conversationId={conversationId}
                   updateConversationId={updateConversationId}
+                  llmServiceApi={llmServiceApi}
                 />
               </Box>
             )}

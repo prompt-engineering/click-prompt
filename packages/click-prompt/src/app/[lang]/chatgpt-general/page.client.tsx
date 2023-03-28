@@ -3,19 +3,19 @@
 import React from "react";
 import { DataTable } from "@/components/DataTable/DataTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 
 import gptCategorySamples from "@/assets/chatgpt/category/index.json";
 import {
-  Flex,
-  Heading,
+  Alert,
+  AlertIcon,
+  AlertTitle,
   Box,
   Card,
   CardBody,
   CardHeader,
-  AlertIcon,
-  AlertTitle,
-  Alert,
+  Flex,
+  Heading,
   Link as NavLink,
   SimpleGrid,
 } from "@/components/ChakraUI";
@@ -23,6 +23,14 @@ import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import styled from "@emotion/styled";
+import { isLoggedIn, login, logout } from "@/api/user";
+import {
+  changeConversationName,
+  createConversation,
+  deleteAllConversations,
+  deleteConversation,
+} from "@/api/conversation";
+import { getChatsByConversationId, sendMsgWithStreamRes } from "@/api/chat";
 
 type GeneralCommand = {
   type: string;
@@ -47,6 +55,18 @@ type CategoryGpt = {
 
 type ChatgptSpecific = { type: string; description: string; example: string; prompt: string }[];
 
+const llmServiceApi: any = {
+  login,
+  logout,
+  isLoggedIn,
+  changeConversationName,
+  createConversation,
+  getChatsByConversationId,
+  deleteConversation,
+  deleteAllConversations,
+  sendMsgWithStreamRes,
+};
+
 function ChatGptGeneral({ locale, i18n, chatgptSpecific }: { chatgptSpecific: ChatgptSpecific } & GeneralI18nProps) {
   const dict = i18n.dict;
 
@@ -64,7 +84,9 @@ function ChatGptGeneral({ locale, i18n, chatgptSpecific }: { chatgptSpecific: Ch
     }),
     columnHelper.accessor("clickPrompt", {
       cell: (info) => {
-        return info.row.original.prompt !== "" ? <ClickPromptButton text={info.row.original.prompt} /> : null;
+        return info.row.original.prompt !== "" ? (
+          <ClickPromptButton text={info.row.original.prompt} llmServiceApi={llmServiceApi} />
+        ) : null;
       },
       header: "",
     }),
@@ -98,7 +120,7 @@ function ChatGptGeneral({ locale, i18n, chatgptSpecific }: { chatgptSpecific: Ch
                       <CardHeader>
                         <Flex justifyContent={"space-between"} alignItems={"center"}>
                           <StyledTitle>{sample.name}</StyledTitle>
-                          <ClickPromptButton text={sample.ask} size={"sm"} />
+                          <ClickPromptButton text={sample.ask} size={"sm"} llmServiceApi={llmServiceApi} />
                         </Flex>
                       </CardHeader>
                       <StyledCardBody maxH='320px' overflow='auto'>

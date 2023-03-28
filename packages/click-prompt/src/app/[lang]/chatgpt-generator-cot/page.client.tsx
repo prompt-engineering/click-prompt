@@ -9,7 +9,27 @@ import { Form, Formik } from "formik";
 import { numberToChineseOrdinal } from "chinese-numbering";
 
 import CopyComponent from "@/components/CopyComponent";
-import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { isLoggedIn, login, logout } from "@/api/user";
+import {
+  changeConversationName,
+  createConversation,
+  deleteAllConversations,
+  deleteConversation,
+} from "@/api/conversation";
+import { getChatsByConversationId, sendMsgWithStreamRes } from "@/api/chat";
+
+const llmServiceApi: any = {
+  login,
+  logout,
+  isLoggedIn,
+  changeConversationName,
+  createConversation,
+  getChatsByConversationId,
+  deleteConversation,
+  deleteAllConversations,
+  sendMsgWithStreamRes,
+};
 
 function ChatGptCotGenerator({ i18n, locale }: GeneralI18nProps) {
   const dict = i18n.dict;
@@ -86,7 +106,7 @@ ${dict["introduction-tail"]}`.replaceAll("<GameName>", name),
       </ReactMarkdown>
       <Box className='flex justify-end p-4'>
         <CopyComponent boxSize={10} value={markdown} />
-        <ClickPromptButton text={markdown} />
+        <ClickPromptButton text={markdown} llmServiceApi={llmServiceApi} />
       </Box>
       <Formik
         initialValues={{ name: "" }}

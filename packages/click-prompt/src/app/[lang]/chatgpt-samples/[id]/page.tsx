@@ -2,22 +2,42 @@ import React, { Fragment } from "react";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { ChatGptIcon } from "@/components/CustomIcon";
-import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 import {
   Avatar,
   Box,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Flex,
   Heading,
   SimpleGrid,
-  Flex,
 } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
 import { AiBlock } from "@/components/chatgpt/AiBlock";
 import { HumanBlock } from "@/components/chatgpt/HumanBlock";
 import { getAppData } from "@/i18n";
 import type { Sample, SampleDetail } from "../type";
+import { isLoggedIn, login, logout } from "@/api/user";
+import {
+  changeConversationName,
+  createConversation,
+  deleteAllConversations,
+  deleteConversation,
+} from "@/api/conversation";
+import { getChatsByConversationId, sendMsgWithStreamRes } from "@/api/chat";
+
+const llmServiceApi: any = {
+  login,
+  logout,
+  isLoggedIn,
+  changeConversationName,
+  createConversation,
+  getChatsByConversationId,
+  deleteConversation,
+  deleteAllConversations,
+  sendMsgWithStreamRes,
+};
 
 const getSampleNames = async (locale: GeneralI18nProps["locale"]) => {
   const index = await import(`@/assets/chatgpt/samples/index_${locale}.json`).then((mod) => mod.default);
@@ -76,7 +96,7 @@ async function ChatGptSampleDetail({ params }: { params: { id: string } }) {
                     </Flex>
                     <Flex direction='row' gap='2'>
                       <CopyComponent value={step.ask} />
-                      <ClickPromptButton size={"sm"} text={step.ask} />
+                      <ClickPromptButton size={"sm"} text={step.ask} llmServiceApi={llmServiceApi} />
                     </Flex>
                   </HumanBlock>
                   <AiBlock direction='row' gap='2'>

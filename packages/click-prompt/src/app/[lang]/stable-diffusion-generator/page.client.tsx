@@ -4,21 +4,21 @@ import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
   Button,
   Flex,
+  FormControl,
   Grid,
   Heading,
   Input,
   InputGroup,
   InputRightElement,
   Link,
+  Radio,
+  RadioGroup,
   SimpleGrid,
   Stack,
-  Text,
   Tag,
   TagCloseButton,
-  FormControl,
   TagLabel,
-  RadioGroup,
-  Radio,
+  Text,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import Image from "next/image";
@@ -26,10 +26,30 @@ import CopyComponent from "@/components/CopyComponent";
 import PromptFieldForm, { SdPromptField } from "@/app/[lang]/stable-diffusion-generator/PromptFieldForm";
 import sdImage from "@/assets/images/stable-diffusion-demo.jpeg";
 import { WebStorage } from "@/storage/webstorage";
-import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { HuggingFaceTxt2Img } from "@/components/StableDiffusion/HuggingFaceTxt2Img";
 import { SdPrompt } from "@/components/StableDiffusion/SdPrompt";
 import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
+import { isLoggedIn, login, logout } from "@/api/user";
+import {
+  changeConversationName,
+  createConversation,
+  deleteAllConversations,
+  deleteConversation,
+} from "@/api/conversation";
+import { getChatsByConversationId, sendMsgWithStreamRes } from "@/api/chat";
+
+const llmServiceApi: any = {
+  login,
+  logout,
+  isLoggedIn,
+  changeConversationName,
+  createConversation,
+  getChatsByConversationId,
+  deleteConversation,
+  deleteAllConversations,
+  sendMsgWithStreamRes,
+};
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
@@ -520,7 +540,7 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
         <InputRightElement width='6rem'>
           <Stack spacing={2} direction='row' align='center'>
             <CopyComponent value={toGptTemplate(lazyText)} />
-            <ClickPromptButton size={"sm"} text={toGptTemplate(lazyText)} />
+            <ClickPromptButton size={"sm"} text={toGptTemplate(lazyText)} llmServiceApi={llmServiceApi} />
           </Stack>
         </InputRightElement>
       </InputGroup>
