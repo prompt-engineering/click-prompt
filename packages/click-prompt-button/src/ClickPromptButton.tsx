@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useState } from "react";
-import { Box, Button, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, ButtonProps, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 import { ClickPromptSmall } from "@/CustomIcon";
 import { ButtonSize, StyledPromptButton } from "@/SharedButton";
@@ -7,7 +7,7 @@ import { LoggingDrawer } from "@/LoggingDrawer";
 import { ClickPromptBird } from "@/ClickPromptBird";
 import type { LlmServiceApi } from "@/types/llmServiceApi";
 
-interface ClickPromptButtonProps {
+interface ClickPromptButtonProps extends ButtonProps {
   loading?: boolean;
   onClick?: MouseEventHandler;
   size?: ButtonSize;
@@ -16,7 +16,15 @@ interface ClickPromptButtonProps {
   llmServiceApi: LlmServiceApi;
 }
 
-export function ClickPromptButton({ children, size, text, onClick, loading, llmServiceApi }: ClickPromptButtonProps) {
+export function ClickPromptButton({
+  children,
+  size,
+  text,
+  onClick,
+  loading,
+  llmServiceApi,
+  ...rest
+}: ClickPromptButtonProps) {
   const [isLoading, setIsLoading] = useState(loading);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,8 +45,7 @@ export function ClickPromptButton({ children, size, text, onClick, loading, llmS
   function NormalSize() {
     return (
       <StyledPromptButton>
-        {/*TODO: check ...props with what is passed in*/}
-        <Button colorScheme="twitter" className="bg-blue" onClick={handleClick}>
+        <Button colorScheme="twitter" className="bg-blue" onClick={handleClick} {...rest}>
           {children}
           {!isLoading && <Text>Prompt</Text>}
           {isLoading && <BeatLoader size={8} color="black" />}
@@ -50,8 +57,7 @@ export function ClickPromptButton({ children, size, text, onClick, loading, llmS
 
   function SmallSize() {
     return (
-      // TODO: check ...props with what is passed in
-      <Button variant="unstyled" onClick={handleClick}>
+      <Button variant="unstyled" onClick={handleClick} {...rest}>
         {children}
         <Tooltip label="Execute ChatGPT Prompt" aria-label="A tooltip">
           <ClickPromptSmall width={32} height={32} />

@@ -4,13 +4,13 @@ import { BeatLoader } from "react-spinners";
 import { StyledPromptButton } from "@/SharedButton";
 import { LoggingDrawer } from "@/LoggingDrawer";
 import { ClickPromptBird } from "@/ClickPromptBird";
-import type { LlmServiceApi } from "@/types/llmServiceApi";
+import type { Chat, LlmServiceApi } from "@/types/llmServiceApi";
 
 interface ExecButtonProps {
   loading?: boolean;
   text: string;
   children?: React.ReactNode;
-  handleResponse?: (response: ReadableStream<Uint8Array> | null) => void;
+  handleResponse?: (response: ReadableStream<Uint8Array> | Chat[] | null) => void;
   conversationId?: number;
   updateConversationId?: (conversationId: number) => void;
   llmServiceApi: LlmServiceApi;
@@ -56,7 +56,9 @@ export const ExecutePromptButton = ({
     }
 
     if (newConversationId) {
-      const response = await llmServiceApi.sendMsgWithStreamRes(newConversationId, text);
+      const response = llmServiceApi.sendMsgWithStreamRes
+        ? await llmServiceApi.sendMsgWithStreamRes(newConversationId, text)
+        : await llmServiceApi.sendMessage(newConversationId, text);
       if (response && handleResponse) {
         handleResponse(response);
       }

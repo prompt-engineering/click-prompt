@@ -1,5 +1,5 @@
 {
-  "name": "click-prompt-button",
+  "name": "@click-prompt/click-prompt-button",
   "version": "0.1.0",
   "description": "click prompt button is react component that can be used to execute a prompt from ChatGPT in any web page. It is a part of the ClickPrompt",
   "type": "module",
@@ -17,12 +17,12 @@
     "@chakra-ui/react": "^2.5.1",
     "@chakra-ui/spinner": "^2.0.13",
     "@chakra-ui/system": "^2.5.1",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
+    "@emotion/react": "11.10.6",
+    "@emotion/styled": "11.10.6",
     "client-only": "^0.0.1",
     "mermaid": "^10.0.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-markdown": "^8.0.5",
     "react-spinners": "^0.13.8",
     "react-syntax-highlighter": "^15.5.0",
@@ -40,6 +40,8 @@
   "peerDependencies": {
     "next": "^13.2.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@emotion/react": "11.10.6",
+    "@emotion/styled": "11.10.6"
   }
 }

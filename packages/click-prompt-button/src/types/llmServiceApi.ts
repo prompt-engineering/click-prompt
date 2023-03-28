@@ -1,4 +1,4 @@
-export interface LlmServiceApi {
+export interface LlmServiceApi extends Required<Pick<SendMessages, "sendMsgWithStreamRes" | "sendMessage">> {
   login: (key: string) => Promise<Response>;
   logout: () => Promise<Response>;
   isLoggedIn: () => Promise<boolean>;
@@ -7,11 +7,15 @@ export interface LlmServiceApi {
   getChatsByConversationId: (conversationId: number) => Promise<Chat[]>;
   deleteConversation: (conversationId: number) => Promise<Conversation>;
   deleteAllConversations: () => Promise<Response>;
-  sendMsgWithStreamRes: (
+}
+
+interface SendMessages {
+  sendMsgWithStreamRes?: (
     conversationId: number,
     message: string,
     name?: string
   ) => Promise<ReadableStream<Uint8Array> | null>;
+  sendMessage?: (conversationId: number, message: string, name?: string) => Promise<Chat[]>;
 }
 
 export interface Conversation {
