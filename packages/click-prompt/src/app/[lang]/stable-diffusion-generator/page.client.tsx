@@ -30,26 +30,7 @@ import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { HuggingFaceTxt2Img } from "@/components/StableDiffusion/HuggingFaceTxt2Img";
 import { SdPrompt } from "@/components/StableDiffusion/SdPrompt";
 import { StableDiffusionGenData } from "@/data-processor/StableDiffusionGenData";
-import { isLoggedIn, login, logout } from "@/api/user";
-import {
-  changeConversationName,
-  createConversation,
-  deleteAllConversations,
-  deleteConversation,
-} from "@/api/conversation";
-import { getChatsByConversationId, sendMsgWithStreamRes } from "@/api/chat";
-
-const llmServiceApi: any = {
-  login,
-  logout,
-  isLoggedIn,
-  changeConversationName,
-  createConversation,
-  getChatsByConversationId,
-  deleteConversation,
-  deleteAllConversations,
-  sendMsgWithStreamRes,
-};
+import { llmServiceApiWithStream } from "@/api/llmService";
 
 const sdDetailedPromptFields: SdPromptField[] = [
   {
@@ -540,7 +521,7 @@ function StableDiffusionGenerator({ i18n }: GeneralI18nProps) {
         <InputRightElement width='6rem'>
           <Stack spacing={2} direction='row' align='center'>
             <CopyComponent value={toGptTemplate(lazyText)} />
-            <ClickPromptButton size={"sm"} text={toGptTemplate(lazyText)} llmServiceApi={llmServiceApi} />
+            <ClickPromptButton size={"sm"} text={toGptTemplate(lazyText)} llmServiceApi={llmServiceApiWithStream} />
           </Stack>
         </InputRightElement>
       </InputGroup>

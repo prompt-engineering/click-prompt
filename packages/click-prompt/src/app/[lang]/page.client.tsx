@@ -5,26 +5,7 @@ import { ClickPromptHome } from "@/components/CustomIcon";
 import { GITHUB_URL } from "@/configs/constants";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 import React from "react";
-import { isLoggedIn, login, logout } from "@/api/user";
-import {
-  changeConversationName,
-  createConversation,
-  deleteAllConversations,
-  deleteConversation,
-} from "@/api/conversation";
-import { getChatsByConversationId, sendMsgWithStreamRes } from "@/api/chat";
-
-const llmServiceApi: any = {
-  login,
-  logout,
-  isLoggedIn,
-  changeConversationName,
-  createConversation,
-  getChatsByConversationId,
-  deleteConversation,
-  deleteAllConversations,
-  sendMsgWithStreamRes,
-};
+import { llmServiceApiWithStream } from "@/api/llmService";
 
 export const HomeClient = ({ dict }: { dict: Record<string, string> }) => {
   return (
@@ -62,7 +43,13 @@ export const HomeClient = ({ dict }: { dict: Record<string, string> }) => {
               <Button as='a' size='lg' h='4rem' px='40px' fontSize='1.2rem' href={GITHUB_URL} target='__blank'>
                 GitHub
               </Button>
-              <ClickPromptButton size='lg' h='4rem' px='40px' text='Hello World' llmServiceApi={llmServiceApi} />
+              <ClickPromptButton
+                size='lg'
+                h='4rem'
+                px='40px'
+                text='Hello World'
+                llmServiceApi={llmServiceApiWithStream}
+              />
             </Stack>
           </Box>
         </Container>

@@ -23,14 +23,7 @@ import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import styled from "@emotion/styled";
-import { isLoggedIn, login, logout } from "@/api/user";
-import {
-  changeConversationName,
-  createConversation,
-  deleteAllConversations,
-  deleteConversation,
-} from "@/api/conversation";
-import { getChatsByConversationId, sendMsgWithStreamRes } from "@/api/chat";
+import { llmServiceApiWithStream } from "@/api/llmService";
 
 type GeneralCommand = {
   type: string;
@@ -55,18 +48,6 @@ type CategoryGpt = {
 
 type ChatgptSpecific = { type: string; description: string; example: string; prompt: string }[];
 
-const llmServiceApi: any = {
-  login,
-  logout,
-  isLoggedIn,
-  changeConversationName,
-  createConversation,
-  getChatsByConversationId,
-  deleteConversation,
-  deleteAllConversations,
-  sendMsgWithStreamRes,
-};
-
 function ChatGptGeneral({ locale, i18n, chatgptSpecific }: { chatgptSpecific: ChatgptSpecific } & GeneralI18nProps) {
   const dict = i18n.dict;
 
@@ -85,7 +66,7 @@ function ChatGptGeneral({ locale, i18n, chatgptSpecific }: { chatgptSpecific: Ch
     columnHelper.accessor("clickPrompt", {
       cell: (info) => {
         return info.row.original.prompt !== "" ? (
-          <ClickPromptButton text={info.row.original.prompt} llmServiceApi={llmServiceApi} />
+          <ClickPromptButton text={info.row.original.prompt} llmServiceApi={llmServiceApiWithStream} />
         ) : null;
       },
       header: "",
@@ -120,7 +101,7 @@ function ChatGptGeneral({ locale, i18n, chatgptSpecific }: { chatgptSpecific: Ch
                       <CardHeader>
                         <Flex justifyContent={"space-between"} alignItems={"center"}>
                           <StyledTitle>{sample.name}</StyledTitle>
-                          <ClickPromptButton text={sample.ask} size={"sm"} llmServiceApi={llmServiceApi} />
+                          <ClickPromptButton text={sample.ask} size={"sm"} llmServiceApi={llmServiceApiWithStream} />
                         </Flex>
                       </CardHeader>
                       <StyledCardBody maxH='320px' overflow='auto'>

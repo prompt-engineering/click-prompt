@@ -9,14 +9,7 @@ import CopyComponent from "@/components/CopyComponent";
 import Highlight from "@/components/Highlight";
 import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { Pagination, type PaginationState, usePagination } from "@/components/Pagination";
-import { isLoggedIn, login, logout } from "@/api/user";
-import {
-  changeConversationName,
-  createConversation,
-  deleteAllConversations,
-  deleteConversation,
-} from "@/api/conversation";
-import { getChatsByConversationId, sendMsgWithStreamRes } from "@/api/chat";
+import { llmServiceApiWithStream } from "@/api/llmService";
 
 type ActPrompt = {
   act: string;
@@ -26,18 +19,6 @@ type ActPrompt = {
 };
 
 const columnHelper = createColumnHelper<ActPrompt>();
-
-const llmServiceApi: any = {
-  login,
-  logout,
-  isLoggedIn,
-  changeConversationName,
-  createConversation,
-  getChatsByConversationId,
-  deleteConversation,
-  deleteAllConversations,
-  sendMsgWithStreamRes,
-};
 
 const genColumns = (dict: Record<string, string>, highlight: string) => [
   columnHelper.accessor("act", {
@@ -56,7 +37,7 @@ const genColumns = (dict: Record<string, string>, highlight: string) => [
   columnHelper.accessor("clickPrompt", {
     cell: (info) => {
       return info.row.original.prompt !== "" ? (
-        <ClickPromptButton text={info.row.original.prompt} llmServiceApi={llmServiceApi} />
+        <ClickPromptButton text={info.row.original.prompt} llmServiceApi={llmServiceApiWithStream} />
       ) : null;
     },
     header: "",

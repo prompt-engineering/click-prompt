@@ -15,26 +15,7 @@ import CopyComponent from "@/components/CopyComponent";
 import PostFlowAction from "@/flows/components/PostFlowAction";
 import PreFlowAction from "@/flows/components/PreFlowAction";
 import { fillStepWithValued, FlowStep } from "@/flows/types/flow-step";
-import { isLoggedIn, login, logout } from "@/api/user";
-import {
-  changeConversationName,
-  createConversation,
-  deleteAllConversations,
-  deleteConversation,
-} from "@/api/conversation";
-import { getChatsByConversationId, sendMessage } from "@/api/chat";
-
-const llmServiceApi: any = {
-  login,
-  logout,
-  isLoggedIn,
-  changeConversationName,
-  createConversation,
-  getChatsByConversationId,
-  deleteConversation,
-  deleteAllConversations,
-  sendMessage,
-};
+import { llmServiceApi } from "@/api/llmService";
 
 type StepProps = {
   index: number;

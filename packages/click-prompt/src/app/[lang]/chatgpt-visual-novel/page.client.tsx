@@ -37,14 +37,7 @@ import { upperFirst } from "lodash-es";
 import { Chat, ExecutePromptButton } from "@/components/ClickPromptButton";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import CopyComponent from "@/components/CopyComponent";
-import { isLoggedIn, login, logout } from "@/api/user";
-import {
-  changeConversationName,
-  createConversation,
-  deleteAllConversations,
-  deleteConversation,
-} from "@/api/conversation";
-import { getChatsByConversationId, sendMessage } from "@/api/chat";
+import { llmServiceApi } from "@/api/llmService";
 
 type StoryLine = {
   speaker: string;
@@ -57,18 +50,6 @@ type Scene = {
   speaker: string;
   girls: string[];
   story: StoryLine[];
-};
-
-const llmServiceApi: any = {
-  login,
-  logout,
-  isLoggedIn,
-  changeConversationName,
-  createConversation,
-  getChatsByConversationId,
-  deleteConversation,
-  deleteAllConversations,
-  sendMessage,
 };
 
 function ChatGptVisualNovel({ i18n }: GeneralI18nProps) {
