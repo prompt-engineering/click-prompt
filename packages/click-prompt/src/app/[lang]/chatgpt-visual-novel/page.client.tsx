@@ -34,7 +34,8 @@ import restaurant from "@/assets/images/visual-novel/00146-2156326714.png";
 
 import Image, { StaticImageData } from "next/image";
 import { upperFirst } from "lodash-es";
-import { Chat, ExecutePromptButton } from "@/components/ClickPromptButton";
+import type { Chat } from "@/components/ClickPromptButton";
+import { ExecutePromptButton } from "@/components/ClickPromptButton";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import CopyComponent from "@/components/CopyComponent";
 import { llmServiceApi } from "@/api/llmService";

@@ -7,7 +7,7 @@ import { LoggingDrawer } from "@/LoggingDrawer";
 import { ClickPromptBird } from "@/ClickPromptBird";
 import type { LlmServiceApi } from "@/types/llmServiceApi";
 
-interface ClickPromptButtonProps extends ButtonProps {
+export interface ClickPromptButtonProps extends ButtonProps {
   loading?: boolean;
   onClick?: MouseEventHandler;
   size?: ButtonSize;

@@ -6,7 +6,7 @@ import { LoggingDrawer } from "@/LoggingDrawer";
 import { ClickPromptBird } from "@/ClickPromptBird";
 import type { Chat, LlmServiceApi } from "@/types/llmServiceApi";
 
-interface ExecButtonProps {
+export interface ExecButtonProps {
   loading?: boolean;
   text: string;
   children?: React.ReactNode;

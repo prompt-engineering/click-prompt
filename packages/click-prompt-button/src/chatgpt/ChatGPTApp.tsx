@@ -3,7 +3,7 @@ import { LoginPage } from "@/chatgpt/LoginPage";
 import React, { useEffect, useState } from "react";
 import type { LlmServiceApi } from "@/types/llmServiceApi";
 
-interface ChatGPTAppProps {
+export interface ChatGPTAppProps {
   loggedIn?: boolean;
   updateLoginStatus?: (loggedIn: boolean) => void;
   initMessage?: string;
