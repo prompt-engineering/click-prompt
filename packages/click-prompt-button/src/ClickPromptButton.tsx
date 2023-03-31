@@ -45,10 +45,10 @@ export function ClickPromptButton({
   function NormalSize() {
     return (
       <StyledPromptButton>
-        <Button colorScheme="twitter" className="button-bg-blue" onClick={handleClick} {...rest}>
+        <Button colorScheme='twitter' className='button-bg-blue' onClick={handleClick} {...rest}>
           {children}
           {!isLoading && <Text>Prompt</Text>}
-          {isLoading && <BeatLoader size={8} color="black" />}
+          {isLoading && <BeatLoader size={8} color='black' />}
         </Button>
         <ClickPromptBird />
       </StyledPromptButton>
@@ -57,9 +57,9 @@ export function ClickPromptButton({
 
   function SmallSize() {
     return (
-      <Button variant="unstyled" onClick={handleClick} {...rest}>
+      <Button variant='unstyled' onClick={handleClick} {...rest}>
         {children}
-        <Tooltip label="Execute ChatGPT Prompt" aria-label="A tooltip">
+        <Tooltip label='Execute ChatGPT Prompt' aria-label='A tooltip'>
           <ClickPromptSmall width={32} height={32} />
         </Tooltip>
       </Button>

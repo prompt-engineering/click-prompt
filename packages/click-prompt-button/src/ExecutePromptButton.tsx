@@ -88,10 +88,10 @@ export const ExecutePromptButton = ({
   return (
     <>
       <StyledPromptButton>
-        <Button colorScheme="twitter" className="button-bg-blue" onClick={handleClick}>
+        <Button colorScheme='twitter' className='button-bg-blue' onClick={handleClick}>
           {children}
           {!isLoading && <Text>Prompt</Text>}
-          {isLoading && <BeatLoader size={8} color="black" />}
+          {isLoading && <BeatLoader size={8} color='black' />}
         </Button>
         <ClickPromptBird />
       </StyledPromptButton>

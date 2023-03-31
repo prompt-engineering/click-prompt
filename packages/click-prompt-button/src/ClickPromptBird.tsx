@@ -12,5 +12,5 @@ const StyledBird = styled(Image)`
 `;
 
 export const ClickPromptBird = ({ width = 38, height = 32 }: ClickPromptBirdProps) => (
-  <StyledBird src={clickPromptLogoUrl} alt="ClickPrompt Logo" width={width} height={height} />
+  <StyledBird src={clickPromptLogoUrl} alt='ClickPrompt Logo' width={width} height={height} />
 );

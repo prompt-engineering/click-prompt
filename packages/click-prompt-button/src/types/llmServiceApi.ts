@@ -13,7 +13,7 @@ interface SendMessages {
   sendMsgWithStreamRes?: (
     conversationId: number,
     message: string,
-    name?: string
+    name?: string,
   ) => Promise<ReadableStream<Uint8Array> | null>;
   sendMessage?: (conversationId: number, message: string, name?: string) => Promise<Chat[]>;
 }

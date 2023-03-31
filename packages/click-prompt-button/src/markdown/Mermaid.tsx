@@ -107,7 +107,7 @@ export default function Mermaid({ graphDefinition }: { graphDefinition: string }
   if (hasError || !graphDefinition) return <code className={"mermaid"}>{graphDefinition}</code>;
   return (
     <>
-      <Flex justifyContent="button-flex-end" className="button-text-gray-400 button-font-bold">
+      <Flex justifyContent='button-flex-end' className='button-text-gray-400 button-font-bold'>
         * hold space to pan & zoom
       </Flex>
       <div

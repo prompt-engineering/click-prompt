@@ -155,7 +155,7 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
           };
         }
         return conversation;
-      })
+      }),
     );
   }
 
@@ -191,7 +191,7 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
         setDisable(false);
       }
     },
-    200
+    200,
   );
 
   async function deleteConversation(conversationId: number) {
@@ -292,17 +292,17 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
   }
 
   return (
-    <div className="button-flex button-w-full button-h-full">
+    <div className='button-flex button-w-full button-h-full'>
       {/* left */}
-      <div className="button-hidden button-max-w-[300px] button-bg-gray-900 button-text-white button-p-2 md:button-grid button-grid-rows-[45px_1fr_100px] button-select-none">
+      <div className='button-hidden button-max-w-[300px] button-bg-gray-900 button-text-white button-p-2 md:button-grid button-grid-rows-[45px_1fr_100px] button-select-none'>
         <div
-          className="button-flex button-py-3 button-px-3 button-items-center button-gap-3 button-rounded-md button-hover:bg-gray-500/10 button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20"
+          className='button-flex button-py-3 button-px-3 button-items-center button-gap-3 button-rounded-md button-hover:bg-gray-500/10 button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20'
           onClick={createConversation}
         >
-          <NewChat color="white" />
+          <NewChat color='white' />
           New chat
         </div>
-        <div className="button-overflow-y-auto button-overflow-container">
+        <div className='button-overflow-y-auto button-overflow-container'>
           {conversations.map((conversation) => (
             <div
               key={conversation.id}
@@ -340,12 +340,12 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
                 />
               ) : (
                 <>
-                  <div className="button-text-sm button-font-medium button-overflow-ellipsis button-truncate button-max-w-[215px]">
+                  <div className='button-text-sm button-font-medium button-overflow-ellipsis button-truncate button-max-w-[215px]'>
                     {conversation.name}
                   </div>
                   {/* delete button */}
                   <div
-                    className="button-flex button-items-center button-justify-center button-w-6 button-h-6 button-rounded-full button-bg-red-500 button-hover:bg-red-600 button-transition-colors button-duration-200 button-cursor-pointer"
+                    className='button-flex button-items-center button-justify-center button-w-6 button-h-6 button-rounded-full button-bg-red-500 button-hover:bg-red-600 button-transition-colors button-duration-200 button-cursor-pointer'
                     onClick={(e) => {
                       e.stopPropagation();
                       if (confirm("Are you sure to delete this conversation?")) {
@@ -353,7 +353,7 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
                       }
                     }}
                   >
-                    <TrashcanIcon color="white" />
+                    <TrashcanIcon color='white' />
                   </div>
                 </>
               )}
@@ -362,7 +362,7 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
         </div>
         <div>
           <div
-            className="button-flex button-py-3 button-px-3 button-items-center button-gap-3 button-rounded-md hover:button-bg-gray-500/10 button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20"
+            className='button-flex button-py-3 button-px-3 button-items-center button-gap-3 button-rounded-md hover:button-bg-gray-500/10 button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20'
             onClick={(e) => {
               e.stopPropagation();
               if (confirm("Are you sure to delete ALL conversations?")) {
@@ -370,43 +370,43 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
               }
             }}
           >
-            <TrashcanIcon color="white" />
+            <TrashcanIcon color='white' />
             Clear conversations
           </div>
           <div
-            className="button-flex button-py-3 button-px-3 button-items-center button-gap-3 button-rounded-md hover:button-bg-gray-500/10 button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20"
+            className='button-flex button-py-3 button-px-3 button-items-center button-gap-3 button-rounded-md hover:button-bg-gray-500/10 button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20'
             onClick={logout}
           >
-            <LogoutIcon color="white" />
+            <LogoutIcon color='white' />
             Log out
           </div>
         </div>
       </div>
 
       {/* right */}
-      <div className="button-relative button-flex button-flex-col button-items-center button-justify-start button-gap-16 button-h-full button-py-4 button-flex-1">
+      <div className='button-relative button-flex button-flex-col button-items-center button-justify-start button-gap-16 button-h-full button-py-4 button-flex-1'>
         {chatHistory.length === 0 && (
-          <Image className="button-mt-8" src={content} alt="background image" width={718} height={416}></Image>
+          <Image className='button-mt-8' src={content} alt='background image' width={718} height={416}></Image>
         )}
 
         {/* chats */}
         <ChatsWrapper
           ref={chatsWrapper}
-          className="button-flex button-flex-col button-gap-4 button-w-full button-px-4 button-max-h-[80%] button-overflow-y-auto button-mt-11 button-scroll-smooth"
+          className='button-flex button-flex-col button-gap-4 button-w-full button-px-4 button-max-h-[80%] button-overflow-y-auto button-mt-11 button-scroll-smooth'
         >
           {chatHistory.map((chat, index) => {
             return (
-              <div key={index} className="button-flex button-flex-col button-gap-14 ">
+              <div key={index} className='button-flex button-flex-col button-gap-14 '>
                 {chat.role === "user" ? (
-                  <div className="button-self-end button-flex">
+                  <div className='button-self-end button-flex'>
                     {/* chat bubble badge */}
-                    <div className="button-rounded-md button-bg-green-400 button-text-white button-text-xl button-px-4 button-py-2 button-max-w-xl">
+                    <div className='button-rounded-md button-bg-green-400 button-text-white button-text-xl button-px-4 button-py-2 button-max-w-xl'>
                       <SimpleMarkdown content={chat.content}></SimpleMarkdown>
                     </div>
                   </div>
                 ) : (
-                  <div className="button-self-start button-flex">
-                    <div className="button-rounded-md button-bg-orange-400 button-text-white button-text-xl button-px-4 button-py-2 button-max-w-xl">
+                  <div className='button-self-start button-flex'>
+                    <div className='button-rounded-md button-bg-orange-400 button-text-white button-text-xl button-px-4 button-py-2 button-max-w-xl'>
                       <SimpleMarkdown content={`${chat.content}${codeMark}`}></SimpleMarkdown>
                     </div>
                   </div>
@@ -416,24 +416,24 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
           })}
         </ChatsWrapper>
 
-        <ChatInputWrapper className="button-w-full md:button-w-9/12 button-mb-5">
+        <ChatInputWrapper className='button-w-full md:button-w-9/12 button-mb-5'>
           <ChatInput
             disabled={disable}
-            placeholder="Type your message here..."
+            placeholder='Type your message here...'
             value={message}
             onChange={(ev) => setMessage(ev.target.value)}
             onKeyDown={onEnterForSendMessage}
-            className="button-w-full button-pr-10 md:button-w-11/12 button-border-0 md:button-pr-0 focus:button-ring-0"
+            className='button-w-full button-pr-10 md:button-w-11/12 button-border-0 md:button-pr-0 focus:button-ring-0'
           />
           {disable ? (
             // check this
             <BeatLoader
               className={"button-absolute button-top-1/2 button--translate-y-[50%] button-right-[8px]"}
               size={8}
-              color="black"
+              color='black'
             />
           ) : (
-            <ChatSendButton className="button-w-10 button-h-full" disabled={disable} onClick={sendMessage} />
+            <ChatSendButton className='button-w-10 button-h-full' disabled={disable} onClick={sendMessage} />
           )}
         </ChatInputWrapper>
       </div>
