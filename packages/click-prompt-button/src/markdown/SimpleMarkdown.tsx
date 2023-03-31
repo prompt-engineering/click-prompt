@@ -197,7 +197,7 @@ function SimpleMarkdown({ content }: any) {
             return !inline && match ? (
               getHighlighter(match, props, code)
             ) : (
-              <code className={className + " " + "empty-language"} {...props}>
+              <code className={className + " " + "button-empty-language"} {...props}>
                 {code}
               </code>
             );

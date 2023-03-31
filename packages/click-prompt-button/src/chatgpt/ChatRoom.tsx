@@ -292,23 +292,25 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
   }
 
   return (
-    <div className="flex w-full h-full">
+    <div className="button-flex button-w-full button-h-full">
       {/* left */}
-      <div className="hidden max-w-[300px] bg-gray-900 text-white p-2 md:grid grid-rows-[45px_1fr_100px] select-none">
+      <div className="button-hidden button-max-w-[300px] button-bg-gray-900 button-text-white button-p-2 button-md:grid button-grid-rows-[45px_1fr_100px] button-select-none">
         <div
-          className="flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20"
+          className="button-flex button-py-3 button-px-3 button-items-center button-gap-3 button-rounded-md button-hover:bg-gray-500/10 button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20"
           onClick={createConversation}
         >
           <NewChat color="white" />
           New chat
         </div>
-        <div className="overflow-y-auto overflow-container">
+        <div className="button-overflow-y-auto button-overflow-container">
           {conversations.map((conversation) => (
             <div
               key={conversation.id}
               className={`${
-                currentConversation === conversation.id ? "bg-emerald-700 hover:bg-emerald-900" : "hover:bg-gray-500/10"
-              } flex py-3 px-3 items-center justify-between gap-3 rounded-md transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20`}
+                currentConversation === conversation.id
+                  ? "button-bg-emerald-700 button-hover:bg-emerald-900"
+                  : "button-hover:bg-gray-500/10"
+              } button-flex button-py-3 button-px-3 button-items-center button-justify-between button-gap-3 button-rounded-md button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20`}
               onClick={(event) => {
                 handleConversation(conversation.id!, event);
               }}
@@ -338,12 +340,12 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
                 />
               ) : (
                 <>
-                  <div className="text-sm font-medium overflow-ellipsis truncate max-w-[215px]">
+                  <div className="button-text-sm button-font-medium button-overflow-ellipsis button-truncate button-max-w-[215px]">
                     {conversation.name}
                   </div>
                   {/* delete button */}
                   <div
-                    className="flex items-center justify-center w-6 h-6 rounded-full bg-red-500 hover:bg-red-600 transition-colors duration-200 cursor-pointer"
+                    className="button-flex button-items-center button-justify-center button-w-6 button-h-6 button-rounded-full button-bg-red-500 button-hover:bg-red-600 button-transition-colors button-duration-200 button-cursor-pointer"
                     onClick={(e) => {
                       e.stopPropagation();
                       if (confirm("Are you sure to delete this conversation?")) {

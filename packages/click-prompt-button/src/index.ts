@@ -1,10 +1,10 @@
-import "./index.css";
+import "tailwindcss/tailwind.css";
 import type { ClickPromptButtonProps } from "@/ClickPromptButton";
 import { ClickPromptButton } from "@/ClickPromptButton";
-import { ExecutePromptButton } from "@/ExecutePromptButton";
 import type { ExecButtonProps } from "@/ExecutePromptButton";
-import { ChatGPTApp } from "@/chatgpt/ChatGPTApp";
+import { ExecutePromptButton } from "@/ExecutePromptButton";
 import type { ChatGPTAppProps } from "@/chatgpt/ChatGPTApp";
+import { ChatGPTApp } from "@/chatgpt/ChatGPTApp";
 import { ChatRoom } from "@/chatgpt/ChatRoom";
 import { LoginPage } from "@/chatgpt/LoginPage";
 import type { Chat, LlmServiceApi } from "@/types/llmServiceApi";

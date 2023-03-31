@@ -24,9 +24,9 @@ export function LoggingDrawer({
     <Drawer isOpen={isOpen} placement="right" onClose={handleClose} size={"2xl"}>
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerCloseButton className="text-white z-50" />
+        <DrawerCloseButton className="button-text-white button-z-50" />
         <DrawerBody padding={0}>
-          <div className="bg-[#343541] flex flex-1 h-[100%] overflow-y-auto items-center justify-center">
+          <div className="button-bg-[#343541] button-flex button-flex-1 button-h-[100%] button-overflow-y-auto button-items-center button-justify-center">
             <ChatGPTApp
               loggedIn={isLoggedIn}
               initMessage={initMessage}

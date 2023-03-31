@@ -1,5 +1,6 @@
 "use client";
 
+import "@click-prompt/click-prompt-button/style.css";
 import dynamic from "next/dynamic";
 import type { Chat, ClickPromptButtonProps, LlmServiceApi } from "@click-prompt/click-prompt-button";
 

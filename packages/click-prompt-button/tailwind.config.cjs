@@ -17,5 +17,5 @@ export default {
   corePlugins: {
     preflight: false,
   },
-  prefix: "click-prompt-button-",
+  prefix: "button-",
 };

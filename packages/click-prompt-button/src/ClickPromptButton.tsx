@@ -45,7 +45,7 @@ export function ClickPromptButton({
   function NormalSize() {
     return (
       <StyledPromptButton>
-        <Button colorScheme="twitter" className="bg-blue" onClick={handleClick} {...rest}>
+        <Button colorScheme="twitter" className="button-bg-blue" onClick={handleClick} {...rest}>
           {children}
           {!isLoading && <Text>Prompt</Text>}
           {isLoading && <BeatLoader size={8} color="black" />}
