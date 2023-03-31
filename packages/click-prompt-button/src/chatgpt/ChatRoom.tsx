@@ -294,7 +294,7 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
   return (
     <div className="button-flex button-w-full button-h-full">
       {/* left */}
-      <div className="button-hidden button-max-w-[300px] button-bg-gray-900 button-text-white button-p-2 button-md:grid button-grid-rows-[45px_1fr_100px] button-select-none">
+      <div className="button-hidden button-max-w-[300px] button-bg-gray-900 button-text-white button-p-2 md:button-grid button-grid-rows-[45px_1fr_100px] button-select-none">
         <div
           className="button-flex button-py-3 button-px-3 button-items-center button-gap-3 button-rounded-md button-hover:bg-gray-500/10 button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20"
           onClick={createConversation}
@@ -362,7 +362,7 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
         </div>
         <div>
           <div
-            className="flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20"
+            className="button-flex button-py-3 button-px-3 button-items-center button-gap-3 button-rounded-md hover:button-bg-gray-500/10 button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20"
             onClick={(e) => {
               e.stopPropagation();
               if (confirm("Are you sure to delete ALL conversations?")) {
@@ -374,7 +374,7 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
             Clear conversations
           </div>
           <div
-            className="flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-2 flex-shrink-0 border border-white/20"
+            className="button-flex button-py-3 button-px-3 button-items-center button-gap-3 button-rounded-md hover:button-bg-gray-500/10 button-transition-colors button-duration-200 button-text-white button-cursor-pointer button-text-sm button-mb-2 button-flex-shrink-0 button-border button-border-white/20"
             onClick={logout}
           >
             <LogoutIcon color="white" />
@@ -384,27 +384,29 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
       </div>
 
       {/* right */}
-      <div className="relative flex flex-col items-center justify-start gap-16 h-full py-4 flex-1">
-        {chatHistory.length === 0 && <Image className="mt-8" src={content} alt="background image"></Image>}
+      <div className="button-relative button-flex button-flex-col button-items-center button-justify-start button-gap-16 button-h-full button-py-4 button-flex-1">
+        {chatHistory.length === 0 && (
+          <Image className="button-mt-8" src={content} alt="background image" width={718} height={416}></Image>
+        )}
 
         {/* chats */}
         <ChatsWrapper
           ref={chatsWrapper}
-          className="flex flex-col gap-4 w-full px-4 max-h-[80%] overflow-y-auto mt-11 scroll-smooth"
+          className="button-flex button-flex-col button-gap-4 button-w-full button-px-4 button-max-h-[80%] button-overflow-y-auto button-mt-11 button-scroll-smooth"
         >
           {chatHistory.map((chat, index) => {
             return (
-              <div key={index} className="flex flex-col gap-14 ">
+              <div key={index} className="button-flex button-flex-col button-gap-14 ">
                 {chat.role === "user" ? (
-                  <div className="self-end flex">
+                  <div className="button-self-end button-flex">
                     {/* chat bubble badge */}
-                    <div className="rounded-md bg-green-400 text-white text-xl px-4 py-2 max-w-xl">
+                    <div className="button-rounded-md button-bg-green-400 button-text-white button-text-xl button-px-4 button-py-2 button-max-w-xl">
                       <SimpleMarkdown content={chat.content}></SimpleMarkdown>
                     </div>
                   </div>
                 ) : (
-                  <div className="self-start flex">
-                    <div className="rounded-md bg-orange-400 text-white text-xl px-4 py-2 max-w-xl">
+                  <div className="button-self-start button-flex">
+                    <div className="button-rounded-md button-bg-orange-400 button-text-white button-text-xl button-px-4 button-py-2 button-max-w-xl">
                       <SimpleMarkdown content={`${chat.content}${codeMark}`}></SimpleMarkdown>
                     </div>
                   </div>
@@ -414,19 +416,24 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
           })}
         </ChatsWrapper>
 
-        <ChatInputWrapper className="w-full md:w-9/12 mb-5">
+        <ChatInputWrapper className="button-w-full md:button-w-9/12 button-mb-5">
           <ChatInput
             disabled={disable}
             placeholder="Type your message here..."
             value={message}
             onChange={(ev) => setMessage(ev.target.value)}
             onKeyDown={onEnterForSendMessage}
-            className="w-full pr-10 md:w-11/12 border-0 md:pr-0 focus:ring-0"
+            className="button-w-full button-pr-10 md:button-w-11/12 button-border-0 md:button-pr-0 focus:button-ring-0"
           />
           {disable ? (
-            <BeatLoader className={"absolute top-1/2 -translate-y-[50%] right-[8px]"} size={8} color="black" />
+            // check this
+            <BeatLoader
+              className={"button-absolute button-top-1/2 button--translate-y-[50%] button-right-[8px]"}
+              size={8}
+              color="black"
+            />
           ) : (
-            <ChatSendButton className="w-10 h-full" disabled={disable} onClick={sendMessage} />
+            <ChatSendButton className="button-w-10 button-h-full" disabled={disable} onClick={sendMessage} />
           )}
         </ChatInputWrapper>
       </div>
