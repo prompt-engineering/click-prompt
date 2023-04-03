@@ -7,7 +7,7 @@ const nextConfig = {
     // typedRoutes: true,
   },
   trailingSlash: true,
-  transpilePackages: ["react-syntax-highlighter"],
+  transpilePackages: ["react-syntax-highlighter", "@click-prompt/click-prompt-button"],
   images: {
     domains: ["prompt-engineering.github.io"],
   },

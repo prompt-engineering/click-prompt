@@ -18,7 +18,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@click-prompt/click-prompt-button": "0.1.0",
+    "@click-prompt/click-prompt-button": "*",
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.5.1",
     "@chakra-ui/spinner": "^2.0.13",
