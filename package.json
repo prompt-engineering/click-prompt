@@ -4,14 +4,17 @@
   "scripts": {
     "prepare": "husky install",
     "build": "turbo run build",
+    "start": "turbo run start",
     "test": "turbo run test",
     "format": "turbo run format",
     "lint": "turbo run lint",
     "dev": "turbo run dev --filter=click-prompt"
   },
   "devDependencies": {
-    "turbo": "^1.8.3",
-    "husky": "^8.0.3"
+    "husky": "^8.0.3",
+    "turbo": "^1.8.3"
   },
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ]
 }

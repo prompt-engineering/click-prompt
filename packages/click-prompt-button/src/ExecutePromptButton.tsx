@@ -1,27 +1,31 @@
-import React, { MouseEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Text, useDisclosure } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
-import { ClickPromptBird } from "./ClickPromptButton";
-import { ButtonSize, StyledPromptButton } from "./Button.shared";
-import { LoggingDrawer } from "./LoggingDrawer";
+import { StyledPromptButton } from "@/SharedButton";
+import { LoggingDrawer } from "@/LoggingDrawer";
+import { ClickPromptBird } from "@/ClickPromptBird";
+import type { Chat, LlmServiceApi } from "@/types/llmServiceApi";
 
-export type ExecButtonProps = {
+export interface ExecButtonProps {
   loading?: boolean;
-  onClick?: MouseEventHandler;
-  name: string;
   text: string;
-  size?: ButtonSize;
   children?: React.ReactNode;
-  handleResponse?: (response: any) => void;
+  handleResponse?: (response: ReadableStream<Uint8Array> | Chat[] | null) => void;
   conversationId?: number;
   updateConversationId?: (conversationId: number) => void;
-  isLoggedIn: () => Promise<any>;
-  createConversation: (name?: string) => Promise<any>;
-  sendMessage: (conversageId: number, message: string, name?: string) => Promise<any>;
-};
+  llmServiceApi: LlmServiceApi;
+}
 
-function ExecutePromptButton(props: ExecButtonProps) {
-  const [isLoading, setIsLoading] = useState(props.loading);
+export const ExecutePromptButton = ({
+  loading,
+  text,
+  children,
+  handleResponse,
+  conversationId,
+  updateConversationId,
+  llmServiceApi,
+}: ExecButtonProps) => {
+  const [isLoading, setIsLoading] = useState(loading);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [hasLogin, setHasLogin] = useState(false);
 
@@ -29,8 +33,8 @@ function ExecutePromptButton(props: ExecButtonProps) {
     setIsLoading(true);
 
     try {
-      const isLoggedIn = await props.isLoggedIn();
-      if (!isLoggedIn) {
+      const isUserLoggedIn = await llmServiceApi.isLoggedIn();
+      if (!isUserLoggedIn) {
         onOpen();
         setIsLoading(false);
         return;
@@ -40,21 +44,23 @@ function ExecutePromptButton(props: ExecButtonProps) {
       setHasLogin(false);
     }
 
-    let conversationId = props.conversationId;
-    if (!props.conversationId) {
-      const conversation = await props.createConversation();
+    let newConversationId = conversationId;
+    if (!conversationId) {
+      const conversation = await llmServiceApi.createConversation();
       if (!conversation) {
         return;
       }
 
-      conversationId = conversation.id as number;
-      props.updateConversationId ? props.updateConversationId(conversationId) : null;
+      newConversationId = conversation.id as number;
+      updateConversationId ? updateConversationId(newConversationId) : null;
     }
 
-    if (conversationId) {
-      const response: any = await props.sendMessage(conversationId, props.text);
-      if (response && props.handleResponse) {
-        props.handleResponse(response as any);
+    if (newConversationId) {
+      const response = llmServiceApi.sendMsgWithStreamRes
+        ? await llmServiceApi.sendMsgWithStreamRes(newConversationId, text)
+        : await llmServiceApi.sendMessage?.(newConversationId, text);
+      if (response && handleResponse) {
+        handleResponse(response);
       }
     }
 
@@ -82,16 +88,22 @@ function ExecutePromptButton(props: ExecButtonProps) {
   return (
     <>
       <StyledPromptButton>
-        <Button colorScheme="twitter" className="bg-blue" onClick={handleClick}>
-          {props.children}
+        <Button colorScheme='twitter' className='button-bg-blue' onClick={handleClick}>
+          {children}
           {!isLoading && <Text>Prompt</Text>}
-          {isLoading && <BeatLoader size={8} color="black" />}
+          {isLoading && <BeatLoader size={8} color='black' />}
         </Button>
         <ClickPromptBird />
       </StyledPromptButton>
-      {!hasLogin && LoggingDrawer(isOpen, handleClose, hasLogin, props, updateLoginStatus)}
+      {!hasLogin &&
+        LoggingDrawer({
+          isOpen,
+          handleClose,
+          updateStatus: updateLoginStatus,
+          isLoggedIn: hasLogin,
+          initMessage: text,
+          llmServiceApi,
+        })}
     </>
   );
-}
-
-export default ExecutePromptButton;
+};

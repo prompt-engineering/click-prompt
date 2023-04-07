@@ -32,7 +32,7 @@ export default async function NavBar({ locale }: { locale: string }) {
         { url: `/chatgpt-interactive-game/`, title: g("chatgpt-interactive-game") },
         { url: `/chatgpt-samples/`, title: g("chatgpt-samples") },
         { url: `/chatgpt/`, title: g("chatgpt") },
-        { url: `/chatgpt-visual-novel/`, title: g("chatgpt-visual-novel") },
+        { url: `https://chatvisualnovel.com/`, title: g("chatgpt-visual-novel") },
       ],
     },
     {

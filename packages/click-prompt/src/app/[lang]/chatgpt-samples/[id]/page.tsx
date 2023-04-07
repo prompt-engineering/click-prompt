@@ -2,22 +2,23 @@ import React, { Fragment } from "react";
 import CopyComponent from "@/components/CopyComponent";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { ChatGptIcon } from "@/components/CustomIcon";
-import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 import {
   Avatar,
   Box,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
+  Flex,
   Heading,
   SimpleGrid,
-  Flex,
 } from "@/components/ChakraUI";
 import { notFound } from "next/navigation";
 import { AiBlock } from "@/components/chatgpt/AiBlock";
 import { HumanBlock } from "@/components/chatgpt/HumanBlock";
 import { getAppData } from "@/i18n";
 import type { Sample, SampleDetail } from "../type";
+import { llmServiceApiWithStream } from "@/api/llmService";
 
 const getSampleNames = async (locale: GeneralI18nProps["locale"]) => {
   const index = await import(`@/assets/chatgpt/samples/index_${locale}.json`).then((mod) => mod.default);
@@ -76,7 +77,7 @@ async function ChatGptSampleDetail({ params }: { params: { id: string } }) {
                     </Flex>
                     <Flex direction='row' gap='2'>
                       <CopyComponent value={step.ask} />
-                      <ClickPromptButton size={"sm"} text={step.ask} />
+                      <ClickPromptButton size={"sm"} text={step.ask} llmServiceApi={llmServiceApiWithStream} />
                     </Flex>
                   </HumanBlock>
                   <AiBlock direction='row' gap='2'>

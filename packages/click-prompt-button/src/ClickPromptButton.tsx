@@ -1,58 +1,37 @@
 import React, { MouseEventHandler, useState } from "react";
-import { Box, Button, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, ButtonProps, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
-import { ClickPromptSmall } from "./CustomIcon";
-import clickPromptLogo from "@/assets/clickprompt-light.svg?url";
-import { ButtonSize, StyledBird, StyledPromptButton } from "./Button.shared";
-import { LoggingDrawer } from "./LoggingDrawer";
+import { ClickPromptSmall } from "@/CustomIcon";
+import { ButtonSize, StyledPromptButton } from "@/SharedButton";
+import { LoggingDrawer } from "@/LoggingDrawer";
+import { ClickPromptBird } from "@/ClickPromptBird";
+import type { LlmServiceApi } from "@/types/llmServiceApi";
 
-interface ClickPromptButtonProps {
+export interface ClickPromptButtonProps extends ButtonProps {
   loading?: boolean;
   onClick?: MouseEventHandler;
   size?: ButtonSize;
   text: string;
   children?: React.ReactNode;
-  isLoggedInApi: () => Promise<any>;
-  changeConversationNameApi: (conversation_id: number, name: string) => Promise<any>;
-  createConversationApi: (name?: string) => Promise<any>;
-  getChatsByConversationIdApi: (conversationId: number) => Promise<any>;
-  deleteConversationApi: (conversationId: number) => Promise<any>;
-  deleteAllConversationsApi: () => Promise<any>;
-  sendMsgWithStreamResApi: (conversageId: number, message: string, name?: string) => Promise<any>;
-  logoutApi: () => Promise<any>;
-}
-
-export type ClickPromptBirdParams = { width?: number; height?: number };
-
-export function ClickPromptBird(props: ClickPromptBirdParams) {
-  const width = props.width || 38;
-  const height = props.height || 32;
-
-  return <StyledBird src={clickPromptLogo} alt="ClickPrompt Logo" width={width} height={height} />;
+  llmServiceApi: LlmServiceApi;
 }
 
 export function ClickPromptButton({
-  isLoggedInApi,
   children,
   size,
   text,
   onClick,
   loading,
-  changeConversationNameApi,
-  createConversationApi,
-  getChatsByConversationIdApi,
-  deleteConversationApi,
-  deleteAllConversationsApi,
-  sendMsgWithStreamResApi,
-  logoutApi,
+  llmServiceApi,
+  ...rest
 }: ClickPromptButtonProps) {
   const [isLoading, setIsLoading] = useState(loading);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleClick = async (event: any) => {
+  const handleClick = async (event: React.MouseEvent) => {
     setIsLoading(true);
-    const isLoggedIn = await isLoggedInApi();
+    const isLoggedIn = await llmServiceApi.isLoggedIn();
     setIsLoggedIn(isLoggedIn);
     onOpen();
     onClick && onClick(event);
@@ -66,11 +45,10 @@ export function ClickPromptButton({
   function NormalSize() {
     return (
       <StyledPromptButton>
-        {/*TODO: check ...props with what is passed in*/}
-        <Button colorScheme="twitter" className="bg-blue" onClick={handleClick}>
+        <Button colorScheme='twitter' className='button-bg-blue' onClick={handleClick} {...rest}>
           {children}
           {!isLoading && <Text>Prompt</Text>}
-          {isLoading && <BeatLoader size={8} color="black" />}
+          {isLoading && <BeatLoader size={8} color='black' />}
         </Button>
         <ClickPromptBird />
       </StyledPromptButton>
@@ -79,10 +57,9 @@ export function ClickPromptButton({
 
   function SmallSize() {
     return (
-      // TODO: check ...props with what is passed in
-      <Button variant="unstyled" onClick={handleClick}>
+      <Button variant='unstyled' onClick={handleClick} {...rest}>
         {children}
-        <Tooltip label="Execute ChatGPT Prompt" aria-label="A tooltip">
+        <Tooltip label='Execute ChatGPT Prompt' aria-label='A tooltip'>
           <ClickPromptSmall width={32} height={32} />
         </Tooltip>
       </Button>
@@ -99,13 +76,7 @@ export function ClickPromptButton({
         handleClose,
         isLoggedIn,
         initMessage: text,
-        changeConversationNameApi,
-        createConversationApi,
-        getChatsByConversationIdApi,
-        deleteConversationApi,
-        deleteAllConversationsApi,
-        sendMsgWithStreamResApi,
-        logoutApi,
+        llmServiceApi,
       })}
     </Box>
   );

@@ -1,14 +1,15 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import { Heading, Input, Text } from "@chakra-ui/react";
 import { createColumnHelper } from "@tanstack/react-table";
 import { DataTable } from "@/components/DataTable/DataTable";
 import { LinkIcon } from "@chakra-ui/icons";
 import CopyComponent from "@/components/CopyComponent";
 import Highlight from "@/components/Highlight";
-import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
-import { Pagination, usePagination, type PaginationState } from "@/components/Pagination";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { Pagination, type PaginationState, usePagination } from "@/components/Pagination";
+import { llmServiceApiWithStream } from "@/api/llmService";
 
 type ActPrompt = {
   act: string;
@@ -35,7 +36,9 @@ const genColumns = (dict: Record<string, string>, highlight: string) => [
   }),
   columnHelper.accessor("clickPrompt", {
     cell: (info) => {
-      return info.row.original.prompt !== "" ? <ClickPromptButton text={info.row.original.prompt} /> : null;
+      return info.row.original.prompt !== "" ? (
+        <ClickPromptButton text={info.row.original.prompt} llmServiceApi={llmServiceApiWithStream} />
+      ) : null;
     },
     header: "",
   }),

@@ -3,20 +3,20 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { Flex } from "@chakra-ui/react";
-
 import { HumanBlock } from "@/components/chatgpt/HumanBlock";
 import { Avatar, Box } from "@/components/ChakraUI";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
 import { AiBlock } from "@/components/chatgpt/AiBlock";
 import { ChatGptIcon } from "@/components/CustomIcon";
 import { StartlingFlow } from "@/flows/types/click-flow";
-import { ResponseSend } from "@/pages/api/chatgpt/chat";
-import ExecutePromptButton from "@/components/ClickPrompt/ExecutePromptButton";
+import type { Chat } from "@/components/ClickPromptButton";
+import { ExecutePromptButton } from "@/components/ClickPromptButton";
 import { AskRenderer } from "@/app/[lang]/click-flow/[id]/AskRenderer";
 import CopyComponent from "@/components/CopyComponent";
 import PostFlowAction from "@/flows/components/PostFlowAction";
 import PreFlowAction from "@/flows/components/PreFlowAction";
 import { fillStepWithValued, FlowStep } from "@/flows/types/flow-step";
+import { llmServiceApi } from "@/api/llmService";
 
 type StepProps = {
   index: number;
@@ -41,8 +41,12 @@ function StartlingStepDetail({
 }: StepProps) {
   const [response, setResponse] = React.useState<string | undefined>(undefined);
 
-  const handleResponse = (response: ResponseSend) => {
-    const assistantMessage = response.filter((message) => message.role === "assistant");
+  const handleResponse = (response: ReadableStream<Uint8Array> | Chat[] | null) => {
+    if (!response || !Array.isArray(response)) {
+      console.error("We assume response is an array of Chat instead of a stream");
+    }
+
+    const assistantMessage = (response as Chat[]).filter((message) => message.role === "assistant");
     const assistantResponse = assistantMessage[0].content;
     setResponse(assistantResponse);
     onStepComplete(index);
@@ -101,10 +105,10 @@ function StartlingStepDetail({
           )}
           <ExecutePromptButton
             text={ask}
-            name={flow.name}
             handleResponse={handleResponse}
             conversationId={conversationId}
             updateConversationId={updateConversationId}
+            llmServiceApi={llmServiceApi}
           />
         </Flex>
       )}

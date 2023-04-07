@@ -1,6 +1,7 @@
 import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerOverlay } from "@chakra-ui/react";
 import { ChatGPTApp } from "@/chatgpt/ChatGPTApp";
 import React from "react";
+import type { LlmServiceApi } from "@/types/llmServiceApi";
 
 interface LoggingDrawerProps {
   isOpen: boolean;
@@ -8,13 +9,7 @@ interface LoggingDrawerProps {
   isLoggedIn: boolean;
   updateStatus?: (loggedIn: boolean) => void;
   initMessage: string;
-  changeConversationNameApi: (conversation_id: number, name: string) => Promise<any>;
-  createConversationApi: (name?: string) => Promise<any>;
-  getChatsByConversationIdApi: (conversationId: number) => Promise<any>;
-  deleteConversationApi: (conversationId: number) => Promise<any>;
-  deleteAllConversationsApi: () => Promise<any>;
-  sendMsgWithStreamResApi: (conversageId: number, message: string, name?: string) => Promise<any>;
-  logoutApi: () => Promise<any>;
+  llmServiceApi: LlmServiceApi;
 }
 
 export function LoggingDrawer({
@@ -23,32 +18,20 @@ export function LoggingDrawer({
   isLoggedIn,
   updateStatus,
   initMessage,
-  changeConversationNameApi,
-  createConversationApi,
-  getChatsByConversationIdApi,
-  deleteConversationApi,
-  deleteAllConversationsApi,
-  sendMsgWithStreamResApi,
-  logoutApi,
+  llmServiceApi,
 }: LoggingDrawerProps) {
   return (
-    <Drawer isOpen={isOpen} placement="right" onClose={handleClose} size={"2xl"}>
+    <Drawer isOpen={isOpen} placement='right' onClose={handleClose} size={"2xl"}>
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerCloseButton className="text-white z-50" />
+        <DrawerCloseButton className='button-text-white button-z-50' />
         <DrawerBody padding={0}>
-          <div className="bg-[#343541] flex flex-1 h-[100%] overflow-y-auto items-center justify-center">
+          <div className='button-bg-[#343541] button-flex button-flex-1 button-h-[100%] button-overflow-y-auto button-items-center button-justify-center'>
             <ChatGPTApp
               loggedIn={isLoggedIn}
               initMessage={initMessage}
               updateLoginStatus={updateStatus}
-              changeConversationNameApi={changeConversationNameApi}
-              createConversationApi={createConversationApi}
-              getChatsByConversationIdApi={getChatsByConversationIdApi}
-              deleteConversationApi={deleteConversationApi}
-              deleteAllConversationsApi={deleteAllConversationsApi}
-              sendMsgWithStreamResApi={sendMsgWithStreamResApi}
-              logoutApi={logoutApi}
+              llmServiceApi={llmServiceApi}
             />
           </div>
         </DrawerBody>

@@ -5,27 +5,26 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
+  Box,
   Button,
-  Flex,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
+  Flex,
   Heading,
   Link as NavLink,
   SimpleGrid,
   Stack,
-  Box,
   Text,
 } from "@chakra-ui/react";
-
 import Link from "next/link";
-
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import SimpleMarkdown from "@/components/markdown/SimpleMarkdown";
-import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
 import { CP_GITHUB_ASSETS } from "@/configs/constants";
 import type { Sample } from "./type";
+import { llmServiceApiWithStream } from "@/api/llmService";
 
 function ChatGptSamples({ i18n, samples }: { samples: Sample[] } & GeneralI18nProps) {
   const chatgptLink = `${CP_GITHUB_ASSETS}/chatgpt`;
@@ -63,7 +62,7 @@ function ChatGptSamples({ i18n, samples }: { samples: Sample[] } & GeneralI18nPr
                     </Link>
                   </Box>
                   <Box>
-                    <ClickPromptButton text={sample.preview} />
+                    <ClickPromptButton text={sample.preview} llmServiceApi={llmServiceApiWithStream} />
                   </Box>
                 </Flex>
               </CardFooter>

@@ -9,7 +9,8 @@ import { Form, Formik } from "formik";
 import { numberToChineseOrdinal } from "chinese-numbering";
 
 import CopyComponent from "@/components/CopyComponent";
-import { ClickPromptButton } from "@/components/ClickPrompt/ClickPromptButton";
+import { ClickPromptButton } from "@/components/ClickPromptButton";
+import { llmServiceApiWithStream } from "@/api/llmService";
 
 function ChatGptCotGenerator({ i18n, locale }: GeneralI18nProps) {
   const dict = i18n.dict;
@@ -86,7 +87,7 @@ ${dict["introduction-tail"]}`.replaceAll("<GameName>", name),
       </ReactMarkdown>
       <Box className='flex justify-end p-4'>
         <CopyComponent boxSize={10} value={markdown} />
-        <ClickPromptButton text={markdown} />
+        <ClickPromptButton text={markdown} llmServiceApi={llmServiceApiWithStream} />
       </Box>
       <Formik
         initialValues={{ name: "" }}

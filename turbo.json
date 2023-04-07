@@ -13,6 +13,11 @@
     "lint": {
       "dependsOn": ["format"]
     },
-    "dev": {}
+    "dev": {
+      "dependsOn": ["^build"]
+    },
+    "start": {
+      "dependsOn": ["build"]
+    }
   }
 }

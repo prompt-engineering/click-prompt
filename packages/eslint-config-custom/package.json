@@ -1,0 +1,8 @@
+{
+  "name": "eslint-config-custom",
+  "main": "index.js",
+  "version": "1.0.0",
+  "devDependencies": {
+    "eslint": "latest"
+  }
+}

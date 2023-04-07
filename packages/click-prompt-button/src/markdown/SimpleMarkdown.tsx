@@ -54,19 +54,19 @@ export const defaults: Defaults = {
   },
   em: (props) => {
     const { children } = props;
-    return <Text as="em">{children}</Text>;
+    return <Text as='em'>{children}</Text>;
   },
   blockquote: (props) => {
     const { children } = props;
     return (
-      <Code as="blockquote" p={2}>
+      <Code as='blockquote' p={2}>
         {children}
       </Code>
     );
   },
   del: (props) => {
     const { children } = props;
-    return <Text as="del">{children}</Text>;
+    return <Text as='del'>{children}</Text>;
   },
   hr: (props) => {
     return <Divider />;
@@ -75,7 +75,7 @@ export const defaults: Defaults = {
   img: Image,
   text: (props) => {
     const { children } = props;
-    return <Text as="span">{children}</Text>;
+    return <Text as='span'>{children}</Text>;
   },
   ul: (props) => {
     const { ordered, children, depth } = props;
@@ -197,7 +197,7 @@ function SimpleMarkdown({ content }: any) {
             return !inline && match ? (
               getHighlighter(match, props, code)
             ) : (
-              <code className={className + " " + "empty-language"} {...props}>
+              <code className={className + " " + "button-empty-language"} {...props}>
                 {code}
               </code>
             );
