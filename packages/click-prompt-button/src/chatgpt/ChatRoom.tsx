@@ -237,7 +237,7 @@ export const ChatRoom = ({ setIsLoggedIn, initMessage, llmServiceApi }: ChatRoom
 
       setChatHistory([...updatedHistory]);
 
-      const data = await llmServiceApi.sendMsgWithStreamRes(currentConversation as number, message);
+      const data = await llmServiceApi.sendMsgWithStreamRes?.(currentConversation as number, message);
       if (!data) {
         setDisable(false);
         setChatHistory([...updatedHistory.slice(0, updatedHistory.length - 1)]);

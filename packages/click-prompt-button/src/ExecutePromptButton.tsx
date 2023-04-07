@@ -58,7 +58,7 @@ export const ExecutePromptButton = ({
     if (newConversationId) {
       const response = llmServiceApi.sendMsgWithStreamRes
         ? await llmServiceApi.sendMsgWithStreamRes(newConversationId, text)
-        : await llmServiceApi.sendMessage(newConversationId, text);
+        : await llmServiceApi.sendMessage?.(newConversationId, text);
       if (response && handleResponse) {
         handleResponse(response);
       }

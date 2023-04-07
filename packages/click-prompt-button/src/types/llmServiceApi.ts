@@ -1,29 +1,26 @@
-export interface LlmServiceApi extends Required<Pick<SendMessages, "sendMsgWithStreamRes" | "sendMessage">> {
+export interface LlmServiceApi {
   login: (key: string) => Promise<Response>;
   logout: () => Promise<Response>;
   isLoggedIn: () => Promise<boolean>;
-  changeConversationName: (conversationId: number, name: string) => Promise<void>;
-  createConversation: (name?: string) => Promise<Conversation>;
-  getChatsByConversationId: (conversationId: number) => Promise<Chat[]>;
-  deleteConversation: (conversationId: number) => Promise<Conversation>;
-  deleteAllConversations: () => Promise<Response>;
-}
-
-interface SendMessages {
+  changeConversationName: (conversationId: number, name: string) => Promise<Conversation | undefined>;
+  createConversation: (name?: string) => Promise<Conversation | undefined>;
+  getChatsByConversationId: (conversationId: number) => Promise<Chat[] | null>;
+  deleteConversation: (conversationId: number) => Promise<Conversation | undefined>;
+  deleteAllConversations: () => Promise<Response | undefined>;
   sendMsgWithStreamRes?: (
     conversationId: number,
     message: string,
     name?: string,
-  ) => Promise<ReadableStream<Uint8Array> | null>;
-  sendMessage?: (conversationId: number, message: string, name?: string) => Promise<Chat[]>;
+  ) => Promise<ReadableStream<Uint8Array> | undefined>;
+  sendMessage?: (conversationId: number, message: string, name?: string) => Promise<Chat[] | undefined>;
 }
 
 export interface Conversation {
-  id: number;
-  user_id: number;
+  id: number | undefined;
   name: string;
-  deleted?: NumBool;
-  created_at?: string;
+  user_id: number;
+  deleted: NumBool | undefined;
+  created_at: string | undefined;
 }
 
 enum NumBool {

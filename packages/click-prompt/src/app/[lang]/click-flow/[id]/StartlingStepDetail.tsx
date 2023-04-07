@@ -41,8 +41,12 @@ function StartlingStepDetail({
 }: StepProps) {
   const [response, setResponse] = React.useState<string | undefined>(undefined);
 
-  const handleResponse = (response: Chat[]) => {
-    const assistantMessage = response.filter((message) => message.role === "assistant");
+  const handleResponse = (response: ReadableStream<Uint8Array> | Chat[] | null) => {
+    if (!response || !Array.isArray(response)) {
+      console.error("We assume response is an array of Chat instead of a stream");
+    }
+
+    const assistantMessage = (response as Chat[]).filter((message) => message.role === "assistant");
     const assistantResponse = assistantMessage[0].content;
     setResponse(assistantResponse);
     onStepComplete(index);
@@ -101,7 +105,6 @@ function StartlingStepDetail({
           )}
           <ExecutePromptButton
             text={ask}
-            name={flow.name}
             handleResponse={handleResponse}
             conversationId={conversationId}
             updateConversationId={updateConversationId}
